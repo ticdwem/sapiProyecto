@@ -56,7 +56,7 @@
     <body class="sb-nav-fixed">
         <div id="container">
             <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- <a class="navbar-brand" href="index.html">CByNI</a> --> <img src="<?=base_url?>assets/img/logo.png" width="225px" height="60px" alt=""> 
+            <!-- <a class="navbar-brand" href="index.html">CByNI</a> --> <img src="<?=base_url?>assets/img/pila.png" width="225px" height="60px" alt=""> 
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button><!-- Navbar Search-->
             <div class="" id="headerBienestar">
                 <div class="input-group divconsul">

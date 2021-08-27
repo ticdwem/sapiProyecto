@@ -4,7 +4,8 @@
 @import url('util.css');
 
 /* datattable */
-@import url('//cdn.datatables.net/1.10.2/css/jquery.dataTables.css');
+/* @import url('//cdn.datatables.net/1.10.2/css/jquery.dataTables.css'); */
+@import url('../css/cdnDatatable/1.10.2.css.jquery.dataTables.css');
  td.details-control {
     background: url('http://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
     cursor: pointer;
@@ -446,3 +447,20 @@ form .selectH .hideSelect{
 #permisoDoctor{
 	 display: none;
 } 
+
+#editarCliente .gral{
+	display: flex;
+	width: 100%;
+	height:auto
+}
+#editarCliente .gral #contactoCli,
+#editarCliente .gral #direccionCli
+{
+	position: relative;
+	width: 48%;
+}
+
+#editarCliente .gral #direccionCli{
+	left:50%;
+	top:-280px;
+}

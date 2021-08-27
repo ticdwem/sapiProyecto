@@ -355,11 +355,12 @@ $(document).ready(function () {
 	// detectamos el boton que se ha clickeado de una tabla de direcciones
 	$('body').on('click','#tbl-direccion button',function(e){
 		e.preventDefault();
-			var boton = $(this).attr('id');
-			var idboton = $(this).attr('data-id');  // id de la tabla de contacto cliente
-			var NombreClient = $("#inputnombre").val(); // nombre de cliente
-			var idDatos =  new FormData();
-			idDatos.append("idcliente",idboton);
+		var boton = $(this).attr('id');
+		var idboton = $(this).attr('data-id');  // id de la tabla de contacto cliente
+		var NombreClient = $("#inputnombre").val(); // nombre de cliente
+		var idDatos =  new FormData();
+		idDatos.append("idcliente",idboton);
+		/* alert('hola'+NombreClient); */
 			$.ajax({
 				url: getAbsolutePath()+"views/layout/ajax.php",
 				method:"POST",
@@ -368,6 +369,8 @@ $(document).ready(function () {
 				contentType:false,
 				processData:false,
 				success:function(mun){
+					console.log(mun);
+					$('#domicilio_id').modal('show')
 					 $("#customer").val(mun.idcliente);
 					 $("#iddomicilio").val(mun.idDomicilio);
 					 $(".exampleModalLabel").html(NombreClient);
@@ -376,6 +379,7 @@ $(document).ready(function () {
 					 $("#idselectEstadoModal").val(mun.idEstado)
 					 $("#idselectEstadoModal").html(mun.nombreEstado)
 					 $("#coloniaCustomer").val(mun.colonia)
+					 $("#idselectMunicipioModalHidden").val(mun.idMunicipio)
 					 $("#idselectMunicipioModal").val(mun.idMunicipio)
 					 $("#idselectMunicipioModal").html(mun.nombreMunicipio)
 					 $("#inputCPModal").val(mun.cp);
