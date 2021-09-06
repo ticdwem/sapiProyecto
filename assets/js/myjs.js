@@ -361,7 +361,6 @@ $(document).ready(function () {
 		var NombreClient = $("#inputnombre").val(); // nombre de cliente
 		var idDatos =  new FormData();
 		idDatos.append("idcliente",idboton);
-		/* alert('hola'+NombreClient); */
 			$.ajax({
 				url: getAbsolutePath()+"views/layout/ajax.php",
 				method:"POST",
@@ -385,6 +384,7 @@ $(document).ready(function () {
 					 $("#idselectMunicipioModal").html(mun.nombreMunicipio)
 					 $("#inputCPModal").val(mun.cp);
 					 $("#idselectRutaModal").html(mun.nombreRuta);
+					 $("#hiddenRuta").val(mun.idRuta);
 					 $("#idselectRutaModal").val(mun.idRuta);
 
 				}

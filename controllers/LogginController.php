@@ -172,7 +172,7 @@
                         }
                     }
                     if(isset($_SESSION['formulario_cliente'])){
-                        echo '<script>window.location="'.base_url.'Cliente/index"</script>';
+                        echo '<script>window.location="' . base_url . 'Cliente/index"</script>';
                     }else{
                         $conuslta = new ModeloBase();
                         $datos_consultados = mysqli_fetch_object($conuslta->getAllWhere( $tabla,"where ".$match." = ".$datos));

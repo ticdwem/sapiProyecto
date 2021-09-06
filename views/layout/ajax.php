@@ -184,7 +184,7 @@ class Ajax
 
 	
 }
-  /* echo "<pre>";
+/*   echo "<pre>";
     var_dump($_POST);
    echo "</pre>";
       exit(); */

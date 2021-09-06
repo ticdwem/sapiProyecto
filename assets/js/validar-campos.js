@@ -38,7 +38,7 @@ $(document).ready(function () {
         /*  e.preventDefault(); */
         $("#addDomicilio").submit(function (e) {
             let domicilio = Array();
-            let contadorDomicilio = 0;
+            let validar = 0;
             let streetCustomer = emptyInput($("#streetCustomer").val());
             let numeroCustomer = emptyInput($("#numeroCustomer").val());
             let inputEstado = emptyInput($("#inputEstado").val());
@@ -53,38 +53,9 @@ $(document).ready(function () {
 
             domicilio.push({ "nombre_streetCustomer_50": streetCustomer, "phone_numeroCustomer_5": numeroCustomer, "phone_inputEstado_5": inputEstado, "phone_inpuMunicipio_5": inpuMunicipio, "nombre_coloniaCustomer_50": coloniaCustomer, "phone_cpCustomer_5": cpCustomer, "phone_RutaCustomer_5": RutaCustomer });
 
-            for (var clave in domicilio[0]) {
-
-                var indice = separaTexto(clave)
-                if (domicilio[0][clave] === 'empty') {
-                    $("#" + indice[1]).css('border', '1px solid red')
-                    $("." + indice[1]).html('este campo es obligatorio')
-                    $("." + indice[1]).css('color', 'red')
-                    contadorDomicilio = contadorDomicilio + 1;
-                } else {
-
-                    var error = expRegular(indice[0], domicilio[0][clave])
-                    if (error != 0) {
-                        let largoTexto = tamanoTxt(domicilio[0][clave], indice[2])
-                        if (largoTexto) {
-                            $("#" + indice[1]).css('border', '1px solid green')
-                            $("." + indice[1]).html('correcto')
-                            $("." + indice[1]).css('color', 'green')
-                        } else {
-                            ("#" + indice[1]).css('border', '1px solid red')
-                            $("." + indice[1]).html('EXCEDE EL TAMAÑO PERMITIDO')
-                            $("." + indice[1]).css('color', 'red')
-                            contadorDomicilio = contadorDomicilio + 2;
-                        }
-                    } else {
-                        $("#" + indice[1]).css('border', '1px solid red')
-                        $("." + indice[1]).html('Formato Incorrecto')
-                        $("." + indice[1]).css('color', 'red')
-                        contadorDomicilio = contadorDomicilio + 2;
-                    }
-                }
-            }
-            if(contadorDomicilio > 0){
+            validar = validarCampos(domicilio)
+            console.log(validar)
+            if(validar > 0){
                 e.preventDefault();
             }
 
@@ -93,20 +64,21 @@ $(document).ready(function () {
 });
 
 
-function validar(arrayDatos){
-    for (var clave in domicilio[0]) {
+function validarCampos(arrayDatos){
+    let contador = 0;
+    for (var clave in arrayDatos[0]) {
 
         var indice = separaTexto(clave)
-        if (domicilio[0][clave] === 'empty') {
+        if (arrayDatos[0][clave] === 'empty') {
             $("#" + indice[1]).css('border', '1px solid red')
             $("." + indice[1]).html('este campo es obligatorio')
             $("." + indice[1]).css('color', 'red')
-            contadorDomicilio = contadorDomicilio + 1;
+            contador = contador + 1;
         } else {
 
-            var error = expRegular(indice[0], domicilio[0][clave])
+            var error = expRegular(indice[0], arrayDatos[0][clave])
             if (error != 0) {
-                let largoTexto = tamanoTxt(domicilio[0][clave], indice[2])
+                let largoTexto = tamanoTxt(arrayDatos[0][clave], indice[2])
                 if (largoTexto) {
                     $("#" + indice[1]).css('border', '1px solid green')
                     $("." + indice[1]).html('correcto')
@@ -115,14 +87,17 @@ function validar(arrayDatos){
                     ("#" + indice[1]).css('border', '1px solid red')
                     $("." + indice[1]).html('EXCEDE EL TAMAÑO PERMITIDO')
                     $("." + indice[1]).css('color', 'red')
-                    contadorDomicilio = contadorDomicilio + 2;
+                    contador = contador + 2;
                 }
             } else {
                 $("#" + indice[1]).css('border', '1px solid red')
                 $("." + indice[1]).html('Formato Incorrecto')
                 $("." + indice[1]).css('color', 'red')
-                contadorDomicilio = contadorDomicilio + 2;
+                contador = contador + 2;
             }
         }
     }
+   return contador
+    /* console.log(contador);
+           return false */
 }

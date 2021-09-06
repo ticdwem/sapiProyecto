@@ -236,8 +236,8 @@
                             <div class="DomCliente" id="domicilioCli">
                                 <div id="mensaje"></div>
                                 <div class="">
-                                    <input type="hidden" name="idBoton" id="idBoton" value="">
-                                    <input type="hidden" name="idTbla" id="idTbla" value="">
+                                    <input type="hidden" id="idBoton" value="">
+                                    <input type="hidden" id="idTbla" value="">
                                     <input type="hidden" name="iCliente" id="customer" value="">
                                     <input type="hidden" name="iddomicilio" id="iddomicilio" value="">
                                     <input type="hidden" name="hiddenRuta" id="hiddenRuta" value="">
@@ -282,7 +282,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" id="deleteDom" data-dismiss="modal">ELIMINAR</button>
-                            <button type="submit" class="btn btn-primary">ACTUALIAZAR</button>
+                            <button type="submit" class="btn btn-primary" id="editDom">ACTUALIAZAR</button>
                         </div>
                     </div>
                 </div>

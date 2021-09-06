@@ -269,6 +269,3 @@ function tamanoTxt(texto, length_txt) {
     return texto
   }
 }
-
-
-
