@@ -33,9 +33,8 @@ $(document).ready(function () {
         })
     });
 
-    
+
     $("#btn-add-dom").on('click', function () {
-        /*  e.preventDefault(); */
         $("#addDomicilio").submit(function (e) {
             let domicilio = Array();
             let validar = 0;
@@ -47,15 +46,12 @@ $(document).ready(function () {
             let cpCustomer = emptyInput($("#cpCustomer").val());
             let RutaCustomer = emptyInput($("#RutaCustomer").val());
 
-
             if (numeroCustomer == "empty") { numeroCustomer = '0' }
-
 
             domicilio.push({ "nombre_streetCustomer_50": streetCustomer, "phone_numeroCustomer_5": numeroCustomer, "phone_inputEstado_5": inputEstado, "phone_inpuMunicipio_5": inpuMunicipio, "nombre_coloniaCustomer_50": coloniaCustomer, "phone_cpCustomer_5": cpCustomer, "phone_RutaCustomer_5": RutaCustomer });
 
             validar = validarCampos(domicilio)
-            console.log(validar)
-            if(validar > 0){
+            if (validar > 0) {
                 e.preventDefault();
             }
 
@@ -64,40 +60,3 @@ $(document).ready(function () {
 });
 
 
-function validarCampos(arrayDatos){
-    let contador = 0;
-    for (var clave in arrayDatos[0]) {
-
-        var indice = separaTexto(clave)
-        if (arrayDatos[0][clave] === 'empty') {
-            $("#" + indice[1]).css('border', '1px solid red')
-            $("." + indice[1]).html('este campo es obligatorio')
-            $("." + indice[1]).css('color', 'red')
-            contador = contador + 1;
-        } else {
-
-            var error = expRegular(indice[0], arrayDatos[0][clave])
-            if (error != 0) {
-                let largoTexto = tamanoTxt(arrayDatos[0][clave], indice[2])
-                if (largoTexto) {
-                    $("#" + indice[1]).css('border', '1px solid green')
-                    $("." + indice[1]).html('correcto')
-                    $("." + indice[1]).css('color', 'green')
-                } else {
-                    ("#" + indice[1]).css('border', '1px solid red')
-                    $("." + indice[1]).html('EXCEDE EL TAMAÑO PERMITIDO')
-                    $("." + indice[1]).css('color', 'red')
-                    contador = contador + 2;
-                }
-            } else {
-                $("#" + indice[1]).css('border', '1px solid red')
-                $("." + indice[1]).html('Formato Incorrecto')
-                $("." + indice[1]).css('color', 'red')
-                contador = contador + 2;
-            }
-        }
-    }
-   return contador
-    /* console.log(contador);
-           return false */
-}

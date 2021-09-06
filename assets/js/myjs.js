@@ -378,7 +378,7 @@ $(document).ready(function () {
 					 $("#inputNumeroModal").val(mun.numeroCasa);
 					 $("#idselectEstadoModal").val(mun.idEstado)
 					 $("#idselectEstadoModal").html(mun.nombreEstado)
-					 $("#coloniaCustomer").val(mun.colonia)
+					 $("#coloniaCustomerAdd").val(mun.colonia)
 					 $("#idselectMunicipioModalHidden").val(mun.idMunicipio)
 					 $("#idselectMunicipioModal").val(mun.idMunicipio)
 					 $("#idselectMunicipioModal").html(mun.nombreMunicipio)

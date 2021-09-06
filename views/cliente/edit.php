@@ -19,7 +19,8 @@
         }
         if (isset($_SESSION['statusSave'])) echo '<p class="alert alert-success error" role="alert">' . $_SESSION['statusSave'] . "</p>";
         /*  Utls::deleteSession('formulario_cliente'); */
-        Utls::deleteSession('statusSave')  ?>
+        Utls::deleteSession('formulario_cliente');  
+        Utls::deleteSession('statusSave');  ?>
     </div>
     <div class="container card mb-5">
         <form action="<?= base_url ?>Cliente/editCliente" method="POST" novalidate>
@@ -146,7 +147,7 @@
     <!-- Modal agregar domicilio     <?= base_url ?>Cliente/addDomicilio-->
     <div class="modal fade" id="add_domiclio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelClienteAdd" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form action="#" method="post" id="addDomicilio">
+            <form action=" <?= base_url ?>Cliente/addDomicilio" method="post" id="addDomicilio">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabelClienteAdd" id="modalTittlaCliente"></h5>

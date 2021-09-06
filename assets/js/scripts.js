@@ -269,3 +269,39 @@ function tamanoTxt(texto, length_txt) {
     return texto
   }
 }
+
+function validarCampos(arrayDatos) {
+  let contador = 0;
+  for (var clave in arrayDatos[0]) {
+
+      var indice = separaTexto(clave)
+      if (arrayDatos[0][clave] === 'empty') {
+          $("#" + indice[1]).css('border', '1px solid red')
+          $("." + indice[1]).html('este campo es obligatorio')
+          $("." + indice[1]).css('color', 'red')
+          contador = contador + 1;
+      } else {
+
+          var error = expRegular(indice[0], arrayDatos[0][clave])
+          if (error != 0) {
+              let largoTexto = tamanoTxt(arrayDatos[0][clave], indice[2])
+              if (largoTexto) {
+                  $("#" + indice[1]).css('border', '1px solid green')
+                  $("." + indice[1]).html('correcto')
+                  $("." + indice[1]).css('color', 'green')
+              } else {
+                  $("#" + indice[1]).css('border', '1px solid red')
+                  $("." + indice[1]).html('EXCEDE EL TAMAÑO PERMITIDO')
+                  $("." + indice[1]).css('color', 'red')
+                  contador = contador + 2;
+              }
+          } else {
+              $("#" + indice[1]).css('border', '1px solid red')
+              $("." + indice[1]).html('Formato Incorrecto')
+              $("." + indice[1]).css('color', 'red')
+              contador = contador + 2;
+          }
+      }
+  }
+  return contador
+}
