@@ -154,6 +154,7 @@ class ClienteController
             //obtenemos la informacion de los domicilios
             $domicilio = new ModeloBase();
             $dom = $domicilio->getAllWhere("domiciliocliente", "WHERE clienteId = " . $_GET['id']);
+           /*  var_dump($dom->fetch_object()); */
             // obtenemos los estados
             $estadoEditar = new Login();
             $estado = $estadoEditar->getAll("estados");
@@ -227,13 +228,14 @@ class ClienteController
     public function update(){
         $iddomicilio = (Validacion::validarNumero($_POST['iddomicilio']) == '-1') ? false : htmlspecialchars($_POST['iddomicilio']);
         $idCliente = (Validacion::validarNumero($_POST['iCliente']) == '-1') ? false : htmlspecialchars($_POST['iCliente']);
-        $nombreCalle = (Validacion::textoLargo($_POST['inputCalleModal'],50) == '900') ? false : htmlspecialchars($_POST['inputCalleModal']);
-        $numeroCasa = (Validacion::textoLargo($_POST['inputNumeroModal'],3) == '900') ? false : htmlspecialchars($_POST['inputNumeroModal']);
-        $municipio = (Validacion::validarNumero($_POST['selectMunicipioHidden']) == '-1') ? false : htmlspecialchars($_POST['selectMunicipioHidden']);
+        $nombreCalle = (Validacion::textoLargo($_POST['inputCalleModal'],50) == '900') ? false : htmlspecialchars($_POST['inputCalleModal']); 
+        $numeroCasa = (Validacion::textoLargo($_POST['inputNumeroModal'],3) == '900') ? false : htmlspecialchars($_POST['inputNumeroModal']); 
+        $municipio = (Validacion::validarNumero($_POST['selectMunicipioHidden']) == '-1') ? false : htmlspecialchars($_POST['selectMunicipioHidden']); 
+        $colonia = (Validacion::textoLargo($_POST['coloniaCustomerAdd']) == '900') ? false : htmlspecialchars($_POST['coloniaCustomerAdd']); 
         $cpCliente = (Validacion::validarNumero($_POST['inputCPModal']) == '-1') ? false : htmlspecialchars($_POST['inputCPModal']);
-        $rutaCliente = (Validacion::validarNumero($_POST['selectRutaModal']) == '-1') ? false : htmlspecialchars($_POST['selectRutaModal']);
-
-        $verificar = array('idDom' => $iddomicilio,'id' => $idCliente,'calle'=>$nombreCalle,'numero'=>$numeroCasa,'municipio'=>$municipio,'codido postal'=>$cpCliente,'ruta'=>$rutaCliente);
+        $rutaCliente = (Validacion::validarNumero($_POST['hiddenRuta']) == '-1') ? false : htmlspecialchars($_POST['hiddenRuta']);
+        
+        $verificar = array('idDom' => $iddomicilio,'id' => $idCliente,'calle'=>$nombreCalle,'numero'=>$numeroCasa,'municipio'=>$municipio,'colonia'=>$colonia,'codido postal'=>$cpCliente,'ruta'=>$rutaCliente);
 
         foreach ($verificar as $dato => $valor) {
             if($valor == false){
@@ -252,6 +254,7 @@ class ClienteController
             $actualiza->setCalle($nombreCalle);
             $actualiza->setNumero($numeroCasa);
             $actualiza->setMunicipio($municipio);
+            $actualiza->setColonia($colonia);
             $actualiza->setCp($cpCliente);
             $actualiza->setRuta($rutaCliente);
             $actualiza->setId($iddomicilio);
@@ -272,16 +275,19 @@ class ClienteController
 
     // funcion para la insercion de los domicilios independientenmente
     public function addDomicilio(){
+        
        
         $iddomicilio = (Validacion::validarNumero($_POST['iClienteAdd']) == '-1') ? false : htmlspecialchars($_POST['iClienteAdd']);
         $idCliente = (Validacion::validarNumero($_POST['iClienteAdd']) == '-1') ? false : htmlspecialchars($_POST['iClienteAdd']);
-        $nombreCalle = (Validacion::textoLargo($_POST['inputCalleModalAdd'],50) == '900') ? false : htmlspecialchars($_POST['inputCalleModalAdd']);
-        $numeroCasa = (Validacion::textoLargo($_POST['inputNumeroModalAdd'],3) == '900') ? false : htmlspecialchars($_POST['inputNumeroModalAdd']);
-        $municipio = (Validacion::validarNumero($_POST['selectMunicipioAdd']) == '-1') ? false : htmlspecialchars($_POST['selectMunicipioAdd']);
-        $cpCliente = (Validacion::validarNumero($_POST['inputCPModalAdd']) == '-1') ? false : htmlspecialchars($_POST['inputCPModalAdd']);
-        $rutaCliente = (Validacion::validarNumero($_POST['selectRutaModalAdd']) == '-1') ? false : htmlspecialchars($_POST['selectRutaModalAdd']);
+        $nombreCalle = (Validacion::textoLargo($_POST['streetCustomer'],50) == '900') ? false : htmlspecialchars($_POST['streetCustomer']);
+        $numeroCasa = (Validacion::textoLargo($_POST['numeroCustomer'],3) == '900') ? false : htmlspecialchars($_POST['numeroCustomer']);
+        $estado = (Validacion::validarNumero($_POST['inputEstado']) == '-1') ? false : htmlspecialchars($_POST['inputEstado']);
+        $municipio = (Validacion::validarNumero($_POST['inpuMunicipio']) == '-1') ? false : htmlspecialchars($_POST['inpuMunicipio']);
+        $colonia = (Validacion::textoLargo($_POST['coloniaCustomer']) == '-1') ? false : htmlspecialchars($_POST['coloniaCustomer']);
+        $cpCliente = (Validacion::validarNumero($_POST['cpCustomer']) == '-1') ? false : htmlspecialchars($_POST['cpCustomer']);
+        $rutaCliente = (Validacion::validarNumero($_POST['RutaCustomer']) == '-1') ? false : htmlspecialchars($_POST['RutaCustomer']);
         
-        $verificar = array('idDom' => $iddomicilio,'id' => $idCliente,'calle'=>$nombreCalle,'numero'=>$numeroCasa,'municipio'=>$municipio,'codido postal'=>$cpCliente,'ruta'=>$rutaCliente);
+        $verificar = array('idDom' => $iddomicilio,'id' => $idCliente,'calle'=>$nombreCalle,'numero'=>$numeroCasa,'estado'=>$estado,'municipio'=>$municipio,'colonia'=>$colonia,'codido postal'=>$cpCliente,'ruta'=>$rutaCliente);
 
         foreach ($verificar as $dato => $valor) {
             if($valor == false){
@@ -300,6 +306,7 @@ class ClienteController
             $actualiza->setCalle($nombreCalle);
             $actualiza->setNumero($numeroCasa);
             $actualiza->setMunicipio($municipio);
+            $actualiza->setColonia($colonia);
             $actualiza->setCp($cpCliente);
             $actualiza->setRuta($rutaCliente);
             $actualiza->setId($iddomicilio);

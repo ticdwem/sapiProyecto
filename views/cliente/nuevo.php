@@ -64,7 +64,7 @@ if (isset($_SESSION['formulario_cliente'])) {
         <div class="form-group col-md-6">
           <label for="inputEstado">Estado</label>
           <select class="form-control inpuEstado" id="inputEstado" name="inputEstado">
-            <option value="">Escoge un estado</option>
+            <option value="" selected >Escoge un estado</option>
             <?php while ($estado = $nombreE->fetch_object()) : ?>
               <option value="<?= $estado->idEstado ?>"><?= $estado->estado ?></option>
             <?php endwhile; ?>
@@ -74,7 +74,7 @@ if (isset($_SESSION['formulario_cliente'])) {
         <div class="form-group col-md-6">
           <label for="inpuMunicipio">Municipio</label>
           <select class="form-control" id="inpuMunicipio" name="inpuMunicipio">
-            <option value="">Escoge un municipio</option>
+            <option value="" selected >Escoge un municipio</option>
           </select>
           <div class="inpuMunicipio"></div>
         </div>

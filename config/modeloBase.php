@@ -44,8 +44,8 @@ class ModeloBase{
     public function deleteTable($tabla,$where,$idUser){
         $validar = "DELETE FROM $tabla WHERE $where='$idUser'";
         $query = $this->db->query($validar);
-
         return $query;
+       
     }
 
 

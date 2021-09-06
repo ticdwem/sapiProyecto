@@ -4,14 +4,15 @@ require_once "../../models/pacienteModels.php";
 require_once "../../helpers/validacion.php";
 require_once "../../helpers/crypt.php";
 require_once "../../controllers/LogginController.php";
+require_once "../../controllers/ClienteController.php";
 
 
 class Ajax
 {
-	public $arraySent;
-	public $arrayLinea;
+	public $tabla;
+	public $idDato;
+	public $where;
 	private $dato;
-	public $producto;
 
 	public function getDato()
 	{
@@ -21,6 +22,60 @@ class Ajax
 	public function setDato($archivo)
 	{
 		$this->dato = $archivo;
+		return $this;
+	}
+
+	/**
+	 * Get the value of tabla
+	 */
+	public function getTabla()
+	{
+		return $this->tabla;
+	}
+
+	/**
+	 * Set the value of tabla
+	 */
+	public function setTabla($tabla): self
+	{
+		$this->tabla = $tabla;
+
+		return $this;
+	}
+
+	/**
+	 * Get the value of idDato
+	 */
+	public function getIdDato()
+	{
+		return $this->idDato;
+	}
+
+	/**
+	 * Set the value of idDato
+	 */
+	public function setIdDato($idDato): self
+	{
+		$this->idDato = $idDato;
+
+		return $this;
+	}
+
+	/**
+	 * Get the value of where
+	 */
+	public function getWhere()
+	{
+		return $this->where;
+	}
+
+	/**
+	 * Set the value of where
+	 */
+	public function setWhere($where): self
+	{
+		$this->where = $where;
+
 		return $this;
 	}
 
@@ -119,11 +174,20 @@ class Ajax
 			$consulta->consultaGeneral($tabla,$idMatch,$datos);
 		}
 	}
+
+	public function deleteUSer(){
+		$id = $this->getDato();
+		$delete = new ClienteModels();
+		$delete->deleteTable($this->getTabla(),$this->getWhere(),$id);
+		echo $delete->db->affected_rows;
+	}
+
+	
 }
-/*     echo "<pre>";
+  /* echo "<pre>";
     var_dump($_POST);
    echo "</pre>";
-    exit(); */
+      exit(); */
 
 if (isset($_POST["idEstado"])) {
 	$sent = new Ajax();
@@ -165,4 +229,12 @@ if(isset($_POST['idcontacto'])){
 	$contact = new Ajax();
 	$contact->setDato($_POST["idcontacto"]);
 	$contact->findDatosCleente("contactocliente","idContactoCliente");
+}
+
+if(isset($_POST['idDomicilioDelete'])){
+	$contact = new Ajax();
+	$contact->setDato($_POST["idDomicilioDelete"]);
+	$contact->setTabla('domiciliocliente');
+	$contact->setWhere('idDomicilioCliente');
+	$contact->deleteUSer();
 }

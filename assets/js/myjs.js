@@ -61,6 +61,7 @@ $(document).ready(function () {
 					selectMun += '<option value="' + item.id + '">' + item.name + '</option>';
 				});
 				$("#inpuMunicipio").html(selectMun);
+				$('.spinnerWhite').html('');
 			}
 		})
 	})

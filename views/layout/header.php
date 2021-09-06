@@ -24,23 +24,23 @@
 
     
     <!-- js boostrap -->
-    <script src="<?=base_url?>assets\js\bootstrap\jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="<?=base_url?>assets/js/bootstrap/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
     <!-- <script src="<?=base_url?>assets\js\bootstrap\popper.min.js" crossorigin="anonymous"></script> -->
     <!-- <script src="<?=base_url?>assets\js\bootstrap\bootstrap.min.js"crossorigin="anonymous"></script> -->
     <!-- jquery -->
-    <script src="<?=base_url?>assets\js\bootstrap\jquery.min.js"></script>
-    <script src="<?=base_url?>assets\js\bootstrap\jquery-ui.js"></script>
+    <script src="<?=base_url?>assets/js/bootstrap/jquery.min.js"></script>
+    <script src="<?=base_url?>assets/js/bootstrap/jquery-ui.js"></script>
     <!-- max js -->
-    <script src="<?=base_url?>assets\js\bootstrap\1.12.9.umd.popper.min.js" crossorigin="anonymous"></script>
-    <script src="<?=base_url?>assets\js\bootstrap\4.0.0.bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="<?=base_url?>assets/js/bootstrap/1.12.9.umd.popper.min.js" crossorigin="anonymous"></script>
+    <script src="<?=base_url?>assets/js/bootstrap/4.0.0.bootstrap.min.js" crossorigin="anonymous"></script>
     <!-- datepicker -->
-    <script src="<?=base_url?>assets\js\bootstrap\gijgo@1.9.13.gijgo.min.js" type="text/javascript"></script> 
-    <script src="<?=base_url?>assets\js\bootstrap\gijgo@1.19.13.messages.es-es.js" type="text/javascript">   </script>    
+    <script src="<?=base_url?>assets/js/bootstrap/gijgo@1.9.13.gijgo.min.js" type="text/javascript"></script> 
+    <script src="<?=base_url?>assets/js/bootstrap/gijgo@1.19.13.messages.es-es.js" type="text/javascript">   </script>    
   <!-- datatables -->
-    <script src="<?=base_url?>assets\js\bootstrap\1.10.20.jquery.dataTables.min.js" crossorigin="anonymous"></script>
-    <script src="<?=base_url?>assets\js\bootstrap\1.10.20.dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+    <script src="<?=base_url?>assets/js/bootstrap/1.10.20.jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="<?=base_url?>assets/js/bootstrap/1.10.20.dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
     <!-- fontawensome -->
-    <script src="<?=base_url?>assets\js\bootstrap\fontAwensome.1849e1867b.js" crossorigin="anonymous"></script>
+    <script src="<?=base_url?>assets/js/bootstrap/fontAwensome.1849e1867b.js" crossorigin="anonymous"></script>
     <!-- swet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 

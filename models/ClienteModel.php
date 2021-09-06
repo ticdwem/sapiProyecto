@@ -418,6 +418,7 @@ class ClienteModels extends ModeloBase{
                   SET calleDomicilioCliente='{$this->getCalle()}', 
                       numeroDomicilioCliente='{$this->getNumero()}', 
                       estados_municipios_id='{$this->getMunicipio()}', 
+                      coloniaDomicilioCliente='{$this->getColonia()}',
                       cpDomicilioCliente='{$this->getCp()}' 
                   WHERE  idDomicilioCliente='{$this->getId()}'";
          $update = $this->db->query($query);

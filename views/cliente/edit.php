@@ -1,4 +1,3 @@
-
 <div class="container" id="editarCliente">
     <div class="cabeceraBtn">
         <?php require_once 'views/layout/cabeceraLogo.php'; ?>
@@ -19,8 +18,8 @@
             echo '<p class="alert alert-danger error" role="alert">' . $_SESSION['formulario_cliente']["error"] . "</p>";
         }
         if (isset($_SESSION['statusSave'])) echo '<p class="alert alert-success error" role="alert">' . $_SESSION['statusSave'] . "</p>";
-        Utls::deleteSession('formulario_cliente');
-        Utls::deleteSession('statusSave') ?>
+        /*  Utls::deleteSession('formulario_cliente'); */
+        Utls::deleteSession('statusSave')  ?>
     </div>
     <div class="container card mb-5">
         <form action="<?= base_url ?>Cliente/editCliente" method="POST" novalidate>
@@ -99,7 +98,7 @@
             ?>
         </div>
     </div>
-   
+
     <!-- Modal  agregar contacto-->
     <div class="modal fade" id="Cliente_Add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelClienter" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -144,10 +143,10 @@
 
 
 
-    <!-- Modal agregar domicilio-->
+    <!-- Modal agregar domicilio     <?= base_url ?>Cliente/addDomicilio-->
     <div class="modal fade" id="add_domiclio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelClienteAdd" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form action="<?= base_url ?>Cliente/addDomicilio" method="post">
+            <form action="#" method="post" id="addDomicilio">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabelClienteAdd" id="modalTittlaCliente"></h5>
@@ -162,39 +161,47 @@
                                 <div class="">
                                     <input type="hidden" name="iClienteAdd" id="customerAdd" value="<?= $_GET['id'] ?>">
                                     <div class=" domicilioCliente">
-                                        <label for="inputCalleModalAdd">Calle</label>
-                                        <input type="text" id="inputCalleModalAdd" name="inputCalleModalAdd" class="form-control" onkeyup="mayusculas(this)">
-                                        <label for="inputNumeroModalAdd">Número</label>
-                                        <input type="text" id="inputNumeroModalAdd" name="inputNumeroModalAdd" class="form-control">
-                                        <label for="selectEstadoAdd">Estado</label>
-                                        <select name="selectEstadoAdd" id="selectEstadoAdd" class="form-control selectEstado">
+                                        <label for="streetCustomer">Calle</label>
+                                        <input type="text" id="streetCustomer" name="streetCustomer" class="form-control" onkeyup="mayusculas(this)">
+                                        <div class="streetCustomer"></div>
+                                        <label for="numeroCustomer">Número</label>
+                                        <input type="text" id="numeroCustomer" name="numeroCustomer" class="form-control" placeholder="SI NO TIENE NUMERO DEJAR VACIO">
+                                        <div class="numeroCustomer"></div>
+                                        <label for="inputEstado">Estado</label>
+                                        <select name="inputEstado" id="inputEstado" class="form-control selectEstado inpuEstado">
                                             <option value="" id="idselectEstadoModalAdd" selected></option>
                                             <option value="0">Elije un Estado </option>
                                             <?php while ($var = $estadoAdd->fetch_object()) : ?>
                                                 <option value="<?= $var->idEstado ?>"> <?= $var->estado ?> </option>
                                             <?php endwhile ?>
                                         </select>
+                                        <div class="inputEstado"></div>
                                         <div class="spinnerWhite"></div>
-                                        <label for="selectMunicipioAdd">Municipio</label>
-                                        <select name="selectMunicipioAdd" id="selectMunicipioAdd" class="form-control selectMunicipio">
+                                        <label for="inpuMunicipio">Municipio</label>
+                                        <select name="inpuMunicipio" id="inpuMunicipio" class="form-control selectMunicipio">
                                             <option value="0" id="idselectMunicipioModalAdd" selected></option>
                                             <option value="0">Elije un Estado </option>
                                         </select>
-                                        <label for="inputCPModalAdd">C.P</label>
-                                        <input type="text" id="inputCPModalAdd" name="inputCPModalAdd" class="form-control">
-                                        <label for="selectRutaModalAdd">Ruta </label>
-                                        <select name="selectRutaModalAdd" id="selectRutaModalAdd" class="form-control">
+                                        <div class="inpuMunicipio"></div>
+                                        <label for="coloniaCustomer">Colonia</label>
+                                        <input type="text" class="form-control" name="coloniaCustomer" id="coloniaCustomer" onkeyup="mayusculas(this)" value="">
+                                        <div class="coloniaCustomer"></div>
+                                        <label for="cpCustomer">C.P</label>
+                                        <input type="text" id="cpCustomer" name="cpCustomer" class="form-control">
+                                        <div class="cpCustomer"></div>
+                                        <label for="RutaCustomer">Ruta </label>
+                                        <select name="RutaCustomer" id="RutaCustomer" class="form-control">
                                             <option value="0" id="idselectRutaModalAdd" selected></option>
                                             <option value="10">Elige una ruta</option>
                                             <option value="20">Elige una ruta</option>
                                             <option value="30">Elige una ruta</option>
                                             <option value="40">Elige una ruta</option>
                                             <option value="50">Elige una ruta</option>
-                                           <?php while ($listRuta = $ruta->fetch_object()) : ?>
+                                            <?php while ($listRuta = $ruta->fetch_object()) : ?>
                                                 <option value="<?= $listRuta->idRuta; ?>"><?= $listRuta->nombreRuta; ?></option>
                                             <?php endwhile ?>
                                         </select>
-
+                                        <div class="RutaCustomer"></div>
                                     </div>
                                     <div class="spinnerDom"></div>
                                 </div>
@@ -202,7 +209,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="submit" id="btn-add-dom" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>
@@ -216,7 +223,7 @@
     <div class="modal fade" id="domicilio_id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <form action="<?= base_url ?>Cliente/update" method="post">
-                <input type="text" name="selectMunicipioHidden" id="idselectMunicipioModalHidden">
+                <input type="hidden" name="selectMunicipioHidden" id="idselectMunicipioModalHidden">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title exampleModalLabel" id="modalTittlaCliente" style="text-transform:uppercase"></h5>
@@ -229,35 +236,38 @@
                             <div class="DomCliente" id="domicilioCli">
                                 <div id="mensaje"></div>
                                 <div class="">
+                                    <input type="hidden" name="idBoton" id="idBoton" value="">
+                                    <input type="hidden" name="idTbla" id="idTbla" value="">
                                     <input type="hidden" name="iCliente" id="customer" value="">
                                     <input type="hidden" name="iddomicilio" id="iddomicilio" value="">
-                                    <div class=" domicilioCliente">                                        
+                                    <input type="hidden" name="hiddenRuta" id="hiddenRuta" value="">
+                                    <div class=" domicilioCliente">
                                         <label for="inputCalleModal">Calle</label>
                                         <input type="text" id="inputCalleModal" name="inputCalleModal" class="form-control" onkeyup="mayusculas(this)">
                                         <label for="inputNumeroModal">Número</label>
                                         <input type="text" id="inputNumeroModal" name="inputNumeroModal" class="form-control">
                                         <label for="selectEstado">Estado</label>
-                                        <select name="selectEstado" id="selectEstado" class="form-control selectEstado">
+                                        <select name="selectEstado" id="selectEstado" class="form-control selectEstado" disabled>
                                             <option value="" id="idselectEstadoModal" selected></option>
                                             <option value="0">Elije un Estado </option>
                                             <?php while ($var = $estado->fetch_object()) : ?>
                                                 <option value="<?= $var->idEstado ?>"> <?= $var->estado ?> </option>
-                                            <?php 
-                                            
-                                            endwhile;?>
+                                            <?php
+
+                                            endwhile; ?>
                                         </select>
                                         <div class="spinnerWhite"></div>
                                         <label for="selectMunicipio">Municipio</label>
                                         <select name="selectMunicipio" id="selectMunicipio" class="form-control selectMunicipio" disabled>
-                                            <option value="0" id="idselectMunicipioModal" selected></option>
+                                            <option value="0" id="idselectMunicipioModal" selected ></option>
                                             <option value="0">Elije un Estado </option>
                                         </select>
-                                        <label for="coloniaCustomer">Colonia</label>
-                                        <input type="text" id="coloniaCustomer" name="coloniaCustomer" class="form-control" onkeyup="mayusculas(this)">
+                                        <label for="coloniaCustomerAdd">Colonia</label>
+                                        <input type="text" id="coloniaCustomerAdd" name="coloniaCustomerAdd" class="form-control" onkeyup="mayusculas(this)">
                                         <label for="inputCPModal">C.P</label>
                                         <input type="text" id="inputCPModal" name="inputCPModal" class="form-control">
                                         <label for="selectRutaModal">Ruta </label>
-                                        <select name="selectRutaModal" id="selectRutaModal" class="form-control">
+                                        <select name="selectRutaModal" id="selectRutaModal" class="form-control" disabled>
                                             <option value="0" id="idselectRutaModal" selected></option>
                                             <?php while ($listRuta = $ruta->fetch_object()) : ?>
                                                 <option value="<?= $listRuta->idRuta; ?>"><?= $listRuta->nombreRuta; ?></option>
@@ -271,7 +281,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
+                            <button type="button" class="btn btn-danger" id="deleteDom" data-dismiss="modal">ELIMINAR</button>
                             <button type="submit" class="btn btn-primary">ACTUALIAZAR</button>
                         </div>
                     </div>
