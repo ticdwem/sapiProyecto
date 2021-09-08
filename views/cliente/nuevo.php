@@ -127,7 +127,7 @@ if (isset($_SESSION['formulario_cliente'])) {
         </div>
         <div class="form-group col-md-6">
           <label for="emailContactoCustomer">Correo Contacto</label>
-          <input type="text" class="form-control" name="emailContactoCustomer" id="emailContactoCustomer">
+          <input type="text" class="form-control" name="emailContactoCustomer" id="emailContactoCustomer" placeholder="SI NO TIENE CORREO DEJAR EN BLANCO">
           <div class="emailContactoCustomer"></div>
         </div>
       </div>
@@ -139,7 +139,7 @@ if (isset($_SESSION['formulario_cliente'])) {
         </div>
         <div class="form-group col-md-6">
           <label for="telSecCustomer">Teléfono Secundario</label>
-          <input type="text" class="form-control" name="telSecCustomer" id="telSecCustomer">
+          <input type="text" class="form-control" name="telSecCustomer" id="telSecCustomer" placeholder="SI NO TIENE TELÉFONO DEJAR EN BLANCO">
           <div class="telSecCustomer"></div>
         </div>
       </div>

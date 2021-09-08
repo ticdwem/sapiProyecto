@@ -387,6 +387,9 @@ class ClienteController
         $tel2Array = (Validacion::validarNumero($_POST["inputTelSecundarioAdd"]) == '-1') ? false : true;
         $emailArray = (Validacion::validarEmail($_POST["inputEmailAdd"], 0) == '0') ? false : true;
 
+        if ($tel2Array === false || $tel2Array === "") { $tel2Array = "SN"; }
+        if ($emailArray === false || $emailArray === "") { $emailArray = "empty@empty.com"; }
+
         $verificar = array('idCliente' => $iCliente, 'nombre_Contacto' => $nombreArray, 'telfono' => $tel1Array, 'telefono Sec' => $tel2Array, 'email' => $emailArray);
 
         foreach ($verificar as $dato => $valor) {

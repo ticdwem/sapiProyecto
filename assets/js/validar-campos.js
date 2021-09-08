@@ -1,4 +1,12 @@
 $(document).ready(function () {
+
+$("#add_domicilio").on('click',function(e){
+    e.preventDefault()
+    $('#domicilioModal').modal('show')
+})
+
+
+
     $("#btn-input-cliente").on('click', function () {
         $("#registroCliente").submit(function (e) {
             var nameCustomer = emptyInput($("#nameCustomer").val());
@@ -56,6 +64,27 @@ $(document).ready(function () {
             }
 
         })
+    });
+
+    $("#add_Contacto").on('click', function () {
+        $("#frm_add_contacto").submit(function (e) {
+            let contactoArray = Array();
+            let val = 0;
+            let NombreContacto = emptyInput($("#inputnombreContactoAdd").val());
+            let Telefono1Contacto = emptyInput($("#inputTelObligatorio").val());
+            let Telefono2Contacto = emptyInput($("#inputTelSecundarioAdd").val());
+            let EmailContacto = emptyInput($("#inputEmailAdd").val());
+
+            if (EmailContacto == "empty") { EmailContacto = "empty@empty.com" }
+            if (Telefono2Contacto === "empty") { Telefono2Contacto = '500' }
+
+            contactoArray.push({ "nombre_inputnombreContactoAdd_80": NombreContacto, "phone_inputTelObligatorio_12": Telefono1Contacto, "phone_inputTelSecundarioAdd_12": Telefono2Contacto, "email_inputEmailAdd_100": EmailContacto })
+
+            val = validarCampos(contactoArray)
+            if (val > 0) {
+                e.preventDefault();
+            }
+        });
     });
 });
 

@@ -19,7 +19,7 @@
         }
         if (isset($_SESSION['statusSave'])) echo '<p class="alert alert-success error" role="alert">' . $_SESSION['statusSave'] . "</p>";
         /*  Utls::deleteSession('formulario_cliente'); */
-        Utls::deleteSession('formulario_cliente');  
+        Utls::deleteSession('formulario_cliente');
         Utls::deleteSession('statusSave');  ?>
     </div>
     <div class="container card mb-5">
@@ -94,23 +94,24 @@
             </table>
             <?php
             if ($contador_dom  < 3) {
-                echo ' <button type="button" class="btn btn-primary btn-lg btn-block"  id="contacto_5" data-toggle="modal" data-target="#add_domiclio">Agregar</button>';
+                 echo ' <button type="button" class="btn btn-primary btn-lg btn-block" id="contacto_5" data-toggle="modal" data-target="#add_domiclio">Agregar</button>';
+               
             }
             ?>
         </div>
     </div>
 
     <!-- Modal  agregar contacto-->
-    <div class="modal fade" id="Cliente_Add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelClienter" aria-hidden="true">
+    <div class="modal fade" id="Cliente_Add" tabindex="-1" role="dialog" aria-labelledby="Cliente_AddLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabelClienter">Agregar Contacto</h5>
+                    <h5 class="modal-title" id="Cliente_AddLabel">Agregar Contacto</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="<?= base_url ?>Cliente/addContacto" method="post">
+                <form action="<?= base_url ?>Cliente/addContacto" id="frm_add_contacto" method="post">
                     <input type="hidden" name="iCliente" id="customerModal" class="addId" value="<?= $_GET['id'] ?>">
                     <div class="modal-body">
                         <div id="contactoCliente" class="">
@@ -120,31 +121,33 @@
                                     <div class="">
                                         <label for="inputnombreContactoAdd">Nombre Contacto</label>
                                         <input type="text" id="inputnombreContactoAdd" name="inputnombreContactoAdd" class="form-control" onkeyup="mayusculas(this)">
+                                        <div class="inputnombreContactoAdd"></div>
                                         <label for="inputTelObligatorio">Teléfono Contacto</label>
                                         <input type="tel" id="inputTelObligatorio" name="inputTelObligatorio" class="form-control">
+                                        <div class="inputTelObligatorio"></div>
                                         <label for="inputTelSecundarioAdd">Teléfono Secundario</label>
-                                        <input type="tel" id="inputTelSecundarioAdd" name="inputTelSecundarioAdd" class="form-control">
+                                        <input type="tel" id="inputTelSecundarioAdd" name="inputTelSecundarioAdd" class="form-control" placeholder="SI NO TIENE TELÉFONO DEJAR EN BLANCO">
+                                        <div class="inputTelSecundarioAdd"></div>
                                         <label for="inputEmailAdd">Correo</label>
-                                        <input type="email" id="inputEmailAdd" name="inputEmailAdd" class="form-control">
+                                        <input type="text" id="inputEmailAdd" name="inputEmailAdd" class="form-control" placeholder="SI NO TIENE CORREO DEJAR EN BLANCO">
+                                        <div class="inputEmailAdd"></div>
                                     </div>
+                                    <div class="spinnerCliente"></div>
                                 </div>
-                                <div class="spinnerCliente"></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <div class="modal-footer">
+                            <button type="button" id="deleteContato" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" id="add_Contacto" class="btn btn-primary">Save changes</button>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <!-- end Modal  agregar contacto-->
 
-
-
-
-    <!-- Modal agregar domicilio     <?= base_url ?>Cliente/addDomicilio-->
+    <!-- Modal agregar domicilio-->
     <div class="modal fade" id="add_domiclio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelClienteAdd" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <form action=" <?= base_url ?>Cliente/addDomicilio" method="post" id="addDomicilio">
@@ -217,10 +220,9 @@
             </form>
         </div>
     </div>
+     <!-- End Modal agregar domicilio-->
 
-
-
-    <!-- Modal modificar domicilio-->
+     <!-- Modal modificar domicilio-->
     <div class="modal fade" id="domicilio_id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <form action="<?= base_url ?>Cliente/update" method="post">
@@ -254,13 +256,13 @@
                                             <?php while ($var = $estado->fetch_object()) : ?>
                                                 <option value="<?= $var->idEstado ?>"> <?= $var->estado ?> </option>
                                             <?php
-
-                                            endwhile; ?>
+                                                endwhile; 
+                                            ?>
                                         </select>
                                         <div class="spinnerWhite"></div>
                                         <label for="selectMunicipio">Municipio</label>
                                         <select name="selectMunicipio" id="selectMunicipio" class="form-control selectMunicipio" disabled>
-                                            <option value="0" id="idselectMunicipioModal" selected ></option>
+                                            <option value="0" id="idselectMunicipioModal" selected></option>
                                             <option value="0">Elije un Estado </option>
                                         </select>
                                         <label for="coloniaCustomerAdd">Colonia</label>
@@ -290,7 +292,7 @@
             </form>
         </div>
     </div>
-
+    <!-- End Modal modificar domicilio-->
     <!-- modificar contacto -->
     <div class="modal fade" id="Cliente_Edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelCleinteEdit" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -301,7 +303,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="<?= base_url ?>Cliente/updateContacto" method="post">
+                <form action="<?= base_url ?>Cliente/updateContacto" id="frmUpdateCli" method="post">
                     <input type="hidden" name="idClienteEdit" id="customerModalEdit" class="addId" value="<?= $_GET['id'] ?>">
                     <div class="modal-body">
                         <div id="contactoCliente" class="">
@@ -325,11 +327,12 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-danger" id="deleteCli" data-dismiss="modal">ELIMINAR</button>
+                        <button type="submit" id="updateCli" class="btn btn-primary">ACTUALIAZAR</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <!-- End modificar contacto -->
 </div>

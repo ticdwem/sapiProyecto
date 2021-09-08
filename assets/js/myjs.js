@@ -186,7 +186,7 @@ $(document).ready(function () {
 		if (emailContactoCustomer == "empty") { emailContactoCustomer = "empty@empty.com" }
 		if (telSecCustomer === "empty") { telSecCustomer = '500' }
 
-		registro.push({ "nombre_nameContactoCustomer_30": nameContactoCustomer, "phone_telPrCustomer_12": telPrCustomer, "email_emailContactoCustomer_100": emailContactoCustomer, "phone_telSecCustomer_12": telSecCustomer })
+		registro.push({ "nombre_nameContactoCustomer_80": nameContactoCustomer, "phone_telPrCustomer_12": telPrCustomer, "email_emailContactoCustomer_100": emailContactoCustomer, "phone_telSecCustomer_12": telSecCustomer })
 
 		for (var clave in registro[0]) {
 			var indice = separaTexto(clave)
@@ -369,7 +369,6 @@ $(document).ready(function () {
 				contentType:false,
 				processData:false,
 				success:function(mun){
-					console.log(mun);
 					$('#domicilio_id').modal('show')
 					 $("#customer").val(mun.idcliente);
 					 $("#iddomicilio").val(mun.idDomicilio);
@@ -391,5 +390,48 @@ $(document).ready(function () {
 			}) 
 			
 	});
+	/* ============================================================================================= 
+										ELIMINAR DE LA TABLA
+	   ============================================================================================= */
+	$("#deleteDom").on('click',function(e){
+		e.preventDefault();
+		var idDomicilio = $("#iddomicilio").val();  // id del domicilio del cliente
+		let botontr = $("#idBoton").val();
+		var idDatosDelete =  new FormData();
+		idDatosDelete.append("idDomicilioDelete",idDomicilio);
+
+		Swal.fire({
+			title: 'ELIMINAR?',
+			text: "ESTAS SEGURO DE ELIMNINAR ESTA DIRECCIÓN, ESTA ACCIÓN ES IRREVERSIBLE",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'SI ELIMINAR'
+		  }).then((result) => {
+			if (result.isConfirmed) {
+				$.ajax({
+					url: getAbsolutePath()+"views/layout/ajax.php",
+					method:"POST",
+					data:idDatosDelete,
+					cache:false,
+					contentType:false,
+					processData:false,
+					success:function(deleteUser){
+						if(deleteUser == 1){
+							
+							location.reload();
+						}else if(deleteUser == 0){
+							Swal.fire(
+								'NO SE ELIMINO',
+								'HUBO UN ERRO EN LA TAREA',
+								'error'
+							  )
+						}
+					}
+				})
+			}
+		  })
+	})
 
 });
