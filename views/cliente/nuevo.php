@@ -12,10 +12,13 @@ if (isset($_SESSION['formulario_cliente'])) {
   <?php
   if (isset($_SESSION['statusSave'])) echo '<p class="alert alert-success error" role="alert">' . $_SESSION['statusSave'] . "</p>";
   Utls::deleteSession('formulario_cliente');
-  Utls::deleteSession('contacto');
-  Utls::deleteSession('domicilio');
+  /* Utls::deleteSession('contactoProveedor'); */
+  echo "<pre>";
+  var_dump($_SESSION["contactoProveedor"]);
+  echo "<pre>";
   Utls::deleteSession('statusSave'); ?>
 </div>
+
 <div class="container viewTop">
   <div class="card">
     <form action="<?= base_url ?>Cliente/create" method="POST" id="registroCliente" novalidate>
@@ -64,7 +67,7 @@ if (isset($_SESSION['formulario_cliente'])) {
         <div class="form-group col-md-6">
           <label for="inputEstado">Estado</label>
           <select class="form-control inpuEstado" id="inputEstado" name="inputEstado">
-            <option value="" selected >Escoge un estado</option>
+            <option value="" selected>Escoge un estado</option>
             <?php while ($estado = $nombreE->fetch_object()) : ?>
               <option value="<?= $estado->idEstado ?>"><?= $estado->estado ?></option>
             <?php endwhile; ?>
@@ -74,7 +77,7 @@ if (isset($_SESSION['formulario_cliente'])) {
         <div class="form-group col-md-6">
           <label for="inpuMunicipio">Municipio</label>
           <select class="form-control" id="inpuMunicipio" name="inpuMunicipio">
-            <option value="" selected >Escoge un municipio</option>
+            <option value="" selected>Escoge un municipio</option>
           </select>
           <div class="inpuMunicipio"></div>
         </div>

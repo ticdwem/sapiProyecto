@@ -216,37 +216,14 @@ class Validacion
 		}
 	}
 
-	public static function textoLargo($texto)
+	public static function textoLargo($texto,$largo)
 	{
 		if ($texto != "") {
 			$contar = strlen($texto);
-			if (preg_match("/^[0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_.+\s]+$/", $texto) && $contar <= 100) {
+			if (preg_match("/^[0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_.+\s]+$/", $texto) && $contar <= $largo) {
 				return strtoupper($texto);
 			} else {
 				return 900;
-			}
-		} else {
-			return 0;
-		}
-	}
-	public static function textoPeque($texto)
-	{
-		$contar = strlen($texto);
-		if (preg_match("/^[0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_.+\s]+$/", $texto) && $contar <= 30) {
-			return $texto;
-		} else {
-			return 1;
-		}
-	}
-
-	public static function textLong($texto)
-	{
-		if ($texto != "") {
-			$contar = strlen($texto);
-			if (preg_match("/^[0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_,.\s]+$/", $texto) && $contar <= 500) {
-				return strtoupper($texto);
-			} else {
-				return 1;
 			}
 		} else {
 			return 0;

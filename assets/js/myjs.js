@@ -173,9 +173,6 @@ $(document).ready(function () {
 	// agregar conacto al cliente
 	/* ============================================================================================================================================================================ */
 	$("#btn-AgregarContacto").on("click", function () {
-
-		let contador = 0;
-		var contacto = Array();
 		let registro = Array();
 		var nameContactoCustomer = emptyInput($("#nameContactoCustomer").val());
 		var emailContactoCustomer = emptyInput($("#emailContactoCustomer").val());
@@ -188,45 +185,16 @@ $(document).ready(function () {
 
 		registro.push({ "nombre_nameContactoCustomer_80": nameContactoCustomer, "phone_telPrCustomer_12": telPrCustomer, "email_emailContactoCustomer_100": emailContactoCustomer, "phone_telSecCustomer_12": telSecCustomer })
 
-		for (var clave in registro[0]) {
-			var indice = separaTexto(clave)
-			if (registro[0][clave] === "empty") {
-				$("#" + indice[1]).css('border', '1px solid red')
-				$("." + indice[1]).html('este campo es obligatorio')
-				$("." + indice[1]).css('color', 'red')
-				contador = contador + 1;
-			} else {
-
-				var error = expRegular(indice[0], registro[0][clave]);
-				if (error != 0) {
-					let largoTexto = tamanoTxt(registro[0][clave], indice[2])
-					if (largoTexto) {
-						$("#" + indice[1]).css('border', '1px solid green')
-						$("." + indice[1]).html('correcto')
-						$("." + indice[1]).css('color', 'green')
-					} else {
-						$("#" + indice[1]).css('border', '1px solid red')
-						$("." + indice[1]).html('EXCEDE EL TAMAÑO PERMITIDO')
-						$("." + indice[1]).css('color', 'red')
-						contador = contador + 2;
-					}
-				} else {
-					$("#" + indice[1]).css('border', '1px solid red')
-					$("." + indice[1]).html('Formato Incorrecto')
-					$("." + indice[1]).css('color', 'red')
-					contador = contador + 2;
-				}
-
-			}
-		}
-
-		if (contador === 0) {
+		var validar = validarCampos(registro)
+		if (validar > 0) {
+			e.preventDefault();
+		}else if (validar === 0) {
 			var data = { "data": registro };
 			var json = JSON.stringify(data);
 			$.ajax({
 				url: getAbsolutePath() + "views/layout/ajax.php",
 				method: "POST",
-				data: { "contacto": json },
+				data: { "contactoCliente": json },
 				cache: false,
 				beforeSend: function (setContacto) {
 					$('.spinnerCliente').html('<i class="fas fa-sync fa-spin"></i>');
@@ -250,7 +218,6 @@ $(document).ready(function () {
 
 	$("#btn-AgregarDomicilio").on('click', function () {
 		let domicilio = Array();
-		let contadorDomicilio = 0;
 		let streetCustomer = emptyInput($("#streetCustomer").val());
 		let numeroCustomer = emptyInput($("#numeroCustomer").val());
 		let inputEstado = emptyInput($("#inputEstado").val());
@@ -265,39 +232,10 @@ $(document).ready(function () {
 
 		domicilio.push({ "nombre_streetCustomer_50": streetCustomer, "phone_numeroCustomer_5": numeroCustomer, "phone_inputEstado_5": inputEstado, "phone_inpuMunicipio_5": inpuMunicipio, "nombre_coloniaCustomer_50": coloniaCustomer, "phone_cpCustomer_5": cpCustomer, "phone_RutaCustomer_5": RutaCustomer });
 
-		for (var clave in domicilio[0]) {
-
-			var indice = separaTexto(clave)
-			if (domicilio[0][clave] === 'empty') {
-				$("#" + indice[1]).css('border', '1px solid red')
-				$("." + indice[1]).html('este campo es obligatorio')
-				$("." + indice[1]).css('color', 'red')
-				contadorDomicilio = contadorDomicilio + 1;
-			} else {
-
-				var error = expRegular(indice[0], domicilio[0][clave])
-				if (error != 0) {
-					let largoTexto = tamanoTxt(domicilio[0][clave], indice[2])
-					if (largoTexto) {
-						$("#" + indice[1]).css('border', '1px solid green')
-						$("." + indice[1]).html('correcto')
-						$("." + indice[1]).css('color', 'green')
-					} else {
-						("#" + indice[1]).css('border', '1px solid red')
-						$("." + indice[1]).html('EXCEDE EL TAMAÑO PERMITIDO')
-						$("." + indice[1]).css('color', 'red')
-						contadorDomicilio = contadorDomicilio + 2;
-					}
-				} else {
-					$("#" + indice[1]).css('border', '1px solid red')
-					$("." + indice[1]).html('Formato Incorrecto')
-					$("." + indice[1]).css('color', 'red')
-					contadorDomicilio = contadorDomicilio + 2;
-				}
-			}
-		}
-
-		if (contadorDomicilio == 0) {
+		validar = validarCampos(domicilio)
+		if (validar > 0) {
+			e.preventDefault();
+		}else if (validar == 0) {
 			let data = { "data": domicilio }
 			var json = JSON.stringify(data);
 			$.ajax({
@@ -433,5 +371,9 @@ $(document).ready(function () {
 			}
 		  })
 	})
+
+	/* ============================================================================================= 
+										validar agregar 
+	   ============================================================================================= */
 
 });

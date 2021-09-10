@@ -22,7 +22,7 @@ class ClienteController
     {
         if (isset($_POST["btnEnviar"])) {
 
-            $nameCustomer = (Validacion::textoLargo($_POST['nameCustomer'] == 900)) ? false :  htmlspecialchars($_POST['nameCustomer']);
+            $nameCustomer = (Validacion::textoLargo($_POST['nameCustomer'],50 )== 900) ? false :  htmlspecialchars($_POST['nameCustomer']);
             $rfcCustomer = (Validacion::validarRFC($_POST['rfcCustomer'] == false)) ? false :  htmlspecialchars($_POST['rfcCustomer']);
             $descuento = (Validacion::validarFloat($_POST['descuentoCustomer'] == false)) ? false :  htmlspecialchars($_POST['descuentoCustomer']);
 
@@ -233,7 +233,7 @@ class ClienteController
         $nombreCalle = (Validacion::textoLargo($_POST['inputCalleModal'], 50) == '900') ? false : htmlspecialchars($_POST['inputCalleModal']);
         $numeroCasa = (Validacion::textoLargo($_POST['inputNumeroModal'], 3) == '900') ? false : htmlspecialchars($_POST['inputNumeroModal']);
         $municipio = (Validacion::validarNumero($_POST['selectMunicipioHidden']) == '-1') ? false : htmlspecialchars($_POST['selectMunicipioHidden']);
-        $colonia = (Validacion::textoLargo($_POST['coloniaCustomerAdd']) == '900') ? false : htmlspecialchars($_POST['coloniaCustomerAdd']);
+        $colonia = (Validacion::textoLargo($_POST['coloniaCustomerAdd'],80) == '900') ? false : htmlspecialchars($_POST['coloniaCustomerAdd']);
         $cpCliente = (Validacion::validarNumero($_POST['inputCPModal']) == '-1') ? false : htmlspecialchars($_POST['inputCPModal']);
         $rutaCliente = (Validacion::validarNumero($_POST['hiddenRuta']) == '-1') ? false : htmlspecialchars($_POST['hiddenRuta']);
 
@@ -285,7 +285,7 @@ class ClienteController
         $numeroCasa = (Validacion::textoLargo($_POST['numeroCustomer'], 3) == '900') ? false : htmlspecialchars($_POST['numeroCustomer']);
         $estado = (Validacion::validarNumero($_POST['inputEstado']) == '-1') ? false : htmlspecialchars($_POST['inputEstado']);
         $municipio = (Validacion::validarNumero($_POST['inpuMunicipio']) == '-1') ? false : htmlspecialchars($_POST['inpuMunicipio']);
-        $colonia = (Validacion::textoLargo($_POST['coloniaCustomer']) == '900') ? false : htmlspecialchars($_POST['coloniaCustomer']);
+        $colonia = (Validacion::textoLargo($_POST['coloniaCustomer'],80) == '900') ? false : htmlspecialchars($_POST['coloniaCustomer']);
         $cpCliente = (Validacion::validarNumero($_POST['cpCustomer']) == '-1') ? false : htmlspecialchars($_POST['cpCustomer']);
         $rutaCliente = (Validacion::validarNumero($_POST['RutaCustomer']) == '-1') ? false : htmlspecialchars($_POST['RutaCustomer']);
 

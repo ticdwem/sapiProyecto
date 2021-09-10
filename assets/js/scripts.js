@@ -305,3 +305,9 @@ function validarCampos(arrayDatos) {
   }
   return contador
 } 
+
+/* enviamos por ajax la validacion para hacer  */
+/* $(document).ready(function () { */
+  $(document).ready(function(){
+    
+  });

@@ -55,9 +55,9 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 CONSULTA CLIENTE        
                             </a>
-                            <a class="nav-link" href="<?=base_url?>Consultorio/corteDiario">
+                            <a class="nav-link" href="<?=base_url?>Proveedor/index">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                               REGISTRO DIARIO
+                               NUEVO PROVEEDOR
                             </a>
                             <a class="nav-link" href="<?=base_url?>Consultorio/gastos">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
