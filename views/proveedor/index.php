@@ -12,17 +12,12 @@ if (isset($_SESSION['formulario_cliente'])) {
   <?php
   if (isset($_SESSION['statusSave'])) echo '<p class="alert alert-success error" role="alert">' . $_SESSION['statusSave'] . "</p>";
   Utls::deleteSession('formulario_cliente');
-  Utls::deleteSession('contactoProveedor');
-  echo "<pre>";
-  var_dump($_SESSION["contactoProveedor"]);
-  echo "<pre>";
-  Utls::deleteSession('domicilioprov'); 
- Utls::deleteSession('statusSave'); ?>
+  Utls::deleteSession('statusSave'); ?>
 </div>
 
 <div class="container viewTop">
   <div class="card">
-  <form action="<?= base_url ?>Proveedor/create" method="POST" id="registroProveedor" novalidate>
+    <form action="<?= base_url ?>Proveedor/create" method="POST" id="registroProveedor" novalidate>
       <div class="smallSubtitle">
         <small>PROVEEDOR</small>
         <hr>

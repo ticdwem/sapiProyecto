@@ -36,9 +36,6 @@ function getAbsolutePath() {
 
 /*validacion*/
 function expRegular(texto, contenido) {
-  // console.log(texto);
-  // console.log(contenido);
-  // return false;
   let letras_latinas;
   let letras_Frm;
   let ercorreo;
@@ -309,5 +306,5 @@ function validarCampos(arrayDatos) {
 /* enviamos por ajax la validacion para hacer  */
 /* $(document).ready(function () { */
   $(document).ready(function(){
-    
+
   });

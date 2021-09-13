@@ -16,6 +16,7 @@ class ProveedorModels extends ModeloBase{
     private $cp;
     private $ruta;
     private $numCuenta; 
+    private $colina;
 
 
 
@@ -280,6 +281,24 @@ class ProveedorModels extends ModeloBase{
         return $this;
     }
 
+    /**
+     * Get the value of colina
+     */
+    public function getColina()
+    {
+        return $this->colina;
+    }
+
+    /**
+     * Set the value of colina
+     */
+    public function setColina($colina): self
+    {
+        $this->colina = $colina;
+
+        return $this;
+    }
+
     
 	public function createProveedor(){
 		$query = "INSERT INTO proveedor (nombreProveesor, rfcProveedor, statuSistema)
@@ -316,4 +335,6 @@ class ProveedorModels extends ModeloBase{
         }
         return $insert;
     }
+
+    
 }

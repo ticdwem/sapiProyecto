@@ -200,7 +200,6 @@ $(document).ready(function () {
 					$('.spinnerCliente').html('<i class="fas fa-sync fa-spin"></i>');
 				},
 				success: function (setContacto) {
-
 					$('.spinnerCliente').html('');
 					if (setContacto > 3) {
 						$('#mensajeCliente').html('<div class="alert alert-danger" role="alert">No se puede agregar mas contactos a esta Cliente</div>');

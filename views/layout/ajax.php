@@ -107,14 +107,13 @@ class Ajax
 		$datos = $this->getDato();
 		$decode = json_decode($datos, true);
 
-
 		if ($sessioncontacto == "contactoCliente") {
 			if (isset($_SESSION[$sessioncontacto])) {
 				$contar = count($_SESSION[$sessioncontacto]["nombreContacto"]);
 				$regreso = $contar + 1;
 				echo $regreso;
 				if ($contar < 3) {
-					array_push($_SESSION[$sessioncontacto]["nombreContacto"], $decode["data"][0]["nombre_nameContactoCustomer_30"]);
+					array_push($_SESSION[$sessioncontacto]["nombreContacto"], $decode["data"][0]["nombre_nameContactoCustomer_80"]);
 					array_push($_SESSION[$sessioncontacto]["telefonoContacto"], $decode["data"][0]["phone_telPrCustomer_12"]);
 					array_push($_SESSION[$sessioncontacto]["telefonoSec"], $decode["data"][0]["phone_telSecCustomer_12"]);
 					array_push($_SESSION[$sessioncontacto]["correo"], $decode["data"][0]["email_emailContactoCustomer_100"]);
@@ -122,12 +121,13 @@ class Ajax
 			} else {
 				echo 1;
 				$_SESSION[$sessioncontacto] = array(
-					"nombreContacto" => array($decode["data"][0]["nombre_nameContactoCustomer_30"]),
+					"nombreContacto" => array($decode["data"][0]["nombre_nameContactoCustomer_80"]),
 					"telefonoContacto" => array($decode["data"][0]["phone_telPrCustomer_12"]),
 					"telefonoSec" => array($decode["data"][0]["phone_telSecCustomer_12"]),
 					"correo" => array($decode["data"][0]["email_emailContactoCustomer_100"])
 				);
 			}
+
 		}elseif($sessioncontacto == "contactoProveedor"){
 			if (isset($_SESSION[$sessioncontacto])) {
 				$contar = count($_SESSION[$sessioncontacto]["nombreContacto"]);
@@ -270,10 +270,16 @@ if (isset($_POST["correoLoggin"])) {
 	$sent->verifLogg();
 }
 
-if (isset($_POST["contacto"])) {
+if (isset($_POST["contactoCliente"])) {
 	$contact = new Ajax();
-	$contact->setDato($_POST["contacto"]);
+	$contact->setDato($_POST["contactoCliente"]);
 	$contact->sessionContacto('contactoCliente');
+}
+
+if (isset($_POST["contactoProv"])) {
+	$contactoProv = new Ajax();
+	$contactoProv->setDato($_POST["contactoProv"]);
+	$contactoProv->sessionContacto('contactoProveedor');
 }
 
 if (isset($_POST["domicilio"])) {
@@ -286,12 +292,6 @@ if (isset($_POST["domicilioProv"])) {
 	$provDom = new Ajax();
 	$provDom->setDato($_POST["domicilioProv"]);
 	$provDom->sessionDomicilios("domicilioprov");
-}
-
-if (isset($_POST["contactoProv"])) {
-	$contactoProv = new Ajax();
-	$contactoProv->setDato($_POST["contactoProv"]);
-	$contactoProv->sessionContacto('contactoProveedor');
 }
 
 if (isset($_POST['idcliente'])) {
