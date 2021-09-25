@@ -314,7 +314,7 @@ class ProveedorModels extends ModeloBase{
 
     public function createContactoProveedor(){
         $query = "INSERT INTO contactoproveedor (proveedorId, nombreProveesor, telefono1Proveedor, telefono2proveedor, correoproveedor) 
-                                                VALUES ('{$this->getId()}', '{$this->getNombreCliente()}', '{$this->getTelefonoCliente()}', '{$this->getTelefonoDosCliente()}', '{$this->getCorreoCliente()}');"; 
+                                                VALUES ('{$this->getId()}', '{$this->getNombreCliente()}', '{$this->getTelefonoCliente()}', '{$this->getTelefonoDosCliente()}', '{$this->getCorreoCliente()}')"; 
        $contacto = $this->db->query($query);
         $verifica = false;
         if($contacto){
@@ -325,8 +325,8 @@ class ProveedorModels extends ModeloBase{
     }
 
     public function createDomicilioProveedor(){
-        $query = "INSERT INTO domiclioproveedor (proveedorId, calleDomicilioPRoveedor, numeroDomiclioProveedor, municipioDomicilioProveedor, cpDomicilioProveedor) 
-                                                VALUES ('{$this->getId()}', '{$this->getCalle()}', '{$this->getNumero()}', '{$this->getMunicipio()}', '{$this->getCp()}');";
+        $query = "INSERT INTO domiclioproveedor (proveedorId, calleDomicilioPRoveedor, numeroDomiclioProveedor, municipioDomicilioProveedor, cpDomicilioProveedor,coloniaProv) 
+                                                VALUES ('{$this->getId()}', '{$this->getCalle()}', '{$this->getNumero()}', '{$this->getMunicipio()}', '{$this->getCp()}','{$this->getColina()}');";
 
         $domicilio = $this->db->query($query);
         $insert = false;
@@ -334,6 +334,22 @@ class ProveedorModels extends ModeloBase{
             $insert = true;
         }
         return $insert;
+    }
+
+    public function updateContactoProveedor(){
+        $query = "UPDATE contactoproveedor
+                    SET
+                        nombreProveesor='{$this->getNombreCliente()}',
+                        telefono1Proveedor='{$this->getTelefonoCliente()}',
+                        telefono2proveedor='{$this->getTelefonoDosCliente()}',
+                        correoproveedor='{$this->getCorreoCliente()}'
+                    WHERE idContactoProveedor='{$this->getId()}'";
+        $update = $this->db->query($query);
+        $pass = false;
+         if($update){
+             $pass = true;
+         }
+         return $pass;
     }
 
     

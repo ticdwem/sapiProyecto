@@ -127,8 +127,7 @@ class Ajax
 					"correo" => array($decode["data"][0]["email_emailContactoCustomer_100"])
 				);
 			}
-
-		}elseif($sessioncontacto == "contactoProveedor"){
+		} elseif ($sessioncontacto == "contactoProveedor") {
 			if (isset($_SESSION[$sessioncontacto])) {
 				$contar = count($_SESSION[$sessioncontacto]["nombreContacto"]);
 				$regreso = $contar + 1;
@@ -148,7 +147,6 @@ class Ajax
 					"correo" => array($decode["datacontactoProveedor"][0]["email_correoProveedor_100"])
 				);
 			}
-
 		}
 	}
 
@@ -228,15 +226,9 @@ class Ajax
 
 	public function findDatosCleente($tabla, $idMatch)
 	{
-		if ($idMatch == 'idDomicilioCliente') {
-			$datos = $this->getDato();
-			$consulta = new LogginController();
-			$consulta->consultaGeneral($tabla, $idMatch, $datos);
-		} elseif ($idMatch == 'idContactoCliente') {
-			$datos = $this->getDato();
-			$consulta = new LogginController();
-			$consulta->consultaGeneral($tabla, $idMatch, $datos);
-		}
+		$datos = $this->getDato();
+		$consulta = new LogginController();
+		$consulta->consultaGeneral($tabla, $idMatch, $datos);
 	}
 
 	public function deleteUSer()
@@ -247,10 +239,10 @@ class Ajax
 		echo $delete->db->affected_rows;
 	}
 }
-/*   echo "<pre> //////";
-    var_dump($_POST);
-   echo "</pre>";
-      exit(); */
+/* echo "<pre> //////";
+var_dump($_POST);
+echo "</pre>";
+exit(); */
 
 if (isset($_POST["idEstado"])) {
 	$sent = new Ajax();
@@ -312,4 +304,24 @@ if (isset($_POST['idDomicilioDelete'])) {
 	$contact->setTabla('domiciliocliente');
 	$contact->setWhere('idDomicilioCliente');
 	$contact->deleteUSer();
+}
+
+if (isset($_POST['idProvDelete'])) {
+	$contact = new Ajax();
+	$contact->setDato($_POST["idProvDelete"]);
+	$contact->setTabla('contactoproveedor');
+	$contact->setWhere('idContactoProveedor');
+	$contact->deleteUSer();
+}
+
+if (isset($_POST["idcontactoProv"])) {
+	$provCont = new Ajax();
+	$provCont->setDato($_POST["idcontactoProv"]);
+	$provCont->findDatosCleente('contactoproveedor','idContactoProveedor');
+}
+
+if (isset($_POST["idDirProv"])) {
+	$provCont = new Ajax();
+	$provCont->setDato($_POST["idDirProv"]);
+	$provCont->findDatosCleente('domiclioproveedor','idDomicilioProveedor');
 }

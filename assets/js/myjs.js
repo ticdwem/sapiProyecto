@@ -26,7 +26,14 @@ $(document).ready(function () {
 		}
 	}
 	/* datatavles  */
-	$(".tablaGenerica").DataTable();
+	$(".tablaGenerica").DataTable({
+		"paging": true,
+		"lengthChange": true,
+		"searching": true,
+		"ordering": false,
+		"info": true,
+		"autoWidth": true
+	});
 	/* disabled div usuario */
 	$(".permisoDoctor").attr('disabled', 'disabled');
 	$('.dropdown-toggle').on("click", function () {
@@ -188,7 +195,7 @@ $(document).ready(function () {
 		var validar = validarCampos(registro)
 		if (validar > 0) {
 			e.preventDefault();
-		}else if (validar === 0) {
+		} else if (validar === 0) {
 			var data = { "data": registro };
 			var json = JSON.stringify(data);
 			$.ajax({
@@ -234,7 +241,7 @@ $(document).ready(function () {
 		validar = validarCampos(domicilio)
 		if (validar > 0) {
 			e.preventDefault();
-		}else if (validar == 0) {
+		} else if (validar == 0) {
 			let data = { "data": domicilio }
 			var json = JSON.stringify(data);
 			$.ajax({
@@ -265,22 +272,23 @@ $(document).ready(function () {
 
 
 	});
-
-	// detectamos el boton que fue presionado de una tabla de clientes
-	$('body').on ('click','#tbl-contacto button',function(i){
+	/* ============================================================================================= 
+						 detectamos el boton que fue presionado de una tabla de clientes
+	============================================================================================= */
+	$('body').on('click', '#tbl-contacto button', function (i) {
 		i.preventDefault();
 		var idboton = $(this).attr('data-id');
 		var cliente = $("#inputnombre").val();
 		var datos = new FormData();
-		datos.append('idcontacto',idboton);
+		datos.append('idcontacto', idboton);
 		$.ajax({
-			url: getAbsolutePath()+"views/layout/ajax.php",
-			method:"POST",
-			data:datos,
-			cache:false,
-			contentType:false,
-			processData:false,
-			success:function(contacto){
+			url: getAbsolutePath() + "views/layout/ajax.php",
+			method: "POST",
+			data: datos,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function (contacto) {
 				$("#idContactoCliente").val(contacto.idContactoCliente);
 				$(".exampleModalLabel").html(cliente)
 				$("#inputnombreContactoEdit").val(contacto.nombreCliente);
@@ -288,54 +296,104 @@ $(document).ready(function () {
 				$("#inputTelSecundarioEdit").val(contacto.telefonoScundario);
 				$("#inputEmailEdit").val(contacto.correoContacto);
 			}
-		}) 
+		})
 	});
-	// detectamos el boton que se ha clickeado de una tabla de direcciones
-	$('body').on('click','#tbl-direccion button',function(e){
+
+	/* ============================================================================================= 
+					 detectamos el boton que fue presionado de una tabla de proveedores
+============================================================================================= */
+	$('body').on('click', '#tbl-contacto-Prov button', function (i) {
+		i.preventDefault();
+		var idboton = $(this).attr('data-id');
+		var cliente = $("#inputnombre").val();
+		var datos = new FormData();
+		datos.append('idcontactoProv', idboton);
+		$.ajax({
+			url: getAbsolutePath() + "views/layout/ajax.php",
+			method: "POST",
+			data: datos,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function (contacto) {
+				$("#idContactoCliente").val(contacto.idContactoCliente);
+				$(".exampleModalLabel").html(cliente)
+				$("#inputnombreContactoEdit").val(contacto.nombreCliente);
+				$("#inputTelObligatorioEdit").val(contacto.telefonoPrincipal);
+				$("#inputTelSecundarioEdit").val(contacto.telefonoScundario);
+				$("#inputEmailEdit").val(contacto.correoContacto);
+			}
+		})
+	});
+	
+	
+	/* ============================================================================================= 
+					 detectamos el boton que fue presionado de una tabla de cliente de proveedores
+============================================================================================= */
+$("body").on('click', '#tbl-direccionProveedor button', function(e){
+	e.preventDefault();
+	let btnidDirProveedor = $(this).attr('data-id')
+	let datosDirProv = new FormData();
+	datosDirProv.append('idDirProv', btnidDirProveedor);
+	$.ajax({
+		url: getAbsolutePath() + "views/layout/ajax.php",
+		method: "POST",
+		data: datosDirProv,
+		cache: false,
+		contentType: false,
+		processData: false,
+		success: function (dirProv) {
+			console.log(dirProv)
+		}
+	})
+})
+	/* ============================================================================================= 
+			 detectamos el boton que se ha clickeado de una tabla de direcciones
+	============================================================================================= */
+	$('body').on('click', '#tbl-direccion button', function (e) {
 		e.preventDefault();
 		var boton = $(this).attr('id');
 		var idboton = $(this).attr('data-id');  // id de la tabla de contacto cliente
 		var NombreClient = $("#inputnombre").val(); // nombre de cliente
-		var idDatos =  new FormData();
-		idDatos.append("idcliente",idboton);
-			$.ajax({
-				url: getAbsolutePath()+"views/layout/ajax.php",
-				method:"POST",
-				data:idDatos,
-				cache:false,
-				contentType:false,
-				processData:false,
-				success:function(mun){
-					$('#domicilio_id').modal('show')
-					 $("#customer").val(mun.idcliente);
-					 $("#iddomicilio").val(mun.idDomicilio);
-					 $(".exampleModalLabel").html(NombreClient);
-					 $("#inputCalleModal").val(mun.calle);
-					 $("#inputNumeroModal").val(mun.numeroCasa);
-					 $("#idselectEstadoModal").val(mun.idEstado)
-					 $("#idselectEstadoModal").html(mun.nombreEstado)
-					 $("#coloniaCustomerAdd").val(mun.colonia)
-					 $("#idselectMunicipioModalHidden").val(mun.idMunicipio)
-					 $("#idselectMunicipioModal").val(mun.idMunicipio)
-					 $("#idselectMunicipioModal").html(mun.nombreMunicipio)
-					 $("#inputCPModal").val(mun.cp);
-					 $("#idselectRutaModal").html(mun.nombreRuta);
-					 $("#hiddenRuta").val(mun.idRuta);
-					 $("#idselectRutaModal").val(mun.idRuta);
+		var idDatos = new FormData();
+		idDatos.append("idcliente", idboton);
+		$.ajax({
+			url: getAbsolutePath() + "views/layout/ajax.php",
+			method: "POST",
+			data: idDatos,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function (mun) {
+				$("#customer").val(mun.idcliente);
+				$("#iddomicilio").val(mun.idDomicilio);
+				$(".exampleModalLabel").html(NombreClient);
+				$("#inputCalleModal").val(mun.calle);
+				$("#inputNumeroModal").val(mun.numeroCasa);
+				$("#idselectEstadoModal").val(mun.idEstado)
+				$("#idselectEstadoModal").html(mun.nombreEstado)
+				$("#coloniaCustomerAdd").val(mun.colonia)
+				$("#idselectMunicipioModalHidden").val(mun.idMunicipio)
+				$("#idselectMunicipioModal").val(mun.idMunicipio)
+				$("#idselectMunicipioModal").html(mun.nombreMunicipio)
+				$("#inputCPModal").val(mun.cp);
+				$("#idselectRutaModal").html(mun.nombreRuta);
+				$("#hiddenRuta").val(mun.idRuta);
+				$("#idselectRutaModal").val(mun.idRuta);
 
-				}
-			}) 
-			
+			}
+		})
+
 	});
 	/* ============================================================================================= 
-										ELIMINAR DE LA TABLA
+										ELIMINAR DE LA TABLA cliente
 	   ============================================================================================= */
-	$("#deleteDom").on('click',function(e){
+	$("#deleteDom").on('click', function (e) {
 		e.preventDefault();
 		var idDomicilio = $("#iddomicilio").val();  // id del domicilio del cliente
 		let botontr = $("#idBoton").val();
-		var idDatosDelete =  new FormData();
-		idDatosDelete.append("idDomicilioDelete",idDomicilio);
+		let idDatosDelete = new FormData();
+		idDatosDelete.append("idDomicilioDelete", idDomicilio);
 
 		Swal.fire({
 			title: 'ELIMINAR?',
@@ -345,34 +403,73 @@ $(document).ready(function () {
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
 			confirmButtonText: 'SI ELIMINAR'
-		  }).then((result) => {
+		}).then((result) => {
 			if (result.isConfirmed) {
 				$.ajax({
-					url: getAbsolutePath()+"views/layout/ajax.php",
-					method:"POST",
-					data:idDatosDelete,
-					cache:false,
-					contentType:false,
-					processData:false,
-					success:function(deleteUser){
-						if(deleteUser == 1){
-							
+					url: getAbsolutePath() + "views/layout/ajax.php",
+					method: "POST",
+					data: idDatosDelete,
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function (deleteUser) {
+						if (deleteUser == 1) {
+
 							location.reload();
-						}else if(deleteUser == 0){
+						} else if (deleteUser == 0) {
 							Swal.fire(
 								'NO SE ELIMINO',
 								'HUBO UN ERRO EN LA TAREA',
 								'error'
-							  )
+							)
 						}
 					}
 				})
 			}
-		  })
+		})
 	})
 
 	/* ============================================================================================= 
-										validar agregar 
+									eliminar de contacto proveedor
 	   ============================================================================================= */
+	$("#deleteContactProveedor").on('click', function (e) {
+		e.preventDefault();
+		let idcontactPo = $("#idContactoCliente").val();
+		let idProveedorDelete = new FormData();
+		idProveedorDelete.append("idProvDelete", idcontactPo);
+		Swal.fire({
+			title: 'ELIMINAR?',
+			text: "ESTAS SEGURO DE ELIMNINAR ESTA DIRECCIÓN, ESTA ACCIÓN ES IRREVERSIBLE",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'SI ELIMINAR'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$.ajax({
+					url: getAbsolutePath() + "views/layout/ajax.php",
+					method: "POST",
+					data: idProveedorDelete,
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function (deleteUser) {
+						console.log(deleteUser);
+						if (deleteUser == 1) {
+
+							location.reload();
+						} else if (deleteUser == 0) {
+							Swal.fire(
+								'NO SE ELIMINO',
+								'HUBO UN ERRO EN LA TAREA',
+								'error'
+							)
+						}
+					}
+				})
+			}
+		})
+	})
 
 });

@@ -259,6 +259,7 @@ class Validacion
 		return $numero;
 	}
 
+	/* recortar texto funciona: texto= texto a recortar  $lengthTexto= cuantos datos vamos a tomar $maximosShow=pasamos los numero del texto que usaremos*/
 	public static function recotarPuntos($texto, $lengthTexto, $maximosShow)
 	{
 		$puntos = "...";

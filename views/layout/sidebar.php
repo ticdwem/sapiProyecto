@@ -1,11 +1,11 @@
 <div id="layoutSidenav">
     <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            
-                        <?php 
-                       /*  $mimenu = json_decode($_SESSION['usuario']["menu"],true);
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+
+                    <?php
+                    /*  $mimenu = json_decode($_SESSION['usuario']["menu"],true);
                         $numero = 1;$grupo = "";
                                            foreach ($mimenu as $posicion ) {         
                                                foreach ($posicion as $name) {
@@ -41,65 +41,64 @@
                   
                                            } 
                             */
-                        ?>
-                        
-                        
-                        
-                        
-                            <div class="sb-sidenav-menu-heading">Inicio</div>
-                            <a class="nav-link" href="<?=base_url?>Cliente/index">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                               NUEVO CLIENTE
-                            </a>
-                            <a class="nav-link" href="<?=base_url?>Cliente/lista">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                CONSULTA CLIENTE        
-                            </a>
-                            <a class="nav-link" href="<?=base_url?>Proveedor/index">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                               NUEVO PROVEEDOR
-                            </a>
-                            <a class="nav-link" href="<?=base_url?>Consultorio/gastos">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                               REGISTRO GASTOS
-                            </a>
-                            <a class="nav-link" href="<?=base_url?>Avanzado/index">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                               BUSQUEDA AVANZADA
-                            </a>
-                            <div class="sb-sidenav-menu-heading">SUCURSALES</div>
-                            <a class="nav-link" href="<?=base_url?>Consultorio/nuevo">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                               PACIENTES NUEVOS
-                            </a>
-                            <a class="nav-link" href="<?=base_url?>Consulta/lista">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                               MIS PACIENTES
-                            </a>
-                                
-                            <div class="sb-sidenav-menu-heading">Administracion</div>
-                            <a class="nav-link" href="<?=base_url?>Consultorio/control">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                CONTROL
-                            </a>
-                            <a class="nav-link" href="<?=base_url?>Doctor/index">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                ALTA DOCTOR
-                            </a>
-                            
-                        </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small" id="saludoDoctor" data-id="<?=$_SESSION['usuario']['status']?>">Hola Dr:</div>
-                        <?php
-                        echo ucwords(SED::decryption($_SESSION['usuario']['nombre'])).' '.Utls::getApellido($_SESSION['usuario']['apeliidos']);                       
-                        //echo ucwords(SED::decryption($_SESSION['usuario']['nombre']));  
-                        ?>
-                        
-                    </div>
-                </nav>
+                    ?>
+
+
+
+
+                    <div class="sb-sidenav-menu-heading">Inicio</div>
+                    <a class="nav-link" href="<?= base_url ?>Cliente/index">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        NUEVO CLIENTE
+                    </a>
+                    <a class="nav-link" href="<?= base_url ?>Cliente/lista">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        CONSULTA CLIENTE
+                    </a>
+                    <a class="nav-link" href="<?= base_url ?>Proveedor/index">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        NUEVO PROVEEDOR
+                    </a>
+                    <a class="nav-link" href="<?= base_url ?>Proveedor/lista">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        CONSULTA PROVEEDOR
+                    </a>
+                    <a class="nav-link" href="<?= base_url ?>Avanzado/index">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        BUSQUEDA AVANZADA
+                    </a>
+                    <div class="sb-sidenav-menu-heading">SUCURSALES</div>
+                    <a class="nav-link" href="<?= base_url ?>Consultorio/nuevo">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        PACIENTES NUEVOS
+                    </a>
+                    <a class="nav-link" href="<?= base_url ?>Consulta/lista">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        MIS PACIENTES
+                    </a>
+
+                    <div class="sb-sidenav-menu-heading">Administracion</div>
+                    <a class="nav-link" href="<?= base_url ?>Consultorio/control">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                        CONTROL
+                    </a>
+                    <a class="nav-link" href="<?= base_url ?>Doctor/index">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                        ALTA DOCTOR
+                    </a>
+
+                </div>
             </div>
-        <div id="layoutSidenav_content">
-            <main>
-                <div class="container-fluid">
-             
+            <div class="sb-sidenav-footer">
+                <div class="small" id="saludoDoctor" data-id="<?= $_SESSION['usuario']['status'] ?>">Hola Dr:</div>
+                <?php
+                echo ucwords(SED::decryption($_SESSION['usuario']['nombre'])) . ' ' . Utls::getApellido($_SESSION['usuario']['apeliidos']);
+                //echo ucwords(SED::decryption($_SESSION['usuario']['nombre']));  
+                ?>
+
+            </div>
+        </nav>
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">

@@ -28,11 +28,10 @@ $(document).ready(function () {
             let inpuMunicipio = emptyInput($("#inpuMunicipio").val());
             let coloniaCustomer = emptyInput($("#coloniaCustomer").val());
             let cpCustomer = emptyInput($("#cpCustomer").val());
-            let RutaCustomer = emptyInput($("#RutaCustomer").val());
 
             if (numeroCustomer == "empty") { numeroCustomer = '0' }
 
-            domicilio.push({ "nombre_streetCustomer_50": streetCustomer, "phone_numeroCustomer_5": numeroCustomer, "phone_inputEstado_5": inputEstado, "phone_inpuMunicipio_5": inpuMunicipio, "nombre_coloniaCustomer_50": coloniaCustomer, "phone_cpCustomer_5": cpCustomer, "phone_RutaCustomer_5": RutaCustomer });
+            domicilio.push({ "nombre_streetCustomer_50": streetCustomer, "phone_numeroCustomer_5": numeroCustomer, "phone_inputEstado_5": inputEstado, "phone_inpuMunicipio_5": inpuMunicipio, "nombre_coloniaCustomer_50": coloniaCustomer, "phone_cpCustomer_5": cpCustomer});
 
             validar = validarCampos(domicilio)
             if (validar > 0) {
