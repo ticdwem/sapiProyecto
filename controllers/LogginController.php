@@ -222,7 +222,7 @@ class LogginController
 
                     );
                     break;
-                case 'domiclioproveedor':
+                case 'getdomproveedor':
                     $returnJson = array(
                         'idDomicilioProveedor' => $datos_consultados->idDomicilioProveedor,
                         'proveedorId'=> $datos_consultados->proveedorId,
@@ -230,7 +230,11 @@ class LogginController
                         'numeroDomiclioProveedor' => $datos_consultados->numeroDomiclioProveedor,
                         'municipioDomicilioProveedor' => $datos_consultados->municipioDomicilioProveedor,
                         'cpDomicilioProveedor' => $datos_consultados->cpDomicilioProveedor,
-                        'coloniaProv' => $datos_consultados->coloniaProv
+                        'coloniaProv' => $datos_consultados->coloniaProv,
+                        'idMunicipio' => $datos_consultados->idMunicipio,
+                        'municipio' => $datos_consultados->municipio,
+                        'idEstado' => $datos_consultados->idEstado,
+                        'estado' => $datos_consultados->estado
                     );
                     break;
                 default:

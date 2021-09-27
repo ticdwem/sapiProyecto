@@ -427,8 +427,8 @@ class ClienteController
             $iCliente = (Validacion::validarNumero($_POST["iCliente"]) == '-1') ? false : true;
             $nombreArray = (Validacion::textoLargo($_POST["inputnombreContactoAdd"], 50) == '900') ? false : true;
             $tel1Array = (Validacion::validarNumero($_POST["inputTelObligatorio"]) == '-1') ? false : true;
-            $tel2Array = (Validacion::validarNumero($_POST["inputTelSecundarioAdd"]) == '-1') ? false : true;
-            $emailArray = (Validacion::validarEmail($_POST["inputEmailAdd"], 0) == '0') ? false : true;
+            $tel2Array = (Validacion::validarNumero($_POST["inputTelSecundarioAdd"]) == '-1') ? false : $_POST["inputTelSecundarioAdd"];
+            $emailArray = (Validacion::validarEmail($_POST["inputEmailAdd"], 0) == '0') ? false : $_POST["inputEmailAdd"];
 
             if ($tel2Array === false || $tel2Array === "") {
                 $tel2Array = "500";

@@ -81,7 +81,7 @@
                         <tr>
                             <th><?= Validacion::recotarPuntos($domicilio[$i][6], 15, 10) ?></th>
                             <td><?= Validacion::recotarPuntos($domicilio[$i][7], 5, 4) ?></td>
-                            <td><button class="btn btn-primary" role="button" data-id="<?= $domicilio[$i][4]; ?>" id="domicilio_<?= $contador; ?>" data-toggle="modal" data-target="">VER</button></td>
+                            <td><button class="btn btn-primary" role="button" data-id="<?= $domicilio[$i][4]; ?>" id="domicilio_<?= $contador; ?>" data-toggle="modal" data-target="#edit_domiclio">VER</button></td>
                         </tr>
                     <?php
                         $contador++;
@@ -134,8 +134,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="deleteContato" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" id="add_Contacto" class="btn btn-primary">Save changes</button>
+                            <button type="button" id="deleteContato" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" id="add_Contacto" class="btn btn-primary">Agregar</button>
                         </div>
                     </div>
                 </form>
@@ -241,8 +241,68 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <!-- <button type="submit" id="btn-add-dom" class="btn btn-primary">Save changes</button> -->
-                            <input type="submit"  id="btn-add-dom" value="enviar">
+                            <input type="submit" class="btn btn-primary"  id="btn-add-dom" value="enviar">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- End Modal agregar domicilio-->
+
+     <!-- Modal agregar domicilio proveedor-->
+     <div class="modal fade" id="edit_domiclio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelClienteAdd" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="<?=base_url?>Proveedor/update" method="POST" id="editDomicilio">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabelClienteAdd" id="modalTittlaCliente"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="DomClienteAdd" class="">
+                            <div class="DomClienteAdd" id="domicilioCliAdd">
+                                <div id="mensajeAdd"></div>
+                                <div class="">
+                                    <input type="hidden" name="idGet" id="idGet" value="<?=$_GET['id']?>">
+                                    <input type="hidden" name="ProveedodId" id="customerEditDom" value="">
+                                    <input type="hidden" name="edoEdit" id="editDomProvEdo" class="addId" value="">
+                                    <input type="hidden" name="munEdit" id="editDomProvMun" class="addId" value="">
+                                    <div class=" domicilioCliente">
+                                        <label for="streetCustomerEdit">Calle</label>
+                                        <input type="text" id="streetCustomerEdit" name="streetCustomer" class="form-control" value="" onkeyup="mayusculas(this)">
+                                        <div class="streetCustomerEdit"></div>
+                                        <label for="numeroCustomerEdit">Número</label>
+                                        <input type="text" id="numeroCustomerEdit" name="numeroCustomer" class="form-control" placeholder="SI NO TIENE NUMERO DEJAR VACIO">
+                                        <div class="numeroCustomerEdit"></div>
+                                        <label for="inputEstadoEdit">Estado</label>
+                                        <select name="inputEstado" id="inputEstadoEdit" class="form-control selectEstado inpuEstado" disabled>
+                                            <option value="" id="idselectEstadoModalEdit" selected></option>
+                                        </select>
+                                        <div class="inputEstadoEdit"></div>
+                                        <div class="spinnerWhite"></div>
+                                        <label for="inpuMunicipioEdit">Municipio</label>
+                                        <select name="inpuMunicipio" id="inpuMunicipioEdit" class="form-control selectMunicipio" disabled>
+                                            <option value="0" id="idselectMunicipioModalEdit" selected></option>
+                                            <option value="0">Elije un Estado </option>
+                                        </select>
+                                        <div class="inpuMunicipioEdit"></div>
+                                        <label for="coloniaCustomerEdit">Colonia</label>
+                                        <input type="text" class="form-control" name="coloniaCustomer" id="coloniaCustomerEdit" onkeyup="mayusculas(this)" value="">
+                                        <div class="coloniaCustomerEdit"></div>
+                                        <label for="cpCustomerEdit">C.P</label>
+                                        <input type="text" id="cpCustomerEdit" name="cpCustomer" class="form-control">
+                                        <div class="cpCustomerEdit"></div>
+                                    </div>
+                                    <div class="spinnerDom"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                           <button id="deleteDomicilioProv" class="btn btn-danger">Eliminar</button>
+                            <input type="submit" class="btn btn-primary"  id="btn-edit-dom" value="enviar">
                         </div>
                     </div>
                 </div>

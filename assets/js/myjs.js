@@ -325,30 +325,40 @@ $(document).ready(function () {
 			}
 		})
 	});
-	
-	
+
+
 	/* ============================================================================================= 
 					 detectamos el boton que fue presionado de una tabla de cliente de proveedores
 ============================================================================================= */
-$("body").on('click', '#tbl-direccionProveedor button', function(e){
-	e.preventDefault();
-	let btnidDirProveedor = $(this).attr('data-id')
-	let datosDirProv = new FormData();
-	datosDirProv.append('idDirProv', btnidDirProveedor);
-	$.ajax({
-		url: getAbsolutePath() + "views/layout/ajax.php",
-		method: "POST",
-		data: datosDirProv,
-		cache: false,
-		contentType: false,
-		processData: false,
-		success: function (dirProv) {
-			console.log(dirProv)
-		}
+	$("body").on('click', '#tbl-direccionProveedor button', function (e) {
+		e.preventDefault();
+		let btnidDirProveedor = $(this).attr('data-id')
+		let datosDirProv = new FormData();
+		datosDirProv.append('idDirProv', btnidDirProveedor);
+		$.ajax({
+			url: getAbsolutePath() + "views/layout/ajax.php",
+			method: "POST",
+			data: datosDirProv,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function (dirProv) {
+				$("#customerEditDom").val(btnidDirProveedor);
+				$("#streetCustomerEdit").val(dirProv.calleDomicilioPRoveedor)
+				$("#numeroCustomerEdit").val(dirProv.numeroDomiclioProveedor)
+				$("#editDomProvEdo").val(dirProv.idEstado)
+				$("#idselectEstadoModalEdit").val(dirProv.idEstado)
+				$("#idselectEstadoModalEdit").html(dirProv.estado)
+				$("#editDomProvMun").val(dirProv.idMunicipio)
+				$("#idselectMunicipioModalEdit").val(dirProv.idMunicipio)
+				$("#idselectMunicipioModalEdit").html(dirProv.municipio)
+				$("#coloniaCustomerEdit").val(dirProv.coloniaProv)
+				$("#cpCustomerEdit").val(dirProv.cpDomicilioProveedor)
+			}
+		})
 	})
-})
 	/* ============================================================================================= 
-			 detectamos el boton que se ha clickeado de una tabla de direcciones
+			 detectamos el boton que se ha clickeado de una tabla de direcciones de parte clientess
 	============================================================================================= */
 	$('body').on('click', '#tbl-direccion button', function (e) {
 		e.preventDefault();
@@ -471,5 +481,46 @@ $("body").on('click', '#tbl-direccionProveedor button', function(e){
 			}
 		})
 	})
+
+	$("#deleteDomicilioProv").on("click", function(e){
+		e.preventDefault();
+
+		let idEliminar = $("#customerEditDom").val();
+		let idProveedorDelete = new FormData();
+		idProveedorDelete.append("idDomicilioProvDelete", idEliminar);
+		Swal.fire({
+			title: 'ELIMINAR?',
+			text: "ESTAS SEGURO DE ELIMNINAR ESTA DIRECCIÓN, ESTA ACCIÓN ES IRREVERSIBLE",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'SI ELIMINAR'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$.ajax({
+					url: getAbsolutePath() + "views/layout/ajax.php",
+					method: "POST",
+					data: idProveedorDelete,
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function (deleteUser) {
+						console.log(deleteUser);
+						if (deleteUser == 1) {
+
+							location.reload();
+						} else if (deleteUser == 0) {
+							Swal.fire(
+								'NO SE ELIMINO',
+								'HUBO UN ERRO EN LA TAREA',
+								'error'
+							)
+						}
+					}
+				})
+			}
+		})
+	});
 
 });

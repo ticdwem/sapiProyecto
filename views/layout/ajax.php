@@ -313,6 +313,13 @@ if (isset($_POST['idProvDelete'])) {
 	$contact->setWhere('idContactoProveedor');
 	$contact->deleteUSer();
 }
+if (isset($_POST['idDomicilioProvDelete'])) {
+	$contact = new Ajax();
+	$contact->setDato($_POST["idDomicilioProvDelete"]);
+	$contact->setTabla('domiclioproveedor');
+	$contact->setWhere('idDomicilioProveedor');
+	$contact->deleteUSer();
+}
 
 if (isset($_POST["idcontactoProv"])) {
 	$provCont = new Ajax();
@@ -321,7 +328,7 @@ if (isset($_POST["idcontactoProv"])) {
 }
 
 if (isset($_POST["idDirProv"])) {
-	$provCont = new Ajax();
-	$provCont->setDato($_POST["idDirProv"]);
-	$provCont->findDatosCleente('domiclioproveedor','idDomicilioProveedor');
+	$dirPro = new Ajax();
+	$dirPro->setDato($_POST["idDirProv"]);
+	$dirPro->findDatosCleente('getdomproveedor','idDomicilioProveedor');
 }

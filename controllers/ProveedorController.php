@@ -122,7 +122,7 @@ class ProveedorController
                     }
                 } else {
                     $_SESSION['formulario_cliente'] = array('error' => 'hubo un error al insertar favor de contactar a su administrador', 'datos' => $cliente);
-                    echo '<script>window.location="' . base_url . 'Cliente/index"</script>';
+                    echo '<script>window.location="' . base_url . 'Proveedor/index"</script>';
                 }
             }
         }
@@ -131,21 +131,22 @@ class ProveedorController
     public function lista()
     {
         $proveedor = new ProveedorModels;
-        $proveedor =  $proveedor->getAllWhere('proveedor','ORDER BY idProveedor DESC ');
-        
+        $proveedor =  $proveedor->getAllWhere('proveedor', 'ORDER BY idProveedor DESC ');
+
         require_once "views/proveedor/lista.php";
     }
 
-    public function edit(){
-        if(isset($_GET["id"])){
+    public function edit()
+    {
+        if (isset($_GET["id"])) {
             $editPr = new ProveedorModels();
-            $consulta = $editPr->getAllWhere('contactoproveedor','WHERE proveedorId ='. $_GET["id"])->fetch_all();
+            $consulta = $editPr->getAllWhere('contactoproveedor', 'WHERE proveedorId =' . $_GET["id"])->fetch_all();
 
             $editDom = new ProveedorModels();
-            $domicilio = $editDom->getAllWhere('ShowProveedorEdit','WHERE idProveedor='. $_GET["id"])->fetch_all();
+            $domicilio = $editDom->getAllWhere('ShowProveedorEdit', 'WHERE idProveedor=' . $_GET["id"])->fetch_all();
 
             $estado = new ModeloBase();
-            $estadoAdd = $estado->getAll("estados"); 
+            $estadoAdd = $estado->getAll("estados");
 
             $rta = new ModeloBase();
             $ruta = $rta->getAll('ruta');
@@ -182,15 +183,15 @@ class ProveedorController
         }
 
         if (isset($_SESSION['formulario_cliente'])) {
-            echo '<script>window.location="' . base_url . 'Cliente/edit&id=' . $idCliente . '"</script>';
+            echo '<script>window.location="' . base_url . 'Proveedor/edit&id=' . $idCliente . '"</script>';
         } else {
             $inserta = new ProveedorModels();
-           $inserta->setId($idCliente);
-           $inserta->setCalle($nombreCalle);
-           $inserta->setNumero($numeroCasa);
-           $inserta->setMunicipio($municipio);
-           $inserta->setCp($cpCliente);
-           $inserta->setColina($colonia);
+            $inserta->setId($idCliente);
+            $inserta->setCalle($nombreCalle);
+            $inserta->setNumero($numeroCasa);
+            $inserta->setMunicipio($municipio);
+            $inserta->setCp($cpCliente);
+            $inserta->setColina($colonia);
 
             $domicilio = $inserta->createDomicilioProveedor();
 
@@ -207,5 +208,51 @@ class ProveedorController
         }
     }
 
-    
+    public function update()
+    {
+
+        $iddomicilio = (Validacion::validarNumero($_POST['ProveedodId']) == '-1') ? false : htmlspecialchars($_POST['ProveedodId']);
+        $idCliente = (Validacion::validarNumero($_POST['idGet']) == '-1') ? false : htmlspecialchars($_POST['idGet']);
+        $nombreCalle = (Validacion::textoLargo($_POST['streetCustomer'], 50) == '900') ? false : htmlspecialchars($_POST['streetCustomer']);
+        $numeroCasa = (Validacion::textoLargo($_POST['numeroCustomer'], 5) == '900') ? false : htmlspecialchars($_POST['numeroCustomer']);
+        $estado = (Validacion::validarNumero($_POST['edoEdit']) == '-1') ? false : htmlspecialchars($_POST['edoEdit']);
+        $municipio = (Validacion::validarNumero($_POST['munEdit']) == '-1') ? false : htmlspecialchars($_POST['munEdit']);
+        $colonia = (Validacion::textoLargo($_POST['coloniaCustomer'], 80) == '900') ? false : htmlspecialchars($_POST['coloniaCustomer']);
+        $cpCliente = (Validacion::validarNumero($_POST['cpCustomer']) == '-1') ? false : htmlspecialchars($_POST['cpCustomer']);
+
+        $datos = array('iddomicilio' => $iddomicilio, 'nombreCalle' => $nombreCalle, 'numeroCasa' => $numeroCasa, 'estado' => $estado, 'municipio' => $municipio, 'colonia' => $colonia, 'cpCliente' => $cpCliente,);
+
+        foreach ($datos as $dato => $valor) {
+            if ($valor == false) {
+                $_SESSION['formulario_cliente'] = array(
+                    'error' => 'El campo ' . $dato . ' es incorrecto, llena los campos faltantes',
+                    'datos' => $datos
+                );
+                break;
+            }
+        }
+
+        if(isset($_SESSION['formulario_cliente'])){
+            echo '<script>window.location="' . base_url . 'Proveedor/edit&id=' . $idCliente . '"</script>';
+        }else{
+            $update = new ProveedorModels();
+            $update->setId($iddomicilio);
+            $update->setCalle($nombreCalle);
+            $update->setNumero($numeroCasa);
+            $update->setMunicipio($municipio);
+            $update->setCp($cpCliente);
+            $update->setColina($colonia);
+            $envio = $update->updateDireccion();
+            if ($envio) {
+                $_SESSION['statusSave'] = "se inserto correctamente";
+                echo '<script>window.location="' . base_url . 'Proveedor/edit&id=' . $idCliente . '"</script>';
+            } else {
+                $_SESSION['formulario_cliente'] = array(
+                    'error' => 'El campo al tratar de insertar es incorrecto, intente más tarde o llame a su administrador',
+                    'datos' => $datos
+                );
+                echo '<script>window.location="' . base_url . 'Proveedor/edit&id=' . $idCliente . '"</script>';
+            }
+        }
+    }
 }
