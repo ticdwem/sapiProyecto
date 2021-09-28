@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, shrink-to-fit=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Bienestar y Nueva Imagen</title>
+    <title>Sistema Pilarica</title>
     <!-- css stylo base -->
     <link href="<?=base_url?>assets/css/styles.css" rel="stylesheet" />
     <!-- css stylo propio -->
@@ -40,7 +40,7 @@
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
     <!-- fontawensome -->
-    <script src="https://kit.fontawesome.com/1849e1867b.js" crossorigin="anonymous"></script>
+   <!--  <script src="https://kit.fontawesome.com/1849e1867b.js" crossorigin="anonymous"></script> -->
     <!-- swet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
@@ -56,7 +56,7 @@
     <body class="sb-nav-fixed">
         <div id="container">
             <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- <a class="navbar-brand" href="index.html">CByNI</a> --> <img src="<?=base_url?>assets/img/logo.png" width="225px" height="60px" alt=""> 
+            <!-- <a class="navbar-brand" href="index.html">CByNI</a> --> <img src="<?=base_url?>assets/img/pila.png" width="225px" height="75px" alt=""> 
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button><!-- Navbar Search-->
             <div class="" id="headerBienestar">
                 <div class="input-group divconsul">
@@ -70,7 +70,7 @@
                             aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                         <div id="menuDesplegable" class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                             <a class="dropdown-item" href="#">Herramientas</a>
-                              <a class="dropdown-item" href="#">Activity Log</a>
+                              <a class="dropdown-item" href="#">Actividades</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="<?=base_url?>Loggin/logout">Salir</a>
                         </div>
