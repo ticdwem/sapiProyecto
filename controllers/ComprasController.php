@@ -9,6 +9,7 @@ class ComprasController
         $rowsProv = $Proveedor->getAll('getdomproveedor');
 
         $alm = new ComprasModel();
+        
         $almacen = $alm->getAll('almacen');
         require_once 'views/compras/index.php';
     }
