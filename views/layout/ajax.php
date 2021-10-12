@@ -224,6 +224,8 @@ class Ajax
 		}
 	}
 
+	
+
 	public function findDatosCleente($tabla, $idMatch)
 	{
 		$datos = $this->getDato();
