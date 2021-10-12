@@ -68,24 +68,24 @@
                         BUSQUEDA AVANZADA
                     </a>
                     <div class="sb-sidenav-menu-heading">SUCURSALES</div>
-                    <a class="nav-link" href="<?= base_url ?>Consultorio/nuevo">
+                  <!--   <a class="nav-link" href="<?= base_url ?>Consultorio/nuevo">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         PACIENTES NUEVOS
-                    </a>
-                    <a class="nav-link" href="<?= base_url ?>Consulta/lista">
+                    </a> -->
+                 <!--    <a class="nav-link" href="<?= base_url ?>Consulta/lista">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         MIS PACIENTES
-                    </a>
+                    </a> -->
 
                     <div class="sb-sidenav-menu-heading">Administracion</div>
-                    <a class="nav-link" href="<?= base_url ?>Consultorio/control">
+                 <!--    <a class="nav-link" href="<?= base_url ?>Consultorio/control">
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                         CONTROL
-                    </a>
-                    <a class="nav-link" href="<?= base_url ?>Doctor/index">
+                    </a> -->
+                <!--     <a class="nav-link" href="<?= base_url ?>Doctor/index">
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                         ALTA DOCTOR
-                    </a>
+                    </a> -->
 
                 </div>
             </div>
