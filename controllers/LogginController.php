@@ -5,12 +5,64 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/models/logginModel.php";
 
 class LogginController
 {
-    /*este es una clase de prueba para saber que todo esta bien relacionado */
-    public function index()
+    public $table;
+    public $match;
+    public $id;
+
+    public function consultaRows()
     {
-        $loginConsultorio = new Login();
-        $consutorio = $loginConsultorio->getAll('consultorio');
-        require_once 'views/loggin/index.php';
+        $returnJsonDatos = array();
+        $tabla = (Validacion::pregmatchletras($this->table) == '0') ? false : true;
+        $rowMatch = (Validacion::validarLArgo($this->match, 30) == '-1') ? false : true;
+        $idrow = (Validacion::validarNumero($this->id) == '-1') ? false : true;
+        $verif = array('tabla' => $tabla, 'rowmatch' => $rowMatch, 'idrow' => $idrow);
+
+        foreach ($verif as $key => $value) {
+            if ($value == false) {
+                $_SESSION['formulario_cliente'] = array(
+                    'error' => 'El campo ' . $key . ' es incorrecto, llena los campos faltantes',
+                    'datos' => $verif
+                );
+                break;
+            }
+        }
+
+        if (isset($_SESSION['formulario_cliente'])) {
+            echo '<script>window.location="' . base_url . 'Consultorio/nuevo"</script>';
+        } else {
+            $regresojson = new Login();
+            $regreso =  $regresojson->getAllWhere($this->table, 'where ' . $this->match . ' = ' . $this->id);
+            $createArray = ($regreso->fetch_all()); 
+            if ($regreso) {
+                switch ($this->table) {
+                    case 'getdomproveedor':
+                        for ($i = 0; $i < count($createArray); $i++) {
+                            $returnJsonDatos[] = array(
+                               'idDomicilioProveedor' => $createArray[$i][0],
+                               'proveedorId' => $createArray[$i][1],
+                               'calleDomicilioPRoveedor' => $createArray[$i][2],
+                               'numeroDomiclioProveedor' => $createArray[$i][3],
+                               'municipioDomicilioProveedor' => $createArray[$i][4],
+                               'cpDomicilioProveedor' => $createArray[$i][5],
+                               'coloniaProv' => $createArray[$i][6],
+                               'idMunicipio' => $createArray[$i][7],
+                               'municipio' => $createArray[$i][8],
+                               'idEstado' => $createArray[$i][9],
+                               'estado' => $createArray[$i][10]
+                            );
+                        }
+                        break;
+
+                    default:
+                        # code...
+                        break;
+                }
+                header('Content-type: application/json; charset=utf-8');
+                echo json_encode($returnJsonDatos);
+                /*  echo $datos;*/
+                exit(); 
+            }
+        }
     }
 
     public function verifEmailLog($email)
@@ -225,7 +277,7 @@ class LogginController
                 case 'getdomproveedor':
                     $returnJson = array(
                         'idDomicilioProveedor' => $datos_consultados->idDomicilioProveedor,
-                        'proveedorId'=> $datos_consultados->proveedorId,
+                        'proveedorId' => $datos_consultados->proveedorId,
                         'calleDomicilioPRoveedor' => $datos_consultados->calleDomicilioPRoveedor,
                         'numeroDomiclioProveedor' => $datos_consultados->numeroDomiclioProveedor,
                         'municipioDomicilioProveedor' => $datos_consultados->municipioDomicilioProveedor,
@@ -235,6 +287,15 @@ class LogginController
                         'municipio' => $datos_consultados->municipio,
                         'idEstado' => $datos_consultados->idEstado,
                         'estado' => $datos_consultados->estado
+                    );
+                    break;
+                case 'almacen':
+                    $returnJson = array( 
+                        'idAlmacen' => $datos_consultados->idAlmacen,
+                        'nombreAlmacen' => $datos_consultados->nombreAlmacen,
+                        'areaAlmacen' => $datos_consultados->areaAlmacen,
+                        'cuentaContableAlmacen' => $datos_consultados->cuentaContableAlmacen,
+                        'statusAlamcen' => $datos_consultados->statusAlamcen,
                     );
                     break;
                 default:

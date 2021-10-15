@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once "../../config/parameters.php";
 require_once "../../models/pacienteModels.php";
 require_once "../../helpers/validacion.php";
 require_once "../../helpers/crypt.php";
@@ -224,6 +225,13 @@ class Ajax
 		}
 	}
 
+	public function getAllRows($tabla,$idmatch){
+		$row = new LogginController();
+		$row->table = $tabla;
+		$row->match = $idmatch;
+		$row->id = $this->getDato();
+		$row->consultaRows();
+	}
 	
 
 	public function findDatosCleente($tabla, $idMatch)
@@ -333,4 +341,14 @@ if (isset($_POST["idDirProv"])) {
 	$dirPro = new Ajax();
 	$dirPro->setDato($_POST["idDirProv"]);
 	$dirPro->findDatosCleente('getdomproveedor','idDomicilioProveedor');
+}
+if (isset($_POST["idProveedorSelect"])) {
+	$dirPro = new Ajax();
+	$dirPro->setDato($_POST["idProveedorSelect"]);
+	$dirPro->getAllRows('getdomproveedor','proveedorId');
+}
+if (isset($_POST["idAlmacenSelect"])) {
+	$dirPro = new Ajax();
+	$dirPro->setDato($_POST["idAlmacenSelect"]);
+	$dirPro->findDatosCleente('almacen','idAlmacen');
 }
