@@ -63,9 +63,9 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         CONSULTA PROVEEDOR
                     </a>
-                    <a class="nav-link" href="<?= base_url ?>Avanzado/index">
+                    <a class="nav-link" href="<?= base_url ?>Compras/index">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                        BUSQUEDA AVANZADA
+                        COMPRAS
                     </a>
                     <div class="sb-sidenav-menu-heading">SUCURSALES</div>
                   <!--   <a class="nav-link" href="<?= base_url ?>Consultorio/nuevo">
