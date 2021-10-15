@@ -464,3 +464,16 @@ form .selectH .hideSelect {
 	overflow: hidden;
 	overflow: scroll;
 }
+#domProvListas #showProv,
+#almacenListas #showAlmacen {
+	border: 1px solid #d6d7da;
+	height: 120px;
+	width: 80%;
+	overflow: hidden;
+	overflow: scroll;
+	overflow-x: scroll;
+}
+
+#domProvListas #showProv table {
+	font-size:small;
+}

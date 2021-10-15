@@ -88,7 +88,7 @@ class Validacion
 	public static function validarLArgo($texto, $valorLArgo)
 	{
 		$largo = strlen($texto);
-		if ($largo == $valorLArgo) {
+		if ($largo <= $valorLArgo) {
 			return $texto;
 		} else {
 			return -1;

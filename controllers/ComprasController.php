@@ -6,11 +6,11 @@ class ComprasController
 {
     public function index(){
         $Proveedor = new ComprasModel();
-        $rowsProv = $Proveedor->getAll('getdomproveedor');
+        $rowsProv = $Proveedor->getAll('proveedor');
 
-        $alm = new ComprasModel();
-        
-        $almacen = $alm->getAll('almacen');
+        $alm = new ComprasModel();        
+        $almacenes = $alm->getAll('almacen');
+
         require_once 'views/compras/index.php';
     }
 

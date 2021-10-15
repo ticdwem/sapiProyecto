@@ -1,11 +1,14 @@
 <div class="cabeceraBtn">
     <?php require_once 'views/layout/cabeceraLogo.php';
+    if (isset($_SESSION['formulario_cliente'])) {
+        echo '<div class="alert alert-danger" role="alert" style="width:80%;">HUBO UN ERROR INTERNO EN EL SISTEMA, CONTACTA A TU ADMINISTRADOR DE SISTEMAS</div>';
+        Utls::deleteSession('formulario_cliente');
+    }
 
     ?>
 </div>
 <div class="">
     <div>
-
         <div class="row">
             <div class="col-lg-12">
                 <nav aria-label="breadcrumb">
@@ -13,12 +16,9 @@
                         <li class="breadcrumb-item active" aria-current="page">CAPTURA DE COMPRAS</li>
                     </ol>
                 </nav>
-
                 <div class="card">
                     <div class="card-body">
-                        <!--  This is some text within a card body. -->
                         <div class="row">
-
                             <div class="input-group input-group-sm mb-3 col-lg-6">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroup-sizing-lg">NUMERO DE NOTA.:</span>
@@ -29,68 +29,50 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroup-sizing-lg">FECHA DE COMPRA.:</span>
                                 </div>
-                                <label for="">26-04-2021</label>
-                                <!-- <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm"> -->
+                                <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" id="fechaCompra">
                             </div>
-
-
-
-
                             <div class="col-lg-6">
-
-                                <!--  <div class="input-group-prepend col-lg-2">
-                                                    <span class="input-group-text" id="inputGroup-sizing-sm">PROVEEDOR.:</span>
-                                                    </div> -->
-                                <!--  <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm"> -->
                                 <div class="form-group input-group-sm col-lg-8">
-                                    <label for="exampleFormControlSelect1">NOMBRE DEL PROVEEDOR</label>
-                                    <select class="form-control" id="exampleFormControlSelect1">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                    <label for="selectNombreProveedor">NOMBRE DEL PROVEEDOR</label>
+                                    <select class="form-control" id="selectNombreProveedor" name="selectNombreProveedor">
+                                        <option value="0">Elige un proveedor</option>
+                                        <?php while ($provedor = $rowsProv->fetch_object()) : ?>
+                                            <option value="<?= $provedor->idProveedor; ?>"><?= $provedor->nombreProveesor; ?></option>
+                                        <?php endwhile; ?>
                                     </select>
                                 </div>
-
+                                <div class="selectNombreProveedor"></div>
                             </div>
-
                             <div class="col-lg-6">
-
-                                <!--  <div class="input-group-prepend col-lg-2">
-                                                    <span class="input-group-text" id="inputGroup-sizing-sm">PROVEEDOR.:</span>
-                                                    </div> -->
-                                <!--  <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm"> -->
                                 <div class="form-group input-group-sm col-lg-8">
-                                    <label for="exampleFormControlSelect1">NOMBRE DEL PROVEEDOR</label>
-                                    <select class="form-control" id="exampleFormControlSelect1">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                    <label for="selectAlmacenVenta">ALMACEN</label>
+                                    <select class="form-control" id="selectAlmacenVenta" name="selectAlmacenVenta">
+                                        <option value="0">Elige un almacen</option>
+                                        <?php while ($almacen = $almacenes->fetch_object()) : ?>                                           
+                                            <option value="<?=$almacen->idAlmacen?>"><?=$almacen->nombreAlmacen?></option>
+                                        <?php endwhile; ?>
                                     </select>
                                 </div>
-
+                                <div id="selectAlmacenVenta"></div>
                             </div>
-
                             <div class="col-lg-6">
-
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">With textarea</span>
+                                <div class="input-group" id="domProvListas">
+                                    <!--   DOMICILIO PROVEEDOR -->
+                                    <!--                                     <div class="input-group-prepend" id="textDomProv">
+                                        <span class="input-group-text">DOMICILIO PROVEEDOR</span>
+                                    </div> -->
+                                    <div id="showProv">
                                     </div>
-                                    <textarea class="form-control" aria-label="With textarea"></textarea>
                                 </div>
-
                             </div>
                             <div class="col-lg-6">
-
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
+                                <div class="input-group" id="almacenListas">
+                                    <!-- <div class="input-group-prepend">
                                         <span class="input-group-text">With textarea</span>
+                                    </div> -->
+                                    <!-- <textarea class="form-control" aria-label="With textarea"></textarea> -->
+                                    <div id="showAlmacen">                                        
                                     </div>
-                                    <textarea class="form-control" aria-label="With textarea"></textarea>
                                 </div>
                             </div>
                         </div>
