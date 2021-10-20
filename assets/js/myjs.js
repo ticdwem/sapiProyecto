@@ -541,7 +541,7 @@ $(document).ready(function () {
 			success: function (Adress) {
 				selectProvProd += "<table class='table'><thead><tr><th>Estado</th><th>Municipio</th><th>Colonia</th><th>Calle</th></tr></thead>";
 				for (let index = 0; index < Adress.length; index++) {
-					selectProvProd += '<tr><td>'+Adress[index]['estado']+'</td><td>'+Adress[index]['municipio']+'</td><td>'+Adress[index]['coloniaProv']+'</td><td>'+Adress[index]['calleDomicilioPRoveedor']+'</td>';
+					selectProvProd += '<tr><td>' + Adress[index]['estado'] + '</td><td>' + Adress[index]['municipio'] + '</td><td>' + Adress[index]['coloniaProv'] + '</td><td>' + Adress[index]['calleDomicilioPRoveedor'] + '</td>';
 				}
 				selectProvProd += '</table>';
 				$("#showProv").html(selectProvProd);
@@ -549,30 +549,35 @@ $(document).ready(function () {
 		})
 	})
 
-		/* selececciona un nombre de proveedor para mostrar su información en el textarea */
-		$("#selectAlmacenVenta").on("change", function () {
-			let idAlmacenSelect = $(this).val();
-			var selectAlmacen = '';
-			var status = 0;
-			let idAlmacen = new FormData();
-			idAlmacen.append("idAlmacenSelect", idAlmacenSelect);
-			$.ajax({
-				url: getAbsolutePath() + "views/layout/ajax.php",
-				method: "POST",
-				data: idAlmacen,
-				cache: false,
-				contentType: false,
-				processData: false,
-				success: function (almacen) {
-					console.log(almacen);
-					if(almacen['statusAlamcen'] == 1){status = "Activo"}else{status="Inactivo"}
-					selectAlmacen += "<table class='table'><thead><tr><th>Ubicacion</th><th>Status</th></tr></thead>";					
-						selectAlmacen += '<tr><td>'+almacen['areaAlmacen']+'</td><td>'+status+'</td></tr>';
-					
-					selectAlmacen += '</table>';
-					$("#showAlmacen").html(selectAlmacen);
-				}
-			})
-		})
+	/* selececciona un nombre de proveedor para mostrar su información en el textarea */
+	$("#selectAlmacenVenta").on("change", function () {
+		let idAlmacenSelect = $(this).val();
+		var selectAlmacen = '';
+		var status = 0;
+		let idAlmacen = new FormData();
+		idAlmacen.append("idAlmacenSelect", idAlmacenSelect);
+		$.ajax({
+			url: getAbsolutePath() + "views/layout/ajax.php",
+			method: "POST",
+			data: idAlmacen,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function (almacen) {
+				if (almacen['statusAlamcen'] == 1) { status = "Activo" } else { status = "Inactivo" }
+				selectAlmacen += "<table class='table'><thead><tr><th>Ubicacion</th><th>Status</th></tr></thead>";
+				selectAlmacen += '<tr><td>' + almacen['areaAlmacen'] + '</td><td>' + status + '</td></tr>';
 
+				selectAlmacen += '</table>';
+				$("#showAlmacen").html(selectAlmacen);
+			}
+		})
+	});
+	/*  calculamos el total multiplicando el precio por el precio */
+	$("#inputPrecio").on("change",function(){
+		let precio = $(this).val();
+		let peso = $("#inputPieza").val();
+		let Multiplicacion = multi(peso,precio);
+		$("#inputSubtotal").val(Multiplicacion);
+	})
 });

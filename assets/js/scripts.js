@@ -111,6 +111,17 @@ function expRegular(texto, contenido) {
 
 }
 
+function multi(uno = 0,dos = 0){
+  let result = parseFloat(0.0);
+  result = (parseFloat(uno) * parseFloat(dos));
+  if(result == NaN || result == ""){
+    result = 0;
+  }else{
+     result = result.toFixed(2);
+  }
+  return result;
+}
+
 function sumar(uno, dos) {
   var result;
   result = (uno + dos);
@@ -306,5 +317,6 @@ function validarCampos(arrayDatos) {
 /* enviamos por ajax la validacion para hacer  */
 /* $(document).ready(function () { */
   $(document).ready(function(){
+
 
   });

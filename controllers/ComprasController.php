@@ -11,6 +11,9 @@ class ComprasController
         $alm = new ComprasModel();        
         $almacenes = $alm->getAll('almacen');
 
+        $prod = new ComprasModel();
+        $producto = $prod->getAll('productos');
+
         require_once 'views/compras/index.php';
     }
 
