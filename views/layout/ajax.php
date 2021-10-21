@@ -252,8 +252,8 @@ class Ajax
 /* echo "<pre> //////";
 var_dump($_POST);
 echo "</pre>";
-exit(); */
-
+exit();
+ */
 if (isset($_POST["idEstado"])) {
 	$sent = new Ajax();
 	$sent->setDato($_POST["idEstado"]);
@@ -351,4 +351,9 @@ if (isset($_POST["idAlmacenSelect"])) {
 	$dirPro = new Ajax();
 	$dirPro->setDato($_POST["idAlmacenSelect"]);
 	$dirPro->findDatosCleente('almacen','idAlmacen');
+}
+if (isset($_POST["idProductoCompra"])) {
+	$dirPro = new Ajax();
+	$dirPro->setDato($_POST["idProductoCompra"]);
+	$dirPro->findDatosCleente('productos','idProducto');
 }

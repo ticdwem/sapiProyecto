@@ -573,6 +573,29 @@ $(document).ready(function () {
 			}
 		})
 	});
+	/* ajax quw consulta e imprime en las casillas para los productos  expRegular("email", emailer); */
+	$("#inputCodigo").on("change",function(){
+		$id = $(this).val();
+		let producto = new FormData();
+		producto.append('idProductoCompra',$id);
+		$.ajax({
+			url: getAbsolutePath() + "views/layout/ajax.php",
+			method: "POST",
+			data: producto,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function (producto) {
+				console.log(producto)
+				if(producto){
+					$("#inputNombreProd").val(producto.nombreProd);
+				}else{
+					alert("no se encontro el producto")
+				}
+			}
+		})
+	})
+
 	/*  calculamos el total multiplicando el precio por el precio */
 	$("#inputPrecio").on("change",function(){
 		let precio = $(this).val();

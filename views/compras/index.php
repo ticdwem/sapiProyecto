@@ -69,20 +69,18 @@
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="row">
                                 <div class="col-lg-2">
                                     <label class="mr-sm-2" for="inputCodigo">Código</label>
                                     <div class="input-group">
-                                        <input type="text" name="inputCodigo" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPieza">
+                                        <input type="text" name="inputCodigo" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputCodigo">
                                         <div class="inputCodigo"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <label class="mr-sm-2" for="inputNombreProd">Nombre</label>
                                     <div class="input-group">
-                                        <input type="text" name="inputNombreProd" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPieza">
+                                        <input type="text" name="inputNombreProd" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputNombreProd" readonly>
                                         <div class="inputNombreProd"></div>
                                     </div>
                                 </div>
