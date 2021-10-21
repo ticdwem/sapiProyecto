@@ -32,23 +32,23 @@ class LogginController
         } else {
             $regresojson = new Login();
             $regreso =  $regresojson->getAllWhere($this->table, 'where ' . $this->match . ' = ' . $this->id);
-            $createArray = ($regreso->fetch_all()); 
+            $createArray = ($regreso->fetch_all());
             if ($regreso) {
                 switch ($this->table) {
                     case 'getdomproveedor':
                         for ($i = 0; $i < count($createArray); $i++) {
                             $returnJsonDatos[] = array(
-                               'idDomicilioProveedor' => $createArray[$i][0],
-                               'proveedorId' => $createArray[$i][1],
-                               'calleDomicilioPRoveedor' => $createArray[$i][2],
-                               'numeroDomiclioProveedor' => $createArray[$i][3],
-                               'municipioDomicilioProveedor' => $createArray[$i][4],
-                               'cpDomicilioProveedor' => $createArray[$i][5],
-                               'coloniaProv' => $createArray[$i][6],
-                               'idMunicipio' => $createArray[$i][7],
-                               'municipio' => $createArray[$i][8],
-                               'idEstado' => $createArray[$i][9],
-                               'estado' => $createArray[$i][10]
+                                'idDomicilioProveedor' => $createArray[$i][0],
+                                'proveedorId' => $createArray[$i][1],
+                                'calleDomicilioPRoveedor' => $createArray[$i][2],
+                                'numeroDomiclioProveedor' => $createArray[$i][3],
+                                'municipioDomicilioProveedor' => $createArray[$i][4],
+                                'cpDomicilioProveedor' => $createArray[$i][5],
+                                'coloniaProv' => $createArray[$i][6],
+                                'idMunicipio' => $createArray[$i][7],
+                                'municipio' => $createArray[$i][8],
+                                'idEstado' => $createArray[$i][9],
+                                'estado' => $createArray[$i][10]
                             );
                         }
                         break;
@@ -60,7 +60,7 @@ class LogginController
                 header('Content-type: application/json; charset=utf-8');
                 echo json_encode($returnJsonDatos);
                 /*  echo $datos;*/
-                exit(); 
+                exit();
             }
         }
     }
@@ -229,7 +229,7 @@ class LogginController
         } else {
             $conuslta = new ModeloBase();
             $datos_consultados = mysqli_fetch_object($conuslta->getAllWhere($tabla, "where " . $match . " = " . $datos));
-
+ 
             switch ($tabla) {
                 case 'getDomCliente':
                     $returnJson = array(
@@ -290,12 +290,23 @@ class LogginController
                     );
                     break;
                 case 'almacen':
-                    $returnJson = array( 
+                    $returnJson = array(
                         'idAlmacen' => $datos_consultados->idAlmacen,
                         'nombreAlmacen' => $datos_consultados->nombreAlmacen,
                         'areaAlmacen' => $datos_consultados->areaAlmacen,
                         'cuentaContableAlmacen' => $datos_consultados->cuentaContableAlmacen,
                         'statusAlamcen' => $datos_consultados->statusAlamcen,
+                    );
+                    break;
+                case 'productos':
+                    
+                    $returnJson = array(
+                        'idProducto' => $datos_consultados->idProducto,
+                        'nombreProd' => $datos_consultados->nombreProd,
+                        'descripcionProd' => $datos_consultados->descripcionProd,
+                        'unidadMedida' => $datos_consultados->unidadMedida,
+                        'statusProd' => $datos_consultados->statusProd,
+                        'fechaIngreso' => $datos_consultados->fechaIngreso
                     );
                     break;
                 default:
