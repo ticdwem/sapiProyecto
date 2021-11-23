@@ -8,7 +8,22 @@ class LogginController
     public $table;
     public $match;
     public $id;
-/* aqui ya se actualizo pt edni jajajaj */
+
+    public function index(){
+        $_SESSION['usuario'] = array(
+            'id' => 1,
+            'consultorio' =>1,
+            'nombre'=>"Miguel",
+            'apeliidos'=>"Dewm",
+            'tipo'=>1,
+            'status'=>1
+        );
+
+        echo '<script>window.location="' . base_url . 'Cliente/index"</script>';
+
+
+    }
+
     public function consultaRows()
     {
         $returnJsonDatos = array();
