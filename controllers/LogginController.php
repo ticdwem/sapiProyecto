@@ -8,7 +8,7 @@ class LogginController
     public $table;
     public $match;
     public $id;
-
+/* aqui ya se actualizo pt edni jajajaj */
     public function consultaRows()
     {
         $returnJsonDatos = array();
