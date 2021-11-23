@@ -586,7 +586,7 @@ $(document).ready(function () {
 			contentType: false,
 			processData: false,
 			success: function (producto) {
-				console.log(producto)
+				console.log(producto);
 				if(producto){
 					$("#inputNombreProd").val(producto.nombreProd);
 				}else{
@@ -599,7 +599,7 @@ $(document).ready(function () {
 	/*  calculamos el total multiplicando el precio por el precio */
 	$("#inputPrecio").on("change",function(){
 		let precio = $(this).val();
-		let peso = $("#inputPieza").val();
+		let peso = $("#inputPeso").val();
 		let Multiplicacion = multi(peso,precio);
 		$("#inputSubtotal").val(Multiplicacion);
 	})

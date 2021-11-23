@@ -355,5 +355,5 @@ if (isset($_POST["idAlmacenSelect"])) {
 if (isset($_POST["idProductoCompra"])) {
 	$dirPro = new Ajax();
 	$dirPro->setDato($_POST["idProductoCompra"]);
-	$dirPro->findDatosCleente('productos','idProducto');
+	$dirPro->findDatosCleente('producto','idProducto');
 }

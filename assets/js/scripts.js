@@ -33,7 +33,6 @@ function getAbsolutePath() {
   return loc.href.substring(0, loc.href.length - ((loc.pathname + loc.search + loc.hash).length - pathName.length));
 }
 
-
 /*validacion*/
 function expRegular(texto, contenido) {
   let letras_latinas;
@@ -114,12 +113,12 @@ function expRegular(texto, contenido) {
 function multi(uno = 0,dos = 0){
   let result = parseFloat(0.0);
   result = (parseFloat(uno) * parseFloat(dos));
-  if(result == NaN || result == ""){
+  if(result == "NaN" || result == ""){
     result = 0;
   }else{
      result = result.toFixed(2);
   }
-  return result;
+  return humanizeNumber(result);
 }
 
 function sumar(uno, dos) {
@@ -314,9 +313,18 @@ function validarCampos(arrayDatos) {
   return contador
 } 
 
+function humanizeNumber(n) {
+  n = n.toString()
+  while (true) {
+    var n2 = n.replace(/(\d)(\d{3})($|,|\.)/g, '$1,$2$3')
+    if (n == n2) break
+    n = n2
+  }
+  return n
+}
 /* enviamos por ajax la validacion para hacer  */
 /* $(document).ready(function () { */
   $(document).ready(function(){
-
+    
 
   });

@@ -229,7 +229,7 @@ class LogginController
         } else {
             $conuslta = new ModeloBase();
             $datos_consultados = mysqli_fetch_object($conuslta->getAllWhere($tabla, "where " . $match . " = " . $datos));
- 
+
             switch ($tabla) {
                 case 'getDomCliente':
                     $returnJson = array(
@@ -298,14 +298,14 @@ class LogginController
                         'statusAlamcen' => $datos_consultados->statusAlamcen,
                     );
                     break;
-                case 'productos':
+                case 'producto':
                     
                     $returnJson = array(
                         'idProducto' => $datos_consultados->idProducto,
-                        'nombreProd' => $datos_consultados->nombreProd,
-                        'descripcionProd' => $datos_consultados->descripcionProd,
-                        'unidadMedida' => $datos_consultados->unidadMedida,
-                        'statusProd' => $datos_consultados->statusProd,
+                        'nombreProd' => $datos_consultados->nombreProducto,
+                        'descripcionProd' => $datos_consultados->DescripcionProducto,
+                        'unidadMedida' => $datos_consultados->UnidadMedidaProducto,
+                        'statusProd' => $datos_consultados->statusProducto,
                         'fechaIngreso' => $datos_consultados->fechaIngreso
                     );
                     break;

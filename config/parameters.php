@@ -1,5 +1,5 @@
 <?php
-define("base_url", "http://proyecto.test/"); // base url para llamadas absolutas de la url 
+define("base_url", "http://sapi.test/"); // base url para llamadas absolutas de la url 
 define("controller_default", "LogginController"); // controlador por defecto
 define("action_default","index");
 /* if(isset($_SESSION['usuario'])){
