@@ -586,7 +586,6 @@ $(document).ready(function () {
 			contentType: false,
 			processData: false,
 			success: function (producto) {
-				console.log(producto);
 				if(producto){
 					$("#inputNombreProd").val(producto.nombreProd);
 				}else{

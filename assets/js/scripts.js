@@ -109,6 +109,19 @@ function expRegular(texto, contenido) {
   }
 
 }
+// funcion para limpiar formularios
+function limpiarFormulario(formulario){
+  document.getElementById(formulario).reset();
+}
+// funcion para limpiar inputs
+function limpiarInput(idInput){
+  document.getElementById(idInput).value = "";
+}
+
+// funcion para colocar el cursor en un inpucon focus
+function focusInput(idInput){
+  document.getElementById(idInput).focus();
+}
 
 function multi(uno = 0,dos = 0){
   let result = parseFloat(0.0);

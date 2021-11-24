@@ -14,6 +14,9 @@ class ComprasController
         $prod = new ComprasModel();
         $producto = $prod->getAll('productos');
 
+        $lista = new ComprasModel();
+        $listaProducto = $lista->getAll('producto');
+
         require_once 'views/compras/index.php';
     }
 

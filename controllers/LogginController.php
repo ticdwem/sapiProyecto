@@ -12,7 +12,7 @@ class LogginController
     public function index(){
         $_SESSION['usuario'] = array(
             'id' => 1,
-            'consultorio' =>1,
+            'consultorio' =>"Miguel Angel",
             'nombre'=>"Miguel",
             'apeliidos'=>"Dewm",
             'tipo'=>1,
