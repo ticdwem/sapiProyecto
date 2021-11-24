@@ -37,6 +37,7 @@ formCompras.addEventListener("submit", function (event) {
   limpiarInput("inputLote");
   limpiarInput("inputPrecio");
   limpiarInput("inputSubtotal");
-
+// este codigo sirve para poner el cursor en la primer input
   focusInput("inputCodigo");
+  
 });
