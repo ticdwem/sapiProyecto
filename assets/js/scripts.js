@@ -297,6 +297,7 @@ function tamanoTxt(texto, length_txt) {
         si este regresa un valor mayor a cero este se toma como un valor 
         negatico*/
 function validarCampos(arrayDatos) {
+  console.log()
   let contador = 0;
   for (var clave in arrayDatos[0]) {
     var indice = separaTexto(clave)

@@ -250,6 +250,15 @@ $contador = 1;
 					});
                     return
                 }else{
+
+                    let insertProducto = document.getElementById("registroProducto"); // este es el id de la tabla
+                    let newProductoRow = insertProducto.insertRow(-1); //este retorna una fila en la ultima fila de 
+
+                    let newproductoCellNew = newProductoRow.insertCell(0);// posisicion de la celda
+                    newproductoCellNew.textContent = transactionFormData.get("inputCodigo");
+
+                    newproductoCellNew = newProductoRow.insertCell(1);// posisicion de la celda
+                    newproductoCellNew.textContent = transactionFormData.get("inputNombreProd")
                     limpiarInput("inputCodigo");
                     limpiarInput("inputNombreProd");
                     limpiarInput("inputPieza");
@@ -260,15 +269,6 @@ $contador = 1;
                     // este codigo sirve para poner el cursor en la primer input
                     focusInput("inputCodigo");
                     validar.length = "";
-
-                    let insertProducto = document.getElementById("registroProducto"); // este es el id de la tabla
-                    let newProductoRow = insertProducto.insertRow(-1); //este retorna una fila en la ultima fila de 
-
-                    let newproductoCellNew = newProductoRow.insertCell(0);// posisicion de la celda
-                    newproductoCellNew.textContent = transactionFormData.get("inputCodigo");
-
-                    newproductoCellNew = newProductoRow.insertCell(1);// posisicion de la celda
-                    newproductoCellNew.textContent = transactionFormData.get("inputNombreProd")
 
                     newproductoCellNew = newProductoRow.insertCell(2);// posisicion de la celda
                     newproductoCellNew.textContent = transactionFormData.get("inputPieza")
