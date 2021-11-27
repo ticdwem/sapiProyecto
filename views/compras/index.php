@@ -74,23 +74,23 @@ $contador = 1;
                                     <label class="mr-sm-2" for="inputCodigo">Código</label>
                                     <div class="input-group">
                                         <input type="text" name="inputCodigo" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputCodigo">
-                                        <div class="inputCodigo"></div>
                                     </div>
+                                    <div class="inputCodigo"></div>
                                 </div>
                                 <div class="col-lg-2">
                                     <label class="mr-sm-2" for="inputNombreProd">Nombre</label>
                                     <div class="input-group">
                                         <input type="text" name="inputNombreProd" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputNombreProd" readonly>
-                                        <div class="inputNombreProd"></div>
                                     </div>
+                                    <div class="inputNombreProd"></div>
                                 </div>
 
                                 <div class="col-lg-2">
                                     <label class="mr-sm-2" for="inputPieza">Piezas</label>
                                     <div class="input-group">
                                         <input type="text" name="inputPieza" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPieza">
-                                        <div class="inputPieza"></div>
                                     </div>
+                                    <div class="inputPieza"></div>
                                 </div>
                                 <div class="col-lg-2">
                                     <label class="mr-sm-2" for="inputPeso">Peso</label>
@@ -122,7 +122,7 @@ $contador = 1;
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <button type="submit" class="btn btn-success" name="btn-acepta">Aceptar</button>
+                                <button type="submit" class="btn btn-success" id="enterProducto" name="btn-acepta">Aceptar</button>
                                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bd-example-modal-lg">Buscar</button>
                                 <button type="button" class="btn btn-info" onclick="limpiarFormulario('frmIdCompra')" name="btn-cancela">Limpiar</button>
                             </div>
@@ -147,15 +147,7 @@ $contador = 1;
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
+                    
                 </tbody>
             </table>
         </div>
@@ -174,27 +166,27 @@ $contador = 1;
             </div>
             <div class="modal-body">
 
-            <div  id="tab-comp">
+                <div div  id="tab-comp">
 
-                <table class="table table-striped" id="tablaPRoductos">
-                    <thead>
-                        <tr>
-                            <th scope="col">idProdducto</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($listaProd = $listaProducto->fetch_object() ):?>
-                                    
-                        <tr>
-                            <td><?=$listaProd->idProducto;?></td>
-                            <td><?=$listaProd->nombreProducto;?></td>
-                            <td><button type="button" id="<?=$listaProd->idProducto?>" data-idname="<?=$listaProd->nombreProducto;?>" class="btn btn-info" data-dismiss="modal">AGREGAR</button></td>
-                        </tr>     
-                        <?php endwhile;?>                  
-                    </tbody>
-                </table>
+                    <table class="table table-striped" id="tablaPRoductos">
+                        <thead>
+                            <tr>
+                                <th scope="col">idProdducto</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($listaProd = $listaProducto->fetch_object() ):?>
+                                        
+                            <tr>
+                                <td><?=$listaProd->idProducto;?></td>
+                                <td><?=$listaProd->nombreProducto;?></td>
+                                <td><button type="button" id="<?=$listaProd->idProducto?>" data-idname="<?=$listaProd->nombreProducto;?>" class="btn btn-info" data-dismiss="modal">AGREGAR</button></td>
+                            </tr>     
+                            <?php endwhile;?>                  
+                        </tbody>
+                    </table>
                 </div>
 
               
@@ -204,6 +196,7 @@ $contador = 1;
 </div>
 <script>
     $(document).ready(function(){
+        var json ="";
         $('body').on("click","#tablaPRoductos button", function(e){
             e.preventDefault();
             let idboton = $(this).attr("id");
@@ -211,8 +204,93 @@ $contador = 1;
 
             $("#inputCodigo").val(idboton);
             $("#inputNombreProd").val(botonName);
-        });        
+        });   
+        
+        $("#enterProducto").on('click',function(e){
+             if(e.which == 13){
+               verificar();
+            }else{ 
+                verificar();
+            }  
+            
+        })
+
+
+
     });
 
+     function verificar(e){      
+            let validar = Array();
+            const formCompras = document.getElementById("frmIdCompra");
+
+            formCompras.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                let transactionFormData = new FormData(formCompras); // obtiene los datos del formulario
+
+                let inputCodigo = document.getElementById('inputCodigo').value; 
+                let inputNombreProd = document.getElementById('inputNombreProd').value; 
+                let inputPieza = document.getElementById('inputPieza').value; 
+                let inputPeso = document.getElementById('inputPeso').value; 
+                let inputLote = document.getElementById('inputLote').value; 
+                let inputPrecio = document.getElementById('inputPrecio').value; 
+                let inputSubtotal = document.getElementById('inputSubtotal').value; 
+
+                validar.push({"phone_inputCodigo_6":inputCodigo,"nombre_inputNombreProd_80":inputNombreProd,"phone_inputPieza_12":inputPieza,"decimales_inputPeso_12":inputPeso,
+                              "nombre_inputLote_50":inputLote,"decimales_inputPrecio_12":inputPrecio,"decimales_inputSubtotal_12":inputSubtotal});
+                var campos = validarCampos(validar);
+                console.log(campos);
+                if(campos > 0 ){
+                    Swal.fire({
+                        position: 'center',
+						icon: 'info',
+						title: 'TODOS LOD CAMPOS SON OBLIGATORIOS',
+						showConfirmButton: false,
+						timer: 1500
+					});
+                    return
+                }else{
+                    limpiarInput("inputCodigo");
+                    limpiarInput("inputNombreProd");
+                    limpiarInput("inputPieza");
+                    limpiarInput("inputPeso");
+                    limpiarInput("inputLote");
+                    limpiarInput("inputPrecio");
+                    limpiarInput("inputSubtotal");
+                    // este codigo sirve para poner el cursor en la primer input
+                    focusInput("inputCodigo");
+                    validar.length = "";
+
+                    let insertProducto = document.getElementById("registroProducto"); // este es el id de la tabla
+                    let newProductoRow = insertProducto.insertRow(-1); //este retorna una fila en la ultima fila de 
+
+                    let newproductoCellNew = newProductoRow.insertCell(0);// posisicion de la celda
+                    newproductoCellNew.textContent = transactionFormData.get("inputCodigo");
+
+                    newproductoCellNew = newProductoRow.insertCell(1);// posisicion de la celda
+                    newproductoCellNew.textContent = transactionFormData.get("inputNombreProd")
+
+                    newproductoCellNew = newProductoRow.insertCell(2);// posisicion de la celda
+                    newproductoCellNew.textContent = transactionFormData.get("inputPieza")
+
+                    newproductoCellNew = newProductoRow.insertCell(3);// posisicion de la celda
+                    newproductoCellNew.textContent = transactionFormData.get("inputPeso")
+
+                    newproductoCellNew = newProductoRow.insertCell(4);// posisicion de la celda
+                    newproductoCellNew.textContent = transactionFormData.get("inputLote")
+
+                    newproductoCellNew = newProductoRow.insertCell(5);// posisicion de la celda
+                    newproductoCellNew.textContent = transactionFormData.get("inputPrecio")
+
+                    newproductoCellNew = newProductoRow.insertCell(6);// posisicion de la celda
+                    newproductoCellNew.textContent = transactionFormData.get("inputSubtotal");
+
+                
+                   
+                 }
+            });
+        
+    }
+ 
 
 </script>

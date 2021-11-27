@@ -244,6 +244,7 @@ class LogginController
         } else {
             $conuslta = new ModeloBase();
             $datos_consultados = mysqli_fetch_object($conuslta->getAllWhere($tabla, "where " . $match . " = " . $datos));
+            if($datos_consultados){
 
             switch ($tabla) {
                 case 'getDomCliente':
@@ -328,6 +329,9 @@ class LogginController
                     # code...
                     break;
             }
+        }else{
+            $returnJson='0';   
+        }
             header('Content-type: application/json; charset=utf-8');
             echo json_encode($returnJson, JSON_FORCE_OBJECT);
             exit();

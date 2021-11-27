@@ -45,7 +45,7 @@ function expRegular(texto, contenido) {
   let decimal;
   let fecha;
   let rfc;
-
+ 
   switch (texto) {
     case "nombre":
       letras_latinas = /^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ/-_-\s]+$/;
@@ -131,7 +131,7 @@ function multi(uno = 0,dos = 0){
   }else{
      result = result.toFixed(2);
   }
-  return humanizeNumber(result);
+  return result;
 }
 
 function sumar(uno, dos) {
@@ -271,13 +271,15 @@ function separaTexto(texto) {
   let separador = "_";
   let limit = 3;
   let textoNuevo = "";
-  let validarTexto = expRegular('nombre', texto)
+  textoNuevo = texto.split(separador, limit);
+  return textoNuevo
+  /* let validarTexto = expRegular('nombre', texto)
   if (validarTexto = !0) {
     textoNuevo = texto.split(separador, limit);
     return textoNuevo
   } else {
     return 0
-  }
+  } */
 }
 
 function tamanoTxt(texto, length_txt) {
@@ -289,7 +291,11 @@ function tamanoTxt(texto, length_txt) {
     return texto
   }
 }
-
+//validar formualrios
+/* NOTA:
+        para que regrese un valor valido debe der igual a cero (0),
+        si este regresa un valor mayor a cero este se toma como un valor 
+        negatico*/
 function validarCampos(arrayDatos) {
   let contador = 0;
   for (var clave in arrayDatos[0]) {
@@ -301,7 +307,6 @@ function validarCampos(arrayDatos) {
       $("." + indice[1]).css('color', 'red')
       contador = contador + 1;
     } else {
-
       var error = expRegular(indice[0], arrayDatos[0][clave])
       if (error != 0) {
         let largoTexto = tamanoTxt(arrayDatos[0][clave], indice[2])

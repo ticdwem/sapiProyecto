@@ -467,7 +467,6 @@ $(document).ready(function () {
 					contentType: false,
 					processData: false,
 					success: function (deleteUser) {
-						console.log(deleteUser);
 						if (deleteUser == 1) {
 
 							location.reload();
@@ -508,7 +507,6 @@ $(document).ready(function () {
 					contentType: false,
 					processData: false,
 					success: function (deleteUser) {
-						console.log(deleteUser);
 						if (deleteUser == 1) {
 
 							location.reload();
@@ -586,10 +584,17 @@ $(document).ready(function () {
 			contentType: false,
 			processData: false,
 			success: function (producto) {
-				if(producto){
-					$("#inputNombreProd").val(producto.nombreProd);
+				if(producto == 0){
+					Swal.fire({
+						position: 'center',
+						icon: 'info',
+						title: 'EL PRODUCTO NO SE HA ENCONTRADO',
+						showConfirmButton: false,
+						timer: 1500
+					});	
+					$("#inputCodigo").focus();
 				}else{
-					alert("no se encontro el producto")
+					$("#inputNombreProd").val(producto.nombreProd);
 				}
 			}
 		})
