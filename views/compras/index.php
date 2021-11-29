@@ -206,26 +206,13 @@ $contador = 1;
             $("#inputNombreProd").val(botonName);
         });   
         
-        $("#enterProducto").on('click',function(e){
-             if(e.which == 13){
-               verificar();
-            }else{ 
-                verificar();
-            }  
-            
-        })
-
-
-
-    });
-
-     function verificar(e){      
-            let validar = Array();
+        /* $("#enterProducto").on('click',function(e){ */
             const formCompras = document.getElementById("frmIdCompra");
-
+            
             formCompras.addEventListener("submit", function (event) {
                 event.preventDefault();
-
+                
+                let validar = Array();
                 let transactionFormData = new FormData(formCompras); // obtiene los datos del formulario
 
                 let inputCodigo = document.getElementById('inputCodigo').value; 
@@ -240,25 +227,31 @@ $contador = 1;
                               "nombre_inputLote_50":inputLote,"decimales_inputPrecio_12":inputPrecio,"decimales_inputSubtotal_12":inputSubtotal});
                 var campos = validarCampos(validar);
                 console.log(campos);
-                if(campos > 0 ){
-                    Swal.fire({
-                        position: 'center',
-						icon: 'info',
-						title: 'TODOS LOD CAMPOS SON OBLIGATORIOS',
-						showConfirmButton: false,
-						timer: 1500
-					});
-                    return
-                }else{
-
+                if(campos == 0 ){
                     let insertProducto = document.getElementById("registroProducto"); // este es el id de la tabla
                     let newProductoRow = insertProducto.insertRow(-1); //este retorna una fila en la ultima fila de 
-
+                    
                     let newproductoCellNew = newProductoRow.insertCell(0);// posisicion de la celda
                     newproductoCellNew.textContent = transactionFormData.get("inputCodigo");
-
+                    
                     newproductoCellNew = newProductoRow.insertCell(1);// posisicion de la celda
-                    newproductoCellNew.textContent = transactionFormData.get("inputNombreProd")
+                    newproductoCellNew.textContent = transactionFormData.get("inputNombreProd");                    
+                    
+                    newproductoCellNew = newProductoRow.insertCell(2);// posisicion de la celda
+                    newproductoCellNew.textContent = transactionFormData.get("inputPieza");
+                    
+                    newproductoCellNew = newProductoRow.insertCell(3);// posisicion de la celda
+                    newproductoCellNew.textContent = transactionFormData.get("inputPeso");
+                    
+                    newproductoCellNew = newProductoRow.insertCell(4);// posisicion de la celda
+                    newproductoCellNew.textContent = transactionFormData.get("inputLote");
+                    
+                    newproductoCellNew = newProductoRow.insertCell(5);// posisicion de la celda
+                    newproductoCellNew.textContent = transactionFormData.get("inputPrecio");
+                    
+                    newproductoCellNew = newProductoRow.insertCell(6);// posisicion de la celda
+                    newproductoCellNew.textContent = transactionFormData.get("inputSubtotal");
+                    
                     limpiarInput("inputCodigo");
                     limpiarInput("inputNombreProd");
                     limpiarInput("inputPieza");
@@ -268,29 +261,27 @@ $contador = 1;
                     limpiarInput("inputSubtotal");
                     // este codigo sirve para poner el cursor en la primer input
                     focusInput("inputCodigo");
-                    validar.length = "";
-
-                    newproductoCellNew = newProductoRow.insertCell(2);// posisicion de la celda
-                    newproductoCellNew.textContent = transactionFormData.get("inputPieza")
-
-                    newproductoCellNew = newProductoRow.insertCell(3);// posisicion de la celda
-                    newproductoCellNew.textContent = transactionFormData.get("inputPeso")
-
-                    newproductoCellNew = newProductoRow.insertCell(4);// posisicion de la celda
-                    newproductoCellNew.textContent = transactionFormData.get("inputLote")
-
-                    newproductoCellNew = newProductoRow.insertCell(5);// posisicion de la celda
-                    newproductoCellNew.textContent = transactionFormData.get("inputPrecio")
-
-                    newproductoCellNew = newProductoRow.insertCell(6);// posisicion de la celda
-                    newproductoCellNew.textContent = transactionFormData.get("inputSubtotal");
-
-                
+                    
+                    
+                    return false;
+                }else{
+                    Swal.fire({
+                        position: 'center',
+						icon: 'info',
+						title: 'TODOS LOD CAMPOS SON OBLIGATORIOS',
+						showConfirmButton: false,
+						timer: 1500
+					});  
+                    
+                    limpiarInput("inputPeso");
+                    limpiarInput("inputPrecio");
+                    limpiarInput("inputSubtotal");
                    
                  }
             });
-        
-    }
- 
+
+
+
+    });
 
 </script>

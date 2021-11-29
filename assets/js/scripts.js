@@ -297,7 +297,7 @@ function tamanoTxt(texto, length_txt) {
         si este regresa un valor mayor a cero este se toma como un valor 
         negatico*/
 function validarCampos(arrayDatos) {
-  console.log()
+  console.log(arrayDatos);
   let contador = 0;
   for (var clave in arrayDatos[0]) {
     var indice = separaTexto(clave)
@@ -340,6 +340,18 @@ function humanizeNumber(n) {
     n = n2
   }
   return n
+}
+
+function deleteArray(arrayDelete){
+  let complete = arrayDelete.length;
+
+  if(complete==0){
+    return -1;
+  }else{
+    for(let i = arrayDelete.length; i > 0; i--){
+      arrayDelete.pop();
+    }
+  }
 }
 /* enviamos por ajax la validacion para hacer  */
 /* $(document).ready(function () { */
