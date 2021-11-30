@@ -592,8 +592,10 @@ $(document).ready(function () {
 						showConfirmButton: false,
 						timer: 1500
 					});	
-					$("#inputCodigo").focus();
+					$("#inputCodigo").focus('inputCodigo');
 				}else{
+					
+					focusInput('inputPieza')
 					$("#inputNombreProd").val(producto.nombreProd);
 				}
 			}
@@ -607,4 +609,13 @@ $(document).ready(function () {
 		let Multiplicacion = multi(peso,precio);
 		$("#inputSubtotal").val(Multiplicacion);
 	})
+	/* esta fucnion sirve para insertar el id y el nombre de los productor */
+	$('body').on("click","#tablaPRoductos button", function(e){
+		e.preventDefault();
+		let idboton = $(this).attr("id");
+		let botonName = $(this).attr("data-idname");
+
+		$("#inputCodigo").val(idboton);
+		$("#inputNombreProd").val(botonName);
+	});   
 });

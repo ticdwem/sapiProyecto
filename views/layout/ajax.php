@@ -248,12 +248,16 @@ class Ajax
 		$delete->deleteTable($this->getTabla(), $this->getWhere(), $id);
 		echo $delete->db->affected_rows;
 	}
+
+	public function insertCompraVenta(){
+
+	}
 }
 /* echo "<pre> //////";
 var_dump($_POST);
 echo "</pre>";
-exit();
- */
+exit(); */
+
 if (isset($_POST["idEstado"])) {
 	$sent = new Ajax();
 	$sent->setDato($_POST["idEstado"]);
@@ -356,4 +360,9 @@ if (isset($_POST["idProductoCompra"])) {
 	$dirPro = new Ajax();
 	$dirPro->setDato($_POST["idProductoCompra"]);
 	$dirPro->findDatosCleente('producto','idProducto');
+}
+if(isset($_POST['compra'])){
+	$compra = new Ajax();
+	$compra->setDato($_POST['compra']);
+	
 }
