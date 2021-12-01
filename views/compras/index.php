@@ -142,7 +142,7 @@ $contador = 1;
 
 
         <div id="caja" class="col-lg-12">
-            <table class="table table-striped" id="registroProducto">
+            <table class="table table-striped" id="registroProductotable">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -154,17 +154,18 @@ $contador = 1;
                         <th scope="col">Subtotal</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="registroProducto">
+
                 </tbody>
             </table>
         </div>
     </div>
     <div class="row">
-        <div id="total" class="tot-comp col-lg-10 text-right">
+        <div class="tot-comp col-lg-10 text-right">
             <label for="total">TOTAL:</label> 
         </div>
-        <div id="total" class="tot-comp col-lg-2 text-left">    
-            <p> $0000.00 </p>
+        <div id="totalDiv" class="tot-comp col-lg-2 text-left">    
+            <p  id="total"> $0000.00 </p>
         </div>
     </div>
 
@@ -220,7 +221,6 @@ $contador = 1;
         /* hacemos un */
         $("#acceptCompra").on('click',function(e){
             let campos = Array();
-            let codigo ="";
             e.preventDefault();
             let nota = $("#nota").val();
             let fechaCompra = $("#fechaCompra").val();
@@ -228,14 +228,15 @@ $contador = 1;
             let selectAlmacenVenta = $("#selectAlmacenVenta option:selected").val();
             campos.push({"phone_nota_12":nota,"date_fechaCompra_16":fechaCompra,"phone_selectNombreProveedor_6":selectNombreProveedor,"phone_selectAlmacenVenta_6":selectAlmacenVenta})
 
-            console.log(nota)
-            console.log(fechaCompra)
+
+            console.log(campos)
+           /*  console.log(fechaCompra)
             console.log(selectNombreProveedor)
-            console.log(selectAlmacenVenta)
+            console.log(selectAlmacenVenta) */
 
             var datos = validarCampos(campos)
             if(datos == 0){
-                let tabla = existeRegistro(registroProducto);
+                let tabla = existeRegistro(registroProductotable);
                 if (tabla == 0){
                     Swal.fire({
                         position: 'center',
@@ -245,6 +246,7 @@ $contador = 1;
                         timer: 1500
                     });  
                 }else{
+                    let totalCompra = 0;
                     $("#registroProducto tr").each(function(){
                         let codigo = $(this).find('td').eq(0).html();
                         let nombre = $(this).find('td').eq(1).html();
@@ -254,8 +256,10 @@ $contador = 1;
                         let precio = $(this).find('td').eq(5).html();
                         let sub = $(this).find('td').eq(6).html();
                         valor.push({'codigo':codigo,'nombre':nombre,'pieza':pz,'peso':peso,'lote':lote,'precio':precio,'sub':sub});
+                        totalCompra +=parseFloat($(this).find('td').eq(6).html());
                     })
-        
+                    console.log(totalCompra)
+                    $("#total").html(totalCompra);
                   valor.shift()
                     let jsonString = JSON.stringify(valor);
                     $.ajax({
@@ -332,6 +336,13 @@ $contador = 1;
                 limpiarInput("inputSubtotal");
                 // este codigo sirve para poner el cursor en la primer input
                 focusInput("inputCodigo");
+                let totalCompra = 0;
+                    $("#registroProducto tr").each(function(){
+                        let sub = $(this).find('td').eq(6).html();
+                        totalCompra +=parseFloat($(this).find('td').eq(6).html());
+                    })
+                    console.log(totalCompra)
+                    $("#total").html(totalCompra);
             }else{
                 Swal.fire({
                     position: 'center',
