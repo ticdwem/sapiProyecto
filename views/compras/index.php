@@ -20,13 +20,6 @@ $contador = 1;
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <!-- <div class="col-lg-2">
-                                    <label class="mr-sm-2" for="inputSubtotal">Subtotal</label>
-                                    <div class="input-group">
-                                        <input type="text" name="inputSubtotal" value="" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputSubtotal">
-                                    </div>
-                                    <div class="inputSubtotal"></div>
-                                </div> -->
                                 <div class="col-md-6">
                                     <div class="input-group input-group-sm mb-3 col-lg-12">
                                         <div class="input-group-prepend">
@@ -167,6 +160,15 @@ $contador = 1;
             </table>
         </div>
     </div>
+    <div class="row">
+        <div id="total" class="tot-comp col-lg-10 text-right">
+            <label for="total">TOTAL:</label> 
+        </div>
+        <div id="total" class="tot-comp col-lg-2 text-left">    
+            <p> $0000.00 </p>
+        </div>
+    </div>
+
     <div class="mt-4">
         <button type="button" id="acceptCompra" class="btn btn-primary btn-lg">Aceptar</button>
         <button type="button" class="btn btn-secondary btn-lg">Cancelar</button>
