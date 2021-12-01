@@ -49,7 +49,7 @@ $contador = 1;
                                     <div class="form-group input-group-sm col-lg-8">
                                         <label for="selectNombreProveedor">NOMBRE DEL PROVEEDOR</label>
                                         <select class="form-control" id="selectNombreProveedor" name="selectNombreProveedor">
-                                            <option value="0">Elige un proveedor</option>
+                                            <option value="-1">Elige un proveedor</option>
                                             <?php $contador=1; while ($provedor = $rowsProv->fetch_object()) : ?>
                                                 <option value="<?= $provedor->idProveedor; ?>" id="contador_<?=$contador?>"><?= $provedor->nombreProveesor; ?></option>
                                             <?php $contador++; endwhile; ?>
@@ -67,7 +67,7 @@ $contador = 1;
                                             <?php endwhile; ?>
                                         </select>
                                     </div>
-                                    <div id="selectAlmacenVenta"></div>
+                                    <div class="selectAlmacenVenta"></div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="input-group" id="domProvListas">
@@ -162,7 +162,6 @@ $contador = 1;
                     </tr>
                 </thead>
                 <tbody>
-                <tr><td>3</td><td>HUEVO</td><td>12</td><td>14</td><td>12</td><td>14</td><td>196.00</td></tr><tr><td>3</td><td>HUEVO</td><td>25</td><td>36</td><td>14</td><td>78</td><td>2808.00</td></tr><tr><td>2</td><td>HARINA</td><td>45</td><td>41</td><td>25</td><td>36</td><td>1476.00</td></tr><tr><td>5</td><td>CALCEINATO</td><td>36</td><td>14</td><td>23</td><td>36</td><td>504.00</td></tr>
                 </tbody>
             </table>
         </div>
@@ -216,45 +215,63 @@ $contador = 1;
 <script>
     $(document).ready(function(){
         let valor = new Array(); // declaramos un nuevo array
-        let campos = Array();
         /* hacemos un */
         $("#acceptCompra").on('click',function(e){
+            let campos = Array();
+            let codigo ="";
             e.preventDefault();
             let nota = $("#nota").val();
-            let dateCompra = $("#fechaCompra").val();
-            let proveedro = $('#selectNombreProveedor option:selected').val();
-            let almacen = $("#selectAlmacenVenta option:selected").val();
-            campos = {"phone_nota_12":nota,"date_dateCompra_16":dateCompra,"phone_proveedro_6":proveedro,"phone_almacen_6":almacen}
+            let fechaCompra = $("#fechaCompra").val();
+            let selectNombreProveedor = $('#selectNombreProveedor option:selected').val();
+            let selectAlmacenVenta = $("#selectAlmacenVenta option:selected").val();
+            campos.push({"phone_nota_12":nota,"date_fechaCompra_16":fechaCompra,"phone_selectNombreProveedor_6":selectNombreProveedor,"phone_selectAlmacenVenta_6":selectAlmacenVenta})
 
             console.log(nota)
-            console.log(dateCompra)
-            console.log(proveedro)
-            console.log(almacen)
-            /* $("#registroProducto tr").each(function(){
-                let codigo = $(this).find('td').eq(0).html();
-                let nombre = $(this).find('td').eq(1).html();
-                let pz = $(this).find('td').eq(2).html();
-                let peso = $(this).find('td').eq(3).html();
-                let lote = $(this).find('td').eq(4).html();
-                let precio = $(this).find('td').eq(5).html();
-                let sub = $(this).find('td').eq(6).html();
-                valor.push({'codigo':codigo,'nombre':nombre,'pieza':pz,'peso':peso,'lote':lote,'precio':precio,'sub':sub});
-            })
+            console.log(fechaCompra)
+            console.log(selectNombreProveedor)
+            console.log(selectAlmacenVenta)
 
-          valor.shift()
-            let jsonString = JSON.stringify(valor);
-            $.ajax({
-				url: getAbsolutePath() + "views/layout/ajax.php",
-				method: "POST",
-				data: { "compra": jsonString },
-				cache: false,
-				beforeSend: function (setContacto) {
-					$('.spinnerCliente').html('<i class="fas fa-sync fa-spin"></i>');
-				},
-				success: function (Compra) {
-                    console.log(Compra)
-				}
-			}); */
+            var datos = validarCampos(campos)
+            if(datos == 0){
+                let tabla = existeRegistro(registroProducto);
+                if (tabla == 0){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'DEBES REGISTR AL MENOS UN PRODUCTO',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });  
+                }else{
+                    $("#registroProducto tr").each(function(){
+                        let codigo = $(this).find('td').eq(0).html();
+                        let nombre = $(this).find('td').eq(1).html();
+                        let pz = $(this).find('td').eq(2).html();
+                        let peso = $(this).find('td').eq(3).html();
+                        let lote = $(this).find('td').eq(4).html();
+                        let precio = $(this).find('td').eq(5).html();
+                        let sub = $(this).find('td').eq(6).html();
+                        valor.push({'codigo':codigo,'nombre':nombre,'pieza':pz,'peso':peso,'lote':lote,'precio':precio,'sub':sub});
+                    })
+        
+                  valor.shift()
+                    let jsonString = JSON.stringify(valor);
+                    $.ajax({
+                        url: getAbsolutePath() + "views/layout/ajax.php",
+                        method: "POST",
+                        data: { "compra": jsonString },
+                        cache: false,
+                        beforeSend: function (setContacto) {
+                            $('.spinnerCliente').html('<i class="fas fa-sync fa-spin"></i>');
+                        },
+                        success: function (Compra) {
+                            console.log(Compra)
+                        }
+                    });                   
+                }
+            }else{
+                campos="";
+            }
 
         })
         

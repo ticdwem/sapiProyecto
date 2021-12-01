@@ -352,6 +352,15 @@ function deleteArray(arrayDelete){
     }
   }
 }
+
+function existeRegistro(idDeTabla){
+  let filas = $(idDeTabla).find('tbody tr').length;
+  if(filas > 0){
+    return 1;
+  }else{
+    return 0;
+  }
+}
 /* enviamos por ajax la validacion para hacer  */
 /* $(document).ready(function () { */
   $(document).ready(function(){
