@@ -162,7 +162,7 @@ class Validacion
 			}
 			return $date;
 		} else {
-			return 1;
+			return -1;
 		}
 	}
 	public static function addZeroDate($dayOrMonth)

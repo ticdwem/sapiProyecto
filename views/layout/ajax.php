@@ -6,6 +6,7 @@ require_once "../../helpers/validacion.php";
 require_once "../../helpers/crypt.php";
 require_once "../../controllers/LogginController.php";
 require_once "../../controllers/ClienteController.php";
+require_once "../../controllers/ComprasController.php";
 
 
 class Ajax
@@ -249,8 +250,12 @@ class Ajax
 		echo $delete->db->affected_rows;
 	}
 
-	public function insertCompraVenta(){
-
+	public function registroCompra(){
+		$ver = $this->getDato();
+		
+		$registro = new ComprasController();
+		$registro->insertCompras($ver);
+		
 	}
 }
 /* echo "<pre> //////";
@@ -364,5 +369,5 @@ if (isset($_POST["idProductoCompra"])) {
 if(isset($_POST['compra'])){
 	$compra = new Ajax();
 	$compra->setDato($_POST['compra']);
-	
+	$compra->registroCompra();
 }

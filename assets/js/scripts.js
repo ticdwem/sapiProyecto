@@ -45,7 +45,7 @@ function expRegular(texto, contenido) {
   let decimal;
   let fecha;
   let rfc;
- 
+
   switch (texto) {
     case "nombre":
       letras_latinas = /^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ/-_-\s]+$/;
@@ -110,26 +110,26 @@ function expRegular(texto, contenido) {
 
 }
 // funcion para limpiar formularios
-function limpiarFormulario(formulario){
+function limpiarFormulario(formulario) {
   document.getElementById(formulario).reset();
 }
 // funcion para limpiar inputs
-function limpiarInput(idInput){
+function limpiarInput(idInput) {
   document.getElementById(idInput).value = "";
 }
 
 // funcion para colocar el cursor en un inpucon focus
-function focusInput(idInput){
+function focusInput(idInput) {
   document.getElementById(idInput).focus();
 }
 
-function multi(uno = 0,dos = 0){
+function multi(uno = 0, dos = 0) {
   let result = parseFloat(0.0);
   result = (parseFloat(uno) * parseFloat(dos));
-  if(result == "NaN" || result == ""){
+  if (result == "NaN" || result == "") {
     result = 0;
-  }else{
-     result = result.toFixed(2);
+  } else {
+    result = result.toFixed(2);
   }
   return result;
 }
@@ -329,7 +329,7 @@ function validarCampos(arrayDatos) {
     }
   }
   return contador
-} 
+}
 
 function humanizeNumber(n) {
   n = n.toString()
@@ -341,29 +341,28 @@ function humanizeNumber(n) {
   return n
 }
 
-function deleteArray(arrayDelete){
+function deleteArray(arrayDelete) {
   let complete = arrayDelete.length;
 
-  if(complete==0){
+  if (complete == 0) {
     return -1;
-  }else{
-    for(let i = arrayDelete.length; i > 0; i--){
+  } else {
+    for (let i = arrayDelete.length; i > 0; i--) {
       arrayDelete.pop();
     }
   }
 }
 
-function existeRegistro(idDeTabla){
+function existeRegistro(idDeTabla) {
   let filas = $(idDeTabla).find('tbody tr').length;
-  if(filas > 0){
+  if (filas > 0) {
     return 1;
-  }else{
+  } else {
     return 0;
   }
 }
+
 /* enviamos por ajax la validacion para hacer  */
 /* $(document).ready(function () { */
-  $(document).ready(function(){
-    
 
-  });
+

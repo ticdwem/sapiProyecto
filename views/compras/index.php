@@ -222,17 +222,12 @@ $contador = 1;
         $("#acceptCompra").on('click',function(e){
             let campos = Array();
             e.preventDefault();
+            let idUser = $("#idUser").attr("id-user");
             let nota = $("#nota").val();
             let fechaCompra = $("#fechaCompra").val();
             let selectNombreProveedor = $('#selectNombreProveedor option:selected').val();
             let selectAlmacenVenta = $("#selectAlmacenVenta option:selected").val();
-            campos.push({"phone_nota_12":nota,"date_fechaCompra_16":fechaCompra,"phone_selectNombreProveedor_6":selectNombreProveedor,"phone_selectAlmacenVenta_6":selectAlmacenVenta})
-
-
-            console.log(campos)
-           /*  console.log(fechaCompra)
-            console.log(selectNombreProveedor)
-            console.log(selectAlmacenVenta) */
+            campos.push({"idUser":idUser,"phone_nota_12":nota,"date_fechaCompra_16":fechaCompra,"phone_selectNombreProveedor_6":selectNombreProveedor,"phone_selectAlmacenVenta_6":selectAlmacenVenta})
 
             var datos = validarCampos(campos)
             if(datos == 0){
@@ -246,7 +241,6 @@ $contador = 1;
                         timer: 1500
                     });  
                 }else{
-                    let totalCompra = 0;
                     $("#registroProducto tr").each(function(){
                         let codigo = $(this).find('td').eq(0).html();
                         let nombre = $(this).find('td').eq(1).html();
@@ -256,12 +250,17 @@ $contador = 1;
                         let precio = $(this).find('td').eq(5).html();
                         let sub = $(this).find('td').eq(6).html();
                         valor.push({'codigo':codigo,'nombre':nombre,'pieza':pz,'peso':peso,'lote':lote,'precio':precio,'sub':sub});
-                        totalCompra +=parseFloat($(this).find('td').eq(6).html());
                     })
-                    console.log(totalCompra)
-                    $("#total").html(totalCompra);
-                  valor.shift()
-                    let jsonString = JSON.stringify(valor);
+
+                    var data = {
+                        "idUser":idUser,
+                        "nota":nota,
+                        "fecha":fechaCompra,
+                        "proveedor":selectNombreProveedor,
+                        "almacen":selectAlmacenVenta,
+                        "productos":valor
+                    }
+                    let jsonString = JSON.stringify(data);
                     $.ajax({
                         url: getAbsolutePath() + "views/layout/ajax.php",
                         method: "POST",
@@ -287,7 +286,7 @@ $contador = 1;
         
         formCompras.addEventListener("submit", function (event) {
             event.preventDefault();
-            
+
             let validar = Array();
             let transactionFormData = new FormData(formCompras); // obtiene los datos del formulario
 
@@ -338,11 +337,9 @@ $contador = 1;
                 focusInput("inputCodigo");
                 let totalCompra = 0;
                     $("#registroProducto tr").each(function(){
-                        let sub = $(this).find('td').eq(6).html();
                         totalCompra +=parseFloat($(this).find('td').eq(6).html());
-                    })
-                    console.log(totalCompra)
-                    $("#total").html(totalCompra);
+                    }) 
+                    $("#total").html(totalCompra.toFixed(2));
             }else{
                 Swal.fire({
                     position: 'center',
