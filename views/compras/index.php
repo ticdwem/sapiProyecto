@@ -227,7 +227,7 @@ $contador = 1;
             let fechaCompra = $("#fechaCompra").val();
             let selectNombreProveedor = $('#selectNombreProveedor option:selected').val();
             let selectAlmacenVenta = $("#selectAlmacenVenta option:selected").val();
-            campos.push({"idUser":idUser,"phone_nota_12":nota,"date_fechaCompra_16":fechaCompra,"phone_selectNombreProveedor_6":selectNombreProveedor,"phone_selectAlmacenVenta_6":selectAlmacenVenta})
+            campos.push({"phone_idUser_12":idUser,"phone_nota_12":nota,"date_fechaCompra_16":fechaCompra,"phone_selectNombreProveedor_6":selectNombreProveedor,"phone_selectAlmacenVenta_6":selectAlmacenVenta})
 
             var datos = validarCampos(campos)
             if(datos == 0){
@@ -249,15 +249,13 @@ $contador = 1;
                         let lote = $(this).find('td').eq(4).html();
                         let precio = $(this).find('td').eq(5).html();
                         let sub = $(this).find('td').eq(6).html();
-                        valor.push({'codigo':codigo,'nombre':nombre,'pieza':pz,'peso':peso,'lote':lote,'precio':precio,'sub':sub});
+                        valor.push({'codigo':codigo,'nombre':nombre,'pieza':pz,'peso':peso,'lote':lote,'precio':precio,'sub':sub,'almacen':selectAlmacenVenta,'proveedor':selectNombreProveedor});
                     })
 
                     var data = {
                         "idUser":idUser,
                         "nota":nota,
                         "fecha":fechaCompra,
-                        "proveedor":selectNombreProveedor,
-                        "almacen":selectAlmacenVenta,
                         "productos":valor
                     }
                     let jsonString = JSON.stringify(data);

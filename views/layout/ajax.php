@@ -4,6 +4,7 @@ require_once "../../config/parameters.php";
 require_once "../../models/pacienteModels.php";
 require_once "../../helpers/validacion.php";
 require_once "../../helpers/crypt.php";
+require_once "../../helpers/utls.php";
 require_once "../../controllers/LogginController.php";
 require_once "../../controllers/ClienteController.php";
 require_once "../../controllers/ComprasController.php";

@@ -22,20 +22,41 @@ class ComprasController
 
     public function insertCompras($compras){
         $datos = json_decode($compras, true);
-
+        //var_dump($datos["productos"]);
+        $contar = count($datos["productos"]);
+         //var_dump($contar);
+       // die();
+       
         // verificamos que los datos no hayan sido altaerados;
         $idUsuer = (Validacion::validarNumero($datos["idUser"]) == -1) ? false : htmlspecialchars($datos["idUser"]);
         $nota = (Validacion::textoLargo($datos["nota"],12) == 900 ) ? false : htmlspecialchars($datos["nota"]);
-        $fecha = (Validacion::valFecha($datos["fechaCompra"]) == -1) ? false :htmlspecialchars($datos["fechaCompra"]);
-        $proveedor = (Validacion::validarNumero($datos["selectNombreProveedor"]) == -1) ? false : htmlspecialchars($datos["selectNombreProveedor"]);
-        $almacen = (Validacion::validarNumero($datos["selectAlmacenVenta"]) == -1) ? false : htmlspecialchars($datos["selectAlmacenVenta"]);
+        $fecha = (Validacion::valFecha($datos["fecha"]) == -1) ? false :htmlspecialchars($datos["fecha"]);
 
-        $validar = array("idUsuer"=>$idUsuer,"nota"=>$nota,"fecha"=>$fecha,"proveedor"=>$proveedor,"almacen"=>$almacen);
+       
+        $validar = array("idUsuer"=>$idUsuer,"nota"=>$nota,"fecha"=>$fecha);
         $val = Utls::sessionValidate($validar);
         if($val > 1){
             echo '<script>window.location="' . base_url . 'Compras/index"</script>';
         }else{
-
+            $notaCompra = new ComprasModel();
+            $notaCompra->setIdUsuer($idUsuer);
+            $notaCompra->setNota($nota);
+            $notaCompra->setFecha($fecha);
+            $insert = $notaCompra->insertCompras();
+            if($insert){
+                for ($i=0; $i < $contar; $i++) { 
+                   $producto = new ComprasModel();
+                   $producto->setIdProducto($datos["productos"][$i]['codigo']);
+                   $producto->setNota($nota);
+                   $producto->setPzDetalleCompra($datos["productos"][$i]['pieza']);
+                   $producto->setPesoDetalleCompra($datos["productos"][$i]['peso']);
+                   $producto->setLoteDetalleCompra($datos["productos"][$i]['lote']);
+                   $producto->setPrecioUnitarioDetalleCompra($datos["productos"][$i]['precio']);
+                   $producto->setSubtotalDetalleCompra($datos["productos"][$i]['sub']);
+                   $producto->setAlmacen($datos["productos"][$i]["almacen"]);
+                }
+                
+            }
         }
         
     }
