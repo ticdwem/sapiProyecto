@@ -239,20 +239,24 @@ class ComprasModel extends ModeloBase
 
     public function insertCompras(){
         $query = "INSERT INTO compras
-                    (usuario_compra, NumeroDeNotasCompras, FechaCompra,proveedorCompras)
-                VALUES ({$this->getIdUsuer()}, {$this->getNota()}, {$this->getFecha()},{$this->getProveedor()})";
-        $querydb = $this->db->query($query);
-        $insert = false;
-        if ($querydb) {
-            $insert = true;
-        }
-        return $insert;     
-    }
+                    (usuario_compra, NumeroDeNotasCompras, FechaCompra,idProveedor)
+                VALUES ({$this->getIdUsuer()}, {$this->getNota()}, '{$this->getFecha()}',{$this->getProveedor()})";
 
-    public function insertDetalleCompras(){
-        $query = "INSERT INTO detallecompra
-                            (idProducto, idNotaDetalleCompras, pzDetalleCompra, pesoDetalleCompra, loteDetalleCompra, precioUnitarioDetalleCompra, subtotalDetalleCompra, idAlmacenEnvio)
-                            VALUES ({$this->getIdProducto()}, {$this->getNota()}, {$this->getPzDetalleCompra()}, {$this->getPesoDetalleCompra()}, {$this->getLoteDetalleCompra()}, {$this->getPrecioUnitarioDetalleCompra()}, {$this->getSubtotalDetalleCompra()}, {$this->getAlmacen()})";
+$querydb = $this->db->query($query);
+$insert = false;
+if ($querydb) {
+    $insert = true;
+}
+return $insert;     
+}
+
+public function insertDetalleCompras(){
+    /* var_dump("adentro de insert insertDetalleCompras");*/
+    $query = "INSERT INTO detallecompra
+                            (idProducto, idCompras, pzDetalleCompra, pesoDetalleCompra, loteDetalleCompra, precioUnitarioDetalleCompra, subtotalDetalleCompra, idAlmacenEnvio)
+                            VALUES ({$this->getIdProducto()}, {$this->getNota()}, {$this->getPzDetalleCompra()}, '{$this->getPesoDetalleCompra()}', {$this->getLoteDetalleCompra()}, '{$this->getPrecioUnitarioDetalleCompra()}', '{$this->getSubtotalDetalleCompra()}', {$this->getAlmacen()})";
+/*         var_dump($query);
+        die();  */
         $querydb = $this->db->query($query);
         $insert = false;
         if ($querydb) {

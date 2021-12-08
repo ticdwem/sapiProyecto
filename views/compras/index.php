@@ -249,13 +249,14 @@ $contador = 1;
                         let lote = $(this).find('td').eq(4).html();
                         let precio = $(this).find('td').eq(5).html();
                         let sub = $(this).find('td').eq(6).html();
-                        valor.push({'codigo':codigo,'nombre':nombre,'pieza':pz,'peso':peso,'lote':lote,'precio':precio,'sub':sub,'almacen':selectAlmacenVenta,'proveedor':selectNombreProveedor});
+                        valor.push({'codigo':codigo,'nombre':nombre,'pieza':pz,'peso':peso,'lote':lote,'precio':precio,'sub':sub,'almacen':selectAlmacenVenta});
                     })
 
                     var data = {
                         "idUser":idUser,
                         "nota":nota,
                         "fecha":fechaCompra,
+                        "provedor":selectNombreProveedor,
                         "productos":valor
                     }
                     let jsonString = JSON.stringify(data);
