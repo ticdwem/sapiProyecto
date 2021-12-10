@@ -257,7 +257,7 @@ class Ajax
 		
 		$registro = new ComprasController();
 		$registro->insertCompras($ver);
-		
+		//echo $registro;
 	}
 }
 /* echo "<pre> //////";

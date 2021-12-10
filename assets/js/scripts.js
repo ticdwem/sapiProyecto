@@ -68,7 +68,7 @@ function expRegular(texto, contenido) {
       break;
 
     case "decimales":
-      decimal = /^([0-9]+\.?[0-9]{0,2})$/;
+      decimal = /^([0-9]+\.?[0-9]{0,3})$/;
       varif = decimal;
       break;
 

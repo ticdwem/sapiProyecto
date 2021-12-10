@@ -131,6 +131,8 @@ $contador = 1;
                                 <button type="submit" class="btn btn-success" id="enterProducto" name="btn-acepta">Aceptar</button>
                                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bd-example-modal-lg">Buscar</button>
                                 <button type="button" class="btn btn-info" onclick="limpiarFormulario('frmIdCompra')" name="btn-cancela">Limpiar</button>
+
+                                
                             </div>
                         </div>
                     </div><!-- FIN DEL CARD -->
@@ -155,7 +157,7 @@ $contador = 1;
                     </tr>
                 </thead>
                 <tbody id="registroProducto">
-
+                                                
                 </tbody>
             </table>
         </div>
@@ -170,7 +172,10 @@ $contador = 1;
     </div>
 
     <div class="mt-4">
-        <button type="button" id="acceptCompra" class="btn btn-primary btn-lg">Aceptar</button>
+        <button type="button" id="acceptCompra" class="btn btn-primary btn-lg">
+        <span  role="status" aria-hidden="true"></span>
+        Aceptar
+    </button>
         <button type="button" class="btn btn-secondary btn-lg">Cancelar</button>
     </div>
 </div>
@@ -266,10 +271,15 @@ $contador = 1;
                         data: { "compra": jsonString },
                         cache: false,
                         beforeSend: function (setContacto) {
+                            $("#acceptCompra").attr('disabled','disabled');
+                            $("#acceptCompra span").addClass("spinner-border spinner-border-sm");
                             $('.spinnerCliente').html('<i class="fas fa-sync fa-spin"></i>');
                         },
                         success: function (Compra) {
                             console.log(Compra)
+                            $("#acceptCompra").removeAttr('disabled','disabled');
+                            $("#acceptCompra span").removeClass("spinner-border spinner-border-sm");
+                            location.reload();
                         }
                     });                   
                 }

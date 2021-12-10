@@ -21,10 +21,11 @@ class ComprasController
     }
 
     public function insertCompras($compras){
+        $inserta =0;
         $datos = json_decode($compras, true);
-        //var_dump($datos["productos"]);
         $contar = count($datos["productos"]);
-        
+        /* var_dump($datos["productos"]);
+        die(); */
        
         // verificamos que los datos no hayan sido altaerados;
         $idUsuer = (Validacion::validarNumero($datos["idUser"]) == -1) ? false : htmlspecialchars($datos["idUser"]);
@@ -39,9 +40,6 @@ class ComprasController
         if($val > 1){
             echo '<script>window.location="' . base_url . 'Compras/index"</script>';
         }else{
-
-            //var_dump("hola estamos adentro");
-           
             $notaCompra = new ComprasModel();
             $notaCompra->setIdUsuer($idUsuer);
             $notaCompra->setNota($nota);
@@ -59,9 +57,17 @@ class ComprasController
                    $producto->setPrecioUnitarioDetalleCompra($datos["productos"][$i]['precio']);
                    $producto->setSubtotalDetalleCompra($datos["productos"][$i]['sub']);
                    $producto->setAlmacen($datos["productos"][$i]["almacen"]);
-                   $producto->insertDetalleCompras();
+                   $inserta = $producto->insertDetalleCompras();
+                   if($inserta ==  false){
+                    $inserta ++;
+                     $_SESSION["nombre"] = $datos["productos"][$i]['nombre'];
+                   }
                 }
-                
+                if($inserta > 0){
+                    $_SESSION['formulario_Inserta'] = "hubo un error al insertar ".$_SESSION["nombre"]." corrige los datos e ingresa de nuevo";
+                }else{
+                    echo 0;
+                }
             }
         }
         

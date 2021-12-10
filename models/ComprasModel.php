@@ -251,12 +251,7 @@ return $insert;
 }
 
 public function insertDetalleCompras(){
-    /* var_dump("adentro de insert insertDetalleCompras");*/
-    $query = "INSERT INTO detallecompra
-                            (idProducto, idCompras, pzDetalleCompra, pesoDetalleCompra, loteDetalleCompra, precioUnitarioDetalleCompra, subtotalDetalleCompra, idAlmacenEnvio)
-                            VALUES ({$this->getIdProducto()}, {$this->getNota()}, {$this->getPzDetalleCompra()}, '{$this->getPesoDetalleCompra()}', {$this->getLoteDetalleCompra()}, '{$this->getPrecioUnitarioDetalleCompra()}', '{$this->getSubtotalDetalleCompra()}', {$this->getAlmacen()})";
-/*         var_dump($query);
-        die();  */
+    $query = "CALL insertProducto({$this->getIdProducto()}, {$this->getNota()}, {$this->getPzDetalleCompra()}, '{$this->getPesoDetalleCompra()}', {$this->getLoteDetalleCompra()}, '{$this->getPrecioUnitarioDetalleCompra()}', '{$this->getSubtotalDetalleCompra()}', {$this->getAlmacen()})";
         $querydb = $this->db->query($query);
         $insert = false;
         if ($querydb) {
