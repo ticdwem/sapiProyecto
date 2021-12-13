@@ -617,5 +617,42 @@ $(document).ready(function () {
 
 		$("#inputCodigo").val(idboton);
 		$("#inputNombreProd").val(botonName);
-	});   
+	}); 
+	
+	// buscamos los datos del cliente 
+	$("#numeroCliente").on("change",function(){
+		let cliente = Array();
+		let numeroCliente = $(this).val();
+
+		cliente.push({'phone_numeroCliente_10':numeroCliente});
+		validar = validarCampos(cliente);
+		if(validar>0){
+			e.preventDefault();
+		} else if (validar == 0) {
+			let data = { "data": cliente }
+			var json = JSON.stringify(data);
+			$.ajax({
+				url: getAbsolutePath() + "views/layout/ajax.php",
+				method: "POST",
+				data: { "idCliente": json },
+				cache: false,
+				beforeSend: function () {
+					$('#circuloCliente').html('<i class="fas fa-sync fa-spin"></i>');
+				},
+				success: function (cliente) {
+					console.log(cliente)
+					
+				}
+			});
+			$("#streetCustomer").val('')
+			$("#numeroCustomer").val('')
+			$("#inputEstado").val('')
+			$("#inpuMunicipio").val('')
+			$("#coloniaCustomer").val('')
+			$("#cpCustomer").val('')
+			$("#RutaCustomer").val('')
+		}
+		
+		
+	})
 });

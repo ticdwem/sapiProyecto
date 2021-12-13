@@ -260,10 +260,10 @@ class Ajax
 		//echo $registro;
 	}
 }
-/* echo "<pre> //////";
+echo "<pre> //////";
 var_dump($_POST);
 echo "</pre>";
-exit(); */
+exit();
 
 if (isset($_POST["idEstado"])) {
 	$sent = new Ajax();

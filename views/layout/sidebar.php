@@ -67,6 +67,10 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         COMPRAS
                     </a>
+                    <a class="nav-link" href="<?= base_url ?>Remision/index">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        REMISIONES
+                    </a>
                     <div class="sb-sidenav-menu-heading">SUCURSALES</div>
                   <!--   <a class="nav-link" href="<?= base_url ?>Consultorio/nuevo">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>

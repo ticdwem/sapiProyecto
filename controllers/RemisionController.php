@@ -4,7 +4,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/models/RemisionModel.php";
 
 class RemisionController{
     public function index(){
-      //  return "views/remisiones/index.php"; 
+      // hacemos consulta para la lista de clientes
+      $cliente = new RemisionModel();
+     $clientes = $cliente->getAll("cliente");
       require_once "views/remisiones/index.php";
     }
 

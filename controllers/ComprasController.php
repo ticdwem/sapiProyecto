@@ -24,8 +24,6 @@ class ComprasController
         $inserta =0;
         $datos = json_decode($compras, true);
         $contar = count($datos["productos"]);
-        /* var_dump($datos["productos"]);
-        die(); */
        
         // verificamos que los datos no hayan sido altaerados;
         $idUsuer = (Validacion::validarNumero($datos["idUser"]) == -1) ? false : htmlspecialchars($datos["idUser"]);
