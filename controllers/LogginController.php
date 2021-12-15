@@ -246,92 +246,92 @@ class LogginController
             $datos_consultados = mysqli_fetch_object($conuslta->getAllWhere($tabla, "where " . $match . " = " . $datos));
             if($datos_consultados){
 
-            switch ($tabla) {
-                case 'getDomCliente':
-                    $returnJson = array(
-                        'idDomicilio' => $datos_consultados->idDomicilioCliente,
-                        'idcliente' => $datos_consultados->clienteId,
-                        'calle' => $datos_consultados->calleDomicilioCliente,
-                        'numeroCasa' => $datos_consultados->numeroDomicilioCliente,
+                switch ($tabla) {
+                    case 'getDomCliente':
+                        $returnJson = array(
+                            'idDomicilio' => $datos_consultados->idDomicilioCliente,
+                            'idcliente' => $datos_consultados->clienteId,
+                            'calle' => $datos_consultados->calleDomicilioCliente,
+                            'numeroCasa' => $datos_consultados->numeroDomicilioCliente,
 
-                        'idEstado' => $datos_consultados->idEstado,
-                        'nombreEstado' => $datos_consultados->estado,
-                        'idMunicipio' => $datos_consultados->estados_municipios_id,
-                        'nombreMunicipio' => $datos_consultados->municipio,
-                        'colonia' => $datos_consultados->coloniaDomicilioCliente,
+                            'idEstado' => $datos_consultados->idEstado,
+                            'nombreEstado' => $datos_consultados->estado,
+                            'idMunicipio' => $datos_consultados->estados_municipios_id,
+                            'nombreMunicipio' => $datos_consultados->municipio,
+                            'colonia' => $datos_consultados->coloniaDomicilioCliente,
 
-                        'cp' => $datos_consultados->cpDomicilioCliente,
-                        'idRuta' => $datos_consultados->rutaId,
-                        'nombreRuta' => $datos_consultados->nombreRuta
+                            'cp' => $datos_consultados->cpDomicilioCliente,
+                            'idRuta' => $datos_consultados->rutaId,
+                            'nombreRuta' => $datos_consultados->nombreRuta
 
-                    );
-                    break;
-                case 'contactocliente':
-                    $returnJson = array(
-                        'idContactoCliente' => $datos_consultados->idContactoCliente,
-                        'idcliente' => $datos_consultados->ClienteId,
-                        'nombreCliente' => $datos_consultados->nombreContatoCliente,
-                        'telefonoPrincipal' => $datos_consultados->telPrinContactoCliente,
+                        );
+                        break;
+                    case 'contactocliente':
+                        $returnJson = array(
+                            'idContactoCliente' => $datos_consultados->idContactoCliente,
+                            'idcliente' => $datos_consultados->ClienteId,
+                            'nombreCliente' => $datos_consultados->nombreContatoCliente,
+                            'telefonoPrincipal' => $datos_consultados->telPrinContactoCliente,
 
-                        'telefonoScundario' => $datos_consultados->telSecundarioContactoCliente,
-                        'correoContacto' => $datos_consultados->correoContactoSecundario
+                            'telefonoScundario' => $datos_consultados->telSecundarioContactoCliente,
+                            'correoContacto' => $datos_consultados->correoContactoSecundario
 
-                    );
-                    break;
-                case 'contactoproveedor':
-                    $returnJson = array(
-                        'idContactoCliente' => $datos_consultados->idContactoProveedor,
-                        'idcliente' => $datos_consultados->proveedorId,
-                        'nombreCliente' => $datos_consultados->nombreProveesor,
-                        'telefonoPrincipal' => $datos_consultados->telefono1Proveedor,
+                        );
+                        break;
+                    case 'contactoproveedor':
+                        $returnJson = array(
+                            'idContactoCliente' => $datos_consultados->idContactoProveedor,
+                            'idcliente' => $datos_consultados->proveedorId,
+                            'nombreCliente' => $datos_consultados->nombreProveesor,
+                            'telefonoPrincipal' => $datos_consultados->telefono1Proveedor,
 
-                        'telefonoScundario' => $datos_consultados->telefono2proveedor,
-                        'correoContacto' => $datos_consultados->correoproveedor
+                            'telefonoScundario' => $datos_consultados->telefono2proveedor,
+                            'correoContacto' => $datos_consultados->correoproveedor
 
-                    );
-                    break;
-                case 'getdomproveedor':
-                    $returnJson = array(
-                        'idDomicilioProveedor' => $datos_consultados->idDomicilioProveedor,
-                        'proveedorId' => $datos_consultados->proveedorId,
-                        'calleDomicilioPRoveedor' => $datos_consultados->calleDomicilioPRoveedor,
-                        'numeroDomiclioProveedor' => $datos_consultados->numeroDomiclioProveedor,
-                        'municipioDomicilioProveedor' => $datos_consultados->municipioDomicilioProveedor,
-                        'cpDomicilioProveedor' => $datos_consultados->cpDomicilioProveedor,
-                        'coloniaProv' => $datos_consultados->coloniaProv,
-                        'idMunicipio' => $datos_consultados->idMunicipio,
-                        'municipio' => $datos_consultados->municipio,
-                        'idEstado' => $datos_consultados->idEstado,
-                        'estado' => $datos_consultados->estado
-                    );
-                    break;
-                case 'almacen':
-                    $returnJson = array(
-                        'idAlmacen' => $datos_consultados->idAlmacen,
-                        'nombreAlmacen' => $datos_consultados->nombreAlmacen,
-                        'areaAlmacen' => $datos_consultados->areaAlmacen,
-                        'cuentaContableAlmacen' => $datos_consultados->cuentaContableAlmacen,
-                        'statusAlamcen' => $datos_consultados->statusAlamcen,
-                    );
-                    break;
-                case 'producto':
-                    
-                    $returnJson = array(
-                        'idProducto' => $datos_consultados->idProducto,
-                        'nombreProd' => $datos_consultados->nombreProducto,
-                        'descripcionProd' => $datos_consultados->DescripcionProducto,
-                        'unidadMedida' => $datos_consultados->UnidadMedidaProducto,
-                        'statusProd' => $datos_consultados->statusProducto,
-                        'fechaIngreso' => $datos_consultados->fechaIngreso
-                    );
-                    break;
-                default:
-                    # code...
-                    break;
+                        );
+                        break;
+                    case 'getdomproveedor':
+                        $returnJson = array(
+                            'idDomicilioProveedor' => $datos_consultados->idDomicilioProveedor,
+                            'proveedorId' => $datos_consultados->proveedorId,
+                            'calleDomicilioPRoveedor' => $datos_consultados->calleDomicilioPRoveedor,
+                            'numeroDomiclioProveedor' => $datos_consultados->numeroDomiclioProveedor,
+                            'municipioDomicilioProveedor' => $datos_consultados->municipioDomicilioProveedor,
+                            'cpDomicilioProveedor' => $datos_consultados->cpDomicilioProveedor,
+                            'coloniaProv' => $datos_consultados->coloniaProv,
+                            'idMunicipio' => $datos_consultados->idMunicipio,
+                            'municipio' => $datos_consultados->municipio,
+                            'idEstado' => $datos_consultados->idEstado,
+                            'estado' => $datos_consultados->estado
+                        );
+                        break;
+                    case 'almacen':
+                        $returnJson = array(
+                            'idAlmacen' => $datos_consultados->idAlmacen,
+                            'nombreAlmacen' => $datos_consultados->nombreAlmacen,
+                            'areaAlmacen' => $datos_consultados->areaAlmacen,
+                            'cuentaContableAlmacen' => $datos_consultados->cuentaContableAlmacen,
+                            'statusAlamcen' => $datos_consultados->statusAlamcen,
+                        );
+                        break;
+                    case 'producto':
+                        
+                        $returnJson = array(
+                            'idProducto' => $datos_consultados->idProducto,
+                            'nombreProd' => $datos_consultados->nombreProducto,
+                            'descripcionProd' => $datos_consultados->DescripcionProducto,
+                            'unidadMedida' => $datos_consultados->UnidadMedidaProducto,
+                            'statusProd' => $datos_consultados->statusProducto,
+                            'fechaIngreso' => $datos_consultados->fechaIngreso
+                        );
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
+            }else{
+                $returnJson='0';   
             }
-        }else{
-            $returnJson='0';   
-        }
             header('Content-type: application/json; charset=utf-8');
             echo json_encode($returnJson, JSON_FORCE_OBJECT);
             exit();

@@ -572,10 +572,10 @@ $(document).ready(function () {
 		})
 	});
 	/* ajax quw consulta e imprime en las casillas para los productos  expRegular("email", emailer); */
-	$("#inputCodigo").on("change",function(){
+	$("#inputCodigo").on("change", function () {
 		$id = $(this).val();
 		let producto = new FormData();
-		producto.append('idProductoCompra',$id);
+		producto.append('idProductoCompra', $id);
 		$.ajax({
 			url: getAbsolutePath() + "views/layout/ajax.php",
 			method: "POST",
@@ -584,17 +584,17 @@ $(document).ready(function () {
 			contentType: false,
 			processData: false,
 			success: function (producto) {
-				if(producto == 0){
+				if (producto == 0) {
 					Swal.fire({
 						position: 'center',
 						icon: 'info',
 						title: 'EL PRODUCTO NO SE HA ENCONTRADO',
 						showConfirmButton: false,
 						timer: 1500
-					});	
+					});
 					$("#inputCodigo").focus('inputCodigo');
-				}else{
-					
+				} else {
+
 					focusInput('inputPieza')
 					$("#inputNombreProd").val(producto.nombreProd);
 				}
@@ -603,56 +603,133 @@ $(document).ready(function () {
 	})
 
 	/*  calculamos el total multiplicando el precio por el precio */
-	$("#inputPrecio").on("change",function(){
+	$("#inputPrecio").on("change", function () {
 		let precio = $(this).val();
 		let peso = $("#inputPeso").val();
-		let Multiplicacion = multi(peso,precio);
+		let Multiplicacion = multi(peso, precio);
 		$("#inputSubtotal").val(Multiplicacion);
 	})
 	/* esta fucnion sirve para insertar el id y el nombre de los productor */
-	$('body').on("click","#tablaPRoductos button", function(e){
+	$('body').on("click", "#tablaPRoductos button", function (e) {
 		e.preventDefault();
 		let idboton = $(this).attr("id");
 		let botonName = $(this).attr("data-idname");
 
 		$("#inputCodigo").val(idboton);
 		$("#inputNombreProd").val(botonName);
-	}); 
-	
+	});
+
 	// buscamos los datos del cliente 
-	$("#numeroCliente").on("change",function(){
+	$("#numeroCliente").on("change", function () {
 		let cliente = Array();
 		let numeroCliente = $(this).val();
 
-		cliente.push({'phone_numeroCliente_10':numeroCliente});
+		cliente.push({ 'phone_numeroCliente_10': numeroCliente });
 		validar = validarCampos(cliente);
-		if(validar>0){
+
+		if (validar > 0) {
 			e.preventDefault();
 		} else if (validar == 0) {
-			let data = { "data": cliente }
-			var json = JSON.stringify(data);
+			let clienteId = new FormData();
+			clienteId.append('idClienteVenta', numeroCliente);
+
 			$.ajax({
 				url: getAbsolutePath() + "views/layout/ajax.php",
 				method: "POST",
-				data: { "idCliente": json },
+				data: clienteId,
 				cache: false,
+				contentType: false,
+				processData: false,
 				beforeSend: function () {
 					$('#circuloCliente').html('<i class="fas fa-sync fa-spin"></i>');
 				},
 				success: function (cliente) {
-					console.log(cliente)
-					
+					let countCliente = Object.keys(cliente).length;
+					if(countCliente>1){
+						
+						$("#NomClienteTitulo").html(cliente[0].nombreCliente)
+						let contador = 2;
+						let ContadorSecundario=1;
+						$('#TablaDatosClientes').modal('toggle');
+
+						// creamos la tabla
+						let table = document.createElement('table');
+						table.classList.add('table');
+						table.classList.add('table-hover');
+						table.classList.add('tblDatosCliente');
+						let thead = document.createElement('thead');
+						let tbody = document.createElement('tbody');
+
+						table.appendChild(thead);
+						table.appendChild(tbody);
+
+						// Agregar la tabla completa a la etiqueta del cuerpo
+						document.getElementById('datosTiendas').appendChild(table);
+
+						// Crear y agregar datos a la primera fila de la tabla este es el encabezado
+						let row_1 = document.createElement('tr');
+						let heading_1 = document.createElement('th');
+						heading_1.innerHTML = "ESTADO";
+						let heading_2 = document.createElement('th');
+						heading_2.innerHTML = "MUNICIPIO";
+						let heading_3 = document.createElement('th');
+						heading_3.innerHTML = "COLINIA";
+						let heading_4 = document.createElement('th');
+						heading_4.innerHTML = "CALLE";
+
+						row_1.appendChild(heading_1);
+						row_1.appendChild(heading_2);
+						row_1.appendChild(heading_3);
+						row_1.appendChild(heading_4);
+						thead.appendChild(row_1);
+						// iteramos en cada uno de los datos que tiene json y hacemos la tabla
+						for(let x of Object.keys(cliente)) {
+							var capital = cliente[x];
+							let titulo = "row_"+contador;
+							let titulofila1 = "row_"+contador+"_data_"+ContadorSecundario;
+							let titulofila2 = "row_"+(contador+1)+"_data_"+ContadorSecundario;
+							let titulofila3 = "row_"+(contador+2)+"_data_"+ContadorSecundario;
+							let titulofila4 = "row_"+(contador+3)+"_data_"+ContadorSecundario;
+
+							console.log(x,capital.calleDomicilioCliente);
+							
+
+														// Creating and adding data to second row of the table
+							titulo= document.createElement('tr');
+							titulofila1 = document.createElement('td');
+							titulofila1.innerHTML = capital.estado;
+							titulofila2 = document.createElement('td');
+							titulofila2.innerHTML = capital.municipio;
+							titulofila3 = document.createElement('td');
+							titulofila3.innerHTML = capital.calleDomicilioCliente;
+							titulofila4 = document.createElement('td');
+							titulofila4.innerHTML = '<button type="button" id="porLoMientras" class="btn btn-primary btn-lg">Seleccionar</button>';
+
+							titulo.appendChild(titulofila1);
+							titulo.appendChild(titulofila2);
+							titulo.appendChild(titulofila3);
+							titulo.appendChild(titulofila4);
+							tbody.appendChild(titulo);
+
+							contador++;
+							ContadorSecundario++;
+
+						}
+
+					}else{
+						alert("solo es uno");
+					}
 				}
 			});
-			$("#streetCustomer").val('')
+			/* $("#streetCustomer").val('')
 			$("#numeroCustomer").val('')
 			$("#inputEstado").val('')
 			$("#inpuMunicipio").val('')
 			$("#coloniaCustomer").val('')
 			$("#cpCustomer").val('')
-			$("#RutaCustomer").val('')
+			$("#RutaCustomer").val('') */
 		}
-		
-		
+
+
 	})
 });

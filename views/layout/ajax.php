@@ -9,6 +9,7 @@ require_once "../../helpers/utls.php";
 require_once "../../controllers/LogginController.php";
 require_once "../../controllers/ClienteController.php";
 require_once "../../controllers/ComprasController.php";
+require_once "../../controllers/RemisionController.php";
 
 
 class Ajax
@@ -259,11 +260,19 @@ class Ajax
 		$registro->insertCompras($ver);
 		//echo $registro;
 	}
+
+	public function datosClienteVentas($tabla1,$tabla2){
+		$id = (int)$this->getDato();
+		
+		$cliente = new RemisionController();
+		$cliente->clienteVenta($tabla1,$tabla2,$id);
+
+	}
 }
-echo "<pre> //////";
+/* echo "<pre> //////";
 var_dump($_POST);
 echo "</pre>";
-exit();
+exit(); */
 
 if (isset($_POST["idEstado"])) {
 	$sent = new Ajax();
@@ -372,4 +381,9 @@ if(isset($_POST['compra'])){
 	$compra = new Ajax();
 	$compra->setDato($_POST['compra']);
 	$compra->registroCompra();
+}
+if (isset($_POST['idClienteVenta'])) {
+	$contact = new Ajax();
+	$contact->setDato($_POST["idClienteVenta"]);
+	$contact->datosClienteVentas('getdomcliente','cliente');
 }

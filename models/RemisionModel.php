@@ -3,6 +3,53 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/config/modeloBase.php";
 
 class RemisionModel extends ModeloBase {
     
-    // creamos una funcion index 
+    // creamos una funcion para hacer la consulta de los datos del cliente
+    private $id;
+    private $table1;
+    private $table2;
+
+
+    public function getId()
+    {
+        return $this->id;
+    }
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function gettable1(){
+        return $this->table1;
+    }
+    public function setTable1($tabla){
+        $this->table1 = $tabla;
+
+        return $this;
+    }
+
+    public function gettable2(){
+        return $this->table2;
+    }
+
+    public function setTable2($tabla2){
+        $this->table2 = $tabla2;
+
+        return $this;
+    }
+
+    public function findCustomerAll(){
+       $query = "SELECT * from {$this->gettable1()} 
+                INNER JOIN {$this->gettable2()} 
+                ON clienteId = idCliente
+                WHERE clienteId = {$this->getId()}";
+       $queryselect = $this->db->query($query);
+
+       return $queryselect;
+            
+    }
+
+
    
 }
