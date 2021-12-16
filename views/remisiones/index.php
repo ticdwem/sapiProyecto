@@ -51,6 +51,7 @@
                                             <!-- ========================================= -->
                                         </div>
                                     </div>
+                                    <input type="hidden" id="xbtn" value="">
                                     <div class="numeroCliente"></div>
                                 </div>
                                 <!-- ========================== -->
@@ -200,6 +201,7 @@
         </button>
       </div>
       <div class="modal-body">
+          <div id="dataCostumer" class="dataCostumer" data-id="" value=""></div>
        <div id="datosTiendas" class=""></div>
       </div>
       <div class="modal-footer">
@@ -208,10 +210,18 @@
     </div>
   </div>
 </div>
-<script>
+<script> 
+$(document).on('click','.seleccionarIdCliente',function(e){
+           e.stopPropagation();
+       let id = $(this).attr('data-id');
+      /*  $("#xbtn").val(id);
+ */
+       $('#TablaDatosClientes').modal('hide');
+       
+   })
     $(document).keydown(function(tecla){
        if(tecla.keyCode == 113){
-          $("#exampleModalLong").modal('toggle');
-       }
+          $("#exampleModalLong").modal('toggle',{backdrop: 'static', keyboard: false});
+       }  
     });
 </script>

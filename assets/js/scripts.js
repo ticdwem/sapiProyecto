@@ -362,7 +362,84 @@ function existeRegistro(idDeTabla) {
   }
 }
 
-/* enviamos por ajax la validacion para hacer  */
-/* $(document).ready(function () { */
+function tablasClientes(json){
+      let indiceJson = 0;
+      let contador = 2;
+      let ContadorSecundario=1;
+      
 
+      // creamos la tabla
+      let table = document.createElement('table');
+      table.classList.add('table');
+      table.classList.add('table-hover');
+      table.classList.add('tblDatosCliente');
+      table.setAttribute('id','tblCliente');
+      let thead = document.createElement('thead');
+      let tbody = document.createElement('tbody');
+
+      table.appendChild(thead);
+      table.appendChild(tbody);
+
+      // Agregar la tabla completa a la etiqueta del cuerpo
+      document.getElementById('datosTiendas').appendChild(table);
+
+      // Crear y agregar datos a la primera fila de la tabla este es el encabezado
+      let row_1 = document.createElement('tr');
+      let heading_1 = document.createElement('th');
+      heading_1.innerHTML = "ESTADO";
+      let heading_2 = document.createElement('th');
+      heading_2.innerHTML = "MUNICIPIO";
+      let heading_3 = document.createElement('th');
+      heading_3.innerHTML = "COLINIA";
+      let heading_4 = document.createElement('th');
+      heading_4.innerHTML = "CALLE";
+
+      row_1.appendChild(heading_1);
+      row_1.appendChild(heading_2);
+      row_1.appendChild(heading_3);
+      row_1.appendChild(heading_4);
+      thead.appendChild(row_1);
+      // iteramos en cada uno de los datos que tiene json y hacemos la tabla
+      for(let x of Object.keys(json)) {
+        var capital = json[x];
+        let titulo = "row_"+contador;
+        let titulofila1 = "row_"+contador+"_data_"+ContadorSecundario;
+        let titulofila2 = "row_"+(contador+1)+"_data_"+ContadorSecundario;
+        let titulofila3 = "row_"+(contador+2)+"_data_"+ContadorSecundario;
+        let titulofila4 = "row_"+(contador+3)+"_data_"+ContadorSecundario;        
+
+        // Creating and adding data to second row of the table
+        titulo= document.createElement('tr');
+        titulo.setAttribute('id',indiceJson);
+        titulofila1 = document.createElement('td');
+        titulofila1.innerHTML = capital.estado;
+        titulofila2 = document.createElement('td');
+        titulofila2.innerHTML = capital.municipio;
+        titulofila3 = document.createElement('td');
+        titulofila3.innerHTML = capital.calleDomicilioCliente;
+        titulofila4 = document.createElement('td');
+        titulofila4.innerHTML = '<button type="button" id="" data-id="'+indiceJson+'" class="btn btn-primary btn-lg seleccionarIdCliente">Seleccionar</button>';
+
+        titulo.appendChild(titulofila1);
+        titulo.appendChild(titulofila2);
+        titulo.appendChild(titulofila3);
+        titulo.appendChild(titulofila4);
+        tbody.appendChild(titulo);
+
+        contador++;
+        ContadorSecundario++;
+        indiceJson++;
+      }
+ }
+
+ function imprimirJsonCliente(json){
+   console.log(json);
+ }
+
+ 
+/* enviamos por ajax la validacion para hacer  */
+/* $(document).ready(function () {
+  
+});
+ */
 
