@@ -475,6 +475,12 @@ form .selectH .hideSelect {
 	overflow-x: scroll;
 }
 
+#almacenListasVentas #showAlmacenVentas {
+	border: 1px solid #d6d7da;
+	height: 120px;
+	width: 100%;
+}
+
 #domProvListas #showProv table {
 	font-size:small;
 }

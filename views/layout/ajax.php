@@ -268,6 +268,14 @@ class Ajax
 		$cliente->clienteVenta($tabla1,$tabla2,$id);
 
 	}
+
+	public function findPVenta(){
+		$id = (int)$this->getDato();
+		$tbl = $this->getTabla();
+		$cliente = new RemisionController();
+		$cliente->getProductoVenta($id,$tbl);
+
+	}
 }
 /* echo "<pre> //////";
 var_dump($_POST);
@@ -391,4 +399,11 @@ if (isset($_POST['idClienteFind'])) {
 	$contact = new Ajax();
 	$contact->setDato($_POST["idClienteFind"]);
 	$contact->datosClienteVentas('getdomcliente','cliente');
+}
+if (isset($_POST['idProductoventa'])) {
+	$contact = new Ajax();
+	$contact->setDato($_POST["idProductoventa"]);
+	$contact->setTabla('productoAlmacenCentral');
+	$contact->setWhere('idDomicilioProveedor');
+	$contact->findPVenta();
 }

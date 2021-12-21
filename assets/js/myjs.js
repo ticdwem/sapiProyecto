@@ -571,6 +571,29 @@ $(document).ready(function () {
 			}
 		})
 	});
+	$("#selectAlmacenVenta").on("change", function () {
+		let idAlmacenSelect = $(this).val();
+		var selectAlmacen = '';
+		var status = 0;
+		let idAlmacen = new FormData();
+		idAlmacen.append("idAlmacenSelect", idAlmacenSelect);
+		$.ajax({
+			url: getAbsolutePath() + "views/layout/ajax.php",
+			method: "POST",
+			data: idAlmacen,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function (almacen) {
+				if (almacen['statusAlamcen'] == 1) { status = "Activo" } else { status = "Inactivo" }
+				selectAlmacen += "<table class='table'><thead><tr><th>Ubicacion</th><th>Status</th></tr></thead>";
+				selectAlmacen += '<tr><td>' + almacen['areaAlmacen'] + '</td><td>' + status + '</td></tr>';
+
+				selectAlmacen += '</table>';
+				$("#showAlmacenVentas").html(selectAlmacen);
+			}
+		})
+	});
 	/* ajax quw consulta e imprime en las casillas para los productos  expRegular("email", emailer); */
 	$("#inputCodigo").on("change", function () {
 		$id = $(this).val();
@@ -775,3 +798,27 @@ $(document).ready(function () {
 			}
 		});
 });
+$(document).on('click','.btnVentasPRoducto',function(){
+	let idBtnVenta = $(this).attr('id');
+	
+	let idPrVEnta = new FormData();
+	idPrVEnta.append('idProductoventa',idBtnVenta);
+
+	$.ajax({
+		url: getAbsolutePath() + "views/layout/ajax.php",
+		method: "POST",
+		data: idPrVEnta,
+		cache: false,
+		contentType: false,
+		processData: false,
+		beforeSend: function () {
+			$('#circuloCliente').html('<i class="fas fa-sync fa-spin"></i>');
+		},
+		success: function (findPRoduct) {
+			console.log(findPRoduct);
+		}
+	});
+
+});
+
+

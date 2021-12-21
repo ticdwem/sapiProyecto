@@ -59,7 +59,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 mt-3  ">
+                                <div class="col-lg-6 mt-3">
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group input-group-sm col-lg-12">
@@ -84,26 +84,25 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" placeholder="First name">
+                                            <div class="form-group input-group-sm col-lg-12">
+                                                <label for="selectAlmacenVenta">ALMACEN</label>
+                                                <select class="form-control" id="selectAlmacenVenta" name="selectAlmacenVenta">
+                                                    <option value="0">Elige un almacen</option>
+                                                    <?php while ($almacen = $almacenes->fetch_object()) : ?>
+                                                        <option value="<?= $almacen->idAlmacen ?>"><?= $almacen->nombreAlmacen ?></option>
+                                                    <?php endwhile; ?>
+                                                </select>
+                                            </div>
+                                            <div class="selectAlmacenVenta"></div>
                                         </div>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" placeholder="Last name">
+                                            <div class="input-group" id="almacenListasVentas">
+                                                <div id="showAlmacenVentas">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                               <!--  <div class="col-lg-6">
-                                    <div class="form-group input-group-sm col-lg-8">
-                                        <label for="selectAlmacenVenta">ALMACEN</label>
-                                       
-                                    </div>
-                                    <div class="selectAlmacenVenta"></div>
-                                </div> -->
-                               <!--  <div class="col-lg-6">
-                                    <div class="input-group" id="almacenListas">
-                                        <div id="showAlmacen">
-                                        </div>
-                                    </div>
-                                </div> -->
                             </div>
                             <div class="row" id="prodNewForm">
                                 <div class="col-lg-2">
@@ -216,21 +215,44 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="NomClienteTitulo"></h5>
+        <h5 class="modal-title" id="NomClienteTitulo">SELECCIONE UN PRODUCTO</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-       <div id="datosTiendas" class=""></div>
-      </div>
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
-      </div> -->
+        <div class="modal-body">
+                <div div  id="tab-comp">
+
+                    <table class="table table-striped" id="tablaPRoductosVentas">
+                        <thead>
+                            <tr>
+                                <th scope="col">idProdducto</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($listaProd = $listaProducto->fetch_object() ):?>
+                                        
+                            <tr>
+                                <td><?=$listaProd->idProducto;?></td>
+                                <td><?=$listaProd->nombreProducto;?></td>
+                                <td><button type="button" id="<?=$listaProd->idProducto?>" data-idname="<?=$listaProd->nombreProducto;?>" class="btn btn-info btnVentasPRoducto" data-dismiss="modal">AGREGAR</button></td>
+                            </tr>     
+                            <?php endwhile;?>                  
+                        </tbody>
+                    </table>
+                </div>              
+        </div>
     </div>
   </div>
 </div>
+
+
 <script> 
+
+
+
 // inserta los datos en el textarea de los clientes que tienen mas de un negocio
 $(document).on('click','.seleccionarIdCliente',function(e){
         e.stopPropagation();
