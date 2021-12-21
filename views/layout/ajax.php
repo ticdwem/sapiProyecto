@@ -387,3 +387,8 @@ if (isset($_POST['idClienteVenta'])) {
 	$contact->setDato($_POST["idClienteVenta"]);
 	$contact->datosClienteVentas('getdomcliente','cliente');
 }
+if (isset($_POST['idClienteFind'])) {
+	$contact = new Ajax();
+	$contact->setDato($_POST["idClienteFind"]);
+	$contact->datosClienteVentas('getdomcliente','cliente');
+}

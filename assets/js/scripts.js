@@ -362,12 +362,13 @@ function existeRegistro(idDeTabla) {
   }
 }
 
-function tablasClientes(json){
+function tablasClientes(jsonElement){
       let indiceJson = 0;
       let contador = 2;
       let ContadorSecundario=1;
-      
-
+      //sessionStorage.clear();
+     /* console.log(JSON.stringify(jsonElement));
+return */
       // creamos la tabla
       let table = document.createElement('table');
       table.classList.add('table');
@@ -400,8 +401,8 @@ function tablasClientes(json){
       row_1.appendChild(heading_4);
       thead.appendChild(row_1);
       // iteramos en cada uno de los datos que tiene json y hacemos la tabla
-      for(let x of Object.keys(json)) {
-        var capital = json[x];
+      for(let x of Object.keys(jsonElement)) {
+        var capital = jsonElement[x];
         let titulo = "row_"+contador;
         let titulofila1 = "row_"+contador+"_data_"+ContadorSecundario;
         let titulofila2 = "row_"+(contador+1)+"_data_"+ContadorSecundario;
@@ -418,25 +419,37 @@ function tablasClientes(json){
         titulofila3 = document.createElement('td');
         titulofila3.innerHTML = capital.calleDomicilioCliente;
         titulofila4 = document.createElement('td');
-        titulofila4.innerHTML = '<button type="button" id="" data-id="'+indiceJson+'" class="btn btn-primary btn-lg seleccionarIdCliente">Seleccionar</button>';
-
+        titulofila4.innerHTML = '<button type="button" id="" data-id="'+ContadorSecundario+'" class="btn btn-primary btn-lg seleccionarIdCliente">Seleccionar</button>';
+        sessionStorage.setItem('JSON_'+ContadorSecundario,JSON.stringify(capital));
+        
         titulo.appendChild(titulofila1);
         titulo.appendChild(titulofila2);
         titulo.appendChild(titulofila3);
         titulo.appendChild(titulofila4);
         tbody.appendChild(titulo);
-
+       
         contador++;
         ContadorSecundario++;
         indiceJson++;
       }
- }
 
- function imprimirJsonCliente(json){
-   console.log(json);
+      // Reemplazar cuerpo anterior por el actual
+    const tabla = document.getElementById('tblCliente')
+    tabla.replaceChild(thead, tabla.querySelector('thead'))
+    tabla.replaceChild(tbody, tabla.querySelector('tbody'))
+ } 
+// funcion para eliminar tabla menos la primer fila
+ function deleteTable(idTable){
+   let tableHeaderRowCount = 0;
+   let table = document.getElementById(idTable);
+   let countRows = table.rows.length;
+   for(var i = tableHeaderRowCount; i<countRows; i++){
+     table.deleteRow(tableHeaderRowCount)
+   }
  }
-
- 
+ function clearDiv(idDiv){
+   document.getElementById(idDiv);
+ }
 /* enviamos por ajax la validacion para hacer  */
 /* $(document).ready(function () {
   

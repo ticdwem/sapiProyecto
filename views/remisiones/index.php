@@ -33,56 +33,77 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroup-sizing-lg">FECHA DE REMISION :</span>
                                         </div>
-                                        <input type="text" class="form-control" id="fechaRemision" aria-label="Large" aria-describedby="inputGroup-sizing-sm" id="fechaRemision">
+                                        <input type="text" class="form-control" id="fechaCompra" aria-label="Large" aria-describedby="inputGroup-sizing-sm" id="fechaCompra">
                                     </div>
                                     <div class="fechaRemision"></div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="form-group input-group-sm col-lg-8">
+                                    <div class="form-group input-group-sm col-lg-9">
                                         <label for="numeroCliente">CLIENTE</label>
+                                        <small>introduce un numero o presiona <b>f2</b> para buscar un cliente</small>
+                                        <input type="hidden" id="idClientesXtienda">
                                         <div class="input-group mb-3">
-                                            <!-- ========================================= -->
                                             <input type="text" class="form-control" id="numeroCliente" name="numeroCliente" placeholder="NUMERO DE CLIENTE" autocomplete="off">
-                                            <divl class="input-group-prepend">
+                                            <div class="input-group-prepend">
                                                 <div class="input-group-text">
                                                     <div id="circuloCliente"></div>
                                                 </div>
-                                            </divl>
-                                            <!-- ========================================= -->
+                                            </div>
                                         </div>
                                     </div>
-                                    <input type="hidden" id="xbtn" value="">
-                                    <div class="numeroCliente"></div>
+                                
+                                    <div class="col-lg-12">
+                                        <div class="input-group" id="infoCliente">
+                                            <div id="showInfoCliente">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!-- ========================== -->
-                                <!-- <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                        <div></div>
+                                <div class="col-lg-6 mt-3  ">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group input-group-sm col-lg-12">
+                                                <label for="condicionCliente">CONDICION</label>
+                                                <select class="form-control form-control-lg condicionCliente" id="condicionCliente" name="condicionCliente">
+                                                    <option value="-1">seleccione una opcion</option>
+                                                    <option value="1">Anticipo</option>
+                                                    <option value="2">Credito</option>
+                                                    <option value="3">Contado</option>
+                                                </select>                                                    
+                                            </div>
+                                            <div class="condicionCliente"></div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group input-group-sm col-lg-12">
+                                                <label for="descuentoCliente">DESCUENTO</label>
+                                                <input type="hidden" id="descuentoCliente" name="descuentoCliente">
+                                                <input type="text" class="form-control" id="descuentoClienteD" autocomplete="off" disabled="disabled">                                                
+                                            </div>
+                                            <div class="descuentoCliente"></div>
                                         </div>
                                     </div>
-                                    <input type="text" class="form-control" aria-label="Text input with checkbox">
-                                </div> -->
-                                <!-- ========================== -->
-                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <input type="text" class="form-control" placeholder="First name">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <input type="text" class="form-control" placeholder="Last name">
+                                        </div>
+                                    </div>
+                                </div>
+                               <!--  <div class="col-lg-6">
                                     <div class="form-group input-group-sm col-lg-8">
                                         <label for="selectAlmacenVenta">ALMACEN</label>
                                        
                                     </div>
                                     <div class="selectAlmacenVenta"></div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="input-group" id="domProvListas">
-                                        <div id="showProv">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
+                                </div> -->
+                               <!--  <div class="col-lg-6">
                                     <div class="input-group" id="almacenListas">
                                         <div id="showAlmacen">
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="row" id="prodNewForm">
                                 <div class="col-lg-2">
@@ -163,7 +184,7 @@
             </div>
             <div class="modal-body">
                 <div div  id="tab-comp">
-                    <table class="table table-striped" id="tablaClientes">
+                    <table class="table table-striped" id="tablaClientesBuscar">
                         <thead>
                             <tr>
                                 <th scope="col"># Cliente</th>
@@ -176,7 +197,7 @@
                             <tr>
                                 <td><?=$cliente->idCliente;?></td>
                                 <td><?=$cliente->nombreCliente;?></td>
-                                <td><button type="button" id="<?=$cliente->idCliente;?>" data-name="<?=$cliente->nombreCliente;?>" class="btn btn-info" data-dismiss="modal">AGREGAR</button></td>
+                                <td><button type="button" id="<?=$cliente->idCliente;?>"  class="btn btn-info findCliente" data-dismiss="modal">AGREGAR</button></td>
                             </tr>     
                         <?php endwhile;?>                  
                         </tbody>
@@ -201,24 +222,34 @@
         </button>
       </div>
       <div class="modal-body">
-          <div id="dataCostumer" class="dataCostumer" data-id="" value=""></div>
        <div id="datosTiendas" class=""></div>
       </div>
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
 <script> 
+// inserta los datos en el textarea de los clientes que tienen mas de un negocio
 $(document).on('click','.seleccionarIdCliente',function(e){
-           e.stopPropagation();
-       let id = $(this).attr('data-id');
-      /*  $("#xbtn").val(id);
- */
-       $('#TablaDatosClientes').modal('hide');
-       
-   })
+        e.stopPropagation();
+        var infoCliente = '';
+        let id = $(this).attr('data-id');
+        let recuperarJson = sessionStorage.getItem('JSON_'+id);
+        let parsejson = JSON.parse(recuperarJson);
+        infoCliente += "<table class='table'><thead><tr><th>Cliente</th><th>Estado</th><th>Municipio</th><th>Calle</th></tr></thead>";
+        infoCliente += '<tr><td>' + parsejson.nombreCliente + '</td><td>' + parsejson.estado + '</td><td>' + parsejson.municipio + '</td><td>' + parsejson.calleDomicilioCliente + '</td>';
+        infoCliente += '</table>';	
+        $("#showInfoCliente").html(infoCliente);
+        $('#TablaDatosClientes').modal('hide');
+        sessionStorage.clear();
+
+   });
+
+  
+
+   // si la pagina detecta que se preciona la tecla f12
     $(document).keydown(function(tecla){
        if(tecla.keyCode == 113){
           $("#exampleModalLong").modal('toggle',{backdrop: 'static', keyboard: false});

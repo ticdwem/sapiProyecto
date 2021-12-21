@@ -619,7 +619,7 @@ $(document).ready(function () {
 		$("#inputNombreProd").val(botonName);
 	});
 
-	// buscamos los datos del cliente 
+	// buscamos los datos del cliente (BUSQUEDA MANUAL)
 	$("#numeroCliente").on("change", function () {
 		let cliente = Array();
 		let numeroCliente = $(this).val();
@@ -645,29 +645,133 @@ $(document).ready(function () {
 				},
 				success: function (clientes) {
 					let countCliente = Object.keys(clientes).length;
-					if(countCliente>1){
-						//console.log(clientes)
+					switch (countCliente) {
+						case 2:
+						case 3:
+						//CREAMOS LA TABLA CON LA SIGUIENTE FUNCION
 						tablasClientes(clientes);
+						// TOMAMOS EL NOMBRE DEL CLIENTE
 						$("#NomClienteTitulo").html(clientes[0].nombreCliente);
-						$("#dataCostumer").val(countCliente);
+						// GENERAMOS EL MODAL 
 						$('#TablaDatosClientes').modal({backdrop: 'static', keyboard: false});
-
-
-
-					}else{
-						alert("solo es uno");
+						$('#circuloCliente').html('');
+						$("#idClientesXtienda").val(numeroCliente);
+						// LIMPIO EL INPUT PARA EVITAR QUE SE USE DE NUEVO DE SER NECESARIO
+						limpiarInput('numeroCliente');
+						// LIMPIMOS EL MODAL
+						jQuery('#TablaDatosClientes').on('hidden.bs.modal', function (e) {
+							jQuery(this).removeData('bs.modal');
+							jQuery(this).find('.datosTiendas').empty();
+						})
+						 // insertamos el descuento en la etiqueta p
+						 console.log(clientes[0].descuentoCliente)
+						 $("#descuentoCliente").val(clientes[0].descuentoCliente);
+						 $("#descuentoClienteD").val(clientes[0].descuentoCliente);
+					 
+							break;
+					    case 1:
+							for(let x of Object.keys(clientes)) {
+								var CliOne = '';
+								var unDato = clientes[x];
+								CliOne += "<table class='table'><thead><tr><th>Cliente</th><th>Estado</th><th>Municipio</th><th>Calle</th></tr></thead>";
+								CliOne += '<tr><td>' + unDato.nombreCliente + '</td><td>' + unDato.estado + '</td><td>' + unDato.municipio + '</td><td>' + unDato.calleDomicilioCliente + '</td>';
+								CliOne += '</table>';	
+								$("#showInfoCliente").html(CliOne);
+								$('#circuloCliente').html('');
+								$("#idClientesXtienda").val(numeroCliente);
+								// LIMPIO EL INPUT PARA EVITAR QUE SE USE DE NUEVO DE SER NECESARIO
+								limpiarInput('numeroCliente');
+								// asignamos el descuento a el input de descuento
+								$("#descuentoCliente").val(unDato.descuentoCliente);
+						 		$("#descuentoClienteD").val(unDato.descuentoCliente);
+							}
+							break;
+						default:
+							Swal.fire(
+								'ERROR',
+								'NO SE ENCONTRARON DATOS RELACIONADOS CON ESTE ID, PRESIONA F2 PARA BUSCAR',
+								'error'
+							  )
+							break;
 					}
 				}
 			});
-			/* $("#streetCustomer").val('')
-			$("#numeroCustomer").val('')
-			$("#inputEstado").val('')
-			$("#inpuMunicipio").val('')
-			$("#coloniaCustomer").val('')
-			$("#cpCustomer").val('')
-			$("#RutaCustomer").val('') */
 		}
 
 
 	})
+});
+
+ // verifica e inserta los datos en el textarea si el usuario es encontrado
+ $(document).on('click','.findCliente', function(e){
+	e.preventDefault();
+	let btnId = $(this).attr('id');
+
+	let clienteIdFind = new FormData();
+		clienteIdFind.append('idClienteFind', btnId);
+
+		$.ajax({
+			url: getAbsolutePath() + "views/layout/ajax.php",
+			method: "POST",
+			data: clienteIdFind,
+			cache: false,
+			contentType: false,
+			processData: false,
+			beforeSend: function () {
+				$('#circuloCliente').html('<i class="fas fa-sync fa-spin"></i>');
+			},
+			success: function (clientesFind) {
+				let countCliente = Object.keys(clientesFind).length;
+				switch (countCliente) {
+					case 1:
+						for(let x of Object.keys(clientesFind)) {
+							var CliOne = '';
+							var unDato = clientesFind[x];
+							CliOne += "<table class='table'><thead><tr><th>Cliente</th><th>Estado</th><th>Municipio</th><th>Calle</th></tr></thead>";
+							CliOne += '<tr><td>' + unDato.nombreCliente + '</td><td>' + unDato.estado + '</td><td>' + unDato.municipio + '</td><td>' + unDato.calleDomicilioCliente + '</td>';
+							CliOne += '</table>';	
+							$("#showInfoCliente").html(CliOne);
+							$('#circuloCliente').html('');
+							$("#idClientesXtienda").val(btnId);
+							// LIMPIO EL INPUT PARA EVITAR QUE SE USE DE NUEVO DE SER NECESARIO
+							limpiarInput('numeroCliente');
+							// asignamos el descuento a el input de descuento
+							$("#descuentoCliente").val(unDato.descuentoCliente);
+							$("#descuentoClienteD").val(unDato.descuentoCliente);
+						}
+						break;
+					case 2:
+					case 3:
+						//CREAMOS LA TABLA CON LA SIGUIENTE FUNCION
+						tablasClientes(clientesFind);
+						// TOMAMOS EL NOMBRE DEL CLIENTE
+						$("#NomClienteTitulo").html(clientesFind[0].nombreCliente);
+						// GENERAMOS EL MODAL 
+						$('#TablaDatosClientes').modal({backdrop: 'static', keyboard: false});
+						$('#circuloCliente').html('');
+						$("#idClientesXtienda").val(btnId);
+						// LIMPIO EL INPUT PARA EVITAR QUE SE USE DE NUEVO DE SER NECESARIO
+						limpiarInput('numeroCliente');
+						// LIMPIMOS EL MODAL
+						jQuery('#TablaDatosClientes').on('hidden.bs.modal', function (e) {
+							jQuery(this).removeData('bs.modal');
+							jQuery(this).find('.datosTiendas').empty();
+						})
+						$('#circuloCliente').html('');
+
+						// asignamos el descuento a el input de descuento
+						$("#descuentoCliente").val(clientesFind[0].descuentoCliente);
+						$("#descuentoClienteD").val(clientesFind[0].descuentoCliente);
+						break
+					default:
+						Swal.fire(
+							'ERROR',
+							'NO HAY DOMICILIOS AGREGADOS CON ESTE CLIENTE, REPORTALO CON TU SUPERIOR',
+							'error'
+						  );
+						  $('#circuloCliente').html('');
+						break;
+				}
+			}
+		});
 });
