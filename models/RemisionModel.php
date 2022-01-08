@@ -50,6 +50,22 @@ class RemisionModel extends ModeloBase {
             
     }
 
+    public function findProductsALmacen(){
+        $query = "SELECT DISTINCT 
+                        idProducto,nombreProducto,SUM(pesoACentral) as sumapeso,loteACentral,fechaACentral,SUM(cantidadPzACentral) as sumapz 
+                        FROM productoalmacencentral 
+                        WHERE almacenACentral = {$this->getId()}
+                        GROUP BY idProducto ORDER BY fechaACentral asc";
+        $showAlamcen = $this->db->query($query);
 
-   
+        return $showAlamcen;
+    }
+
+    public function prodAlmacen($almacen){
+        $query = "SELECT * FROM productoalmacencentral pc
+                    WHERE pc.idProducto = {$this->getId()}
+                    AND pc.almacenACentral = $almacen";
+        $lotes = $this->db->query($query);
+        return $lotes;
+    }  
 }

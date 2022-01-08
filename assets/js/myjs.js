@@ -672,7 +672,7 @@ $(document).ready(function () {
 						case 2:
 						case 3:
 						//CREAMOS LA TABLA CON LA SIGUIENTE FUNCION
-						tablasClientes(clientes);
+						tablasClientes(clientes,'datosTiendas');
 						// TOMAMOS EL NOMBRE DEL CLIENTE
 						$("#NomClienteTitulo").html(clientes[0].nombreCliente);
 						// GENERAMOS EL MODAL 
@@ -712,7 +712,7 @@ $(document).ready(function () {
 						default:
 							Swal.fire(
 								'ERROR',
-								'NO SE ENCONTRARON DATOS RELACIONADOS CON ESTE ID, PRESIONA F2 PARA BUSCAR',
+								'NO SE ENCONTRARON DOMICILIOS RELACIONADOS CON ESTE ID, PRESIONA F2 PARA BUSCAR',
 								'error'
 							  )
 							break;
@@ -723,7 +723,51 @@ $(document).ready(function () {
 
 
 	})
+
+	$("#modalTblProductos").on("click",function(e){
+		e.preventDefault();
+		let almacen = $("#selectAlmacenVenta").val();
+		if(almacen == 0){
+			alert("seleccione un almacen");
+		}else{
+			let idAlmacen = new FormData();
+				idAlmacen.append('almacenFindProduct', almacen);
+			$.ajax({
+				url: getAbsolutePath() + "views/layout/ajax.php",
+				method: "POST",
+				data: idAlmacen,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function (productoAlmacen) {
+					tablasProductos(productoAlmacen,'productosAlmacenLotes');
+					$('#TablaDatosLotes').modal({backdrop: 'static', keyboard: false});
+				}
+			})
+		}
+	})
 });
+
+$(document).on('click','.seleccionarIdProducto',function(){
+    let idPro = $(this).attr('data-id');
+	sessionStorage.clear();
+    let id_producto = new FormatData();
+	id_producto.append('idProductoAlamcen',idPro)
+    $.ajax({
+		url: getAbsolutePath() + "views/layout/ajax.php",
+		method: "POST",
+		data: id_producto,
+		cache: false,
+		contentType: false,
+		processData: false,
+		beforeSend: function () {
+			$('#circuloCliente').html('<i class="fas fa-sync fa-spin"></i>');
+		},
+		success: function (clientesFind) {
+			alert(clientesFind);
+		}
+	});
+})
 
  // verifica e inserta los datos en el textarea si el usuario es encontrado
  $(document).on('click','.findCliente', function(e){
@@ -766,7 +810,7 @@ $(document).ready(function () {
 					case 2:
 					case 3:
 						//CREAMOS LA TABLA CON LA SIGUIENTE FUNCION
-						tablasClientes(clientesFind);
+						tablasClientes(clientesFind,'datosTiendas');
 						// TOMAMOS EL NOMBRE DEL CLIENTE
 						$("#NomClienteTitulo").html(clientesFind[0].nombreCliente);
 						// GENERAMOS EL MODAL 
@@ -798,9 +842,9 @@ $(document).ready(function () {
 			}
 		});
 });
-$(document).on('click','.btnVentasPRoducto',function(){
+
+/* $(document).on('click','.btnVentasPRoducto',function(){
 	let idBtnVenta = $(this).attr('id');
-	
 	let idPrVEnta = new FormData();
 	idPrVEnta.append('idProductoventa',idBtnVenta);
 
@@ -815,10 +859,47 @@ $(document).on('click','.btnVentasPRoducto',function(){
 			$('#circuloCliente').html('<i class="fas fa-sync fa-spin"></i>');
 		},
 		success: function (findPRoduct) {
-			console.log(findPRoduct);
+			let productoLote = Object.keys(findPRoduct).length;
+			if(productoLote>1){
+				console.log(findPRoduct)
+			}else{
+				alert("solo tienes un lote")
+			}
 		}
 	});
 
-});
+}); */
+
+$(document).on('click','.seleccionarIdProductoXAlmacen', function(e){
+	let idPRoducto = $(this).attr('id');
+	let almacen = $("#selectAlmacenVenta").val();
+	let consultaPRoducto = Array();
+
+	consultaPRoducto.push({'phone_numbertid_10':idPRoducto,'phone_almacen_4':almacen});
+	
+	var validar = validarCampos(consultaPRoducto);
+
+	if (validar > 0) {
+		e.preventDefault();
+	}else{
+		let data = { "data": consultaPRoducto }
+			var json = JSON.stringify(data);
+		$.ajax({
+			url: getAbsolutePath() + "views/layout/ajax.php",
+			method: "POST",
+			data: { "loteAlamcen": json },
+			cache: false,
+			beforeSend: function () {
+				//$('#circuloCliente').html('<i class="fas fa-sync fa-spin"></i>');
+			},
+			success: function (verifLote) {
+				
+				tablasProductos(verifLote,'lotesExistentes');
+				$('#TablaDatosLotes').modal('hide');
+				$("#modalLotesExistentes").modal({backdrop: 'static', keyboard: false})
+			}
+		});
+	}
+})
 
 

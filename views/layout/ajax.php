@@ -276,12 +276,22 @@ class Ajax
 		$cliente->getProductoVenta($id,$tbl);
 
 	}
+
+	public function datosAlmacen(){
+		$suitch = 0;
+		$id = json_decode($this->getDato());
+		if(is_object($id)){
+			$suitch = 1;
+		}
+		$almacen = new RemisionController();
+		$almacen->getProductoAlmacen($this->getDato(),$suitch); 
+	}
 }
 /* echo "<pre> //////";
 var_dump($_POST);
 echo "</pre>";
-exit(); */
-
+exit();
+ */
 if (isset($_POST["idEstado"])) {
 	$sent = new Ajax();
 	$sent->setDato($_POST["idEstado"]);
@@ -406,4 +416,21 @@ if (isset($_POST['idProductoventa'])) {
 	$contact->setTabla('productoAlmacenCentral');
 	$contact->setWhere('idDomicilioProveedor');
 	$contact->findPVenta();
+}
+if (isset($_POST['almacenFindProduct'])) {
+	$contact = new Ajax();
+	$contact->setDato($_POST["almacenFindProduct"]);
+	$contact->datosAlmacen();
+}
+if (isset($_POST['idProductoAlamcen'])) {
+	$contact = new Ajax();
+	$contact->setDato($_POST["idProductoAlamcen"]);
+	$contact->datosAlmacen();
+}
+
+if(isset($_POST['loteAlamcen'])){
+	$lote = new Ajax();
+	$lote->setDato($_POST['loteAlamcen']);
+	$lote->datosAlmacen();
+
 }

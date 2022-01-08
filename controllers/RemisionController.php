@@ -13,7 +13,9 @@ class RemisionController{
       $almacenes = $alm->getAll('almacen');
     
       $lista = new RemisionModel();
-      $listaProducto = $lista->getAll('producto');
+      $listaProducto = $lista->distinctQuery('idProducto,nombreProducto,loteACentral,fechaACentral,SUM(cantidadPzACentral) as suma',
+                                             'productoalmacencentral',
+                                             'WHERE almacenACentral = 3 GROUP BY idProducto ORDER BY fechaACentral asc');
 
       require_once "views/remisiones/index.php";
     }
@@ -105,40 +107,9 @@ class RemisionController{
         $where = 'WHERE idProductoACentral ='.$id;
         $producto = new RemisionModel();
         $getPrd = $producto->getAllWhere($tb1,$where);
-        var_dump($getPrd);
-die();
+        
         while ($producto = $getPrd->fetch_object()) {
           
-          ["idACentral"]=>
-          string(1) "3"
-          ["idProductoACentral"]=>
-          string(1) "2"
-          ["loteACentral"]=>
-          string(4) "1258"
-          ["pesoACentral"]=>
-          string(7) "177.810"
-          ["cantidadPzACentral"]=>
-          string(3) "350"
-          ["almacenACentral"]=>
-          string(1) "3"
-          ["fechaACentral"]=>
-          string(10) "2021-12-10"
-          ["precioTotal"]=>
-          string(7) "1515.97"
-          ["idProducto"]=>
-          string(1) "2"
-          ["nombreProducto"]=>
-          string(6) "HARINA"
-          ["DescripcionProducto"]=>
-          string(6) "HARINA"
-          ["precioProductoUnidad"]=>
-          string(5) "12.70"
-          ["UnidadMedidaProducto"]=>
-          string(2) "KG"
-          ["fechaIngreso"]=>
-          string(10) "2021-11-22"
-          ["statusProducto"]=>
-          string(1) "1"
           $idACentral = $producto->idACentral;
           $idProductoACentral = $producto->idProductoACentral;
           $loteACentral = $producto->loteACentral;
@@ -165,12 +136,12 @@ die();
             'fechaAlta'=>$fechaACentral,
             'precioTotalContado'=>$precioTotal,
             'idPRoducto'=>$idProducto,
-            'estado'=>$nombreProducto,
-            'municipio'=>$DescripcionProducto,
-            'nombreRuta'=>$precioProductoUnidad,
-            'idCliente'=>$UnidadMedidaProducto,
-            'nombreCliente'=>$fechaIngreso,
-            'rfcCliente'=>$statusProducto
+            'nombreProd'=>$nombreProducto,
+            'descripcion'=>$DescripcionProducto,
+            'precioXunidad'=>$precioProductoUnidad,
+            'unidadMedida'=>$UnidadMedidaProducto,
+            'fechaIngreso'=>$fechaIngreso,
+            'status'=>$statusProducto
           );
        
       }
@@ -179,6 +150,77 @@ die();
       exit();
 
       }
+    }
+
+    public function getProductoAlmacen($idAlmacen,$busqueda){
+      $returnJson = [];
+      switch ($busqueda) {
+        case '0':
+          $id = (Validacion::validarNumero($idAlmacen) == -1 ) ? false : $idAlmacen; 
+          if($id == false){ 
+            $_SESSION['formulario_cliente'] = array(
+              'error' => 'El dato enviado es incorrecto',
+              'datos' => $id
+            );
+            echo '<script>window.location="' . base_url . 'Remision/index"</script>';
+          }else{
+            $producto = new RemisionModel();
+            $producto->setId($id);
+            $getPrd = $producto->findProductsALmacen();
+  
+            while ($prod = $getPrd->fetch_object()) {
+              $returnJson[] = array(
+                'id'=>$prod->idProducto,
+                'nombre'=>$prod->nombreProducto,
+                'lote'=>$prod->loteACentral,
+                'fecha'=>$prod->fechaACentral,
+                'sumapz'=>$prod->sumapz,
+                'sumaPeso'=>$prod->sumapeso
+              );
+            }
+            //var_dump($returnJson);
+            header('Content-type: application/json; charset=utf-8');
+            echo json_encode($returnJson, JSON_FORCE_OBJECT);
+            exit();
+  
+          }
+          break;
+        case '1':
+          $datos = json_decode($idAlmacen,true);
+          $idProducto = (Validacion::validarNumero($datos["data"][0]["phone_numbertid_10"])==-1) ? false : $datos["data"][0]["phone_numbertid_10"] ;
+          $Almacen = (Validacion::validarNumero($datos["data"][0]["phone_almacen_4"])==-1) ? false : $datos["data"][0]["phone_almacen_4"] ;
+          $datosVAlidar = array('producto' => $idProducto,'almacen' => $Almacen);  
+          $validar = Utls::sessionValidate($datosVAlidar);
+          if($validar > 1){
+            echo '<script>window.location="' . base_url . 'Remision/index"</script>';
+          }else{
+            $lotes = new RemisionModel();
+            $lotes->setId($idProducto);
+            $resultado = $lotes->prodAlmacen($Almacen);
+            while ($dato = $resultado->fetch_object()) {
+              $returnJson[] = array(
+                'id'=>$dato->idProductoACentral,
+                'lote'=>$dato->loteACentral,
+                'sumaPeso'=>$dato->pesoACentral,
+                'sumapz'=>$dato->cantidadPzACentral,
+                'fecha'=>$dato->fechaACentral,
+                'nombre'=>$dato->nombreProducto,
+                'precioUnitario'=>$dato->precioProductoUnidad
+              );
+            }
+
+            header('Content-type: application/json; charset=utf-8');
+            echo json_encode($returnJson, JSON_FORCE_OBJECT);
+            exit();
+          }
+          break;
+        
+        default:
+          # code...
+          break;
+      }     
+        
+    
     }
 
 

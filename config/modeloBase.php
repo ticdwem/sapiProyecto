@@ -41,6 +41,13 @@ class ModeloBase{
         return $query;
     }
 
+    public function distinctQuery($distin,$table,$where){
+        $distinto = "SELECT  $distin FROM $table $where";
+       
+        $query = $this->db->query($distinto);
+
+        return $query;
+    }
     public function deleteTable($tabla,$where,$idUser){
         $validar = "DELETE FROM $tabla WHERE $where='$idUser'";
         $query = $this->db->query($validar);

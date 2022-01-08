@@ -362,7 +362,7 @@ function existeRegistro(idDeTabla) {
   }
 }
 
-function tablasClientes(jsonElement){
+function tablasClientes(jsonElement,idDiv){
       let indiceJson = 0;
       let contador = 2;
       let ContadorSecundario=1;
@@ -382,7 +382,7 @@ return */
       table.appendChild(tbody);
 
       // Agregar la tabla completa a la etiqueta del cuerpo
-      document.getElementById('datosTiendas').appendChild(table);
+      document.getElementById(idDiv).appendChild(table);
 
       // Crear y agregar datos a la primera fila de la tabla este es el encabezado
       let row_1 = document.createElement('tr');
@@ -438,6 +438,92 @@ return */
     tabla.replaceChild(thead, tabla.querySelector('thead'))
     tabla.replaceChild(tbody, tabla.querySelector('tbody'))
  } 
+
+ function tablasProductos(jsonElement,idDiv){
+  let indiceJson = 0;
+  let contador = 2;
+  let ContadorSecundario=1;
+  //sessionStorage.clear();
+ console.log(JSON.stringify(jsonElement));
+ return
+  // creamos la tabla
+  let table = document.createElement('table');
+  table.classList.add('table');
+  table.classList.add('table-hover');
+  table.classList.add('tblDatosProdXAlmacen');
+  table.setAttribute('id','tblDatosProdXAlmacen');
+  let thead = document.createElement('thead');
+  let tbody = document.createElement('tbody');
+
+  table.appendChild(thead);
+  table.appendChild(tbody);
+
+  // Agregar la tabla completa a la etiqueta del cuerpo
+  document.getElementById(idDiv).appendChild(table);
+
+  // Crear y agregar datos a la primera fila de la tabla este es el encabezado
+  let row_1 = document.createElement('tr');
+  let heading_1 = document.createElement('th');
+  heading_1.innerHTML = "Id Producto";
+  let heading_2 = document.createElement('th');
+  heading_2.innerHTML = "Nombre";
+  let heading_3 = document.createElement('th');
+  heading_3.innerHTML = "Lote";
+  let heading_4 = document.createElement('th');
+  heading_4.innerHTML = "Total Peso";
+  let heading_5 = document.createElement('th');
+  heading_5.innerHTML = "Total Pz";
+
+  row_1.appendChild(heading_1);
+  row_1.appendChild(heading_2);
+  row_1.appendChild(heading_3);
+  row_1.appendChild(heading_4);
+  row_1.appendChild(heading_5);
+  thead.appendChild(row_1);
+  // iteramos en cada uno de los datos que tiene json y hacemos la tabla
+  for(let x of Object.keys(jsonElement)) {
+    var capital = jsonElement[x];
+    let tituloXAlmacen = "row_"+contador;
+    let titulofila1XAlmacen = "row_"+contador+"_data_"+ContadorSecundario;
+    let titulofila2XAlmacen = "row_"+(contador+1)+"_data_"+ContadorSecundario;
+    let titulofila3XAlmacen = "row_"+(contador+2)+"_data_"+ContadorSecundario;
+    let titulofila4XAlmacen = "row_"+(contador+3)+"_data_"+ContadorSecundario;        
+    let titulofila5XAlmacen = "row_"+(contador+4)+"_data_"+ContadorSecundario;        
+    let titulofila6XAlmacen = "row_"+(contador+5)+"_data_"+ContadorSecundario;        
+
+    // Creating and adding data to second row of the table
+    tituloXAlmacen= document.createElement('tr');
+     titulofila1XAlmacen = document.createElement('td');
+    titulofila1XAlmacen.innerHTML = capital.id;
+    titulofila2XAlmacen = document.createElement('td');
+    titulofila2XAlmacen.innerHTML = capital.nombre;
+    titulofila3XAlmacen = document.createElement('td');
+    titulofila3XAlmacen.innerHTML = capital.lote;
+    titulofila4XAlmacen = document.createElement('td');
+    titulofila4XAlmacen.innerHTML = capital.sumaPeso;
+    titulofila5XAlmacen = document.createElement('td');
+    titulofila5XAlmacen.innerHTML = capital.sumapz; 
+    titulofila6XAlmacen = document.createElement('td');
+    titulofila6XAlmacen.innerHTML = '<button type="button" id="'+capital.lote+'" data-id="'+ContadorSecundario+'" class="btn btn-primary btn-lg seleccionarIdProductoXAlmacen">Seleccionar</button>';
+    sessionStorage.setItem('producto_'+ContadorSecundario,JSON.stringify(capital));
+    
+    tituloXAlmacen.appendChild(titulofila1XAlmacen);
+    tituloXAlmacen.appendChild(titulofila2XAlmacen);
+    tituloXAlmacen.appendChild(titulofila3XAlmacen);
+    tituloXAlmacen.appendChild(titulofila4XAlmacen);
+    tituloXAlmacen.appendChild(titulofila5XAlmacen);
+    tituloXAlmacen.appendChild(titulofila6XAlmacen); 
+    tbody.appendChild(tituloXAlmacen);
+   
+    contador++;
+    ContadorSecundario++;
+    indiceJson++;
+  }
+  // Reemplazar cuerpo anterior por el actual
+  const tabla = document.getElementById('tblDatosProdXAlmacen')
+  tabla.replaceChild(thead, tabla.querySelector('thead'))
+  tabla.replaceChild(tbody, tabla.querySelector('tbody'))
+} 
 // funcion para eliminar tabla menos la primer fila
  function deleteTable(idTable){
    let tableHeaderRowCount = 0;

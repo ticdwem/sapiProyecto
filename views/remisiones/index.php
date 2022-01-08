@@ -158,7 +158,7 @@
                             </div>
                             <div class="col-lg-12 mt-4">
                                 <button type="submit" class="btn btn-success" id="enterProducto" name="btn-acepta">Aceptar</button>
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bd-example-modal-lg">Buscar</button>
+                                <button type="button" class="btn btn-warning" id="modalTblProductos">Buscar</button>
                                 <button type="button" class="btn btn-info" onclick="limpiarFormulario('frmIdCompra')" name="btn-cancela">Limpiar</button>
 
                                 
@@ -171,18 +171,18 @@
             </div>
         </div>
 </div>
-<!-- Modal -->
+<!-- Modal para mostrar los clientes-->
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
-            <div class="modal-content">
+        <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">SELECCIONE UN CLIENTE</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
+                <h5 class="modal-title" id="exampleModalLongTitle">SELECCIONE UN CLIENTE</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
-                <div div  id="tab-comp">
+                <div id="tab-comp">
                     <table class="table table-striped" id="tablaClientesBuscar">
                         <thead>
                             <tr>
@@ -206,53 +206,101 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
             </div>
-            </div>
+        </div>
     </div>
 </div>
-
-<!-- Modal -->
+<!-- modal para las direcciones de los cliente -->
 <div class="modal fade bd-example-modal-lg" id="TablaDatosClientes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="NomClienteTitulo">SELECCIONE UN PRODUCTO</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-        <div class="modal-body">
-                <div div  id="tab-comp">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="NomClienteTitulo"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="datosTiendas" class="">
 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal para mostrar si hay mas de dos lotes existentes -->
+<div class="modal fade bd-example-modal-lg" id="modalLotesExistentes" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="lotesExistentes" class=""></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal para los productos-->
+<!-- <div class="modal fade TablaDatosProductos" id="TablaDatosProductos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="NomClienteTitulo">SELECCIONE UN PRODUCTO</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div div  id="tab-comp">
                     <table class="table table-striped" id="tablaPRoductosVentas">
                         <thead>
                             <tr>
-                                <th scope="col">idProdducto</th>
+                                <th scope="col">idProducto</th>
                                 <th scope="col">Nombre</th>
+                                <th scope="col">Pieza Aprox</th>
                                 <th scope="col">acción</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php while ($listaProd = $listaProducto->fetch_object() ):?>
-                                        
+                        <tbody> -->
+                            <!-- <?php while ($listaProd = $listaProducto->fetch_object() ):?>                                
                             <tr>
                                 <td><?=$listaProd->idProducto;?></td>
                                 <td><?=$listaProd->nombreProducto;?></td>
+                                <td><?=$listaProd->suma;?></td>
                                 <td><button type="button" id="<?=$listaProd->idProducto?>" data-idname="<?=$listaProd->nombreProducto;?>" class="btn btn-info btnVentasPRoducto" data-dismiss="modal">AGREGAR</button></td>
                             </tr>     
-                            <?php endwhile;?>                  
-                        </tbody>
+                            <?php endwhile;?>        -->           
+                      <!--   </tbody>
                     </table>
                 </div>              
+            </div>
         </div>
     </div>
-  </div>
+</div> -->
+<!-- modal para los lotes -->
+<div class="modal fade TablaDatosLotes" id="TablaDatosLotes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="NomClienteTitulo"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="productosAlmacenLotes" class="">
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-
 <script> 
-
-
-
+//sessionStorage.clear();
 // inserta los datos en el textarea de los clientes que tienen mas de un negocio
 $(document).on('click','.seleccionarIdCliente',function(e){
         e.stopPropagation();
@@ -268,9 +316,13 @@ $(document).on('click','.seleccionarIdCliente',function(e){
         sessionStorage.clear();
 
    });
-
-  
-
+   $(document).on('click','.seleccionarIdProductoXAlmacen',function(e){
+       e.stopPropagation();
+       let id = $(this).attr('data-id');
+       let recuperarproducto = sessionStorage.getItem('producto_'+id);
+       let parseProducto = JSON.parse(recuperarproducto);
+       console.log(parseProducto);
+   })
    // si la pagina detecta que se preciona la tecla f12
     $(document).keydown(function(tecla){
        if(tecla.keyCode == 113){
