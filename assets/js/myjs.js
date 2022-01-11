@@ -746,6 +746,64 @@ $(document).ready(function () {
 			})
 		}
 	})
+
+	$("#inputCodigoVenta").on("change",function(e){
+		let valor = $(this).val();
+		let camara = $("#selectAlmacenVenta").val()
+		let producto = Array();
+		producto.push({ 'phone_inputCodigoVenta_10': valor, 'phone_selectAlmacenVenta_4':camara });
+		var validar = validarCampos(producto);
+		if (validar > 0) {
+			e.preventDefault();
+			$("#selectAlmacenVenta").val('');
+			$("#inputCodigoVenta").val($("#inputCodigoVenta").data("default-value"));
+		}else{
+			let data = { "data": producto }
+				var json = JSON.stringify(data);
+			$.ajax({
+				url: getAbsolutePath() + "views/layout/ajax.php",
+				method: "POST",
+				data: { "loteAlamcen": json },
+				cache: false,
+				beforeSend: function () {
+				},
+				success: function (verifLote) {
+					console.logverifLote
+					let keyOBJ = Object.keys(verifLote).length
+					if(keyOBJ == 1){
+						let keyss = verifLote[0];
+						 /* $("#inputCodigoVenta").val(unDato.id); */
+						 $("#inputNombreProdVenta").val(keyss.nombre);
+						 $("#inputLoteVenta").val(keyss.lote);
+						 $("#inputPrecioVenta").val(keyss.precioUnitario);
+						 sessionStorage.clear();
+						 focusInput('inputPiezaVenta')
+					}else{
+						let tblLotesPRoducto = '';
+						tblLotesPRoducto += "<table class='table'><thead><tr><th>idProducto</th><th>Nombre</th><th>Precio</th><th>Lote</th><th>Peso</th><th>Piezas</th></tr></thead>";
+						for(let x of Object.keys(verifLote)) {
+							var unDato = verifLote[x];
+							tblLotesPRoducto += '<tr><td>' + unDato.id + '</td><td>' + unDato.nombre + '</td><td>' + unDato.precioUnitario + '</td><td>' + unDato.lote + '</td><td>' + unDato.sumaPeso + '</td><td>'+unDato.sumapz+'</td><td><button type="button" id="'+unDato.lote+'" class="btn btn-primary btn-lg seleccionarIdProductoXLote">Seleccionar</button></td>';	
+							sessionStorage.setItem('LOTE_'+unDato.lote,JSON.stringify(unDato));
+						}
+						tblLotesPRoducto += '</table>';	
+						$("#lotesExistentes").html(tblLotesPRoducto);
+						$('#TablaDatosLotes').modal('hide');
+						$("#modalLotesExistentes").modal({backdrop: 'static', keyboard: false});
+					}
+					
+				}
+			});
+		}
+
+	});
+	/*  calculamos el total multiplicando el precio por el precio */
+	$("#inputPesoVenta").on("change", function () {
+		let peso = $(this).val();
+		let precio = $("#inputPrecioVenta").val();
+		let Multiplicacion = multi(peso, precio);
+		$("#inputSubtotalVenta").val(Multiplicacion);
+	})
 });
 
 $(document).on('click','.seleccionarIdProducto',function(){
@@ -843,39 +901,12 @@ $(document).on('click','.seleccionarIdProducto',function(){
 		});
 });
 
-/* $(document).on('click','.btnVentasPRoducto',function(){
-	let idBtnVenta = $(this).attr('id');
-	let idPrVEnta = new FormData();
-	idPrVEnta.append('idProductoventa',idBtnVenta);
-
-	$.ajax({
-		url: getAbsolutePath() + "views/layout/ajax.php",
-		method: "POST",
-		data: idPrVEnta,
-		cache: false,
-		contentType: false,
-		processData: false,
-		beforeSend: function () {
-			$('#circuloCliente').html('<i class="fas fa-sync fa-spin"></i>');
-		},
-		success: function (findPRoduct) {
-			let productoLote = Object.keys(findPRoduct).length;
-			if(productoLote>1){
-				console.log(findPRoduct)
-			}else{
-				alert("solo tienes un lote")
-			}
-		}
-	});
-
-}); */
-
 $(document).on('click','.seleccionarIdProductoXAlmacen', function(e){
 	let idPRoducto = $(this).attr('id');
 	let almacen = $("#selectAlmacenVenta").val();
 	let consultaPRoducto = Array();
 
-	consultaPRoducto.push({'phone_numbertid_10':idPRoducto,'phone_almacen_4':almacen});
+	consultaPRoducto.push({'phone_inputCodigoVenta_10':idPRoducto,'phone_selectAlmacenVenta_4':almacen});
 	
 	var validar = validarCampos(consultaPRoducto);
 
@@ -890,13 +921,26 @@ $(document).on('click','.seleccionarIdProductoXAlmacen', function(e){
 			data: { "loteAlamcen": json },
 			cache: false,
 			beforeSend: function () {
-				//$('#circuloCliente').html('<i class="fas fa-sync fa-spin"></i>');
 			},
 			success: function (verifLote) {
 				
-				tablasProductos(verifLote,'lotesExistentes');
-				$('#TablaDatosLotes').modal('hide');
-				$("#modalLotesExistentes").modal({backdrop: 'static', keyboard: false})
+				let keyOBJ = Object.keys(verifLote).length
+				if(keyOBJ == 1){
+
+				}else{
+					let tblLotesPRoducto = '';
+					tblLotesPRoducto += "<table class='table'><thead><tr><th>idProducto</th><th>Nombre</th><th>Precio</th><th>Lote</th><th>Peso</th><th>Piezas</th></tr></thead>";
+					for(let x of Object.keys(verifLote)) {
+						var unDato = verifLote[x];
+						tblLotesPRoducto += '<tr><td>' + unDato.id + '</td><td>' + unDato.nombre + '</td><td>' + unDato.precioUnitario + '</td><td>' + unDato.lote + '</td><td>' + unDato.sumaPeso + '</td><td>'+unDato.sumapz+'</td><td><button type="button" id="'+unDato.lote+'" class="btn btn-primary btn-lg seleccionarIdProductoXLote">Seleccionar</button></td>';	
+						sessionStorage.setItem('LOTE_'+unDato.lote,JSON.stringify(unDato));
+					}
+					tblLotesPRoducto += '</table>';	
+					$("#lotesExistentes").html(tblLotesPRoducto);
+					$('#TablaDatosLotes').modal('hide');
+					$("#modalLotesExistentes").modal({backdrop: 'static', keyboard: false});
+				}
+				
 			}
 		});
 	}

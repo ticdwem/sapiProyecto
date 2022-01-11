@@ -62,9 +62,7 @@ class RemisionModel extends ModeloBase {
     }
 
     public function prodAlmacen($almacen){
-        $query = "SELECT * FROM productoalmacencentral pc
-                    WHERE pc.idProducto = {$this->getId()}
-                    AND pc.almacenACentral = $almacen";
+        $query = "SELECT * FROM productoalmacencentral pc WHERE pc.idProducto = {$this->getId()} AND pc.almacenACentral = $almacen";
         $lotes = $this->db->query($query);
         return $lotes;
     }  

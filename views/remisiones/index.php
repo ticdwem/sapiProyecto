@@ -87,7 +87,7 @@
                                             <div class="form-group input-group-sm col-lg-12">
                                                 <label for="selectAlmacenVenta">ALMACEN</label>
                                                 <select class="form-control" id="selectAlmacenVenta" name="selectAlmacenVenta">
-                                                    <option value="0">Elige un almacen</option>
+                                                    <option value="">Elige un almacen</option>
                                                     <?php while ($almacen = $almacenes->fetch_object()) : ?>
                                                         <option value="<?= $almacen->idAlmacen ?>"><?= $almacen->nombreAlmacen ?></option>
                                                     <?php endwhile; ?>
@@ -106,54 +106,54 @@
                             </div>
                             <div class="row" id="prodNewForm">
                                 <div class="col-lg-2">
-                                    <label class="mr-sm-2" for="inputCodigo">Código</label>
+                                    <label class="mr-sm-2" for="inputCodigoVenta">Código</label>
                                     <div class="input-group">
-                                        <input type="text" name="inputCodigo" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputCodigo">
+                                        <input type="text" name="inputCodigoVenta" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputCodigoVenta">
                                     </div>
-                                    <div class="inputCodigo"></div>
+                                    <div class="inputCodigoVenta"></div>
                                 </div>
                                 <div class="col-lg-2">
-                                    <label class="mr-sm-2" for="inputNombreProd">Nombre</label>
+                                    <label class="mr-sm-2" for="inputNombreProdVenta">Nombre</label>
                                     <div class="input-group">
-                                        <input type="text" name="inputNombreProd" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputNombreProd" readonly>
+                                        <input type="text" name="inputNombreProdVenta" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputNombreProdVenta" readonly>
                                     </div>
-                                    <div class="inputNombreProd"></div>
+                                    <div class="inputNombreProdVenta"></div>
                                 </div>
 
                                 <div class="col-lg-2">
-                                    <label class="mr-sm-2" for="inputPieza">Piezas</label>
+                                    <label class="mr-sm-2" for="inputPiezaVenta">Piezas</label>
                                     <div class="input-group">
-                                        <input type="text" name="inputPieza" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPieza">
+                                        <input type="text" name="inputPiezaVenta" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPiezaVenta">
                                     </div>
-                                    <div class="inputPieza"></div>
+                                    <div class="inputPiezaVenta"></div>
                                 </div>
                                 <div class="col-lg-2">
-                                    <label class="mr-sm-2" for="inputPeso">Peso</label>
+                                    <label class="mr-sm-2" for="inputPesoVenta">Peso</label>
                                     <div class="input-group">
-                                        <input type="text" name="inputPeso" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPeso">
+                                        <input type="text" name="inputPesoVenta" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPesoVenta">
                                     </div>
-                                    <div class="inputPeso"></div>
+                                    <div class="inputPesoVenta"></div>
                                 </div>
                                 <div class="col-lg-2">
-                                    <label class="mr-sm-2" for="inputLote">Lote</label>
+                                    <label class="mr-sm-2" for="inputLoteVenta">Lote</label>
                                     <div class="input-group">
-                                        <input type="text" name="inputLote" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputLote">
+                                        <input type="text" name="inputLoteVenta" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputLoteVenta">
                                     </div>
-                                    <div class="inputLote"></div>
+                                    <div class="inputLoteVenta"></div>
                                 </div>
                                 <div class="col-lg-2">
-                                    <label class="mr-sm-2" for="inputPrecio">Precio</label>
+                                    <label class="mr-sm-2" for="inputPrecioVenta">Precio</label>
                                     <div class="input-group">
-                                        <input type="text" name="inputPrecio" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPrecio">
+                                        <input type="text" name="inputPrecioVenta" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPrecioVenta">
                                     </div>
-                                    <div class="inputPrecio"></div>
+                                    <div class="inputPrecioVenta"></div>
                                 </div>
                                 <div class="col-lg-2">
-                                    <label class="mr-sm-2" for="inputSubtotal">Subtotal</label>
+                                    <label class="mr-sm-2" for="inputSubtotalVenta">Subtotal</label>
                                     <div class="input-group">
-                                        <input type="text" name="inputSubtotal" value="" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputSubtotal" /readonly>
+                                        <input type="text" name="inputSubtotalVenta" value="" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputSubtotalVenta" /readonly>
                                     </div>
-                                    <div class="inputSubtotal"></div>
+                                    <div class="inputSubtotalVenta"></div>
                                 </div>
                             </div>
                             <div class="col-lg-12 mt-4">
@@ -238,6 +238,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div class="dtos"></div>
                 <div id="lotesExistentes" class=""></div>
             </div>
         </div>
@@ -316,12 +317,17 @@ $(document).on('click','.seleccionarIdCliente',function(e){
         sessionStorage.clear();
 
    });
-   $(document).on('click','.seleccionarIdProductoXAlmacen',function(e){
+   $(document).on('click','.seleccionarIdProductoXLote',function(e){
        e.stopPropagation();
-       let id = $(this).attr('data-id');
-       let recuperarproducto = sessionStorage.getItem('producto_'+id);
-       let parseProducto = JSON.parse(recuperarproducto);
-       console.log(parseProducto);
+       let id = $(this).attr('id');
+       let recuperarproducto = JSON.parse(sessionStorage.getItem('LOTE_'+id));
+        $("#inputCodigoVenta").val(recuperarproducto.id);
+        $("#inputNombreProdVenta").val(recuperarproducto.nombre);
+        $("#inputLoteVenta").val(recuperarproducto.lote);
+        $("#inputPrecioVenta").val(recuperarproducto.precioUnitario);
+        sessionStorage.clear();
+        $("#modalLotesExistentes").modal('hide');
+
    })
    // si la pagina detecta que se preciona la tecla f12
     $(document).keydown(function(tecla){

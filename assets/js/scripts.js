@@ -361,7 +361,7 @@ function existeRegistro(idDeTabla) {
     return 0;
   }
 }
-
+/* tabla clientes */
 function tablasClientes(jsonElement,idDiv){
       let indiceJson = 0;
       let contador = 2;
@@ -438,14 +438,14 @@ return */
     tabla.replaceChild(thead, tabla.querySelector('thead'))
     tabla.replaceChild(tbody, tabla.querySelector('tbody'))
  } 
-
+/* tabl aproductos */
  function tablasProductos(jsonElement,idDiv){
   let indiceJson = 0;
   let contador = 2;
   let ContadorSecundario=1;
   //sessionStorage.clear();
- console.log(JSON.stringify(jsonElement));
- return
+ /* console.log(JSON.stringify(jsonElement));
+ return */
   // creamos la tabla
   let table = document.createElement('table');
   table.classList.add('table');
@@ -504,7 +504,7 @@ return */
     titulofila5XAlmacen = document.createElement('td');
     titulofila5XAlmacen.innerHTML = capital.sumapz; 
     titulofila6XAlmacen = document.createElement('td');
-    titulofila6XAlmacen.innerHTML = '<button type="button" id="'+capital.lote+'" data-id="'+ContadorSecundario+'" class="btn btn-primary btn-lg seleccionarIdProductoXAlmacen">Seleccionar</button>';
+    titulofila6XAlmacen.innerHTML = '<button type="button" id="'+capital.id+'" data-id="'+ContadorSecundario+'" class="btn btn-primary btn-lg seleccionarIdProductoXAlmacen">Seleccionar</button>';
     sessionStorage.setItem('producto_'+ContadorSecundario,JSON.stringify(capital));
     
     tituloXAlmacen.appendChild(titulofila1XAlmacen);

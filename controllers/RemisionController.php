@@ -187,9 +187,13 @@ class RemisionController{
           break;
         case '1':
           $datos = json_decode($idAlmacen,true);
-          $idProducto = (Validacion::validarNumero($datos["data"][0]["phone_numbertid_10"])==-1) ? false : $datos["data"][0]["phone_numbertid_10"] ;
-          $Almacen = (Validacion::validarNumero($datos["data"][0]["phone_almacen_4"])==-1) ? false : $datos["data"][0]["phone_almacen_4"] ;
+         /*  var_dump($datos);
+          die(); */
+          $idProducto = (Validacion::validarNumero($datos["data"][0]["phone_inputCodigoVenta_10"])==-1) ? false : $datos["data"][0]["phone_inputCodigoVenta_10"] ;
+          $Almacen = (Validacion::validarNumero($datos["data"][0]["phone_selectAlmacenVenta_4"])==-1) ? false : $datos["data"][0]["phone_selectAlmacenVenta_4"] ;
           $datosVAlidar = array('producto' => $idProducto,'almacen' => $Almacen);  
+
+          
           $validar = Utls::sessionValidate($datosVAlidar);
           if($validar > 1){
             echo '<script>window.location="' . base_url . 'Remision/index"</script>';
@@ -208,7 +212,6 @@ class RemisionController{
                 'precioUnitario'=>$dato->precioProductoUnidad
               );
             }
-
             header('Content-type: application/json; charset=utf-8');
             echo json_encode($returnJson, JSON_FORCE_OBJECT);
             exit();
