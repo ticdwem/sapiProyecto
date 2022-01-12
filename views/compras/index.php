@@ -290,14 +290,14 @@ $contador = 1;
         })
         
     });
-    /* $("#enterProducto").on('click',function(e){ */
-        const formCompras = document.getElementById("frmIdCompra");
+    
+        const formVentas = document.getElementById("frmIdCompra");
         
-        formCompras.addEventListener("submit", function (event) {
+        formVentas.addEventListener("submit", function (event) {
             event.preventDefault();
 
             let validar = Array();
-            let transactionFormData = new FormData(formCompras); // obtiene los datos del formulario
+            let transactionFormData = new FormData(formVentas); // obtiene los datos del formulario
 
             let inputCodigo = document.getElementById('inputCodigo').value; 
             let inputNombreProd = document.getElementById('inputNombreProd').value; 

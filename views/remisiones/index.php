@@ -8,168 +8,190 @@
     ?>
 </div>
 <div class="">
-<div class="row">
-            <div class="col-lg-12">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page">Remisiones</li>
-                    </ol>
-                </nav>
-                <form id="frmIdRemision">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="input-group input-group-sm mb-3 col-lg-12">
+    <div class="row">
+        <div class="col-lg-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">Remisiones</li>
+                </ol>
+            </nav>
+            <form id="frmidVentas">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group input-group-sm mb-3 col-lg-12">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"  id="inputGroup-sizing-lg">NUMERO DE REMISION:</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="idVentas" aria-label="Large" aria-describedby="inputGroup-sizing-sm">     
+                                </div>                              
+                                <div class="idVentas"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group input-group-sm mb-3 col-lg-12">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-lg">FECHA DE REMISION :</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="fechaCompra" aria-label="Large" aria-describedby="inputGroup-sizing-sm" id="fechaCompra">
+                                </div>
+                                <div class="fechaRemision"></div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group input-group-sm col-lg-9">
+                                    <label for="numeroCliente">CLIENTE</label>
+                                    <small>introduce un numero o presiona <b>f2</b> para buscar un cliente</small>
+                                    <input type="hidden" id="idClientesXtienda">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" id="numeroCliente" name="numeroCliente" placeholder="NUMERO DE CLIENTE" autocomplete="off">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text"  id="inputGroup-sizing-lg">NUMERO DE REMISION:</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="idRemision" aria-label="Large" aria-describedby="inputGroup-sizing-sm">     
-                                    </div>                              
-                                    <div class="idRemision"></div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group input-group-sm mb-3 col-lg-12">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroup-sizing-lg">FECHA DE REMISION :</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="fechaCompra" aria-label="Large" aria-describedby="inputGroup-sizing-sm" id="fechaCompra">
-                                    </div>
-                                    <div class="fechaRemision"></div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group input-group-sm col-lg-9">
-                                        <label for="numeroCliente">CLIENTE</label>
-                                        <small>introduce un numero o presiona <b>f2</b> para buscar un cliente</small>
-                                        <input type="hidden" id="idClientesXtienda">
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" id="numeroCliente" name="numeroCliente" placeholder="NUMERO DE CLIENTE" autocomplete="off">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <div id="circuloCliente"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                
-                                    <div class="col-lg-12">
-                                        <div class="input-group" id="infoCliente">
-                                            <div id="showInfoCliente">
+                                            <div class="input-group-text">
+                                                <div id="circuloCliente"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 mt-3">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="form-group input-group-sm col-lg-12">
-                                                <label for="condicionCliente">CONDICION</label>
-                                                <select class="form-control form-control-lg condicionCliente" id="condicionCliente" name="condicionCliente">
-                                                    <option value="-1">seleccione una opcion</option>
-                                                    <option value="1">Anticipo</option>
-                                                    <option value="2">Credito</option>
-                                                    <option value="3">Contado</option>
-                                                </select>                                                    
-                                            </div>
-                                            <div class="condicionCliente"></div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group input-group-sm col-lg-12">
-                                                <label for="descuentoCliente">DESCUENTO</label>
-                                                <input type="hidden" id="descuentoCliente" name="descuentoCliente">
-                                                <input type="text" class="form-control" id="descuentoClienteD" autocomplete="off" disabled="disabled">                                                
-                                            </div>
-                                            <div class="descuentoCliente"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="form-group input-group-sm col-lg-12">
-                                                <label for="selectAlmacenVenta">ALMACEN</label>
-                                                <select class="form-control" id="selectAlmacenVenta" name="selectAlmacenVenta">
-                                                    <option value="">Elige un almacen</option>
-                                                    <?php while ($almacen = $almacenes->fetch_object()) : ?>
-                                                        <option value="<?= $almacen->idAlmacen ?>"><?= $almacen->nombreAlmacen ?></option>
-                                                    <?php endwhile; ?>
-                                                </select>
-                                            </div>
-                                            <div class="selectAlmacenVenta"></div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="input-group" id="almacenListasVentas">
-                                                <div id="showAlmacenVentas">
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div class="col-lg-12">
+                                    <div class="input-group" id="infoCliente">
+                                        <div id="showInfoCliente"></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" id="prodNewForm">
-                                <div class="col-lg-2">
-                                    <label class="mr-sm-2" for="inputCodigoVenta">Código</label>
-                                    <div class="input-group">
-                                        <input type="text" name="inputCodigoVenta" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputCodigoVenta">
+                            <div class="col-lg-6 mt-3">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group input-group-sm col-lg-12">
+                                            <label for="condicionCliente">CONDICION</label>
+                                            <select class="form-control form-control-lg condicionCliente" id="condicionCliente" name="condicionCliente">
+                                                <option value="">seleccione una opcion</option>
+                                                <option value="1">Anticipo</option>
+                                                <option value="2">Credito</option>
+                                                <option value="3">Contado</option>
+                                            </select>                                                    
+                                        </div>
+                                        <div class="condicionCliente"></div>
                                     </div>
-                                    <div class="inputCodigoVenta"></div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <label class="mr-sm-2" for="inputNombreProdVenta">Nombre</label>
-                                    <div class="input-group">
-                                        <input type="text" name="inputNombreProdVenta" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputNombreProdVenta" readonly>
+                                    <div class="col-lg-6">
+                                        <div class="form-group input-group-sm col-lg-12">
+                                            <label for="descuentoCliente">DESCUENTO</label>
+                                            <input type="hidden" id="descuentoCliente" name="descuentoCliente">
+                                            <input type="text" class="form-control" id="descuentoClienteD" autocomplete="off" disabled="disabled">                                                
+                                        </div>
+                                        <div class="descuentoCliente"></div>
                                     </div>
-                                    <div class="inputNombreProdVenta"></div>
                                 </div>
-
-                                <div class="col-lg-2">
-                                    <label class="mr-sm-2" for="inputPiezaVenta">Piezas</label>
-                                    <div class="input-group">
-                                        <input type="text" name="inputPiezaVenta" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPiezaVenta">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group input-group-sm col-lg-12">
+                                            <label for="selectAlmacenVenta">ALMACEN</label>
+                                            <select class="form-control" id="selectAlmacenVenta" name="selectAlmacenVenta">
+                                                <option value="">Elige un almacen</option>
+                                                <?php while ($almacen = $almacenes->fetch_object()) : ?>
+                                                    <option value="<?= $almacen->idAlmacen ?>"><?= $almacen->nombreAlmacen ?></option>
+                                                <?php endwhile; ?>
+                                            </select>
+                                        </div>
+                                        <div class="selectAlmacenVenta"></div>
                                     </div>
-                                    <div class="inputPiezaVenta"></div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <label class="mr-sm-2" for="inputPesoVenta">Peso</label>
-                                    <div class="input-group">
-                                        <input type="text" name="inputPesoVenta" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPesoVenta">
+                                    <div class="col-lg-6">
+                                        <div class="input-group" id="almacenListasVentas">
+                                            <div id="showAlmacenVentas"></div>
+                                        </div>
                                     </div>
-                                    <div class="inputPesoVenta"></div>
                                 </div>
-                                <div class="col-lg-2">
-                                    <label class="mr-sm-2" for="inputLoteVenta">Lote</label>
-                                    <div class="input-group">
-                                        <input type="text" name="inputLoteVenta" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputLoteVenta">
-                                    </div>
-                                    <div class="inputLoteVenta"></div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <label class="mr-sm-2" for="inputPrecioVenta">Precio</label>
-                                    <div class="input-group">
-                                        <input type="text" name="inputPrecioVenta" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPrecioVenta">
-                                    </div>
-                                    <div class="inputPrecioVenta"></div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <label class="mr-sm-2" for="inputSubtotalVenta">Subtotal</label>
-                                    <div class="input-group">
-                                        <input type="text" name="inputSubtotalVenta" value="" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputSubtotalVenta" /readonly>
-                                    </div>
-                                    <div class="inputSubtotalVenta"></div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 mt-4">
-                                <button type="submit" class="btn btn-success" id="enterProducto" name="btn-acepta">Aceptar</button>
-                                <button type="button" class="btn btn-warning" id="modalTblProductos">Buscar</button>
-                                <button type="button" class="btn btn-info" onclick="limpiarFormulario('frmIdCompra')" name="btn-cancela">Limpiar</button>
-
-                                
                             </div>
                         </div>
-                    </div><!-- FIN DEL CARD -->
-                </form>
-
-
-            </div>
+                        <div class="row" id="prodNewForm">
+                            <div class="col-lg-2">
+                                <label class="mr-sm-2" for="inputCodigoVenta">Código</label>
+                                <div class="input-group">
+                                    <input type="text" name="inputCodigoVenta" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputCodigoVenta">
+                                </div>
+                                <div class="inputCodigoVenta"></div>
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="mr-sm-2" for="inputNombreProdVenta">Nombre</label>
+                                <div class="input-group">
+                                    <input type="text" name="inputNombreProdVenta" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputNombreProdVenta" readonly>
+                                </div>
+                                <div class="inputNombreProdVenta"></div>
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="mr-sm-2" for="inputPiezaVenta">Piezas</label>
+                                <div class="input-group">
+                                    <input type="text" name="inputPiezaVenta" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPiezaVenta">
+                                </div>
+                                <div class="inputPiezaVenta"></div>
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="mr-sm-2" for="inputPesoVenta">Peso</label>
+                                <div class="input-group">
+                                    <input type="text" name="inputPesoVenta" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPesoVenta">
+                                </div>
+                                <div class="inputPesoVenta"></div>
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="mr-sm-2" for="inputLoteVenta">Lote</label>
+                                <div class="input-group">
+                                    <input type="text" name="inputLoteVenta" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputLoteVenta" readonly>
+                                </div>
+                                <div class="inputLoteVenta"></div>
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="mr-sm-2" for="inputPrecioVenta">Precio</label>
+                                <div class="input-group">
+                                    <input type="text" name="inputPrecioVenta" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPrecioVenta" readonly>
+                                </div>
+                                <div class="inputPrecioVenta"></div>
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="mr-sm-2" for="inputSubtotalVenta">Subtotal</label>
+                                <div class="input-group">
+                                    <input type="text" name="inputSubtotalVenta" value="" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputSubtotalVenta" /readonly>
+                                </div>
+                                <div class="inputSubtotalVenta"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 mt-4">
+                            <button type="submit" class="btn btn-success" id="enterProducto" name="btn-acepta">Aceptar</button>
+                            <button type="button" class="btn btn-warning" id="modalTblProductos">Buscar</button>
+                            <!-- <button type="button" class="btn btn-info" onclick="limpiarFormulario('frmIdCompra')" name="btn-cancela">Limpiar</button> -->
+                        </div>
+                    </div>
+                </div><!-- FIN DEL CARD -->
+            </form>
         </div>
+        <div id="cajaVenta" class="col-lg-12">
+            <table class="table table-striped" id="registroProductotableVenta">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Piezas</th>
+                        <th scope="col">Peso</th>
+                        <th scope="col">Lote</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody id="registroProductoVenta">
+                                                
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="tot-comp col-lg-10 text-right">
+            <label for="totalVenta">TOTAL:</label> 
+        </div>
+        <div id="totalDivVenta" class="tot-comp col-lg-2 text-left">    
+            <p  id="totalVenta"> $0000.00 </p>
+        </div>
+    </div>
+    <div class="mt-4">
+        <button type="button" id="acceptCompraVenta" class="btn btn-primary btn-lg"><span  role="status" aria-hidden="true"></span>Aceptar</button>
+        <button type="button" class="btn btn-secondary btn-lg">Cancelar</button>
+    </div>
 </div>
 <!-- Modal para mostrar los clientes-->
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -244,43 +266,7 @@
         </div>
     </div>
 </div>
-<!-- Modal para los productos-->
-<!-- <div class="modal fade TablaDatosProductos" id="TablaDatosProductos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="NomClienteTitulo">SELECCIONE UN PRODUCTO</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div div  id="tab-comp">
-                    <table class="table table-striped" id="tablaPRoductosVentas">
-                        <thead>
-                            <tr>
-                                <th scope="col">idProducto</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Pieza Aprox</th>
-                                <th scope="col">acción</th>
-                            </tr>
-                        </thead>
-                        <tbody> -->
-                            <!-- <?php while ($listaProd = $listaProducto->fetch_object() ):?>                                
-                            <tr>
-                                <td><?=$listaProd->idProducto;?></td>
-                                <td><?=$listaProd->nombreProducto;?></td>
-                                <td><?=$listaProd->suma;?></td>
-                                <td><button type="button" id="<?=$listaProd->idProducto?>" data-idname="<?=$listaProd->nombreProducto;?>" class="btn btn-info btnVentasPRoducto" data-dismiss="modal">AGREGAR</button></td>
-                            </tr>     
-                            <?php endwhile;?>        -->           
-                      <!--   </tbody>
-                    </table>
-                </div>              
-            </div>
-        </div>
-    </div>
-</div> -->
+
 <!-- modal para los lotes -->
 <div class="modal fade TablaDatosLotes" id="TablaDatosLotes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -335,4 +321,79 @@ $(document).on('click','.seleccionarIdCliente',function(e){
           $("#exampleModalLong").modal('toggle',{backdrop: 'static', keyboard: false});
        }  
     });
+
+    /* //////// */
+    const formVentas = document.getElementById("frmidVentas");
+        
+        formVentas.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            let validar = Array();
+            let transactionFormData = new FormData(formVentas); // obtiene los datos del formulario
+
+            let inputCodigo = document.getElementById('inputCodigoVenta').value; 
+            let inputNombreProd = document.getElementById('inputNombreProdVenta').value; 
+            let inputPieza = document.getElementById('inputPiezaVenta').value; 
+            let inputPeso = document.getElementById('inputPesoVenta').value; 
+            let inputLote = document.getElementById('inputLoteVenta').value; 
+            let inputPrecio = document.getElementById('inputPrecioVenta').value; 
+            let inputSubtotal = document.getElementById('inputSubtotalVenta').value; 
+
+            validar.push({"phone_inputCodigoVenta_6":inputCodigo,"nombre_inputNombreProdVenta_80":inputNombreProd,"phone_inputPiezaVenta_12":inputPieza,"decimales_inputPesoVenta_12":inputPeso,
+                          "nombre_inputLoteVenta_50":inputLote,"decimales_inputPrecioVenta_12":inputPrecio,"decimales_inputSubtotalVenta_12":inputSubtotal});
+            var campos = validarCampos(validar);
+            if(campos == 0 ){
+                let insertProducto = document.getElementById("registroProductoVenta"); // este es el id de la tabla
+                let newProductoRow = insertProducto.insertRow(-1); //este retorna una fila en la ultima fila de 
+                
+                let newproductoCellNew = newProductoRow.insertCell(0);// posisicion de la celda
+                newproductoCellNew.textContent = transactionFormData.get("inputCodigoVenta");
+                
+                newproductoCellNew = newProductoRow.insertCell(1);// posisicion de la celda
+                newproductoCellNew.textContent = transactionFormData.get("inputNombreProdVenta");                    
+                
+                newproductoCellNew = newProductoRow.insertCell(2);// posisicion de la celda
+                newproductoCellNew.textContent = transactionFormData.get("inputPiezaVenta");
+                
+                newproductoCellNew = newProductoRow.insertCell(3);// posisicion de la celda
+                newproductoCellNew.textContent = transactionFormData.get("inputPesoVenta");
+                
+                newproductoCellNew = newProductoRow.insertCell(4);// posisicion de la celda
+                newproductoCellNew.textContent = transactionFormData.get("inputLoteVenta");
+                
+                newproductoCellNew = newProductoRow.insertCell(5);// posisicion de la celda
+                newproductoCellNew.textContent = transactionFormData.get("inputPrecioVenta");
+                
+                newproductoCellNew = newProductoRow.insertCell(6);// posisicion de la celda
+                newproductoCellNew.textContent = transactionFormData.get("inputSubtotalVenta");
+                
+                limpiarInput("inputCodigoVenta");
+                limpiarInput("inputNombreProdVenta");
+                limpiarInput("inputPiezaVenta");
+                limpiarInput("inputPesoVenta");
+                limpiarInput("inputLoteVenta");
+                limpiarInput("inputPrecioVenta");
+                limpiarInput("inputSubtotalVenta");
+                // este codigo sirve para poner el cursor en la primer input
+                focusInput("inputCodigoVenta");
+                let totalCompra = 0;
+                    $("#registroProductoVenta tr").each(function(){
+                        totalCompra +=parseFloat($(this).find('td').eq(6).html());
+                    }) 
+                    $("#totalVenta").html(totalCompra.toFixed(2));
+            }else{
+                Swal.fire({
+                    position: 'center',
+                    icon: 'info',
+                    title: 'TODOS LOS CAMPOS SON OBLIGATORIOS, VERIFIQUE LOS DATOS ',
+                    showConfirmButton: false,
+                    timer: 1500
+                });  
+                
+                limpiarInput("inputPesoVenta");
+                limpiarInput("inputPrecioVenta");
+                limpiarInput("inputSubtotalVenta");
+               
+             }
+        });
 </script>
