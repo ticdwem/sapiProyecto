@@ -687,7 +687,6 @@ $(document).ready(function () {
 							jQuery(this).find('.datosTiendas').empty();
 						})
 						 // insertamos el descuento en la etiqueta p
-						 console.log(clientes[0].descuentoCliente)
 						 $("#descuentoCliente").val(clientes[0].descuentoCliente);
 						 $("#descuentoClienteD").val(clientes[0].descuentoCliente);
 					 
@@ -745,8 +744,62 @@ $(document).ready(function () {
 				}
 			})
 		}
+	});
+
+	$("#selectAlmacenVenta").on("change",function(){
+		var dato = $(this).val();
+		if(dato != ""){
+			$("#prodNewForm").removeClass("evento");
+		}else{
+			$("#prodNewForm").addClass("evento");
+		}
 	})
 
+	$("#inputPiezaVenta").on('change',function(e){
+		var valor = $(this).val();
+		var lote = $("#inputLoteVenta").val();
+		var valValor = Array({'phone_inputPiezaVenta_10':valor,"phone_inputLoteVenta_15":lote});
+		var validar = validarCampos(valValor);
+		if(validar>0){
+			e.preventDefault();
+		}else{
+			let dato = {"data":valValor}
+			var json =JSON.stringify(dato);
+			$.ajax({
+				url: getAbsolutePath() + "views/layout/ajax.php",
+				method: "POST",
+				data: { "catidadPz": json },
+				cache: false,
+				beforeSend: function () {
+				},
+				success: function (piezas) {
+					console.log(piezas[0].id);
+					switch (piezas[0].id) {
+						case "0":
+							
+							break;
+						case 1:
+							document.getElementById("inputPiezaVenta").focus();
+							Swal.fire({
+								position: 'center',
+								icon: 'warning',
+								title: 'NO TIENES ESTA CANTIDAD DE PRODUCTOS EN STOCK',
+								showConfirmButton: false,
+								timer: 1500
+							});
+							$("#inputPiezaVenta").val("");
+							break;
+						case 2:
+							$("#inputPesoVenta").val(piezas[0].sumaPeso);
+							break;
+						default:
+							break;
+					}
+				}
+			});
+		}
+
+	})
 	$("#inputCodigoVenta").on("change",function(e){
 		let valor = $(this).val();
 		let camara = $("#selectAlmacenVenta").val()
@@ -768,7 +821,6 @@ $(document).ready(function () {
 				beforeSend: function () {
 				},
 				success: function (verifLote) {
-					console.logverifLote
 					let keyOBJ = Object.keys(verifLote).length
 					if(keyOBJ == 1){
 						let keyss = verifLote[0];

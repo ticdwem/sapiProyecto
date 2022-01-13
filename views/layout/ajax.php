@@ -286,6 +286,12 @@ class Ajax
 		$almacen = new RemisionController();
 		$almacen->getProductoAlmacen($this->getDato(),$suitch); 
 	}
+
+	public function countPizas(){
+		$datos = $this->getDato();
+		$pz = new RemisionController();
+		$pz->piezaPeso($datos);
+	}
 }
 /* echo "<pre> //////";
 var_dump($_POST);
@@ -432,5 +438,11 @@ if(isset($_POST['loteAlamcen'])){
 	$lote = new Ajax();
 	$lote->setDato($_POST['loteAlamcen']);
 	$lote->datosAlmacen();
+
+}
+if(isset($_POST['catidadPz'])){
+	$lote = new Ajax();
+	$lote->setDato($_POST['catidadPz']);
+	$lote->countPizas();
 
 }

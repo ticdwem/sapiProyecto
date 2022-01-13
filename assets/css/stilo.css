@@ -508,6 +508,11 @@ form .selectH .hideSelect {
 	/* font-weight: bolder; */
 	color:red
   }
+
+.evento{
+	pointer-events: none;
+	opacity: 0.4;
+}
 /* #datosTiendas table{
 	border-collapse: collapse;
 	border-spacing: 0;

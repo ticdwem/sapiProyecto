@@ -101,7 +101,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" id="prodNewForm">
+                        <div class="row evento" id="prodNewForm">
                             <div class="col-lg-2">
                                 <label class="mr-sm-2" for="inputCodigoVenta">Código</label>
                                 <div class="input-group">
@@ -391,8 +391,6 @@ $(document).on('click','.seleccionarIdCliente',function(e){
                 });  
                 
                 limpiarInput("inputPesoVenta");
-                limpiarInput("inputPrecioVenta");
-                limpiarInput("inputSubtotalVenta");
                
              }
         });

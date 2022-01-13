@@ -187,8 +187,6 @@ class RemisionController{
           break;
         case '1':
           $datos = json_decode($idAlmacen,true);
-         /*  var_dump($datos);
-          die(); */
           $idProducto = (Validacion::validarNumero($datos["data"][0]["phone_inputCodigoVenta_10"])==-1) ? false : $datos["data"][0]["phone_inputCodigoVenta_10"] ;
           $Almacen = (Validacion::validarNumero($datos["data"][0]["phone_selectAlmacenVenta_4"])==-1) ? false : $datos["data"][0]["phone_selectAlmacenVenta_4"] ;
           $datosVAlidar = array('producto' => $idProducto,'almacen' => $Almacen);  
@@ -224,6 +222,51 @@ class RemisionController{
       }     
         
     
+    }
+
+    public function piezaPeso($datos){
+      $returnPz = [];
+      $datos = json_decode($datos,true);
+      $total = (Validacion::validarNumero($datos["data"][0]["phone_inputPiezaVenta_10"])==-1) ? false : $datos["data"][0]["phone_inputPiezaVenta_10"] ;
+      $lote = (Validacion::validarNumero($datos["data"][0]["phone_inputLoteVenta_15"])==-1) ? false : $datos["data"][0]["phone_inputLoteVenta_15"] ;
+      $datosVAlidar = array('pz' => $total,'lote' => $lote);  
+      
+      
+      $validar = Utls::sessionValidate($datosVAlidar);
+      if($validar > 1){
+        echo '<script>window.location="' . base_url . 'Remision/index"</script>';
+      }else{
+        $datpsPz = new RemisionModel();
+        $datpsPz->setId($total);
+        $datpsPz->setlote($lote);
+        $result = $datpsPz->getDatosPzPeso();
+        $completo = $result->fetch_object();
+        if($total > $completo->cantidadPzACentral ){
+          $returnPz[] = array(
+            'id'=>1,
+            'lote'=>0,
+            'sumaPeso'=>0,
+            'sumapz'=>0
+          );
+        }elseif($total == $completo->cantidadPzACentral){
+          $returnPz[] = array(
+            'id'=>2,
+            'lote'=>$completo->loteACentral,
+            'sumaPeso'=>$completo->pesoACentral,
+            'sumapz'=>$completo->cantidadPzACentral
+          );
+        }else{
+          $returnPz[] = array(
+            'id'=>0,
+            'lote'=>$completo->loteACentral,
+            'sumaPeso'=>$completo->pesoACentral,
+            'sumapz'=>$completo->cantidadPzACentral
+          );
+        }
+        header('Content-type: application/json; charset=utf-8');
+            echo json_encode($returnPz, JSON_FORCE_OBJECT);
+            exit();
+      }
     }
 
 

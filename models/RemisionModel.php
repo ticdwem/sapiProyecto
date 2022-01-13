@@ -7,6 +7,7 @@ class RemisionModel extends ModeloBase {
     private $id;
     private $table1;
     private $table2;
+    private $lote;
 
 
     public function getId()
@@ -39,6 +40,18 @@ class RemisionModel extends ModeloBase {
         return $this;
     }
 
+    public function getLote()
+    {
+        return $this->lote;
+    }
+
+    public function setLote($lote): self
+    {
+        $this->lote = $lote;
+
+        return $this;
+    }
+
     public function findCustomerAll(){
        $query = "SELECT * from {$this->gettable1()} 
                 INNER JOIN {$this->gettable2()} 
@@ -66,4 +79,12 @@ class RemisionModel extends ModeloBase {
         $lotes = $this->db->query($query);
         return $lotes;
     }  
+
+    public function getDatosPzPeso(){
+        $query = "SELECT * FROM productoalmacencentral pc WHERE pc.loteACentral = {$this->getlote()}";
+        $result = $this->db->query($query);
+        return $result;
+    }
+
+  
 }
