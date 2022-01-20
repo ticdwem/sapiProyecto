@@ -536,6 +536,33 @@ return */
  function clearDiv(idDiv){
    document.getElementById(idDiv);
  }
+// este un helper par obtener las filas de las tablas 
+ function upTo(el, tagName) {
+  tagName = tagName.toLowerCase(); // se convierte en minuscula 
+
+  while (el && el.parentNode) {
+    el = el.parentNode;
+    if (el.tagName && el.tagName.toLowerCase() == tagName) {
+      return el;
+    }
+  }
+  return null;
+}    
+
+ function deleteRow(r){
+   var row = upTo(r, 'tr');
+   if(row) row.parentNode.removeChild(row);
+   
+ }
+
+
+ function porcentaje(porcentaje,total){
+  let dato1 = parseFloat(porcentaje);
+  let dato2 = parseFloat(total);
+  let reesultadoDato  =  (dato1 * dato2) / 100;
+  let reesultado = restar(total, reesultadoDato)
+  return reesultado.toFixed(2);
+ }
 /* enviamos por ajax la validacion para hacer  */
 /* $(document).ready(function () {
   

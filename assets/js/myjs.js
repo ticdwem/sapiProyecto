@@ -689,6 +689,7 @@ $(document).ready(function () {
 						 // insertamos el descuento en la etiqueta p
 						 $("#descuentoCliente").val(clientes[0].descuentoCliente);
 						 $("#descuentoClienteD").val(clientes[0].descuentoCliente);
+						 $("#totalDescuento").html(clientes[0].descuentoCliente);
 					 
 							break;
 					    case 1:
@@ -706,6 +707,7 @@ $(document).ready(function () {
 								// asignamos el descuento a el input de descuento
 								$("#descuentoCliente").val(unDato.descuentoCliente);
 						 		$("#descuentoClienteD").val(unDato.descuentoCliente);
+								 $("#totalDescuento").html(clientes[0].descuentoCliente);
 							}
 							break;
 						default:
@@ -773,8 +775,18 @@ $(document).ready(function () {
 				beforeSend: function () {
 				},
 				success: function (piezas) {
-					console.log(piezas[0].id);
-					switch (piezas[0].id) {
+					if(piezas[0].id == 1){
+						document.getElementById("inputPiezaVenta").focus();
+							Swal.fire({
+								position: 'center',
+								icon: 'warning',
+								title: 'NO TIENES ESTA CANTIDAD DE PRODUCTOS EN STOCK',
+								showConfirmButton: false,
+								timer: 1500
+							});
+							$("#inputPiezaVenta").val("");
+					}
+/* 					switch (piezas[0].id) {
 						case "0":
 							
 							break;
@@ -790,11 +802,11 @@ $(document).ready(function () {
 							$("#inputPiezaVenta").val("");
 							break;
 						case 2:
-							$("#inputPesoVenta").val(piezas[0].sumaPeso);
+							//$("#inputPesoVenta").val(piezas[0].sumaPeso);
 							break;
 						default:
 							break;
-					}
+					} */
 				}
 			});
 		}
@@ -849,15 +861,29 @@ $(document).ready(function () {
 		}
 
 	});
-	/*  calculamos el total multiplicando el precio por el precio */
+	/*  calculamos el total multiplicando el precio por el peso */
 	$("#inputPesoVenta").on("change", function () {
+		/* alert("hola") */
 		let peso = $(this).val();
 		let precio = $("#inputPrecioVenta").val();
 		let Multiplicacion = multi(peso, precio);
 		$("#inputSubtotalVenta").val(Multiplicacion);
-	})
-});
+	});
 
+	/* actualizamos el total */
+	
+});
+$(document).on('click','.deleteOnclick',function(){
+	let totalCompra = 0;
+	let procentaje = $("#descuentoCliente").val();
+	$("#registroProductoVenta tr").each(function(){
+		totalCompra +=parseFloat($(this).find('td').eq(6).html());
+	}) 
+	$("#totalVenta").html(totalCompra.toFixed(2));
+	totalCompleto = porcentaje(procentaje,totalCompra);
+	$("#totalHiden").val(totalCompleto);
+	$("#total").html(totalCompleto);
+})
 $(document).on('click','.seleccionarIdProducto',function(){
     let idPro = $(this).attr('data-id');
 	sessionStorage.clear();
@@ -915,6 +941,7 @@ $(document).on('click','.seleccionarIdProducto',function(){
 							// asignamos el descuento a el input de descuento
 							$("#descuentoCliente").val(unDato.descuentoCliente);
 							$("#descuentoClienteD").val(unDato.descuentoCliente);
+							$("#totalDescuento").html(clientes[0].descuentoCliente);
 						}
 						break;
 					case 2:
@@ -939,6 +966,7 @@ $(document).on('click','.seleccionarIdProducto',function(){
 						// asignamos el descuento a el input de descuento
 						$("#descuentoCliente").val(clientesFind[0].descuentoCliente);
 						$("#descuentoClienteD").val(clientesFind[0].descuentoCliente);
+						$("#totalDescuento").html(clientes[0].descuentoCliente);
 						break
 					default:
 						Swal.fire(
@@ -966,7 +994,7 @@ $(document).on('click','.seleccionarIdProductoXAlmacen', function(e){
 		e.preventDefault();
 	}else{
 		let data = { "data": consultaPRoducto }
-			var json = JSON.stringify(data);
+		var json = JSON.stringify(data);
 		$.ajax({
 			url: getAbsolutePath() + "views/layout/ajax.php",
 			method: "POST",
@@ -974,11 +1002,14 @@ $(document).on('click','.seleccionarIdProductoXAlmacen', function(e){
 			cache: false,
 			beforeSend: function () {
 			},
-			success: function (verifLote) {
-				
+			success: function (verifLote) {				
 				let keyOBJ = Object.keys(verifLote).length
 				if(keyOBJ == 1){
-
+					$("#inputCodigoVenta").val(verifLote[0].id)
+					$("#inputNombreProdVenta").val(verifLote[0].nombre)
+					$("#inputLoteVenta").val(verifLote[0].lote)
+					$("#inputPrecioVenta").val(verifLote[0].precioUnitario)
+					$('#TablaDatosLotes').modal('hide');
 				}else{
 					let tblLotesPRoducto = '';
 					tblLotesPRoducto += "<table class='table'><thead><tr><th>idProducto</th><th>Nombre</th><th>Precio</th><th>Lote</th><th>Peso</th><th>Piezas</th></tr></thead>";

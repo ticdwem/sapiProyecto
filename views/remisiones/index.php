@@ -182,10 +182,27 @@
     </div>
     <div class="row">
         <div class="tot-comp col-lg-10 text-right">
-            <label for="totalVenta">TOTAL:</label> 
+            <label for="totalVenta">Subtotal:</label> 
         </div>
         <div id="totalDivVenta" class="tot-comp col-lg-2 text-left">    
-            <p  id="totalVenta"> $0000.00 </p>
+            <p class="total"  id="totalVenta"> $0000.00 </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="tot-comp col-lg-10 text-right">
+            <label for="totalVenta">Descuento:</label> 
+        </div>
+        <div id="totalDivVenta" class="tot-comp col-lg-2 text-left">    
+            <p class="totalDescuento"  id="totalDescuento"> 0000.00 </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="tot-comp col-lg-10 text-right">
+            <label for="totalVenta">Total:</label> 
+        </div>
+        <div id="totalDivVenta" class="tot-comp col-lg-2 text-left">
+            <input type="hidden" name="totalHiden" id="totalHiden" class="totalHiden">    
+            <p class="totalCliente"  id="total"> $0000.00 </p>
         </div>
     </div>
     <div class="mt-4">
@@ -254,7 +271,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Seleccione un lote</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -287,6 +304,7 @@
     </div>
 </div>
 <script> 
+
 //sessionStorage.clear();
 // inserta los datos en el textarea de los clientes que tienen mas de un negocio
 $(document).on('click','.seleccionarIdCliente',function(e){
@@ -321,8 +339,7 @@ $(document).on('click','.seleccionarIdCliente',function(e){
           $("#exampleModalLong").modal('toggle',{backdrop: 'static', keyboard: false});
        }  
     });
-
-    /* //////// */
+  
     const formVentas = document.getElementById("frmidVentas");
         
         formVentas.addEventListener("submit", function (event) {
@@ -366,6 +383,9 @@ $(document).on('click','.seleccionarIdCliente',function(e){
                 
                 newproductoCellNew = newProductoRow.insertCell(6);// posisicion de la celda
                 newproductoCellNew.textContent = transactionFormData.get("inputSubtotalVenta");
+
+                newproductoCellNew = newProductoRow.insertCell(7);// posisicion de la celda
+                newproductoCellNew.insertAdjacentHTML("afterbegin","<button type='button' class='btn btn-danger deleteOnclick' onclick='deleteRow(this)'><i class='fa fa-times-circle' id='' aria-hidden='true'></i></button>");
                 
                 limpiarInput("inputCodigoVenta");
                 limpiarInput("inputNombreProdVenta");
@@ -377,10 +397,16 @@ $(document).on('click','.seleccionarIdCliente',function(e){
                 // este codigo sirve para poner el cursor en la primer input
                 focusInput("inputCodigoVenta");
                 let totalCompra = 0;
+                let totalCompleto = 0;
+                let procentaje = $("#descuentoCliente").val();
                     $("#registroProductoVenta tr").each(function(){
                         totalCompra +=parseFloat($(this).find('td').eq(6).html());
                     }) 
                     $("#totalVenta").html(totalCompra.toFixed(2));
+                    totalCompleto = porcentaje(procentaje,totalCompra);
+                    $("#totalHiden").val(totalCompleto);
+                    $("#total").html(totalCompleto);
+                    
             }else{
                 Swal.fire({
                     position: 'center',

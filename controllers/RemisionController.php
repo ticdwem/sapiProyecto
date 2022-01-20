@@ -167,7 +167,6 @@ class RemisionController{
             $producto = new RemisionModel();
             $producto->setId($id);
             $getPrd = $producto->findProductsALmacen();
-  
             while ($prod = $getPrd->fetch_object()) {
               $returnJson[] = array(
                 'id'=>$prod->idProducto,
@@ -175,11 +174,12 @@ class RemisionController{
                 'lote'=>$prod->loteACentral,
                 'fecha'=>$prod->fechaACentral,
                 'sumapz'=>$prod->sumapz,
-                'sumaPeso'=>$prod->sumapeso
+                'sumaPeso'=>$prod->sumapeso,
+                'precio'=>$prod->pUnidad
               );
             }
-            //var_dump($returnJson);
-            header('Content-type: application/json; charset=utf-8');
+            /*var_dump($returnJson); */
+             header('Content-type: application/json; charset=utf-8');
             echo json_encode($returnJson, JSON_FORCE_OBJECT);
             exit();
   

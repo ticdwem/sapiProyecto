@@ -65,7 +65,7 @@ class RemisionModel extends ModeloBase {
 
     public function findProductsALmacen(){
         $query = "SELECT DISTINCT 
-                        idProducto,nombreProducto,SUM(pesoACentral) as sumapeso,loteACentral,fechaACentral,SUM(cantidadPzACentral) as sumapz 
+                        idProducto,nombreProducto,SUM(pesoACentral) as sumapeso,loteACentral,fechaACentral,SUM(cantidadPzACentral) as sumapz,precioProductoUnidad AS pUnidad
                         FROM productoalmacencentral 
                         WHERE almacenACentral = {$this->getId()}
                         GROUP BY idProducto ORDER BY fechaACentral asc";
