@@ -563,6 +563,31 @@ return */
   let reesultado = restar(total, reesultadoDato)
   return reesultado.toFixed(2);
  }
+
+ function getOption(optionEl){
+	let mensaje = "no hay mensaje";
+	console.log("hola");
+	switch (optionEl) {
+		case 1:
+			mensaje = "XOCHIMILCO";
+			break;
+		case 2:
+		mensaje = "TOLUCA";
+			break;
+		case 3:
+		mensaje = "CUAUTLA";
+			break;
+		case 4:
+		mensaje = "CUERNAVACA";
+			break;
+		default:
+			mensaje = "SIN DETECTAR";
+			break;
+	}
+	console.log(mensaje);
+}
+
+
 /* enviamos por ajax la validacion para hacer  */
 /* $(document).ready(function () {
   

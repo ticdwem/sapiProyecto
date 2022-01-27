@@ -513,13 +513,32 @@ form .selectH .hideSelect {
 	pointer-events: none;
 	opacity: 0.4;
 }
-/* #datosTiendas table{
-	border-collapse: collapse;
-	border-spacing: 0;
 
+#pedidoIndexId{
+	border:1px solid red;
+	width: 100%;
+	height: auto;
+	/* position: relative;
+	display: inline-flex; */
+	
+}/* 
+#pedidoIndexId #rutaId{
+	width: 100%;
+	height: 250px;
+	border:1px solid green;
+	
 }
-#datosTiendas table th, td{
-	padding: 10px 20px;
-	border: 1px solid #000;
-} */
 
+#pedidoIndexId #clienteId{
+	width: 100%;
+	height: 250px;
+	border:1px solid blue;
+	
+} */
+/* este sirver para centrar los divs dentro de otro div */
+/* #pedidoIndexId #rutaId,
+#pedidoIndexId #clienteId{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+} */

@@ -870,7 +870,14 @@ $(document).ready(function () {
 		$("#inputSubtotalVenta").val(Multiplicacion);
 	});
 
-	/* actualizamos el total */
+	$('#rutaPedido select').on('click', 'option', function(e) {
+        console.log(this.value, 'Yeah');
+        // this refers to the option so you can do this.value if you need..
+    });
+	/* $("#rutaPedido").mouseenter('option',function(){
+		let datoId = $(this).attr('data-id');
+		console.log(datoId);
+	}) */
 	
 });
 $(document).on('click','.deleteOnclick',function(){
@@ -934,15 +941,15 @@ $(document).on('click','.seleccionarIdProducto',function(){
 							CliOne += '<tr><td>' + unDato.nombreCliente + '</td><td>' + unDato.estado + '</td><td>' + unDato.municipio + '</td><td>' + unDato.calleDomicilioCliente + '</td>';
 							CliOne += '</table>';	
 							$("#showInfoCliente").html(CliOne);
-							$('#circuloCliente').html('');
-							$("#idClientesXtienda").val(btnId);
-							// LIMPIO EL INPUT PARA EVITAR QUE SE USE DE NUEVO DE SER NECESARIO
-							limpiarInput('numeroCliente');
-							// asignamos el descuento a el input de descuento
-							$("#descuentoCliente").val(unDato.descuentoCliente);
-							$("#descuentoClienteD").val(unDato.descuentoCliente);
-							$("#totalDescuento").html(clientes[0].descuentoCliente);
 						}
+						$('#circuloCliente').html('');
+						$("#idClientesXtienda").val(btnId);
+						// LIMPIO EL INPUT PARA EVITAR QUE SE USE DE NUEVO DE SER NECESARIO
+						limpiarInput('numeroCliente');
+						// asignamos el descuento a el input de descuento
+						$("#descuentoCliente").val(clientesFind[0].descuentoCliente);
+						$("#descuentoClienteD").val(clientesFind[0].descuentoCliente);
+						$("#totalDescuento").html(clientesFind[0].descuentoCliente);
 						break;
 					case 2:
 					case 3:
@@ -1028,5 +1035,7 @@ $(document).on('click','.seleccionarIdProductoXAlmacen', function(e){
 		});
 	}
 })
+
+
 
 
