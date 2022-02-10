@@ -200,4 +200,9 @@ class Utls{
 
         return $valida;
     }
+
+    public static function lastArray($datoArray){
+        
+        return end($datoArray);
+    }
 }

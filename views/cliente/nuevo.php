@@ -10,10 +10,17 @@ if (isset($_SESSION['formulario_cliente'])) {
 
 <div class="texcto m-3">
   <?php
+  //var_dump(Utls::lastArray($_SESSION['domiciliocli']["idlastDom"]));
+  //session_destroy();
+ //var_dump(count($_SESSION["contactoCliente"]["nombreContacto"]));
   if (isset($_SESSION['statusSave'])) echo '<p class="alert alert-success error" role="alert">' . $_SESSION['statusSave'] . "</p>";
   Utls::deleteSession('formulario_cliente');
-  Utls::deleteSession('contactoCliente');
-  Utls::deleteSession('statusSave'); ?>
+  //Utls::deleteSession('contactoCliente');
+  Utls::deleteSession('statusSave'); 
+/*   echo "<pre>";
+  var_dump($_SESSION);
+  echo "</pre>"; */
+  ?>
 </div>
 
 <div class="container viewTop">
@@ -42,7 +49,12 @@ if (isset($_SESSION['formulario_cliente'])) {
           <input type="text" class="form-control" name="descuentoCustomer" id="descuentoCustomer">
           <div class="descuentoCustomer"></div>
         </div>
-        <div class="form-group col-md-6"></div>
+        <div class="form-group col-md-6">
+        <label for="descuentoCustomer">Id Cliente :</label>
+          <input type="text" class="form-control" name="descuentoCustomer" id="descuentoCustomer" value="<?php if($id->idTabla==NULL || $id->idTabla==0){echo 1;}else{echo $id->idTabla;};?>" disabled>
+          <input type="hidden" name="descuentoCustomer" value="<?php if($id->idTabla==NULL || $id->idTabla==0){echo 1;}else{echo $id->idTabla;}?>">
+          <div class="descuentoCustomer"></div>
+        </div>
       </div>
       <div class="smallSubtitle">
         <small>DOMICILIO</small>
@@ -103,19 +115,96 @@ if (isset($_SESSION['formulario_cliente'])) {
           <div class="RutaCustomer"></div>
         </div>
         <div class="form-group col-md-6">
-
+        <input type="hidden" class="form-control" name="idDato" id="idDato" value="<?php if($domi->idTabla==NULL || $domi->idTabla==0){echo 1;}else{echo $domi->idTabla;}?>">
+          <div class="idDato"></div>
         </div>
       </div>
       <div class="form-row p-2">
         <div class="">
-          <button id="btn-AgregarDomicilio" class="btn btn-success mt-3" type="button">Agregar</button>
+          <!-- <button id="btn-AgregarDomicilio" class="btn btn-success mt-3" data-toggle="modal" data-target=".bd-example-modal-sm" type="button">Agregar</button> -->
+               <button id="btn-AgregarDomicilio"  class="btn btn-success mt-3" data-toggle="modal" type="button">Agregar</button>
+               <!-- <button type="button" class="btn btn-primary" id="preibabtn" >Large modal</button> -->
+
         </div>
         <div class="spinnerDomicilio"></div>
         <div id="mensajeDomicilio"></div>
         <div id="activa">
         </div>
       </div>
-      <div class="smallSubtitle">
+      <div class="form-row p-2">
+            <input type="submit" class="form-control btn btn-primary btn-lg btn-block datosDisbled" id="btn-input-cliente" data-toggle="tooltip" data-placement="top" title="Tooltip on top" name="btnEnviar" value="ENVIAR" disabled>
+            
+          </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade agregarTelDom" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 cla ss="modal-title" id="exampleModalLongTitle">CONTACTO</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="form-row p-2" id="contactos">
+            <div class="form-group col-md-6">
+              <label for="nameContactoCustomer">Nombre Contacto:</label>
+              <input type="text" class="form-control" name="nameContactoCustomer" id="nameContactoCustomer" onkeyup="mayusculas(this)">
+              <div class="nameContactoCustomer"></div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="emailContactoCustomer">Correo Contacto:</label>
+              <input type="text" class="form-control" name="emailContactoCustomer" id="emailContactoCustomer" placeholder="SI NO TIENE CORREO DEJAR EN BLANCO">
+              <div class="emailContactoCustomer"></div>
+            </div>
+          </div>
+          <div class="form-row p-2 " id="contactoTelPrincipal">
+            <div class="form-group col-md-6">
+              <label for="telPrCustomer">Teléfono Principal:</label>
+              <input type="text" class="form-control" name="telPrCustomer" id="telPrCustomer">
+              <div class="telPrCustomer"></div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="telSecCustomer">Teléfono Secundario:</label>
+              <input type="text" class="form-control" name="telSecCustomer" id="telSecCustomer" placeholder="SI NO TIENE TELÉFONO DEJAR EN BLANCO">
+              <div class="telSecCustomer"></div>
+            </div>
+          </div>
+          <div class="form-row p-2 " id="contactoRelacional">
+            <div class="form-group col-md-6">
+              <input type="hidden" class="form-control" name="idRelacional" id="idRelacional">
+              <div class="idRelacional"></div>
+            </div>
+            <div class="form-group col-md-6">
+
+            </div>
+          </div>
+          <div class="form-row p-2">
+            <div class="botones">
+              <button id="btn-AgregarContacto" class="btn btn-success mt-3" type="button">Agregar</button>
+              <button id="btn-insertarDatos" class="btn btn-default mt-3 btn-insertarDatos" type="button">Guardar</button>
+
+            </div>
+            <div class="spinnerCliente"></div>
+            <div id="mensajeCliente"></div>
+            <div id="activa">
+            </div>
+          </div>
+          <hr>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--   <div class="smallSubtitle">
         <small>CONTACTO</small>
         <hr>
       </div>
@@ -155,7 +244,4 @@ if (isset($_SESSION['formulario_cliente'])) {
       <hr>
       <div class="form-row p-2">
         <input type="submit" class="form-control btn btn-primary btn-lg btn-block" id="btn-input-cliente" name="btnEnviar" value="ENVIAR">
-      </div>
-    </form>
-  </div>
-</div>
+      </div> -->

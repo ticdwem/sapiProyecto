@@ -55,6 +55,11 @@ class ModeloBase{
        
     }
 
+    public function lastId($tabla,$identificador){
+        $getId = "SELECT sumar_id(MAX($identificador)) as idTabla FROM  $tabla";
+        $query = $this->db->query($getId);
+        return $query;
+    }
 
 
     public function getMenUsuario($getIdUsuario){

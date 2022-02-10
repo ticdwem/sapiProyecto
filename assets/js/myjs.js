@@ -187,12 +187,14 @@ $(document).ready(function () {
 		var emailContactoCustomer = emptyInput($("#emailContactoCustomer").val());
 		var telPrCustomer = emptyInput($("#telPrCustomer").val());
 		var telSecCustomer = emptyInput($("#telSecCustomer").val());
+		var relacionContacto = emptyInput($("#idRelacional").val());
 
 
 		if (emailContactoCustomer == "empty") { emailContactoCustomer = "empty@empty.com" }
 		if (telSecCustomer === "empty") { telSecCustomer = '500' }
 
-		registro.push({ "nombre_nameContactoCustomer_80": nameContactoCustomer, "phone_telPrCustomer_12": telPrCustomer, "email_emailContactoCustomer_100": emailContactoCustomer, "phone_telSecCustomer_12": telSecCustomer })
+		registro.push({ "nombre_nameContactoCustomer_80": nameContactoCustomer, "phone_telPrCustomer_10": telPrCustomer, "email_emailContactoCustomer_100": emailContactoCustomer,
+						"phone_telSecCustomer_10": telSecCustomer,"phone_idRelacional_12":relacionContacto })
 
 		var validar = validarCampos(registro)
 		if (validar > 0) {
@@ -209,11 +211,17 @@ $(document).ready(function () {
 					$('.spinnerCliente').html('<i class="fas fa-sync fa-spin"></i>');
 				},
 				success: function (setContacto) {
+					
 					$('.spinnerCliente').html('');
 					if (setContacto > 3) {
 						$('#mensajeCliente').html('<div class="alert alert-danger" role="alert">No se puede agregar mas contactos a esta Cliente</div>');
 					} else {
 						$('#mensajeCliente').html('<div class="alert alert-success" role="alert">se agrego correctamente ' + setContacto + ' ITEMS</div>');
+						$(".agregarTelDom").modal('hide');
+						$("#btn-input-cliente").removeClass('datosDisbled');
+						$("#btn-input-cliente").removeAttr('disabled');
+						$('#mensajeCliente').html('');
+
 					}
 				}
 			});
@@ -223,8 +231,11 @@ $(document).ready(function () {
 			$("#telSecCustomer").val('');
 		}
 	});
+/* 	$("#preibabtn").on('click',function(){
 
-	$("#btn-AgregarDomicilio").on('click', function () {
+		$(".agregarTelDom").modal();
+	}) */
+	$("#btn-AgregarDomicilio").on('click', function (e) {
 		let domicilio = Array();
 		let streetCustomer = emptyInput($("#streetCustomer").val());
 		let numeroCustomer = emptyInput($("#numeroCustomer").val());
@@ -233,12 +244,15 @@ $(document).ready(function () {
 		let coloniaCustomer = emptyInput($("#coloniaCustomer").val());
 		let cpCustomer = emptyInput($("#cpCustomer").val());
 		let RutaCustomer = emptyInput($("#RutaCustomer").val());
+		let idLastDomicilio = emptyInput($("#idDato").val());
 
 
 		if (numeroCustomer == "empty") { numeroCustomer = '0' }
 
 
-		domicilio.push({ "nombre_streetCustomer_50": streetCustomer, "phone_numeroCustomer_5": numeroCustomer, "phone_inputEstado_5": inputEstado, "phone_inpuMunicipio_5": inpuMunicipio, "nombre_coloniaCustomer_50": coloniaCustomer, "phone_cpCustomer_5": cpCustomer, "phone_RutaCustomer_5": RutaCustomer });
+		domicilio.push({ "nombre_streetCustomer_50": streetCustomer, "phone_numeroCustomer_5": numeroCustomer, "phone_inputEstado_5": inputEstado, 
+						  "phone_inpuMunicipio_5": inpuMunicipio, "nombre_coloniaCustomer_50": coloniaCustomer, "phone_cpCustomer_5": cpCustomer, 
+						  "phone_RutaCustomer_5": RutaCustomer, "phone_idDato_12":idLastDomicilio });
 
 		validar = validarCampos(domicilio)
 		if (validar > 0) {
@@ -255,11 +269,15 @@ $(document).ready(function () {
 					$('.spinnerDomicilio').html('<i class="fas fa-sync fa-spin"></i>');
 				},
 				success: function (setDomicilio) {
+					let separador = separaTexto(setDomicilio,2);			
 					$('.spinnerDomicilio').html('');
-					if (setDomicilio > 3) {
+					if (separador[0] > 3) {
 						$('#mensajeDomicilio').html('<div class="alert alert-danger" role="alert">No se puede agregar mas contactos a esta Cliente</div>');
 					} else {
+						$("#idRelacional").val(separador[1]);
 						$('#mensajeDomicilio').html('<div class="alert alert-success" role="alert">Se agrego correctamente ' + setDomicilio + ' ITEMS</div>');
+						$(".agregarTelDom").modal();
+						
 					}
 				}
 			});

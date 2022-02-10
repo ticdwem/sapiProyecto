@@ -21,6 +21,7 @@ class ClienteModels extends ModeloBase{
     private $ruta;
     private $numCuenta; 
     private $colonia;
+    private $idRelacion;
 
     /**
      * Get the value of id
@@ -360,6 +361,24 @@ class ClienteModels extends ModeloBase{
         return $this;
     }
 
+    
+    /**
+     * Get the value of idRelacion
+     */
+    public function getIdRelacion()
+    {
+        return $this->idRelacion;
+    }
+
+    /**
+     * Set the value of idRelacion
+     */
+    public function setIdRelacion($idRelacion): self
+    {
+        $this->idRelacion = $idRelacion;
+
+        return $this;
+    }
 
 	public function createCliente(){
 		$query = "INSERT INTO cliente (nombreCliente, rfcCliente, descuentoCliente, limiteCreditoCliente, saldoCreditoCliente, NunCuentaCliente) 
@@ -375,9 +394,10 @@ class ClienteModels extends ModeloBase{
 	}
 
     public function createContacto(){
-        $query = "INSERT INTO contactocliente (ClienteId, nombreContatoCliente, telPrinContactoCliente, telSecundarioContactoCliente, correoContactoSecundario) 
-                                                VALUES ('{$this->getId()}', '{$this->getNombreCliente()}', '{$this->getTelefonoCliente()}', '{$this->getTelefonoDosCliente()}', '{$this->getCorreoCliente()}');"; 
-       $contacto = $this->db->query($query);
+        $query = "INSERT INTO contactocliente ( idDomContactoCliente, nombreContatoCliente, telPrinContactoCliente,telSecundarioContactoCliente, correoContactoSecundario) 
+                                         VALUES ( '{$this->getIdRelacion()}','{$this->getNombreCliente()}', '{$this->getTelefonoCliente()}', '{$this->getTelefonoDosCliente()}', '{$this->getCorreoCliente()}');"; 
+
+      $contacto = $this->db->query($query);
         $verifica = false;
         if($contacto){
             $verifica = true;
@@ -390,6 +410,8 @@ class ClienteModels extends ModeloBase{
         $query = "INSERT INTO domiciliocliente (clienteId, rutaId, calleDomicilioCliente, numeroDomicilioCliente, estados_municipios_id, cpDomicilioCliente,coloniaDomicilioCliente) 
                          VALUES ('{$this->getId()}', '{$this->getRuta()}', '{$this->getCalle()}', '{$this->getNumero()}', '{$this->getMunicipio()}', '{$this->getCp()}','{$this->getColonia()}');";
 
+/*         var_dump($query);
+        die(); */
         $domicilio = $this->db->query($query);
         $insert = false;
         if($domicilio){
@@ -443,8 +465,4 @@ class ClienteModels extends ModeloBase{
          }
          return $pass;
     }
-
-
-
-
 }

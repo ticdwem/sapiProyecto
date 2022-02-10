@@ -114,29 +114,31 @@ class Ajax
 
 		if ($sessioncontacto == "contactoCliente") {
 			if (isset($_SESSION[$sessioncontacto])) {
-				$contar = count($_SESSION[$sessioncontacto]["nombreContacto"]);
+				/* $contar = count($_SESSION[$sessioncontacto]["nombreContacto"]);
 				$regreso = $contar + 1;
-				echo $regreso;
+				echo $regreso; */
 				if ($contar < 3) {
 					array_push($_SESSION[$sessioncontacto]["nombreContacto"], $decode["data"][0]["nombre_nameContactoCustomer_80"]);
-					array_push($_SESSION[$sessioncontacto]["telefonoContacto"], $decode["data"][0]["phone_telPrCustomer_12"]);
-					array_push($_SESSION[$sessioncontacto]["telefonoSec"], $decode["data"][0]["phone_telSecCustomer_12"]);
+					array_push($_SESSION[$sessioncontacto]["telefonoContacto"], $decode["data"][0]["phone_telPrCustomer_10"]);
+					array_push($_SESSION[$sessioncontacto]["telefonoSec"], $decode["data"][0]["phone_telSecCustomer_10"]);
 					array_push($_SESSION[$sessioncontacto]["correo"], $decode["data"][0]["email_emailContactoCustomer_100"]);
+					array_push($_SESSION[$sessioncontacto]["idrelacionDomicilio"], $decode["data"][0]["phone_idRelacional_12"]);
 				}
 			} else {
 				echo 1;
 				$_SESSION[$sessioncontacto] = array(
 					"nombreContacto" => array($decode["data"][0]["nombre_nameContactoCustomer_80"]),
-					"telefonoContacto" => array($decode["data"][0]["phone_telPrCustomer_12"]),
-					"telefonoSec" => array($decode["data"][0]["phone_telSecCustomer_12"]),
-					"correo" => array($decode["data"][0]["email_emailContactoCustomer_100"])
+					"telefonoContacto" => array($decode["data"][0]["phone_telPrCustomer_10"]),
+					"telefonoSec" => array($decode["data"][0]["phone_telSecCustomer_10"]),
+					"correo" => array($decode["data"][0]["email_emailContactoCustomer_100"]),
+					"idrelacionDomicilio" => array($decode["data"][0]["phone_idRelacional_12"])
 				);
 			}
 		} elseif ($sessioncontacto == "contactoProveedor") {
 			if (isset($_SESSION[$sessioncontacto])) {
 				$contar = count($_SESSION[$sessioncontacto]["nombreContacto"]);
-				$regreso = $contar + 1;
-				echo $regreso;
+				/* $regreso = $contar + 1;
+				echo $regreso; */
 				if ($contar < 3) {
 					array_push($_SESSION[$sessioncontacto]["nombreContacto"], $decode["datacontactoProveedor"][0]["nombre_nombreContactoProveedor_80"]);
 					array_push($_SESSION[$sessioncontacto]["telefonoContacto"], $decode["datacontactoProveedor"][0]["phone_telefonoContactoProveedor_12"]);
@@ -157,22 +159,21 @@ class Ajax
 
 	public function sessionDomicilios($sesionNombre)
 	{
+		$idDomicilio=0;$regreso = 0;
 		$numeroDomicilio = "";
 		$datos = $this->getDato();
 		$decode = json_decode($datos, true);
 
 		if ($sesionNombre == "domiciliocli") {
-			if ($decode["data"][0]["phone_numeroCustomer_5"] == '0') {
-				$numeroDomicilio = "S_N";
-			} else {
-				$numeroDomicilio = $decode["data"][0]["phone_numeroCustomer_5"];
-			}
+			if ($decode["data"][0]["phone_numeroCustomer_5"] == '0') {	$numeroDomicilio = "S_N";} else {$numeroDomicilio = $decode["data"][0]["phone_numeroCustomer_5"];}
 
-			if (isset($_SESSION[$sesionNombre])) {
+			if (isset($_SESSION["domiciliocli"])) {
+
+				$lastSession = Utls::lastArray($_SESSION['domiciliocli']["idlastDom"]);
 				$contaDomicilio = count($_SESSION[$sesionNombre]["calleDomicilio"]);
 				$regreso = $contaDomicilio + 1;
-				echo $regreso;
 				if ($contaDomicilio < 3) {
+					$idDomicilio = $lastSession +1;
 					array_push($_SESSION[$sesionNombre]["calleDomicilio"], $decode["data"][0]["nombre_streetCustomer_50"]);
 					array_push($_SESSION[$sesionNombre]["numeroDomcilio"], $numeroDomicilio);
 					array_push($_SESSION[$sesionNombre]["estadoDomcilio"], $decode["data"][0]["phone_inputEstado_5"]);
@@ -180,17 +181,21 @@ class Ajax
 					array_push($_SESSION[$sesionNombre]["coloniaDomcilio"], $decode["data"][0]["nombre_coloniaCustomer_50"]);
 					array_push($_SESSION[$sesionNombre]["cpDomcilio"], $decode["data"][0]["phone_cpCustomer_5"]);
 					array_push($_SESSION[$sesionNombre]["rutaDomcilio"], $decode["data"][0]["phone_RutaCustomer_5"]);
+					array_push($_SESSION[$sesionNombre]["idlastDom"], $idDomicilio);
 				}
 			} else {
-				echo 1;
-				$_SESSION[$sesionNombre] = array(
+				$regreso  = 1;
+				$idDomicilio = $decode["data"][0]["phone_idDato_12"];
+
+				$_SESSION["domiciliocli"] = array(
 					"calleDomicilio" => array($decode["data"][0]["nombre_streetCustomer_50"]),
 					"numeroDomcilio" => array($numeroDomicilio),
 					"estadoDomcilio" => array($decode["data"][0]["phone_inputEstado_5"]),
 					"municipioDomcilio" => array($decode["data"][0]["phone_inpuMunicipio_5"]),
 					"coloniaDomcilio" => array($decode["data"][0]["nombre_coloniaCustomer_50"]),
 					"cpDomcilio" => array($decode["data"][0]["phone_cpCustomer_5"]),
-					"rutaDomcilio" => array($decode["data"][0]["phone_RutaCustomer_5"])
+					"rutaDomcilio" => array($decode["data"][0]["phone_RutaCustomer_5"]),
+					"idlastDom" => array((int)$decode["data"][0]["phone_idDato_12"])
 				);
 			}
 		} elseif ($sesionNombre == "domicilioprov") {
@@ -204,7 +209,6 @@ class Ajax
 			if (isset($_SESSION[$sesionNombre])) {
 				$contaDomicilio = count($_SESSION[$sesionNombre]["calleDomicilio"]);
 				$regreso = $contaDomicilio + 1;
-				echo $regreso;
 				if ($contaDomicilio < 3) {
 					array_push($_SESSION[$sesionNombre]["calleDomicilio"], $decode["dataProveedor"][0]["nombre_nombreCalleProveedor_80"]);
 					array_push($_SESSION[$sesionNombre]["numeroDomcilio"], $numeroDomicilio);
@@ -227,6 +231,7 @@ class Ajax
 				);
 			}
 		}
+		echo $regreso."_".$idDomicilio;
 	}
 
 	public function getAllRows($tabla,$idmatch){

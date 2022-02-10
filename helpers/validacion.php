@@ -279,7 +279,7 @@ class Validacion
 		$valor = "";
 		switch ($tipo) {
 			case 'string':
-				$largoDelTexto = 50;
+				$largoDelTexto = 150;
 				$valor = 'textoLargo';
 				break;
 			case 'number':

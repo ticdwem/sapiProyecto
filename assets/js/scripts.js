@@ -267,11 +267,11 @@ function validarInput(input) {
 }
 
 
-function separaTexto(texto) {
+function separaTexto(texto,limite) {
   let separador = "_";
-  let limit = 3;
+  //let limit = 3;
   let textoNuevo = "";
-  textoNuevo = texto.split(separador, limit);
+  textoNuevo = texto.split(separador, limite);
   return textoNuevo
   /* let validarTexto = expRegular('nombre', texto)
   if (validarTexto = !0) {
@@ -299,7 +299,7 @@ function tamanoTxt(texto, length_txt) {
 function validarCampos(arrayDatos) {
   let contador = 0;
   for (var clave in arrayDatos[0]) {
-    var indice = separaTexto(clave)
+    var indice = separaTexto(clave,3)
 
     if (arrayDatos[0][clave] === 'empty') {
       $("#" + indice[1]).css('border', '1px solid red')
@@ -564,27 +564,8 @@ return */
   return reesultado.toFixed(2);
  }
 
- function getOption(optionEl){
-	let mensaje = "no hay mensaje";
-	console.log("hola");
-	switch (optionEl) {
-		case 1:
-			mensaje = "XOCHIMILCO";
-			break;
-		case 2:
-		mensaje = "TOLUCA";
-			break;
-		case 3:
-		mensaje = "CUAUTLA";
-			break;
-		case 4:
-		mensaje = "CUERNAVACA";
-			break;
-		default:
-			mensaje = "SIN DETECTAR";
-			break;
-	}
-	console.log(mensaje);
+ function limpiarSession(){
+  sessionStorage.clear();
 }
 
 
@@ -594,3 +575,39 @@ return */
 });
  */
 
+/* array(1) {
+  ["data"]=>
+  array(2) {
+    [0]=>
+    array(4) {
+      ["nombre_nameContactoCustomer_80"]=>
+      string(13) "ELENA ROSARIO"
+      ["phone_telPrCustomer_10"]=>
+      string(10) "3216549870"
+      ["email_emailContactoCustomer_100"]=>
+      string(17) "correo@correo.com"
+      ["phone_telSecCustomer_12"]=>
+      string(12) "321654987044"
+    }
+    [1]=>
+    array(1) {
+      ["domicilioCleinte"]=>
+      array(7) {
+        ["nombre_streetCustomer_50"]=>
+        string(6) "PEROTA"
+        ["phone_numeroCustomer_5"]=>
+        string(5) "32165"
+        ["phone_inputEstado_5"]=>
+        string(1) "3"
+        ["phone_inpuMunicipio_5"]=>
+        string(2) "17"
+        ["nombre_coloniaCustomer_50"]=>
+        string(7) "CARACAS"
+        ["phone_cpCustomer_5"]=>
+        string(5) "23197"
+        ["phone_RutaCustomer_5"]=>
+        string(2) "11"
+      }
+    }
+  }
+} */

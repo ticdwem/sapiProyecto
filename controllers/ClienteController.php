@@ -15,6 +15,11 @@ class ClienteController
         $ruta = new ClienteModels();
         $rta = $ruta->getAll('ruta');
 
+        $nuevo = new ClienteModels();
+        $domi= mysqli_fetch_object($nuevo->lastId('domiciliocliente','idDomicilioCliente'));
+       
+        $idCliente = new ClienteModels();
+        $id = mysqli_fetch_object($idCliente->lastId('cliente','idCliente')); 
         require_once 'views/cliente/nuevo.php';
     }
 
@@ -26,24 +31,24 @@ class ClienteController
             $rfcCustomer = (Validacion::validarRFC($_POST['rfcCustomer'] == false)) ? false :  htmlspecialchars($_POST['rfcCustomer']);
             $descuento = (Validacion::validarFloat($_POST['descuentoCustomer'] == false)) ? false :  htmlspecialchars($_POST['descuentoCustomer']);
 
-            if (isset($_SESSION["contacto"])) {
-                $nombreArray = (Validacion::validarArray($_SESSION["contacto"]["nombreContacto"], 'string') == '800') ? false : true;
-                $tel1Array = (Validacion::validarArray($_SESSION["contacto"]["telefonoContacto"], 'number') == '800') ? false : true;
-                $tel2Array = (Validacion::validarArray($_SESSION["contacto"]["telefonoSec"], 'number') == '800') ? false : true;
-                $emailArray = (Validacion::validarArray($_SESSION["contacto"]["correo"], 'email') == '800') ? false : true;
+            if (isset($_SESSION["contactoCliente"])) {
+                $nombreArray = (Validacion::validarArray($_SESSION["contactoCliente"]["nombreContacto"], 'string') == '800') ? false : true;
+                $tel1Array = (Validacion::validarArray($_SESSION["contactoCliente"]["telefonoContacto"], 'number') == '800') ? false : true;
+                $tel2Array = (Validacion::validarArray($_SESSION["contactoCliente"]["telefonoSec"], 'number') == '800') ? false : true;
+                $emailArray = (Validacion::validarArray($_SESSION["contactoCliente"]["correo"], 'email') == '800') ? false : true;
             } else {
                 $nombreArray = 0;
                 $tel1Array = 0;
                 $tel2Array = 0;
                 $emailArray = 0;
             }
-            if (isset($_SESSION["domicilio"])) {
-                $calleArray = (Validacion::validarArray($_SESSION["domicilio"]["calleDomicilio"], 'string') == '800') ? false : true;
-                $NumeroArray = (Validacion::validarArray($_SESSION["domicilio"]["numeroDomcilio"], 'string') == '800') ? false : true;
-                $MunicipioArray = (Validacion::validarArray($_SESSION["domicilio"]["municipioDomcilio"], 'integer') == '800') ? false : true;
-                $coloniaArray = (Validacion::validarArray($_SESSION["domicilio"]["coloniaDomcilio"], 'integer') == '800') ? false : true;
-                $cpArray = (Validacion::validarArray($_SESSION["domicilio"]["cpDomcilio"], 'integer') == '800') ? false : true;
-                $RutaArray = (Validacion::validarArray($_SESSION["domicilio"]["rutaDomcilio"], 'integer') == '800') ? false : true;
+            if (isset($_SESSION["domiciliocli"])) {
+                $calleArray = (Validacion::validarArray($_SESSION["domiciliocli"]["calleDomicilio"], 'string') == '800') ? false : true;
+                $NumeroArray = (Validacion::validarArray($_SESSION["domiciliocli"]["numeroDomcilio"], 'string') == '800') ? false : true;
+                $MunicipioArray = (Validacion::validarArray($_SESSION["domiciliocli"]["municipioDomcilio"], 'integer') == '800') ? false : true;
+                $coloniaArray = (Validacion::validarArray($_SESSION["domiciliocli"]["coloniaDomcilio"], 'integer') == '800') ? false : true;
+                $cpArray = (Validacion::validarArray($_SESSION["domiciliocli"]["cpDomcilio"], 'integer') == '800') ? false : true;
+                $RutaArray = (Validacion::validarArray($_SESSION["domiciliocli"]["rutaDomcilio"], 'integer') == '800') ? false : true;
             } else {
                 $calleArray = 0;
                 $NumeroArray = 0;
@@ -73,58 +78,62 @@ class ClienteController
                 $insertCliente->setName($nameCustomer);
                 $insertCliente->setRfc($rfcCustomer);
                 $insertCliente->setDescuento($descuento);
+                $insertCliente->setSaldoCliente('0.0'); /* este se debe de modificar */
                 $inserta = $insertCliente->createCliente();
                 if ($inserta) {
-                    if (isset($_SESSION['contacto'])) {
-                        for ($i = 0; $i < count($_SESSION["contacto"]["nombreContacto"]); $i++) {
-                            $insertContacto = new ClienteModels();
-                            $insertContacto->setId($inserta);
-                            $insertContacto->setNombreCliente($_SESSION["contacto"]["nombreContacto"][$i]);
-                            $insertContacto->setTelefonoCliente($_SESSION["contacto"]["telefonoContacto"][$i]);
-                            $insertContacto->setTelefonoDosCliente($_SESSION["contacto"]["telefonoSec"][$i]);
-                            $insertContacto->setCorreoCliente($_SESSION["contacto"]["correo"][$i]);
+                    if (isset($_SESSION['domiciliocli'])) {
 
-                            $verifInsert = $insertContacto->createContacto();
-                        }
-                        if ($verifInsert) {
-                            $_SESSION['statusSave'] = "SE INSERTO CORRECTAMENTE";
-                            Utls::deleteSession('contacto');
-                        } else {
-                            $_SESSION['formulario_cliente'] = array(
-                                'error' => 'hubo un error al insertar',
-                                'datos' => $cliente
-                            );
-                            echo '<script>window.location="' . base_url . 'Cliente/index"</script>';
-                        }
-                    }
-                    if (isset($_SESSION['domicilio'])) {
-
-                        for ($i = 0; $i < count($_SESSION["domicilio"]["calleDomicilio"]); $i++) {
+                        for ($i = 0; $i < count($_SESSION["domiciliocli"]["calleDomicilio"]); $i++) {
                             $altaDomicilio = new ClienteModels();
 
                             $altaDomicilio->setId($inserta);
-                            $altaDomicilio->setRuta($_SESSION["domicilio"]["rutaDomcilio"][$i]);
-                            $altaDomicilio->setCalle(htmlspecialchars($_SESSION["domicilio"]["calleDomicilio"][$i]));
-                            $altaDomicilio->setNumero(htmlspecialchars($_SESSION["domicilio"]["numeroDomcilio"][$i]));
-                            $altaDomicilio->setMunicipio($_SESSION["domicilio"]["municipioDomcilio"][$i]);
-                            $altaDomicilio->setCp(htmlspecialchars($_SESSION["domicilio"]["cpDomcilio"][$i]));
-                            $altaDomicilio->setColonia(htmlspecialchars($_SESSION["domicilio"]["coloniaDomcilio"][$i]));
+                            $altaDomicilio->setRuta($_SESSION["domiciliocli"]["rutaDomcilio"][$i]);
+                            $altaDomicilio->setCalle(htmlspecialchars($_SESSION["domiciliocli"]["calleDomicilio"][$i]));
+                            $altaDomicilio->setNumero(htmlspecialchars($_SESSION["domiciliocli"]["numeroDomcilio"][$i]));
+                            $altaDomicilio->setMunicipio($_SESSION["domiciliocli"]["municipioDomcilio"][$i]);
+                            $altaDomicilio->setCp(htmlspecialchars($_SESSION["domiciliocli"]["cpDomcilio"][$i]));
+                            $altaDomicilio->setColonia(htmlspecialchars($_SESSION["domiciliocli"]["coloniaDomcilio"][$i]));
 
                             $verifInsertDomicilio = $altaDomicilio->createDomicilio();
                         }
                         if ($verifInsertDomicilio) {
                             $_SESSION['statusSave'] = "SE INSERTO CORRECTAMENTE";
-                            Utls::deleteSession('domicilio');
+                            //Utls::deleteSession('domiciliocli');
                         } else {
                             $_SESSION['formulario_cliente'] = array(
-                                'error' => 'hubo un error al insertar',
+                                'error' => 'hubo un error al insertar domicilio',
                                 'datos' => $cliente
                             );
-                            echo '<script>window.location="' . base_url . 'Cliente/index"</script>';
+                           // echo '<script>window.location="' . base_url . 'Cliente/index"</script>';
                         }
                     }
+                    if (isset($_SESSION['contactoCliente'])) {
+                       
+                        for ($i = 0; $i < count($_SESSION["contactoCliente"]["nombreContacto"]); $i++) {
+                            $insertContacto = new ClienteModels();
+                            //$insertContacto->setId($inserta);
+                            $insertContacto->setNombreCliente($_SESSION["contactoCliente"]["nombreContacto"][$i]);
+                            $insertContacto->setIdRelacion($_SESSION["contactoCliente"]["idrelacionDomicilio"][$i]);
+                            $insertContacto->setTelefonoCliente($_SESSION["contactoCliente"]["telefonoContacto"][$i]);
+                            $insertContacto->setTelefonoDosCliente($_SESSION["contactoCliente"]["telefonoSec"][$i]);
+                            $insertContacto->setCorreoCliente($_SESSION["contactoCliente"]["correo"][$i]);
+                            $verifInsert = $insertContacto->createContacto();
+                            
+                        }
+                        if ($verifInsert) {
+                            $_SESSION['statusSave'] = "SE INSERTO CORRECTAMENTE";
+                            Utls::deleteSession('contactoCliente');
+                        } else {
+                            $_SESSION['formulario_cliente'] = array(
+                                'error' => 'hubo un error al insertar contacto',
+                                'datos' => $cliente
+                            );
+                           echo '<script>window.location="' . base_url . 'Cliente/index"</script>';
+                        }
+                    }
+                    
 
-                    echo '<script>window.location="' . base_url . 'Cliente/index"</script>';
+                   echo '<script>window.location="' . base_url . 'Cliente/index"</script>';
                 } else {
                     $_SESSION['formulario_cliente'] = array('error' => 'hubo un error al insertar favor de contactar a su administrador', 'datos' => $cliente);
                     echo '<script>window.location="' . base_url . 'Cliente/index"</script>';
