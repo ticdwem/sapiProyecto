@@ -46,14 +46,14 @@ if (isset($_SESSION['formulario_cliente'])) {
       <div class="form-row p-2">
         <div class="form-group col-md-6">
           <label for="descuentoCustomer">Descuento %:</label>
-          <input type="text" class="form-control" name="descuentoCustomer" id="descuentoCustomer">
+          <input type="text" class="form-control" name="descuentoCustomer" id="descuentoCustomer" >
           <div class="descuentoCustomer"></div>
         </div>
         <div class="form-group col-md-6">
-        <label for="descuentoCustomer">Id Cliente :</label>
-          <input type="text" class="form-control" name="descuentoCustomer" id="descuentoCustomer" value="<?php if($id->idTabla==NULL || $id->idTabla==0){echo 1;}else{echo $id->idTabla;};?>" disabled>
-          <input type="hidden" name="descuentoCustomer" value="<?php if($id->idTabla==NULL || $id->idTabla==0){echo 1;}else{echo $id->idTabla;}?>">
-          <div class="descuentoCustomer"></div>
+        <label for="idCliente">Id Cliente :</label>
+          <input type="text" class="form-control" name="idCliente" id="idCliente" placeholder="<?php if($id->idTabla==NULL || $id->idTabla==0){echo 1;}else{echo $id->idTabla;};?>">
+         <!--  <input type="hidden" name="idCliente" value="<?php /* if($id->idTabla==NULL || $id->idTabla==0){echo 1;}else{echo $id->idTabla;} */?>"> -->
+          <div class="idCliente"></div>
         </div>
       </div>
       <div class="smallSubtitle">

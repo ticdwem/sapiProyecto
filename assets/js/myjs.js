@@ -892,12 +892,40 @@ $(document).ready(function () {
         console.log(this.value, 'Yeah');
         // this refers to the option so you can do this.value if you need..
     });
-	/* $("#rutaPedido").mouseenter('option',function(){
-		let datoId = $(this).attr('data-id');
-		console.log(datoId);
-	}) */
+	
+	// verificar si existe un id
+	$("#idCliente").on('change', function(){
+		var idcli = $(this).val();
+		var cliente = new FormData();
+		cliente.append('idCliente',idcli);
+		$.ajax({
+			url: getAbsolutePath() + "views/layout/ajax.php",
+			method: "POST",
+			data:cliente,
+			cache: false,
+			contentType: false,
+			processData: false,
+			beforeSend: function () {
+				$('#circuloCliente').html('<i class="fas fa-sync fa-spin"></i>');
+			},
+			success: function (clientesFind) {
+				console.log(clientesFind);
+				if(clientesFind == 1){
+					$(".idCliente").css("color","red");
+					$(".idCliente").html("YA EXISTE ESTE ID");
+					$("#idCliente").css("border","1px solid red");
+				}else{
+					$(".idCliente").css("color","green");
+					$(".idCliente").html("");
+					$("#idCliente").css("border","1px solid green");
+				}
+			}
+		});
+	})
 	
 });
+
+
 $(document).on('click','.deleteOnclick',function(){
 	let totalCompra = 0;
 	let procentaje = $("#descuentoCliente").val();

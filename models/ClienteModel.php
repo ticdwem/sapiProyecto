@@ -381,8 +381,8 @@ class ClienteModels extends ModeloBase{
     }
 
 	public function createCliente(){
-		$query = "INSERT INTO cliente (nombreCliente, rfcCliente, descuentoCliente, limiteCreditoCliente, saldoCreditoCliente, NunCuentaCliente) 
-				  VALUES ('{$this->getName()}', '{$this->getRfc()}', '{$this->getDescuento()}', /* '{$this->getLimiteCredito()}' */'10000', '{$this->getSaldoCliente()}', '999999999');";
+		$query = "INSERT INTO cliente (idCliente,nombreCliente, rfcCliente, descuentoCliente, limiteCreditoCliente, saldoCreditoCliente, NunCuentaCliente) 
+				  VALUES ('{$this->getId()}','{$this->getName()}', '{$this->getRfc()}', '{$this->getDescuento()}', '10000', '{$this->getSaldoCliente()}', '999999999');";
 
         $insert = $this->db->query($query);
 		$verifica = false;
@@ -410,8 +410,7 @@ class ClienteModels extends ModeloBase{
         $query = "INSERT INTO domiciliocliente (clienteId, rutaId, calleDomicilioCliente, numeroDomicilioCliente, estados_municipios_id, cpDomicilioCliente,coloniaDomicilioCliente) 
                          VALUES ('{$this->getId()}', '{$this->getRuta()}', '{$this->getCalle()}', '{$this->getNumero()}', '{$this->getMunicipio()}', '{$this->getCp()}','{$this->getColonia()}');";
 
-/*         var_dump($query);
-        die(); */
+
         $domicilio = $this->db->query($query);
         $insert = false;
         if($domicilio){
@@ -464,5 +463,11 @@ class ClienteModels extends ModeloBase{
              $pass = true;
          }
          return $pass;
+    }
+
+    public function existeId(){
+        $query = "SELECT COUNT(idCliente) as contar FROM cliente WHERE idCliente = '{$this->getId()}'";
+        $consulta = $this->db->query($query);
+        return $consulta;
     }
 }

@@ -297,6 +297,12 @@ class Ajax
 		$pz = new RemisionController();
 		$pz->piezaPeso($datos);
 	}
+
+	public function verifCliente(){
+		$dato = $this->getDato();
+		$cliente = new ClienteController();
+		$cliente->verificarId($dato);
+	}
 }
 /* echo "<pre> //////";
 var_dump($_POST);
@@ -449,5 +455,11 @@ if(isset($_POST['catidadPz'])){
 	$lote = new Ajax();
 	$lote->setDato($_POST['catidadPz']);
 	$lote->countPizas();
+
+}
+if(isset($_POST['idCliente'])){
+	$lote = new Ajax();
+	$lote->setDato($_POST['idCliente']);
+	$lote->verifCliente();
 
 }

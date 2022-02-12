@@ -27,6 +27,7 @@ class ClienteController
     {
         if (isset($_POST["btnEnviar"])) {
 
+            $id = (Validacion::validarNumero($_POST['idCliente']) == -1) ? false :  htmlspecialchars($_POST['idCliente']);
             $nameCustomer = (Validacion::textoLargo($_POST['nameCustomer'], 50) == 900) ? false :  htmlspecialchars($_POST['nameCustomer']);
             $rfcCustomer = (Validacion::validarRFC($_POST['rfcCustomer'] == false)) ? false :  htmlspecialchars($_POST['rfcCustomer']);
             $descuento = (Validacion::validarFloat($_POST['descuentoCustomer'] == false)) ? false :  htmlspecialchars($_POST['descuentoCustomer']);
@@ -58,7 +59,7 @@ class ClienteController
                 $RutaArray = 0;
             }
 
-            $cliente = array("nombre" => $nameCustomer, "rfc" => $rfcCustomer, "descuento" => $descuento, "nombreCliente" => $nombreArray, "telefonoCleinte" => $tel1Array, "telefono2Cliente" => $tel2Array, "emailCliente" => $emailArray, "calleCleinte" => $calleArray, "numeroCliente" => $NumeroArray, "MunicipioCleinte" => $MunicipioArray, "coloniaCliente" => $coloniaArray, "cpCliente" => $cpArray, "rutaCliente" => $RutaArray);
+            $cliente = array("id"=>$id,"nombre" => $nameCustomer, "rfc" => $rfcCustomer, "descuento" => $descuento, "nombreCliente" => $nombreArray, "telefonoCleinte" => $tel1Array, "telefono2Cliente" => $tel2Array, "emailCliente" => $emailArray, "calleCleinte" => $calleArray, "numeroCliente" => $NumeroArray, "MunicipioCleinte" => $MunicipioArray, "coloniaCliente" => $coloniaArray, "cpCliente" => $cpArray, "rutaCliente" => $RutaArray);
 
             foreach ($cliente as $dato => $valor) {
                 if ($valor == false) {
@@ -75,6 +76,7 @@ class ClienteController
             } else {
                 // ya que verificamos los campos empezamos a insertar en la base de datos */
                 $insertCliente = new ClienteModels();
+                $insertCliente->setId($id);
                 $insertCliente->setName($nameCustomer);
                 $insertCliente->setRfc($rfcCustomer);
                 $insertCliente->setDescuento($descuento);
@@ -98,13 +100,13 @@ class ClienteController
                         }
                         if ($verifInsertDomicilio) {
                             $_SESSION['statusSave'] = "SE INSERTO CORRECTAMENTE";
-                            //Utls::deleteSession('domiciliocli');
+                            Utls::deleteSession('domiciliocli');
                         } else {
                             $_SESSION['formulario_cliente'] = array(
                                 'error' => 'hubo un error al insertar domicilio',
                                 'datos' => $cliente
                             );
-                           // echo '<script>window.location="' . base_url . 'Cliente/index"</script>';
+                            echo '<script>window.location="' . base_url . 'Cliente/index"</script>';
                         }
                     }
                     if (isset($_SESSION['contactoCliente'])) {
@@ -520,6 +522,28 @@ class ClienteController
                 'error' => 'faltan datos necesarios para hacer la acción'
             );
             echo '<script>window.location="' . base_url . $url . 'edit&id=' . $_POST["iCliente"] . '"</script>';
+        }
+    }
+
+    public function verificarId($dato){
+        $id = (Validacion::validarNumero($dato) == '-1') ? false : htmlspecialchars($dato);
+
+        if($id == false){
+            $_SESSION['formulario_cliente'] = array(
+                'error' => 'El campo Id Cliente es incorrecto, llena los campos faltantes'
+            );
+            echo '<script>window.location="' . base_url .'Cliente/index"</script>';
+        }else{
+            $idDato = new ClienteModels();
+            $idDato->setid($id);
+            $datos = $idDato->existeId();
+            $verificar = $datos->fetch_object();
+            if($verificar->contar == "0"){
+                echo 0;
+            }else{
+                echo 1;
+            }
+
         }
     }
 }
