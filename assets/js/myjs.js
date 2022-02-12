@@ -313,8 +313,8 @@ $(document).ready(function () {
 				$(".exampleModalLabel").html(cliente)
 				$("#inputnombreContactoEdit").val(contacto.nombreCliente);
 				$("#inputTelObligatorioEdit").val(contacto.telefonoPrincipal);
-				$("#inputTelSecundarioEdit").val(contacto.telefonoScundario);
-				$("#inputEmailEdit").val(contacto.correoContacto);
+				$("#inputTelSecundarioEdit").val(cambiarAempty(contacto.telefonoScundario));
+				$("#inputEmailEdit").val(cambiarAempty(contacto.correoContacto));
 			}
 		})
 	});

@@ -269,7 +269,7 @@ class LogginController
                     case 'contactocliente':
                         $returnJson = array(
                             'idContactoCliente' => $datos_consultados->idContactoCliente,
-                            'idcliente' => $datos_consultados->ClienteId,
+                            'idcliente' => $datos_consultados->idDomContactoCliente,
                             'nombreCliente' => $datos_consultados->nombreContatoCliente,
                             'telefonoPrincipal' => $datos_consultados->telPrinContactoCliente,
 
@@ -332,6 +332,7 @@ class LogginController
             }else{
                 $returnJson='0';   
             }
+            
             header('Content-type: application/json; charset=utf-8');
             echo json_encode($returnJson, JSON_FORCE_OBJECT);
             exit();

@@ -161,7 +161,7 @@ class ClienteController
             $cliente = mysqli_fetch_row($clientes->getAllWhere("cliente", "WHERE idCliente = " . $_GET['id']));
             // obtenemos infromacion de contacto cliente
             $contacto = new ModeloBase();
-            $cli = $contacto->getAllWhere("contactocliente", "WHERE ClienteId = " . $_GET['id']);
+            $cli = $contacto->getAllWhere("datosCliente", "WHERE ClienteId = " . $_GET['id']);
             //obtenemos la informacion de los domicilios
             $domicilio = new ModeloBase();
             $dom = $domicilio->getAllWhere("domiciliocliente", "WHERE clienteId = " . $_GET['id']);

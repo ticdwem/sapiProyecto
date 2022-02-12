@@ -10,16 +10,9 @@ if (isset($_SESSION['formulario_cliente'])) {
 
 <div class="texcto m-3">
   <?php
-  //var_dump(Utls::lastArray($_SESSION['domiciliocli']["idlastDom"]));
-  //session_destroy();
- //var_dump(count($_SESSION["contactoCliente"]["nombreContacto"]));
   if (isset($_SESSION['statusSave'])) echo '<p class="alert alert-success error" role="alert">' . $_SESSION['statusSave'] . "</p>";
   Utls::deleteSession('formulario_cliente');
-  //Utls::deleteSession('contactoCliente');
   Utls::deleteSession('statusSave'); 
-/*   echo "<pre>";
-  var_dump($_SESSION);
-  echo "</pre>"; */
   ?>
 </div>
 

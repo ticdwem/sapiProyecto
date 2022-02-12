@@ -40,66 +40,68 @@
             <input type="submit" name="btnGuardarCliente" class="btn btn-primary" value="Editar">
         </form>
     </div>
-    <div class="col-sm-12 col-md-12 col-lg-12 gral card mt-4" id="">
-        <div id="contactoCli" class="col-lg-6 col-md-6 col-sm-12 table-responsive">
-            <small>CONTACTO CLIENTE</small>
-            <table class="table table-striped" id="tbl-contacto">
-                <thead>
-                    <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Principal</th>
-                        <th scope="col">Accion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    while ($contacto = $cli->fetch_object()) : ?>
+    <!-- <div class="row"> -->
+        <div class="row col-sm-12 col-md-12 col-lg-12 gral card mt-4" id="">
+            <div id="contactoCli" class="col-lg-6 col-md-6 col-sm-12 table-responsive">
+                <small>CONTACTO CLIENTE</small>
+                <table class="table table-striped" id="tbl-contacto">
+                    <thead>
                         <tr>
-                            <th><?= $contacto->nombreContatoCliente ?></th>
-                            <td><?= $contacto->telPrinContactoCliente ?></td>
-                            <td>
-                                <button type="button" class="btn btn-primary" data-id="<?= $contacto->idContactoCliente; ?>" id="contacto_<?= $contador; ?>" data-toggle="modal" data-target="#Cliente_Edit">ver</button>
-                            </td>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Principal</th>
+                            <th scope="col">Accion</th>
                         </tr>
-                    <?php endwhile ?>
-                </tbody>
-            </table>
-            <?php
-            if ($contadorCli  < 3) {
-                echo ' <button type="button" class="btn btn-primary btn-lg btn-block boton_4" id="contacto_4" data-toggle="modal" data-target="#Cliente_Add">Agregar</button>';
-            }
-            ?>
-        </div>
-        <div id="direccionCli" class="col-lg-6 col-md-6 col-sm-12 table-responsive">
-            <small>Dirección Cliente</small>
-            <table class="table table-striped" id="tbl-direccion">
-                <thead>
-                    <tr>
-                        <th scope="col">calle</th>
-                        <th scope="col">Principal</th>
-                        <th scope="col">Accion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    while ($domicilio = $dom->fetch_object()) : ?>
+                    </thead>
+                    <tbody>
+                        <?php
+                        while ($contacto = $cli->fetch_object()) : ?>                    
+                            <tr>
+                                <th><?= $contacto->nombreContatoCliente ?></th>
+                                <td><?= $contacto->telPrinContactoCliente ?></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-id="<?= $contacto->idContactoCliente; ?>" id="contacto_<?= $contador; ?>" data-toggle="modal" data-target="#Cliente_Edit">ver</button>
+                                </td>
+                            </tr>
+                        <?php endwhile ?>
+                    </tbody>
+                </table>
+                <?php
+                if ($contadorCli  < 3) {
+                    echo ' <button type="button" class="btn btn-primary btn-lg btn-block boton_4" id="contacto_4" data-toggle="modal" data-target="#Cliente_Add">Agregar</button>';
+                }
+                ?>
+            </div>
+            <div id="direccionCli" class="col-lg-6 col-md-6 col-sm-12 table-responsive">
+                <small>Dirección Cliente</small>
+                <table class="table table-striped" id="tbl-direccion">
+                    <thead>
                         <tr>
-                            <th><?= Validacion::recotarPuntos($domicilio->calleDomicilioCliente, 15, 10) ?></th>
-                            <td><?= $domicilio->numeroDomicilioCliente ?></td>
-                            <td><button class="btn btn-primary" role="button" data-id="<?= $domicilio->idDomicilioCliente; ?>" id="domicilio_<?= $contador; ?>" data-toggle="modal" data-target="#domicilio_id">VER</button></td>
+                            <th scope="col">calle</th>
+                            <th scope="col">Principal</th>
+                            <th scope="col">Accion</th>
                         </tr>
-                    <?php $contador++;
-                    endwhile ?>
-                </tbody>
-            </table>
-            <?php
-            if ($contador_dom  < 3) {
-                 echo ' <button type="button" class="btn btn-primary btn-lg btn-block" id="contacto_5" data-toggle="modal" data-target="#add_domiclio">Agregar</button>';
-               
-            }
-            ?>
+                    </thead>
+                    <tbody>
+                        <?php
+                        while ($domicilio = $dom->fetch_object()) : ?>
+                            <tr>
+                                <th><?= Validacion::recotarPuntos($domicilio->calleDomicilioCliente, 15, 10) ?></th>
+                                <td><?= $domicilio->numeroDomicilioCliente ?></td>
+                                <td><button class="btn btn-primary" role="button" data-id="<?= $domicilio->idDomicilioCliente; ?>" id="domicilio_<?= $contador; ?>" data-toggle="modal" data-target="#domicilio_id">VER</button></td>
+                            </tr>
+                        <?php $contador++;
+                        endwhile ?>
+                    </tbody>
+                </table>
+                <?php
+                if ($contador_dom  < 3) {
+                    echo ' <button type="button" class="btn btn-primary btn-lg btn-block" id="contacto_5" data-toggle="modal" data-target="#add_domiclio">Agregar</button>';
+                
+                }
+                ?>
+            </div>
         </div>
-    </div>
+    <!-- </div> -->
 
     <!-- Modal  agregar contacto-->
     <div class="modal fade" id="Cliente_Add" tabindex="-1" role="dialog" aria-labelledby="Cliente_AddLabel" aria-hidden="true">

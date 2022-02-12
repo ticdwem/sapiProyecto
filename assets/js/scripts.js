@@ -568,46 +568,11 @@ return */
   sessionStorage.clear();
 }
 
-
-/* enviamos por ajax la validacion para hacer  */
-/* $(document).ready(function () {
-  
-});
- */
-
-/* array(1) {
-  ["data"]=>
-  array(2) {
-    [0]=>
-    array(4) {
-      ["nombre_nameContactoCustomer_80"]=>
-      string(13) "ELENA ROSARIO"
-      ["phone_telPrCustomer_10"]=>
-      string(10) "3216549870"
-      ["email_emailContactoCustomer_100"]=>
-      string(17) "correo@correo.com"
-      ["phone_telSecCustomer_12"]=>
-      string(12) "321654987044"
-    }
-    [1]=>
-    array(1) {
-      ["domicilioCleinte"]=>
-      array(7) {
-        ["nombre_streetCustomer_50"]=>
-        string(6) "PEROTA"
-        ["phone_numeroCustomer_5"]=>
-        string(5) "32165"
-        ["phone_inputEstado_5"]=>
-        string(1) "3"
-        ["phone_inpuMunicipio_5"]=>
-        string(2) "17"
-        ["nombre_coloniaCustomer_50"]=>
-        string(7) "CARACAS"
-        ["phone_cpCustomer_5"]=>
-        string(5) "23197"
-        ["phone_RutaCustomer_5"]=>
-        string(2) "11"
-      }
-    }
+function cambiarAempty(dato){
+  let v = dato;
+  if(dato == 500 || dato == "empty@empty.com"){
+    v = 'SIN DATO';
   }
-} */
+
+  return v;
+}
