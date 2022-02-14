@@ -922,6 +922,12 @@ $(document).ready(function () {
 			}
 		});
 	})
+
+	$("#modalContactocliente").on("click",function(){
+		var idContacto=$(this).attr('data-id')
+		$("#Cliente_Add").modal('show');
+		$("#customerModal").val(idContacto);
+	})
 	
 });
 

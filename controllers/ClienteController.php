@@ -432,12 +432,13 @@ class ClienteController
     // funcion que agrega los contactos clientes independientemente
     public function addContacto()
     {
-        if (isset($_POST['contactoAdd'])) {
+        if (isset($_POST['inputnombreContactoAdd'])) {
             $url = "";
             $verifInsert = false;
-            $iCliente = (Validacion::validarNumero($_POST["iCliente"]) == '-1') ? false : true;
-            $nombreArray = (Validacion::textoLargo($_POST["inputnombreContactoAdd"], 50) == '900') ? false : true;
-            $tel1Array = (Validacion::validarNumero($_POST["inputTelObligatorio"]) == '-1') ? false : true;
+            $iCliente = (Validacion::validarNumero($_POST["iCliente"]) == '-1') ? false : $_POST["iCliente"];
+            $iClienteForeign = (Validacion::validarNumero($_POST["iClienteForeign"]) == '-1') ? false : $_POST["iClienteForeign"];
+            $nombreArray = (Validacion::textoLargo($_POST["inputnombreContactoAdd"], 50) == '900') ? false : $_POST["inputnombreContactoAdd"];
+            $tel1Array = (Validacion::validarNumero($_POST["inputTelObligatorio"]) == '-1') ? false : $_POST["inputTelObligatorio"];
             $tel2Array = (Validacion::validarNumero($_POST["inputTelSecundarioAdd"]) == '-1') ? false : $_POST["inputTelSecundarioAdd"];
             $emailArray = (Validacion::validarEmail($_POST["inputEmailAdd"], 0) == '0') ? false : $_POST["inputEmailAdd"];
 
@@ -448,7 +449,7 @@ class ClienteController
                 $emailArray = "empty@empty.com";
             }
 
-            $verificar = array('idCliente' => $iCliente, 'nombre_Contacto' => $nombreArray, 'telfono' => $tel1Array, 'telefono Sec' => $tel2Array, 'email' => $emailArray);
+            $verificar = array('idCliente' => $iCliente,'idForeign'=>$iClienteForeign, 'nombre_Contacto' => $nombreArray, 'telfono' => $tel1Array, 'telefono Sec' => $tel2Array, 'email' => $emailArray);
 
             foreach ($verificar as $dato => $valor) {
                 if ($valor == false) {
@@ -460,7 +461,7 @@ class ClienteController
                 }
             }
 
-            if (isset($_SESSION['formulario_cliente'])) {
+            if (isset($_SESSION['formulario_cliente'])) {/* 
                 switch ($_POST["contactoAdd"]) {
                     case 'ed53a12cecc92e4014e5f0438e17185a':
                         $url = 'Proveedor/';
@@ -471,10 +472,10 @@ class ClienteController
                     default:
                         # code...
                         break;
-                }
-                echo '<script>window.location="' . base_url . $url . 'edit&id=' . $_POST["iCliente"] . '"</script>';
+                } */
+                echo '<script>window.location="' . base_url .'/Cliente/edit&id=' . $_POST["iClienteForeign"] . '"</script>';
             } else {
-                switch ($_POST["contactoAdd"]) {
+               /*  switch ($_POST["contactoAdd"]) {
                     case 'ed53a12cecc92e4014e5f0438e17185a':
                         $url = 'Proveedor/';
                         require_once $_SERVER['DOCUMENT_ROOT'] . "/models/proveedorModels.php";
@@ -489,7 +490,7 @@ class ClienteController
                         $verifInsert = $altaContactoPro->createContactoProveedor();
                         break;
                     case '4983a0ab83ed86e0e7213c8783940193':
-                        $url = 'Cliente/';
+                        $url = 'Cliente/'; */
                         $altaContacto = new ClienteModels();
 
                         $altaContacto->setId($_POST['iCliente']);
@@ -499,29 +500,29 @@ class ClienteController
                         $altaContacto->setCorreoCliente(htmlspecialchars($emailArray));
 
                         $verifInsert = $altaContacto->createContacto();
-                        break;
+                       /*  break;
                     default:
                         $verifInsert = false;
-                        break;
-                }
+                        break; 
+                }*/
 
                 if ($verifInsert) {
                     $_SESSION['statusSave'] = "SE INSERTO CORRECTAMENTE";
                     Utls::deleteSession('contacto');
-                    echo '<script>window.location="' . base_url . $url . 'edit&id=' . $_POST["iCliente"] . '"</script>';
+                    echo '<script>window.location="' . base_url .'Cliente/edit&id=' . $_POST["iClienteForeign"] . '"</script>';
                 } else {
                     $_SESSION['formulario_cliente'] = array(
                         'error' => 'hubo un error al insertar',
                         'datos' => $verificar
                     );
-                    echo '<script>window.location="' . base_url . $url . 'index"</script>';
+                    echo '<script>window.location="' . base_url .'Cliente/edit&id=' . $_POST["iClienteForeign"] . '"</script>';
                 }
             }
         } else {
             $_SESSION['formulario_cliente'] = array(
                 'error' => 'faltan datos necesarios para hacer la acción'
             );
-            echo '<script>window.location="' . base_url . $url . 'edit&id=' . $_POST["iCliente"] . '"</script>';
+            echo '<script>window.location="' . base_url . $url . 'edit&id=' . $_POST["iClienteForeign"] . '"</script>';
         }
     }
 

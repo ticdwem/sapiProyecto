@@ -446,7 +446,7 @@ form .selectH .hideSelect {
 	width: 100%;
 	height: auto;
 }
-#editarCliente .gral #contactoCli,
+/* #editarCliente .gral #contactoCli,
 #editarCliente .gral #direccionCli {
 	position: relative;
 	width: 48%;
@@ -454,9 +454,9 @@ form .selectH .hideSelect {
 
 #editarCliente .gral #direccionCli {
 	left: 50%;
-	top: -280px;
+	top: 0px;
 }
-
+ */
 #caja,#cajaVenta{
 	border: 1px solid #b2b2b2;
 	width: 100%;

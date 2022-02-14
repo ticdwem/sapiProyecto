@@ -8,7 +8,7 @@
         $sesion = $_SESSION['formulario_cliente']['datos'];
     }
     $contador = 1;
-
+    $idContacto;
     $contadorCli = $cli->num_rows;
     $contador_dom = $dom->num_rows;
     ?>
@@ -41,7 +41,7 @@
         </form>
     </div>
     <!-- <div class="row"> -->
-        <div class="row col-sm-12 col-md-12 col-lg-12 gral card mt-4" id="">
+        <div class="row" id="">
             <div id="contactoCli" class="col-lg-6 col-md-6 col-sm-12 table-responsive">
                 <small>CONTACTO CLIENTE</small>
                 <table class="table table-striped" id="tbl-contacto">
@@ -54,7 +54,10 @@
                     </thead>
                     <tbody>
                         <?php
-                        while ($contacto = $cli->fetch_object()) : ?>                    
+                        while ($contacto = $cli->fetch_object()) : 
+                            $idContacto=$contacto->idDomContactoCliente
+                        ?> 
+
                             <tr>
                                 <th><?= $contacto->nombreContatoCliente ?></th>
                                 <td><?= $contacto->telPrinContactoCliente ?></td>
@@ -67,7 +70,7 @@
                 </table>
                 <?php
                 if ($contadorCli  < 3) {
-                    echo ' <button type="button" class="btn btn-primary btn-lg btn-block boton_4" id="contacto_4" data-toggle="modal" data-target="#Cliente_Add">Agregar</button>';
+                    echo ' <button type="button" class="btn btn-primary btn-lg btn-block boton_4" id="modalContactocliente" data-id="'.$idContacto.'">Agregar</button>';
                 }
                 ?>
             </div>
@@ -114,7 +117,8 @@
                     </button>
                 </div>
                 <form action="<?= base_url ?>Cliente/addContacto" id="frm_add_contacto" method="post">
-                    <input type="hidden" name="iCliente" id="customerModal" class="addId" value="<?= $_GET['id'] ?>">
+                    <input type="hidden" name="iCliente" id="customerModal" class="addId" value="">
+                    <input type="hidden" name="iClienteForeign" id="customerModalForeign" class="" value="<?=$_GET['id']?>">
                     <div class="modal-body">
                         <div id="contactoCliente" class="">
                             <div class="contactoCli" id="contactoCli">
@@ -140,7 +144,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" id="deleteContato" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" id="add_Contacto" class="btn btn-primary">Save changes</button>
+                            <button type="submit" id="add_Contacto" class="btn btn-primary">AGREGAR</button>
                         </div>
                     </div>
                 </form>

@@ -317,6 +317,8 @@ class ProveedorModels extends ModeloBase
     {
         $query = "INSERT INTO contactoproveedor (proveedorId, nombreProveesor, telefono1Proveedor, telefono2proveedor, correoproveedor) 
                                                 VALUES ('{$this->getId()}', '{$this->getNombreCliente()}', '{$this->getTelefonoCliente()}', '{$this->getTelefonoDosCliente()}', '{$this->getCorreoCliente()}')";
+        var_dump($query);
+        die();
         $contacto = $this->db->query($query);
         $verifica = false;
         if ($contacto) {
