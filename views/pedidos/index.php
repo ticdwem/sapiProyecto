@@ -15,28 +15,41 @@
                     <li class="breadcrumb-item active" aria-current="page">Pedidos</li>
                 </ol>
             </nav>
-            <div class="col-sm-12 col-md-12 col-xs-12 pedidoIndex" id="pedidoIndexId">
-                <div class="row">
-                    <table>
+            <div class="container" id="">
+                <!-- <div class="row"> -->
+                    <table class="table table-striped tablaGenerica">
                         <thead>
                             <tr>
                                 <th>No Cliente</th>
                                 <th>Nombre Cliente</th>
-                                <th>Teléfono</th>
+                                <!-- <th>Teléfono</th> -->
                                 <th>Ruta</th>
+                                <th>Pedido</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while($clientes = $cliente->fetch_object()): ?>
+                            <?php while($clientes = $pedido->fetch_object()): ?>
                                 <tr>
                                     <td>
-                                        
+                                        <?=$clientes->id?>
+                                    </td>
+                                    <td>
+                                        <?=$clientes->nombre?>
+                                    </td>
+                                    <!-- <td>
+                                        <?=$clientes->telPrinContactoCliente?>
+                                    </td> -->
+                                    <td>
+                                        <?=$clientes->nomRuta?>
+                                    </td>
+                                    <td>
+                                    <a href="<?=base_url?>Pedido/pedido&id=<?=$clientes->id?>" class="btn btn-primary btn-lg" role="button" aria-disabled="true">Hacer</a>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>
                     </table>
-                </div>
+                <!-- </div> -->
             </div>                      
         </div>        
     </div>

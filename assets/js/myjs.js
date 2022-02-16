@@ -27,7 +27,7 @@ $(document).ready(function () {
 	}
 	/* colocar fechas en los inputs */
 	$("#fechaCompra").val(hoy());
-	/* datatavles  */
+	/* datatables  */
 	$(".tablaGenerica").DataTable({
 		"paging": true,
 		"lengthChange": true,
@@ -36,6 +36,16 @@ $(document).ready(function () {
 		"info": true,
 		"autoWidth": true
 	});
+	/* DATATABLE pEDIDOS 
+	$("#pedidoIndexId").DataTable({
+		"paging": true,
+		"lengthChange": true,
+		"searching": true,
+		"ordering": false,
+		"info": true,
+		"autoWidth": true
+	});*/
+
 	/* disabled div usuario */
 	$(".permisoDoctor").attr('disabled', 'disabled');
 	$('.dropdown-toggle').on("click", function () {
