@@ -17,6 +17,8 @@
         <?php if ($sesion != "") {
             echo '<p class="alert alert-danger error" role="alert">' . $_SESSION['formulario_cliente']["error"] . "</p>";
         }
+
+        
         if (isset($_SESSION['statusSave'])) echo '<p class="alert alert-success error" role="alert">' . $_SESSION['statusSave'] . "</p>";
         /*  Utls::deleteSession('formulario_cliente'); */
         Utls::deleteSession('formulario_cliente');

@@ -11,6 +11,7 @@ if (isset($_SESSION['formulario_cliente'])) {
 <div class="texcto m-3">
   <?php
   if (isset($_SESSION['statusSave'])) echo '<p class="alert alert-success error" role="alert">' . $_SESSION['statusSave'] . "</p>";
+ 
   Utls::deleteSession('formulario_cliente');
   Utls::deleteSession('statusSave'); 
   ?>

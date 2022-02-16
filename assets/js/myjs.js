@@ -275,7 +275,7 @@ $(document).ready(function () {
 						$('#mensajeDomicilio').html('<div class="alert alert-danger" role="alert">No se puede agregar mas contactos a esta Cliente</div>');
 					} else {
 						$("#idRelacional").val(separador[1]);
-						$('#mensajeDomicilio').html('<div class="alert alert-success" role="alert">Se agrego correctamente ' + setDomicilio + ' ITEMS</div>');
+						$('#mensajeDomicilio').html('<div class="alert alert-success" role="alert">Se agrego correctamente ' + separador[0] + ' ITEMS</div>');
 						$(".agregarTelDom").modal();
 						
 					}

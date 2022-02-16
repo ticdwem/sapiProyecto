@@ -114,8 +114,8 @@ class Ajax
 
 		if ($sessioncontacto == "contactoCliente") {
 			if (isset($_SESSION[$sessioncontacto])) {
-				/* $contar = count($_SESSION[$sessioncontacto]["nombreContacto"]);
-				$regreso = $contar + 1;
+				 $contar = count($_SESSION[$sessioncontacto]["nombreContacto"]);
+				/*$regreso = $contar + 1;
 				echo $regreso; */
 				if ($contar < 3) {
 					array_push($_SESSION[$sessioncontacto]["nombreContacto"], $decode["data"][0]["nombre_nameContactoCustomer_80"]);

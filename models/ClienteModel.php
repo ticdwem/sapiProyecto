@@ -396,7 +396,8 @@ class ClienteModels extends ModeloBase{
     public function createContacto(){
         $query = "INSERT INTO contactocliente ( idDomContactoCliente, nombreContatoCliente, telPrinContactoCliente,telSecundarioContactoCliente, correoContactoSecundario) 
                                          VALUES ( '{$this->getId()}','{$this->getNombreCliente()}', '{$this->getTelefonoCliente()}', '{$this->getTelefonoDosCliente()}', '{$this->getCorreoCliente()}');"; 
-
+/* var_dump($query);
+die(); */
       $contacto = $this->db->query($query);
         $verifica = false;
         if($contacto){

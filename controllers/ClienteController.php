@@ -115,7 +115,7 @@ class ClienteController
                             $insertContacto = new ClienteModels();
                             //$insertContacto->setId($inserta);
                             $insertContacto->setNombreCliente($_SESSION["contactoCliente"]["nombreContacto"][$i]);
-                            $insertContacto->setIdRelacion($_SESSION["contactoCliente"]["idrelacionDomicilio"][$i]);
+                            $insertContacto->setId($_SESSION["contactoCliente"]["idrelacionDomicilio"][$i]);
                             $insertContacto->setTelefonoCliente($_SESSION["contactoCliente"]["telefonoContacto"][$i]);
                             $insertContacto->setTelefonoDosCliente($_SESSION["contactoCliente"]["telefonoSec"][$i]);
                             $insertContacto->setCorreoCliente($_SESSION["contactoCliente"]["correo"][$i]);
@@ -522,7 +522,7 @@ class ClienteController
             $_SESSION['formulario_cliente'] = array(
                 'error' => 'faltan datos necesarios para hacer la acción'
             );
-            echo '<script>window.location="' . base_url . $url . 'edit&id=' . $_POST["iClienteForeign"] . '"</script>';
+            echo '<script>window.location="' . base_url .'Cliente/edit&id=' .  $_POST["iClienteForeign"] . '"</script>';
         }
     }
 
