@@ -320,6 +320,8 @@ class LogginController
                             'idProducto' => $datos_consultados->idProducto,
                             'nombreProd' => $datos_consultados->nombreProducto,
                             'descripcionProd' => $datos_consultados->DescripcionProducto,
+                            'precio'=>$datos_consultados->precioProductoUnidad,
+                            'presentacion'=>$datos_consultados->presentacionProducto,                            
                             'unidadMedida' => $datos_consultados->UnidadMedidaProducto,
                             'statusProd' => $datos_consultados->statusProducto,
                             'fechaIngreso' => $datos_consultados->fechaIngreso

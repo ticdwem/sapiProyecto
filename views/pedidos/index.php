@@ -43,7 +43,7 @@
                                         <?=$clientes->nomRuta?>
                                     </td>
                                     <td>
-                                    <a href="<?=base_url?>Pedido/pedido&id=<?=$clientes->id?>" class="btn btn-primary btn-lg" role="button" aria-disabled="true">Hacer</a>
+                                    <a href="<?=base_url?>Pedido/pedido&id=<?=$clientes->id?>" class="btn btn-primary btn-lg" role="button" aria-disabled="true">Hacer Pedido</a>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>

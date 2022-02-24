@@ -11,9 +11,9 @@ class PedidoController
 
     public function pedido(){
         $pedidos = new PedidoModels();
-        $datos = $pedidos->getAllWhere('clientepedido','WHERE id='.$_GET['id']);
+        $datos = $pedidos->getAllWhere('clientepedido','WHERE id='.$_GET['id'])->fetch_object();
 
-        $dom = $pedidos->getAllWhere('domiciliocliente','WHERE clienteId='.$_GET['id']);
+        $dom = $pedidos->getAllWhere('mostrardatospedido','WHERE clienteId='.$_GET['id'])->fetch_object();
         require_once 'views/pedidos/pedido.php';
     }
 }

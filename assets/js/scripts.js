@@ -295,7 +295,7 @@ function tamanoTxt(texto, length_txt) {
 /* NOTA:
         para que regrese un valor valido debe der igual a cero (0),
         si este regresa un valor mayor a cero este se toma como un valor 
-        negatico*/
+        negativo*/
 function validarCampos(arrayDatos) {
   let contador = 0;
   for (var clave in arrayDatos[0]) {
@@ -532,6 +532,7 @@ return */
    for(var i = tableHeaderRowCount; i<countRows; i++){
      table.deleteRow(tableHeaderRowCount)
    }
+   
  }
  function clearDiv(idDiv){
    document.getElementById(idDiv);

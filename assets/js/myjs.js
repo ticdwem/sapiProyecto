@@ -939,6 +939,10 @@ $(document).ready(function () {
 		$("#customerModal").val(idContacto);
 	})
 	
+	/* mostramos el modal de domicilioo de preventa  */
+	$("#btnIdModalDomicilio").on("click", function(){
+		$("#modalDomicilio").modal('show');
+	});
 });
 
 
