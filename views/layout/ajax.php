@@ -2,7 +2,7 @@
 session_start();
 require_once "../../config/parameters.php";
 require_once "../../models/pacienteModels.php";
-/* require_once "../../models/ComprasModel"; */
+require_once "../../models/PedidoModel.php";
 require_once "../../helpers/validacion.php";
 require_once "../../helpers/crypt.php";
 require_once "../../helpers/utls.php";
@@ -10,6 +10,7 @@ require_once "../../controllers/LogginController.php";
 require_once "../../controllers/ClienteController.php";
 require_once "../../controllers/ComprasController.php";
 require_once "../../controllers/RemisionController.php";
+require_once "../../controllers/PedidoController.php";
 
 
 class Ajax
@@ -305,6 +306,12 @@ class Ajax
 		$cliente = new ClienteController();
 		$cliente->verificarId($dato);
 	}
+
+	public function pedidos(){
+		$dato = $this->getDato();
+		$pedido = new PedidoController();
+		$pedido->crearPedido($dato);
+	}
 }
 /* echo "<pre> //////";
 var_dump($_POST);
@@ -469,4 +476,10 @@ if (isset($_POST["producto"])) {
 	$dirPro = new Ajax();
 	$dirPro->setDato($_POST["producto"]);
 	$dirPro->findDatosCleente('producto','idProducto');
+}
+
+if(isset($_POST["pedido"])){
+	$dirPro = new Ajax();
+	$dirPro->setDato($_POST["pedido"]);
+	$dirPro->pedidos();
 }

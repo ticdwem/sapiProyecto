@@ -354,7 +354,8 @@ function deleteArray(arrayDelete) {
 }
 
 function existeRegistro(idDeTabla) {
-  let filas = $(idDeTabla).find('tbody tr').length;
+  let filas = $('#'+idDeTabla).find('tbody tr').length;
+  /* let filas = $('table#'+idDeTabla+' tbody tr').length; */
   if (filas > 0) {
     return 1;
   } else {

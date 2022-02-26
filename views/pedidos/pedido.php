@@ -94,7 +94,7 @@
         </div>        
     </div>
     <div id="cajaPedido" class="col-lg-12 m-t-5">
-            <table class="table table-striped" id="registroProductotable">
+           <table class="table table-striped" id="registroProductotablePedido">
                 <thead>
                     <tr>
                         <th scope="col">Id Producto</th>
@@ -103,10 +103,16 @@
                         <th scope="col">Piezas</th>
                     </tr>
                 </thead>
-                <tbody id="registroProducto">
+                 <!-- <tbody id="registroProductoPedido">
                                                 
-                </tbody>
-            </table>
+                </tbody>-->
+                <tbody id="registroProductoPedido">
+                                                    
+                    <tr><td>523</td><td>YOGHURT PILARICA DE NUEZ DE 250GR</td><td>250GR</td><td>12</td><td><button type="button" class="btn btn-danger deleteOnclick" onclick="deleteRow(this)"><i class="fa fa-times-circle" id="" aria-hidden="true"></i></button></td></tr><tr><td>498</td><td>NATA 250 GRAMOS</td><td>250GR</td><td>25</td><td><button type="button" class="btn btn-danger deleteOnclick" onclick="deleteRow(this)"><i class="fa fa-times-circle" id="" aria-hidden="true"></i></button></td></tr></tbody>
+            </table> 
+        </div>
+        <div id="divBtnPedidoAceptar">
+            <button type="button" id="btnPedidoAceptar">HACER PEDIDO</button>
         </div>
 </div>
 
@@ -205,6 +211,8 @@ $(document).ready(function(){
             alert("algo salio mal")
         }
     });
+
+    
 });
        const formPedidos = document.getElementById("frmPedido");
         
@@ -222,7 +230,7 @@ $(document).ready(function(){
             validar.push({"phone_inputCodigoPedido_6":inputCodigo,"nombre_inputNombreProdPedido_80":inputNombreProd,"nombre_inputPresentacionPedido_80":inputPresentacion,"decimales_inputPiezasPedido_12":inputPieza});
             var campos = validarCampos(validar);
             if(campos == 0 ){
-                let insertProducto = document.getElementById("registroProducto"); // este es el id de la tabla
+                let insertProducto = document.getElementById("registroProductoPedido"); // este es el id de la tabla
                 let newProductoRow = insertProducto.insertRow(-1); //este retorna una fila en la ultima fila de 
                 
                 let newproductoCellNew = newProductoRow.insertCell(0);// posisicion de la celda

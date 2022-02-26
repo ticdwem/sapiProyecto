@@ -943,6 +943,60 @@ $(document).ready(function () {
 	$("#btnIdModalDomicilio").on("click", function(){
 		$("#modalDomicilio").modal('show');
 	});
+	/* este funcion es para ingresar los datos a la base de dato pedidos */
+	$("#btnPedidoAceptar").on("click",function(e){
+		let valorPedido = Array();
+        let idCliente = $("#inputIdCliente").val();
+        var valId = expRegular("phone",idCliente);
+        if(valId !=0){
+            /* let tabla = $('table#registroProductotablePedido tbody tr').length; */
+            let tabla = existeRegistro('registroProductotablePedido');
+            if(tabla == 0){
+                Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'DEBES REGISTR AL MENOS UN PRODUCTO',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });  
+            }else{
+                $("#registroProductoPedido tr").each(function(){
+					let codigo = $(this).find('td').eq(0).html(); 
+					let producto = $(this).find('td').eq(1).html(); 
+					let presentacion = $(this).find('td').eq(2).html(); 
+					let pieza = $(this).find('td').eq(3).html(); 
+					valorPedido.push({'codigo':codigo,'producto':producto,'present':presentacion,'pz':pieza});
+				});
+
+				let data = {
+					"idCliente":idCliente,
+					"productos":valorPedido
+				}
+				let JsonString = JSON.stringify(data);
+
+				$.ajax({
+					url: getAbsolutePath() + "views/layout/ajax.php",
+					method: "POST",
+					data: { "pedido": JsonString },
+					cache: false,
+					beforeSend: function (setContacto) {
+						
+					},
+					success: function (pedido) {
+						console.log(pedido)
+						
+						//location.reload();
+					}
+				}); 
+            }
+        }else{
+            Swal.fire({
+                    icon: 'error',
+                    title: 'ERROR',
+                    text: 'HAY ERRORES EN LOS IDENTIFICADORES INGRESE DE NUEVO '
+                    })
+        }
+    })
 });
 
 
@@ -1100,7 +1154,8 @@ $(document).on('click','.seleccionarIdProductoXAlmacen', function(e){
 			}
 		});
 	}
-})
+});
+
 
 
 

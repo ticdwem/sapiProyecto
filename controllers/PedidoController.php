@@ -16,4 +16,10 @@ class PedidoController
         $dom = $pedidos->getAllWhere('mostrardatospedido','WHERE clienteId='.$_GET['id'])->fetch_object();
         require_once 'views/pedidos/pedido.php';
     }
+
+    public function crearPedido($dato){
+        $decod = json_decode($dato);
+        var_dump($decod);
+        var_dump("jajajajaj");
+    }
 }
