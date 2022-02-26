@@ -19,7 +19,8 @@ class PedidoController
 
     public function crearPedido($dato){
         $decod = json_decode($dato);
-        var_dump($decod);
-        var_dump("jajajajaj");
+        $idCliente = (Validacion::validarNumero($decod->idCliente)== -1) ? false : true;
+        
+
     }
 }
