@@ -34,7 +34,11 @@ $(document).ready(function () {
 		"searching": true,
 		"ordering": false,
 		"info": true,
-		"autoWidth": true
+		"autoWidth": true,
+		"drawCallback": function( settings ) {
+			$('ul.pagination').addClass("pagination-sm");
+			$('ul.pagination li').removeClass("paginate_button");
+	   }
 	});
 	/* DATATABLE pEDIDOS 
 	$("#pedidoIndexId").DataTable({
@@ -946,9 +950,13 @@ $(document).ready(function () {
 	/* este funcion es para ingresar los datos a la base de dato pedidos */
 	$("#btnPedidoAceptar").on("click",function(e){
 		let valorPedido = Array();
+		let idNota = $("#numNota").val();
         let idCliente = $("#inputIdCliente").val();
+		let idUser = $("#idUser").val();
         var valId = expRegular("phone",idCliente);
-        if(valId !=0){
+		var valNota = expRegular("phone",idNota);
+		console.log(idUser);
+        if(valId !=0 && valNota != 0){
             /* let tabla = $('table#registroProductotablePedido tbody tr').length; */
             let tabla = existeRegistro('registroProductotablePedido');
             if(tabla == 0){
@@ -970,6 +978,8 @@ $(document).ready(function () {
 
 				let data = {
 					"idCliente":idCliente,
+					"nota":idNota,
+					"user":idUser,
 					"productos":valorPedido
 				}
 				let JsonString = JSON.stringify(data);
@@ -984,6 +994,12 @@ $(document).ready(function () {
 					},
 					success: function (pedido) {
 						console.log(pedido)
+						if(pedido >= 1) {
+							$('#alertaInsert').html('<div class="alert alert-success" role="alert"> El producto correctamente </div>');
+						}else{
+							$('#alertaInsert').html('<div class="alert alert-danger" role="alert"> LoLamento pero no </div>');
+
+						}
 						
 						//location.reload();
 					}

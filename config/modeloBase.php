@@ -17,6 +17,14 @@ class ModeloBase{
         $query = $this->db->query($consulta);
         return $query;
     }
+
+    public function getCountDatos($tabla,$where,$idAContar){
+        $consulta = "SELECT COUNT($idAContar) FROM $tabla
+                    WHERE $where ";
+        
+        $contar = $this->db->query($consulta);
+        return $contar;
+    }
     public function getIdCleinte($id,$tabla,$idConsultorio){
         // $getId = "SELECT IFNULL(MAX($id),0)+1 as id FROM $tabla";
          $getId = "SELECT IFNULL(MAX($id),0)+1 as id FROM $tabla
@@ -75,10 +83,23 @@ class ModeloBase{
       }
     //   $suMEnu =  json_encode($menu);
 
-return json_encode($menu);
+        return json_encode($menu);
       
       
         
     }
+
+    public function getdatetomorrow(){
+        $dia = getdate();
+        if($dia["wday"] == 6){
+            $CalcularMañana = date("Y-m-d",strtotime("+2 day"));
+        }else{
+            $CalcularMañana = date("Y-m-d",strtotime("+1 day"));
+        }
+
+        return $CalcularMañana;
+    }
+
+
 
 }

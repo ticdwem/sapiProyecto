@@ -16,6 +16,18 @@
                 </ol>
             </nav>
             <div class="container" id="">
+            <div id="nota" class="col-lg-12 col-md-12 col-sm-12 nota">
+                    <div class="row">
+                        <div id="" class="col-lg-6 col-md-6 col-sm-12">
+                            <label for="numNota">Num Nota</label>
+                            <input type="text" class="form-control" id="numNota" name="numNota" aria-describedby="id" placeholder="Numero de nota" value="<?=Utls::createNotaId();?>" readonly>
+                            <small id="numNota" class="form-text text-muted"></small>
+                        </div>
+                        <div id="EmptyRow" class="col-lg-6 col-md-6 col-sm-12 EmptyRow">
+                            
+                        </div>
+                    </div> 
+                </div>
                 <div id="datosDom" class="col-lg-12 col-md-12 col-sm-12 datosDom">
                     <div class="row">
                         <div id="idCliente" class="col-lg-4 col-md-4 col-sm-12 idCliente">
@@ -87,7 +99,7 @@
                     </div>
                     <div class="col-lg-12 mt-4">
                                 <button type="submit" class="btn btn-success" id="enterProducto" name="btn-acepta">Aceptar</button>
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bd-example-modal-lg">Buscar</button>
+                                <button type="button" class="btn btn-warning" id="btnFindProduct">Buscar</button>
                     </div>
                 </form>
             </div>                      
@@ -106,16 +118,51 @@
                  <!-- <tbody id="registroProductoPedido">
                                                 
                 </tbody>-->
-                <tbody id="registroProductoPedido">
-                                                    
-                    <tr><td>523</td><td>YOGHURT PILARICA DE NUEZ DE 250GR</td><td>250GR</td><td>12</td><td><button type="button" class="btn btn-danger deleteOnclick" onclick="deleteRow(this)"><i class="fa fa-times-circle" id="" aria-hidden="true"></i></button></td></tr><tr><td>498</td><td>NATA 250 GRAMOS</td><td>250GR</td><td>25</td><td><button type="button" class="btn btn-danger deleteOnclick" onclick="deleteRow(this)"><i class="fa fa-times-circle" id="" aria-hidden="true"></i></button></td></tr></tbody>
+                <tbody id="registroProductoPedido">                                                    
+                </tbody>
             </table> 
         </div>
         <div id="divBtnPedidoAceptar">
-            <button type="button" id="btnPedidoAceptar">HACER PEDIDO</button>
+            <button type="button" class="btn btn-success" id="btnPedidoAceptar">HACER PEDIDO</button>
         </div>
+        <div class="alertaInsert col-md-12 col-sm-12 mt-3 mb-3" id="alertaInsert"></div>
 </div>
 
+<!-- modal de las lista de los productos  -->
+<div class="modal fade bd-example-modal-lg" id="ListPRod" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">LISTA DE PRODUCTOS</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="table">
+                <table class="table table-hover table-striped tablaGenerica" id="table">
+                    <thead>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Presentación</th>
+                        <th>Acción</th>
+                    </thead>
+                    <tbody>
+                        <?php while($producto = $prod->fetch_object() ): ?>
+                        <tr>                            
+                            <td><?=$producto->idProducto?></td>
+                            <td><?=$producto->nombreProducto?></td>
+                            <td><?=$producto->presentacionProducto?></td>
+                            <td><button type="button" class="btn btn-success selectPRoductPEdido" id="<?=$producto->idProducto?>">Seleccionar</button></td>
+                        </tr>
+                        <?php endwhile ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
 <!-- modal -->
 <div class="modal fade bd-example-modal-lg" id="modalDomicilio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -174,6 +221,21 @@
 </div>
 <script> 
 
+$(document).on('click','.selectPRoductPEdido',function(e){
+    let codigo = $(this).parents("tr").find("td")[0].innerHTML;
+    let nombre = $(this).parents("tr").find("td")[1].innerHTML;
+    let presentacion = $(this).parents("tr").find("td")[2].innerHTML;
+    $("#inputCodigoPedido").val(codigo);
+    $("#inputNombreProdPedido").val(nombre);
+    $("#inputPresentacionPedido").val(presentacion);
+    $("#ListPRod").modal('hide');
+    if ($('.modal-backdrop').is(':visible')) {
+        $('body').removeClass('modal-open'); 
+        $('.modal-backdrop').remove(); 
+        focusInput('inputPiezasPedido');
+    };
+});
+
 $(document).ready(function(){
     $("#inputCodigoPedido").on('change',function(){
         let codigo = $(this).val();
@@ -211,7 +273,16 @@ $(document).ready(function(){
             alert("algo salio mal")
         }
     });
-
+    $(document).keydown(function(tecla){
+       if(tecla.keyCode == 113){
+          $("#ListPRod").modal('toggle',{backdrop: 'static', keyboard: false});
+       }  
+    });
+    $("#btnFindProduct").on('click',function(e){
+        e.preventDefault();
+        $("#ListPRod").modal('toggle',{backdrop: 'static', keyboard: false});
+    })
+    
     
 });
        const formPedidos = document.getElementById("frmPedido");

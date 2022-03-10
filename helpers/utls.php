@@ -22,11 +22,11 @@ class Utls{
         return ucwords(SED::decryption($primer).' '.$second);
     }
 
-    public static function createId($sesionConsultorio,$idbd){
+    public static function createId($sessionUser,$idbd){
         $increment=0;
         $Ano = date('Y');
         $mes = date('m'); 
-        $consultorio = ($sesionConsultorio >= 10) ? $sesionConsultorio : '0'.$sesionConsultorio ;
+        $consultorio = ($sessionUser >= 10) ? $sessionUser : '0'.$sessionUser ;
         if($mes === '01'){
             $increment = '0001';
         }else{
@@ -40,100 +40,7 @@ class Utls{
         return $consultorio.$Ano.$mes.$increment;
     }
 
-    public static function getSeccion($seccion){
-        $nameSEccion = '';
-        if($seccion == ''){
-            $nameSEccion = 'clienteMunicipio';
-        }elseif($seccion == 'heredofamiliar'){
-            $nameSEccion = 'enfermedadfamiliar';
-        }elseif($seccion == 'patologico'){
-            $nameSEccion = 'antecedentespatologicos';
-        }elseif($seccion == 'cirugia'){
-            $nameSEccion = 'cirugia';
-        }elseif($seccion == 'mujer'){
-            $nameSEccion = 'datosmujer';
-        }elseif($seccion == 'anterior'){
-            $nameSEccion = 'tratameintoactual';
-        }
-
-        return $nameSEccion;
-    }
-
-    public static function titleCabecera($titleGet){
-        $controlador = $titleGet['controller'];
-        switch ($controlador) {
-            case 'Avanzado':
-                if($_GET['action'] == "index"){
-                    $getTirulo = "Menu Administrativo";
-                }elseif($_GET['action'] == 'pacientes'){
-                    $getTirulo = "Listado De Paciente";                
-                }elseif($_GET['action'] == 'Historial'){
-                    $getTirulo = "Historial Paciente";
-                }elseif($_GET['action'] == 'consultorios'){
-                    $getTirulo = "Listado De Consultorios";
-                }elseif($_GET['action'] == 'movimientos'){
-                    $getTirulo = "<small>Registro </small>";
-                }elseif($_GET['action'] == 'reporte'){
-                    $getTirulo = "Reporte Global";
-                }
-                break;
-            case 'Consultorio':
-                if($_GET['action'] == "nuevo"){
-                    $getTirulo = "Nuevo Ingreso";
-                }elseif($_GET['action'] == 'control'){
-                    $getTirulo = "Control";
-                }elseif($_GET['action'] == 'corteDiario'){
-                    $getTirulo = "Registro Diario";
-                }elseif($_GET['action'] == 'gastos'){
-                    $getTirulo = "Registrar Gastos";
-                }elseif($_GET['action'] == 'index'){
-                    $getTirulo = "Alta Consultorio";
-                }
-                break;
-            case 'Paciente':
-                if($_GET['action'] == 'index'){
-                    $getTirulo = "Hoja Clinica";
-                }elseif($_GET['action'] == 'editar'){
-                    $getTirulo = "Editar Hoja Clinica";
-                }elseif($_GET['action']== 'editarAntecedente'){
-                    $getTirulo = "Editar Antecedentes";
-                }elseif($_GET['action']== 'editarPatologico'){
-                    $getTirulo = "Editar Patologicos";
-                }elseif($_GET['action']== 'editarCirugia'){
-                    $getTirulo = "Editar Cirugias";
-                }elseif($_GET['action']== 'editarEmbarazo'){
-                    $getTirulo = "Editar Datos Mujer";
-                }elseif($_GET['action']== 'editarTratamiento'){
-                    $getTirulo = "Control De Peso Anterior";
-                }
-                break;
-            case 'Doctor':
-                if($_GET['action'] == 'index'){
-                    $getTirulo = "Alta Doctor";
-                }elseif($_GET['action'] == 'listar'){
-                    $getTirulo = "Lista Doctores";
-                }elseif($_GET['action'] == 'editar'){
-                    $getTirulo = "Editar Doctor";
-                }
-                break;
-            default:
-            case 'Consulta':
-                if($_GET['action'] == "ingreso"){
-                    $getTirulo = "Pagos Y Consultas";
-                }else if($_GET['action'] == "index"){
-                    $getTirulo = "Datos" ;
-                }else if($_GET['action'] == "lista"){
-                    $getTirulo = "Pacientes";
-                }else if($_GET['action'] == "consultaDiaria"){
-                    $getTirulo = "Consulta";
-                }
-                break;
-            $getTirulo = "Bienestar Nueva Imagen";
-                break;
-        }
-        return $getTirulo;
-    }
-
+    
     public static function disbled($nameSession){
         if($nameSession == 'dndMc3')
         return ' disabled=disabled ';
@@ -177,12 +84,27 @@ class Utls{
                     echo '<script>window.location="'.base_url.'"</script>';
     }
 
-    public static function rutas(){
+    public static function cuentaPedidos($usuario){
         require_once $_SERVER['DOCUMENT_ROOT']."/config/modeloBase.php";
+        $datosWhere = "idUsuarioPedido =".$usuario."
+        AND fechaAltaProductoPedido = CURDATE() GROUP BY idClientePedido";
         $datos = new ModeloBase();
-        $datos -> getAll('ruta');
+        $contados = $datos -> getCountDatos('pedidos',$datosWhere,'idUsuarioPedido')->fetch_all();
 
-        return $datos;
+        return $contados;
+    }
+    public function getlastDateOrder(){
+        require_once $_SERVER['DOCUMENT_ROOT']."/models/PedidoModel.php";
+        $myDate = '';
+        $dateOrder = new PedidoModels();
+        $dateOrder->setIdUsuarioPedido($_SESSION['usuario']['id']);
+        $datos = $dateOrder->lastDate();
+        if($datos){
+            $datesObtained = $datos->fetch_all();
+            $myDate = $datesObtained[0][6];
+        }
+        return $myDate;
+        
     }
 
     public static function sessionValidate($array){
@@ -204,5 +126,59 @@ class Utls{
     public static function lastArray($datoArray){
         
         return end($datoArray);
+    }
+
+    /* esta funcion sirve para retornar  */
+    public static function getNumberday($enterDate,$startYear){
+        $year_start = '';
+        // este ontiene la fecha de hoy
+        $currentDate = strtotime(date("Y-m-d H:i:s"));
+        switch ($startYear) {
+            case '0':
+                $year_start = strtotime('first day of January', time());
+                break;
+            case '1':
+                    $year_start = strtotime($enterDate);  
+                break;
+            default:
+                    $year_start = 500;
+                    break;
+        }
+
+        // contamos los que han passdo
+        $daysPassed = ($currentDate - $year_start) / MINXDAY; 
+
+        
+        return ceil($daysPassed);
+        
+    }
+
+    /* public static function numOrderCreated(){
+        $message = "0";
+        $fecha = self::getlastDateOrder();
+        $currentDate = date($fecha);
+        $compareDates = self::getNumberday($currentDate,1);
+        if($compareDates != 0){
+            $message = $compareDates;
+        }
+
+        return $message;
+
+    } */
+
+    public static function createNotaId(){
+        /* obtenemos los dias transcurridos desde el incio del año */
+        $currentDate = strtotime(date("Y-m-d H:i:s"));
+        $fecha1 = self::getNumberday($currentDate,0);
+        /* obtenenmos el id del usuario */
+        $idUsuario = $_SESSION['usuario']['id'];
+        /* contamos para saber cuantos dias han pasado desde su ultima conexion  */
+        $contar = self::cuentaPedidos($idUsuario);
+        $countNota = count($contar);
+
+        $nota = $fecha1.$idUsuario.$countNota;
+
+        return $nota;
+        
     }
 }
