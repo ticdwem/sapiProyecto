@@ -20,6 +20,10 @@
         Utls::deleteSession('formulario_cliente');
         Utls::deleteSession('statusSave');  ?>
     </div>
+    <div class="">
+      <div class="row">
+        <div class="col-lg-12">
+          <?php require_once 'views/layout/breadcrup.php';?>
     <div class="container card mb-5">
         <form action="<?= base_url ?>Proveedor/editProveedor" method="POST" novalidate>
             <div class="cliente">
@@ -313,4 +317,7 @@
 
 
 
+             </div>
+        </div>
+    </div>
 </div>

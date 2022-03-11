@@ -181,4 +181,49 @@ class Utls{
         return $nota;
         
     }
+
+    public static function namebreadcum($linkGet){
+        $action = $linkGet ["action"];
+        $retorno ='';
+       switch ($linkGet["controller"]) {
+           case 'Preventa':
+                if($action == 'index'){
+                    $retorno = 'Lista Pedidos';
+                }
+               break;
+            case 'Cliente':
+                if($action == 'index'){
+                    $retorno = 'Cliente Nuevo';
+                }elseif ($action == 'lista') {
+                    $retorno = 'Lista de Clientes';
+                }elseif ($action == 'edit') {
+                    $retorno = 'Editar Cliente';
+                }
+                break;
+            case 'Compras':
+                if($action == 'index'){
+                    $retorno = 'Compras';
+                }
+                break;
+            case 'Proveedor':
+                if($action == 'index'){
+                    $retorno = 'Proveedor Nuevo';
+                }elseif ($action == 'lista') {
+                    $retorno = 'Lista de Proveedores';
+                }elseif ($action == 'edit') {
+                    $retorno = 'Editar Proveedor';
+                }
+                break;
+            case 'Remision':
+                if($action == 'index'){
+                    $retorno = 'Remision';
+                }
+                break;
+           default:
+               # code...
+               break;
+       }
+
+       return $retorno;
+    }
 }

@@ -11,11 +11,7 @@ $contador = 1;
     <div>
         <div class="row">
             <div class="col-lg-12">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page">CAPTURA DE COMPRAS</li>
-                    </ol>
-                </nav>
+            <?php require_once 'views/layout/breadcrup.php';?>
                 <form id="frmIdCompra">
                     <div class="card">
                         <div class="card-body">
