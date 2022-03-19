@@ -955,7 +955,6 @@ $(document).ready(function () {
 		let idUser = $("#idUser").val();
         var valId = expRegular("phone",idCliente);
 		var valNota = expRegular("phone",idNota);
-		console.log(idUser);
         if(valId !=0 && valNota != 0){
             /* let tabla = $('table#registroProductotablePedido tbody tr').length; */
             let tabla = existeRegistro('registroProductotablePedido');
@@ -1026,7 +1025,8 @@ $(document).on('click','.deleteOnclick',function(){
 	totalCompleto = porcentaje(procentaje,totalCompra);
 	$("#totalHiden").val(totalCompleto);
 	$("#total").html(totalCompleto);
-})
+});
+
 $(document).on('click','.seleccionarIdProducto',function(){
     let idPro = $(this).attr('data-id');
 	sessionStorage.clear();
@@ -1046,7 +1046,64 @@ $(document).on('click','.seleccionarIdProducto',function(){
 			alert(clientesFind);
 		}
 	});
+});
+
+$(document).on('click','.detallesPreventa',function(){
+	let idNota = $(this).attr('id');
+	let cliente = $(this).attr('data-id');
+	window.location.href = getAbsolutePath()+'Preventa/detalle&id='+idNota+'&cli='+cliente;
+
 })
+
+$(document).on('click','.deleteOnclickDb',function(e){
+	let codPRod = $(this).attr('id');
+	let nota = $(this).attr('data-get');
+	let notadato = Array();
+	Swal.fire({
+		title: 'Are you sure?',
+		text: "Quieres eliminar el articulo"+codPRod+" con nota"+nota,
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Yes, delete it!'
+	  }).then((result) => {
+		if (result.isConfirmed) {
+			notadato.push({'phone_idProd_10':codPRod,'phone_nota_10':nota});
+			validar = validarCampos(notadato);
+			if(validar>0){
+				Swal.fire({
+					icon: 'error',
+					title: 'Hay datos Erroneos!!!',
+					text: 'Actualiza la página, si esto no resuelve el error llama al coordinador de sistemas'
+				  })
+				e.preventDefault();
+			}else{
+				let data = { "data": notadato }
+				var json = JSON.stringify(data);
+				$.ajax({
+					url: getAbsolutePath() + "views/layout/ajax.php",
+					method: "POST",
+					data: { "notaDeleteDb": json },
+					cache: false,
+					beforeSend: function () {
+					},
+					success: function (deletePRoducDbNota) {				
+						console.log(deletePRoducDbNota);					
+					}
+				});
+			}
+
+			
+		  Swal.fire(
+			'Deleted!',
+			'Your file has been deleted.',
+			'success'
+		  )
+		}
+	  })
+
+});
 
  // verifica e inserta los datos en el textarea si el usuario es encontrado
  $(document).on('click','.findCliente', function(e){

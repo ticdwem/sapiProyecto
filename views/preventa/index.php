@@ -21,7 +21,7 @@
                                 <th scope="row"><?=$nota->idnotaPedido?></th>
                                 <td><?=$nota->nombreCliente?></td>
                                 <td><?=$nota->nombreRuta?></td>
-                                <td><button type="button" class="btn btn-success">Detalles</button></td>
+                                <td><button type="button" class="btn btn-success detallesPreventa" data-id="<?=$nota->idClientePedido?>" id="<?=$nota->idnotaPedido?>">Detalles</button></td>
                             </tr>
                         <?php endwhile; ?>
                     </tbody>

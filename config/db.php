@@ -10,7 +10,7 @@ class Database{
         return $conexion;
     } */
     public static function connect(){
-        $conexion = new mysqli('192.168.1.22', 'pilarica', 'Pilarica2021', 'sapi');
+        $conexion = new mysqli('192.168.1.20', 'pilarica', 'Pilarica2021', 'sapi');
         $conexion->query("SET NAMES 'utf8'");
         return $conexion;
     }

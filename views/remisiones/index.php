@@ -10,7 +10,7 @@
 <div class="">
     <div class="row">
         <div class="col-lg-12">
-        <?php require_once 'views/layout/breadcrup.php';?>
+        <?php require_once 'views/layout/breadcrup.php';?>.
             <form id="frmidVentas">
                 <div class="card">
                     <div class="card-body">

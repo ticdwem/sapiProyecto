@@ -11,6 +11,7 @@ require_once "../../controllers/ClienteController.php";
 require_once "../../controllers/ComprasController.php";
 require_once "../../controllers/RemisionController.php";
 require_once "../../controllers/PedidoController.php";
+require_once "../../controllers/PreventaController.php";
 
 
 class Ajax
@@ -312,6 +313,12 @@ class Ajax
 		$pedido = new PedidoController();
 		$pedido->crearPedido($dato);
 	}
+
+	public function deletePordPEdido(){
+		$datos = $this->getDato();
+		$pedidoDelete = new PreventaController();
+		$pedidoDelete->deleteDatoPedido($datos); 
+	}
 }
 /* echo "<pre> //////";
 var_dump($_POST);
@@ -482,4 +489,9 @@ if(isset($_POST["pedido"])){
 	$dirPro = new Ajax();
 	$dirPro->setDato($_POST["pedido"]);
 	$dirPro->pedidos();
+}
+if(isset($_POST['notaDeleteDb'])){
+	$idDelete = new Ajax();
+	$idDelete->setDato($_POST["notaDeleteDb"]);
+	$idDelete->deletePordPEdido();
 }
