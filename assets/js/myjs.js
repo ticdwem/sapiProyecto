@@ -1072,11 +1072,11 @@ $(document).on('click','.deleteOnclickDb',function(e){
 			notadato.push({'phone_idProd_10':codPRod,'phone_nota_10':nota});
 			validar = validarCampos(notadato);
 			if(validar>0){
-				Swal.fire({
-					icon: 'error',
-					title: 'Hay datos Erroneos!!!',
-					text: 'Actualiza la página, si esto no resuelve el error llama al coordinador de sistemas'
-				  })
+				Swal.fire(
+					'ERROR',
+					'Hay errores en los datos',
+					'error'
+				  )
 				e.preventDefault();
 			}else{
 				let data = { "data": notadato }
@@ -1089,17 +1089,19 @@ $(document).on('click','.deleteOnclickDb',function(e){
 					beforeSend: function () {
 					},
 					success: function (deletePRoducDbNota) {				
-						console.log(deletePRoducDbNota);					
+						console.log(deletePRoducDbNota);
+						if(deletePRoducDbNota == 0){
+							Swal.fire(
+								'error!',
+								'error jajajaj',
+								'error'
+							  )
+						}					
 					}
 				});
 			}
 
 			
-		  Swal.fire(
-			'Deleted!',
-			'Your file has been deleted.',
-			'success'
-		  )
 		}
 	  })
 

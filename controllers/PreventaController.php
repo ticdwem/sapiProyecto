@@ -1,5 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/models/PreventaController.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/models/preventa/PreventaController.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/models/preventa/deleteProdPreventa.php";
 
 class PreventaController{
     private $instancia;
@@ -21,8 +22,22 @@ class PreventaController{
     }
 
     public function deleteDatoPedido($datos){
-        $datosJso = json_decode($datos);
-        var_dump($datosJso);
+        $datosJso = json_decode($datos,true);
+        $dato = $datosJso["data"][0];
+        
+        $producto = (Validacion::validarNumero($dato["phone_idProd_10"])== -1) ? false :  $dato["phone_idProd_10"];
+        $nota = (Validacion::validarNumero($dato["phone_nota_10"])== -1) ? false :  $dato["phone_nota_10"];
+
+        $valArray = array('producto'=>$producto , ' $nota'=> $nota);
+        $dato = Utls::sessionValidate($valArray);
+        if($dato > 1){
+            echo 0;
+        }else{
+            $deletePro = new DeleteProducto($producto, $nota);
+            echo $deletePro->getNota();
+            echo "-----";
+            echo $deletePro->getIdProducto();
+        }
     }
     
 }

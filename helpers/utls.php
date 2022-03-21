@@ -111,15 +111,14 @@ class Utls{
         $valida = 1;
         foreach ($array as $dato => $valor) {
             if ($valor == false) {
+                $valida ++;
                 $_SESSION['formulario_cliente'] = array(
                     'error' => 'El campo ' . $dato . ' es incorrecto, llena los campos faltantes',
                     'datos' => $array
                 );
                 break;
-                $valida ++;
             }
         }
-
         return $valida;
     }
 
