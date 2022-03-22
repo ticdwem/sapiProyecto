@@ -1011,7 +1011,68 @@ $(document).ready(function () {
                     text: 'HAY ERRORES EN LOS IDENTIFICADORES INGRESE DE NUEVO '
                     })
         }
-    })
+    });
+
+	$("#updatePz").on("click",function(e){
+		let idget = $("#idget").val();
+		let idProducto = $("#idProducto").val();
+		let pz = $("#piezas").val();
+		let pzold = $("#pzoldValue").val();
+		let datosArray = Array();
+
+			Swal.fire({
+				title: 'Seguro?',
+				text: "Vamos hacer camibios",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			  }).then((result) => {
+				if (result.isConfirmed) {
+					datosArray.push({'phone_idget_12':idget,'phone_idProducto_12':idProducto,'phone_piezas_10':pz});
+					var validar = validarCampos(datosArray);
+					
+					if (validar > 0){
+						Swal.fire(
+							'error!',
+							'HAY DATOS ERRONEOS VERIFICA O LLAMA A TU ADMINISTRADOR',
+							'error'
+						  )
+					}else{
+						let data = { "data": datosArray }
+						var json = JSON.stringify(data);
+						if(pz == pzold){
+							$("#piezas").css('border', '1px solid red')
+							$(".piezas").html('correcto')
+							$(".piezas").css('color', 'red')
+							
+							Swal.fire(
+								'CAMBIOS?',
+								'No se ha hecho algún cambio, para actualizar debes cambiar las piezas',
+								'question'
+							  )
+							  e.preventDefault();
+						}else{
+							$.ajax({
+								url: getAbsolutePath() + "views/layout/ajax.php",
+								method: "POST",
+								data: { "updatePro": json },
+								cache: false,
+								beforeSend: function () {
+								},
+								success: function (updatePz) {				
+console.log(updatePz)
+
+									//$('#registroProductotablePedido').load(" #registroProductotablePedido");
+								}
+							});
+						}
+
+					}
+				}
+			  })
+	})
 });
 
 
@@ -1093,10 +1154,26 @@ $(document).on('click','.deleteOnclickDb',function(e){
 						if(deletePRoducDbNota == 0){
 							Swal.fire(
 								'error!',
-								'error jajajaj',
+								'HAY DATOS ERRONEOS VERIFICA O LLAMA A TU ADMINISTRADOR',
 								'error'
 							  )
-						}					
+						}else if(deletePRoducDbNota == 1){
+							Swal.fire({
+								position: 'center',
+								icon: 'success',
+								title: 'SE HA ELIMINADO CORRECTAMENTE',
+								showConfirmButton: false,
+								timer: 1500
+							  })
+						}else{
+							Swal.fire(
+								'error!',
+								'HAY UN FALLO NO SE PUDO ELIMINAR, INTENTA DE NUEVO',
+								'error'
+							  )
+						}
+						
+						$('#registroProductotablePedido').load(" #registroProductotablePedido");
 					}
 				});
 			}

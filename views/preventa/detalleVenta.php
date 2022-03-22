@@ -66,7 +66,7 @@
                     </div> 
                 </div>
                 <hr>
-                <form id="frmPedido">
+                <!-- <form id="frmPedido">
                     <div class="row " id="prodNewForm">
                         <div class="col-lg-2">
                             <label class="mr-sm-2" for="inputCodigoPedido">Código</label>
@@ -102,7 +102,7 @@
                                 <button type="submit" class="btn btn-success" id="enterProducto" name="btn-acepta">Aceptar</button>
                                 <button type="button" class="btn btn-warning" id="btnFindProduct">Buscar</button>
                     </div>
-                </form>
+                </form> -->
             </div>                      
         </div>        
     </div>
@@ -123,7 +123,12 @@
                         <td><?=$producto->nombreProducto;?></td>
                         <td><?=$producto->presentacionProducto;?></td>
                         <td><?=$producto->pzProductoPedido;?></td>
-                        <td> <button type='button' class='btn btn-danger deleteOnclickDb' id="<?=$producto->idProductoPedido?>" data-get="<?=$_GET['id']?>"><i class='fa fa-times-circle' id='' aria-hidden='true'></i></button></td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type='button' class='btn btn-warning modalEditProduct' data-id="<?=$producto->pzProductoPedido;?>"><i class="fas fa-edit"></i></button>
+                                <button type='button' class='btn btn-danger deleteOnclickDb ml-2' id="<?=$producto->idProductoPedido?>" data-get="<?=$_GET['id']?>"><i class='fa fa-times-circle' id='' aria-hidden='true'></i></button>
+                            </div>
+                        </td>
                     </tr>
                <?php endwhile; ?>
                 </tbody>
@@ -135,48 +140,13 @@
         <div class="alertaInsert col-md-12 col-sm-12 mt-3 mb-3" id="alertaInsert"></div>
 </div>
 
-<!-- modal de las lista de los productos  -->
-<div class="modal fade bd-example-modal-lg" id="ListPRod" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">LISTA DE PRODUCTOS</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="table">
-                <table class="table table-hover table-striped tablaGenerica" id="table">
-                    <thead>
-                        <th>Código</th>
-                        <th>Nombre</th>
-                        <th>Presentación</th>
-                        <th>Acción</th>
-                    </thead>
-                    <tbody>
-                        <?php while($producto = $prod->fetch_object() ): ?>
-                        <tr>                            
-                            <td><?=$producto->idProducto?></td>
-                            <td><?=$producto->nombreProducto?></td>
-                            <td><?=$producto->presentacionProducto?></td>
-                            <td><button type="button" class="btn btn-success selectPRoductPEdido" id="<?=$producto->idProducto?>">Seleccionar</button></td>
-                           
-                        </tr>
-                        <?php endwhile ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-  </div>
-</div>
+
 <!-- modal -->
 <div class="modal fade bd-example-modal-lg" id="modalDomicilio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <h5 class="modal-title" id="exampleModalLabel">DETALLES CLIENTE</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -227,8 +197,55 @@
     </div>
   </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="modalEditProduct" tabindex="-1" role="dialog" aria-labelledby="modalEditProductLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document"> 
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="modalEditProductLabel">Editar Piezas</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div id="pzold"> <input type="hidden" id="pzoldValue" value=""></div>
+      <div id="getNota"> <input type="hidden" id="idget" value="<?=$_GET['id'];?>"></div>
+      <div class="modal-body">
+        <div class="container">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="idProducto">Id</label>
+                    <input type="text" class="form-control idProducto" id="idProducto" value="" disabled>
+                    <div class="idProducto"></div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="nombreProdcuto">Nombre </label>
+                    <input type="text" class="form-control nombreProdcuto" id="nombreProdcuto" value="" disabled>
+                    <div class="nombreProdcuto"></div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="presentacion">Presentacion</label>
+                    <input type="text" class="form-control presentacion" id="presentacion" value="" disabled>
+                    <div class="presentacion"></div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="piezas">Piezas </label>
+                    <input type="text" class="form-control piezas" id="piezas" value="">
+                    <div class="piezas"></div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
+        <button type="button" class="btn btn-primary" id="updatePz">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script> 
-
+/* 
 $(document).on('click','.selectPRoductPEdido',function(e){
     let codigo = $(this).parents("tr").find("td")[0].innerHTML;
     let nombre = $(this).parents("tr").find("td")[1].innerHTML;
@@ -242,118 +259,20 @@ $(document).on('click','.selectPRoductPEdido',function(e){
         $('.modal-backdrop').remove(); 
         focusInput('inputPiezasPedido');
     };
-});
-
-$(document).ready(function(){
-    $("#inputCodigoPedido").on('change',function(){
-        let codigo = $(this).val();
-        var validarCodugo = expRegular("phone", codigo);
-        if (validarCodugo != 0) {
-            var verifProd = new FormData();
-			verifProd.append("producto", codigo);
-			$.ajax({
-				url: getAbsolutePath() + "views/layout/ajax.php",
-				method: "POST",
-				data: verifProd,
-				cache: false,
-				contentType: false,
-				processData: false,
-				beforeSend: function () {
-					$('.spinnerWhite').html('<i class="fas fa-sync fa-spin"></i>');
-				},
-				success: function (datos) {
-                    if(datos != "0"){
-
-                        $("#inputNombreProdPedido").val(datos.descripcionProd);
-                        $("#inputPresentacionPedido").val(datos.presentacion);
-                        
-                        focusInput('inputPiezasPedido');
-                    }else{
-                        Swal.fire({
-                                    icon: 'error',
-                                    title: 'ERROR',
-                                    text: 'No hay registro de este identificador de producto'
-                                 })
-                    }
-				}
-			})
-        }else{
-            alert("algo salio mal")
-        }
-    });
-    $(document).keydown(function(tecla){
-       if(tecla.keyCode == 113){
-          $("#ListPRod").modal('toggle',{backdrop: 'static', keyboard: false});
-       }  
-    });
-    $("#btnFindProduct").on('click',function(e){
-        e.preventDefault();
-        $("#ListPRod").modal('toggle',{backdrop: 'static', keyboard: false});
-    })
-    
-    
-});
-       const formPedidos = document.getElementById("frmPedido");
-        
-        formPedidos.addEventListener("submit", function (event) {
-            event.preventDefault();
-
-            let validar = Array();
-            let transactionFormData = new FormData(formPedidos); // obtiene los datos del formulario
-
-            let inputCodigo = document.getElementById('inputCodigoPedido').value; 
-            let inputNombreProd = document.getElementById('inputNombreProdPedido').value; 
-            let inputPresentacion = document.getElementById('inputPresentacionPedido').value; 
-            let inputPieza = document.getElementById('inputPiezasPedido').value; 
-
-            validar.push({"phone_inputCodigoPedido_6":inputCodigo,"nombre_inputNombreProdPedido_80":inputNombreProd,"nombre_inputPresentacionPedido_80":inputPresentacion,"decimales_inputPiezasPedido_12":inputPieza});
-            var campos = validarCampos(validar);
-            if(campos == 0 ){
-                let insertProducto = document.getElementById("registroProductoPedido"); // este es el id de la tabla
-                let newProductoRow = insertProducto.insertRow(-1); //este retorna una fila en la ultima fila de 
-                
-                let newproductoCellNew = newProductoRow.insertCell(0);// posisicion de la celda
-                newproductoCellNew.textContent = transactionFormData.get("inputCodigoPedido");
-                
-                newproductoCellNew = newProductoRow.insertCell(1);// posisicion de la celda
-                newproductoCellNew.textContent = transactionFormData.get("inputNombreProdPedido");                    
-                
-                newproductoCellNew = newProductoRow.insertCell(2);// posisicion de la celda
-                newproductoCellNew.textContent = transactionFormData.get("inputPresentacionPedido");
-                
-                newproductoCellNew = newProductoRow.insertCell(3);// posisicion de la celda
-                newproductoCellNew.textContent = transactionFormData.get("inputPiezasPedido");
-
-                
-                newproductoCellNew = newProductoRow.insertCell(4);// posisicion de la celda
-                newproductoCellNew.insertAdjacentHTML("afterbegin","<button type='button' class='btn btn-danger deleteOnclick' onclick='deleteRow(this)'><i class='fa fa-times-circle' id='' aria-hidden='true'></i></button>");
-
-                limpiarInput("inputCodigoPedido");
-                limpiarInput("inputNombreProdPedido");
-                limpiarInput("inputPresentacionPedido");
-                limpiarInput("inputPiezasPedido");
-                // este codigo sirve para poner el cursor en la primer input
-                focusInput('inputCodigoPedido');
-                /* let totalCompra = 0;
-                    $("#registroProducto tr").each(function(){
-                        totalCompra +=parseFloat($(this).find('td').eq(6).html());
-                    }) 
-                    $("#total").html(totalCompra.toFixed(2)); */
-            }else{
-                Swal.fire({
-                    position: 'center',
-                    icon: 'info',
-                    title: 'TODOS LOS CAMPOS SON OBLIGATORIOS, VERIFIQUE LOS DATOS ',
-                    showConfirmButton: false,
-                    timer: 1500
-                });  
-                
-                limpiarInput("inputPeso");
-                limpiarInput("inputPrecio");
-                limpiarInput("inputSubtotal");
-               
-             }
-        });
+}); */
+$(document).on('click','.modalEditProduct',function(){
+    let idPro = $(this).parents("tr").find("td")[0].innerHTML;
+    let producto = $(this).parents("tr").find("td")[1].innerHTML;
+    let present = $(this).parents("tr").find("td")[2].innerHTML;
+    let pieza = $(this).parents("tr").find("td")[3].innerHTML;
+    let pzOld = $(this).attr('data-id')
+    $("#idProducto").val(idPro);
+    $("#nombreProdcuto").val(producto);
+    $("#presentacion").val(present);
+    $("#piezas").val(pieza);
+    $("#pzoldValue").val(pieza)
+    $('#modalEditProduct').modal('show');
+})
 
 
 </script>

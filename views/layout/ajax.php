@@ -4,6 +4,7 @@ require_once "../../config/parameters.php";
 require_once "../../models/pacienteModels.php";
 require_once "../../models/PedidoModel.php";
 require_once "../../models/preventa/deleteProdPreventa.php";
+require_once "../../models/preventa/UpdateProducto.php";
 require_once "../../helpers/validacion.php";
 require_once "../../helpers/crypt.php";
 require_once "../../helpers/utls.php";
@@ -320,6 +321,12 @@ class Ajax
 		$pedidoDelete = new PreventaController();
 		$pedidoDelete->deleteDatoPedido($datos); 
 	}
+
+	public function updatePz(){
+		$datos = $this->getDato();
+		$UpdateDato = new PreventaController();
+		$UpdateDato->updatePiezas($datos);
+	}
 }
 /* echo "<pre> //////";
 var_dump($_POST);
@@ -495,4 +502,10 @@ if(isset($_POST['notaDeleteDb'])){
 	$idDelete = new Ajax();
 	$idDelete->setDato($_POST["notaDeleteDb"]);
 	$idDelete->deletePordPEdido();
+}
+
+if(isset($_POST['updatePro'])){
+	$update = new Ajax();
+	$update->setDato($_POST['updatePro']);
+	$update->updatePz();
 }

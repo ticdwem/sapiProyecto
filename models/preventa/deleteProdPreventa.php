@@ -7,6 +7,7 @@ class DeleteProducto extends ModeloBase{
 
 
     public function __construct(int $nota = null, int $idProducto = null){
+        parent::__construct();
         $this->nota = $nota;
         $this->idProducto = $idProducto;
     }
@@ -32,7 +33,9 @@ class DeleteProducto extends ModeloBase{
     }
 
     public function eliminarDatos(){
-       // $query = 
+        $query = "DELETE FROM pedidos WHERE idnotaPedido = {$this->getNota()} and idProductoPedido = {$this->getIdProducto()}";
+        $eliminar = $this->db->query($query);
+        return $eliminar;
     }
 
 }

@@ -28,16 +28,38 @@ class PreventaController{
         $producto = (Validacion::validarNumero($dato["phone_idProd_10"])== -1) ? false :  $dato["phone_idProd_10"];
         $nota = (Validacion::validarNumero($dato["phone_nota_10"])== -1) ? false :  $dato["phone_nota_10"];
 
-        $valArray = array('producto'=>$producto , ' $nota'=> $nota);
+        $valArray = array('producto'=>$producto , 'nota'=> $nota);
         $dato = Utls::sessionValidate($valArray);
         if($dato > 1){
             echo 0;
         }else{
-            $deletePro = new DeleteProducto($producto, $nota);
-            echo $deletePro->getNota();
-            echo "-----";
-            echo $deletePro->getIdProducto();
+            $deletePro = new DeleteProducto($nota, $producto );
+            $eliminar = $deletePro->eliminarDatos();
+           if($eliminar){
+               echo 1;
+           }else{
+               echo 2;
+           }
         }
+    }
+
+    public function updatePiezas($datos){
+        $datosJson = json_decode($datos,true);
+        $update = $datosJson["data"][0];
+
+        $nota =(Validacion::validarNumero($update["phone_idget_12"])==-1)? false: $update["phone_idget_12"];
+        $producto =(Validacion::validarNumero($update["phone_idProducto_12"])==-1)? false: $update["phone_idProducto_12"];
+        $piezas = (Validacion::validarNumero($update["phone_piezas_10"])==-1)? false: $update["phone_piezas_10"];
+
+        $valArray = array('producto'=>$producto , 'nota'=> $nota,'piezas'=>$piezas);
+        $dato = Utls::sessionValidate($valArray);
+        if($dato>1){
+            echo 0;
+        }else{
+            $updateDatos = new UpdateProducto( $piezas, $nota,$producto);
+            $updateDatos->updateDato();
+        }
+        /* var_dump($datosJson); */
     }
     
 }
