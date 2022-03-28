@@ -327,6 +327,13 @@ class Ajax
 		$UpdateDato = new PreventaController();
 		$UpdateDato->updatePiezas($datos);
 	}
+
+	public function toVenta(){
+		$datos = $this->getDato();
+		$toventas = new PreventaController();
+		$toventas->sendToVentas($datos);
+
+	}
 }
 /* echo "<pre> //////";
 var_dump($_POST);
@@ -508,4 +515,10 @@ if(isset($_POST['updatePro'])){
 	$update = new Ajax();
 	$update->setDato($_POST['updatePro']);
 	$update->updatePz();
+}
+
+if(isset($_POST['updateToVenta'])){
+	$update = new Ajax();
+	$update->setDato($_POST['updateToVenta']);
+	$update->toVenta();
 }

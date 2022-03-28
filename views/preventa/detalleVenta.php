@@ -134,8 +134,8 @@
                 </tbody>
             </table> 
         </div>
-        <div id="divBtnPedidoAceptar">
-            <button type="button" class="btn btn-success" id="btnPedidoAceptar">HACER PEDIDO</button>
+        <div id="divBtnPedidoAceptar" class="mt-3">
+            <button type="button" class="btn btn-success" id="designAlmacen">DESIGNAR ALMACEN</button>
         </div>
         <div class="alertaInsert col-md-12 col-sm-12 mt-3 mb-3" id="alertaInsert"></div>
 </div>
@@ -237,29 +237,55 @@
             </div>
         </div>
       </div>
-      <div class="modal-footer">
+      <divx class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
         <button type="button" class="btn btn-primary" id="updatePz">Actualizar</button>
-      </div>
+      </divx>
     </div>
   </div>
 </div>
+
+<!-- almacen -->
+<div class="modal fade bd-example-modal-lg" id="SelectAlmacen" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalEditProductLabel">Almacenes</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">Almacen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while($almacen = $almacenes->fetch_object()):?>
+                            <tr>
+                                <th><?=$almacen->idAlmacen?></th>
+                                <td><?=$almacen->nombreAlmacen?></td>
+                                <td>
+                                    <button type='button' class='btn btn-success selectAlmacen' data-id="<?=$almacen->idAlmacen;?>">SELECCIONAR</button>
+                                </td>
+                            </tr>                        
+                        <?php endwhile?>
+                    </tbody>
+                </table>
+            </div>
+      </div>
+<!--       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
+        <button type="button" class="btn btn-primary" id="updatePz">Actualizar</button>
+      </div> -->
+    </div>
+   </div>
+</div>
 <script> 
-/* 
-$(document).on('click','.selectPRoductPEdido',function(e){
-    let codigo = $(this).parents("tr").find("td")[0].innerHTML;
-    let nombre = $(this).parents("tr").find("td")[1].innerHTML;
-    let presentacion = $(this).parents("tr").find("td")[2].innerHTML;
-    $("#inputCodigoPedido").val(codigo);
-    $("#inputNombreProdPedido").val(nombre);
-    $("#inputPresentacionPedido").val(presentacion);
-    $("#ListPRod").modal('hide');
-    if ($('.modal-backdrop').is(':visible')) {
-        $('body').removeClass('modal-open'); 
-        $('.modal-backdrop').remove(); 
-        focusInput('inputPiezasPedido');
-    };
-}); */
 $(document).on('click','.modalEditProduct',function(){
     let idPro = $(this).parents("tr").find("td")[0].innerHTML;
     let producto = $(this).parents("tr").find("td")[1].innerHTML;
@@ -272,7 +298,58 @@ $(document).on('click','.modalEditProduct',function(){
     $("#piezas").val(pieza);
     $("#pzoldValue").val(pieza)
     $('#modalEditProduct').modal('show');
-})
+});
+
+$("#designAlmacen").on("click",function(){
+    $("#SelectAlmacen").modal({backdrop: 'static', keyboard: false});
+});
+
+$(document).on('click','.selectAlmacen',function(){
+    /* let idAlmacen = $(this).parents("tr").find("td")[0].innerHTML; */
+    let idAlmacen = $(this).attr('data-id');
+    let nota = $("#numNota").val();
+    let datos = Array();
+    let validar;
+
+    datos.push({'phone_idAlmacen_9':idAlmacen,'phone_nota_10':nota});
+    validar=validarCampos(datos);
+
+    if(validar > 0){
+        Swal.fire(
+                'error!',
+                'HAY DATOS ERRONEOS VERIFICA O LLAMA A TU ADMINISTRADOR',
+                'error'
+                )
+        
+    }else{
+        let data = { "data": datos }
+		var json = JSON.stringify(data);
+        $.ajax({
+            url: getAbsolutePath() + "views/layout/ajax.php",
+            method: "POST",
+            data: { "updateToVenta": json },
+            cache: false,
+            beforeSend: function () {
+            },
+            success: function (updateToVenta) {	
+                console.log(updateToVenta);
+                if(updateToVenta == 1){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Your work has been saved',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+
+                    $(location).attr('href',getAbsolutePath() + "Preventa/index");
+                }
+            }
+        });
+    }
+
+});
+
 
 
 </script>

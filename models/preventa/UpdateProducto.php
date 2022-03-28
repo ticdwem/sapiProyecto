@@ -3,6 +3,7 @@ require_once 'DatosProductos.php';
 
 class UpdateProducto extends Producto{
     private $piezas;
+    private $almacen;
 
     public function __construct($piezas = null,$nota = null,$idProducto = null)
     {
@@ -29,6 +30,24 @@ class UpdateProducto extends Producto{
         return $this;
     }
 
+    /**
+     * Get the value of almacen
+     */
+    public function getAlmacen()
+    {
+        return $this->almacen;
+    }
+
+    /**
+     * Set the value of almacen
+     */
+    public function setAlmacen($almacen): self
+    {
+        $this->almacen = $almacen;
+
+        return $this;
+    }
+
     public function updateDato(){
         $update = "UPDATE pedidos
                         SET
@@ -45,6 +64,25 @@ class UpdateProducto extends Producto{
          }
          return $upPedido;
     }
+
+    public function passToVenta(){
+        $update = "UPDATE pedidos
+                    SET
+                        statusProductoPedido='2',
+                        idAlmacenPedidos='{$this->getAlmacen()}'
+                    WHERE 
+                        idnotaPedido='{$this->getNota()}'";
+        $ventasUp = $this->db->query($update);
+        $venta = false;
+        if($ventasUp){
+            $venta = true;
+        }
+        return $venta;
+    }
+
+    
+
+
 
 
 }

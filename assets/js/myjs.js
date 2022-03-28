@@ -1019,17 +1019,18 @@ $(document).ready(function () {
 		let pz = $("#piezas").val();
 		let pzold = $("#pzoldValue").val();
 		let datosArray = Array();
-
+/* 
 			Swal.fire({
 				title: 'Seguro?',
 				text: "Vamos hacer camibios",
 				icon: 'warning',
 				showCancelButton: true,
 				confirmButtonColor: '#3085d6',
+				cancelButtonText: 'cancelar',
 				cancelButtonColor: '#d33',
-				confirmButtonText: 'Yes, delete it!'
-			  }).then((result) => {
-				if (result.isConfirmed) {
+				confirmButtonText: 'Editar'
+			}).then((result) => {
+				if (result.isConfirmed) { */
 					datosArray.push({'phone_idget_12':idget,'phone_idProducto_12':idProducto,'phone_piezas_10':pz});
 					var validar = validarCampos(datosArray);
 					
@@ -1061,17 +1062,24 @@ $(document).ready(function () {
 								cache: false,
 								beforeSend: function () {
 								},
-								success: function (updatePz) {				
-console.log(updatePz)
-
-									//$('#registroProductotablePedido').load(" #registroProductotablePedido");
+								success: function (updatePz) {	
+									if(updatePz == 1){
+										$('#modalEditProduct').modal('hide');
+										$('#registroProductotablePedido').load(" #registroProductotablePedido");
+									}else{
+										Swal.fire(
+											'ERROR?',
+											'Hubo un error al intentar Editar llame a su adminsitrador',
+											'question'
+										)
+									}
 								}
 							});
 						}
 
 					}
-				}
-			  })
+				/*} sdad */
+			/*}) 54545 */
 	})
 });
 

@@ -174,8 +174,9 @@ class Utls{
         /* contamos para saber cuantos dias han pasado desde su ultima conexion  */
         $contar = self::cuentaPedidos($idUsuario);
         $countNota = count($contar);
+        $yearNumber = date('y');
 
-        $nota = $fecha1.$idUsuario.$countNota;
+        $nota = $fecha1.$idUsuario.$countNota.$yearNumber;
 
         return $nota;
         
