@@ -79,6 +79,10 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         PREVENTA
                     </a>
+                    <a class="nav-link" href="<?= base_url ?>Venta/index">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        VENTA
+                    </a>
                     <div class="sb-sidenav-menu-heading">SUCURSALES</div>
                   <!--   <a class="nav-link" href="<?= base_url ?>Consultorio/nuevo">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>

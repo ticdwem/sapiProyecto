@@ -1129,13 +1129,14 @@ $(document).on('click','.deleteOnclickDb',function(e){
 	let nota = $(this).attr('data-get');
 	let notadato = Array();
 	Swal.fire({
-		title: 'Are you sure?',
-		text: "Quieres eliminar el articulo"+codPRod+" con nota"+nota,
+		title: 'Estas Seguro?',
+		text: "Eliminar de la lista",
 		icon: 'warning',
 		showCancelButton: true,
 		confirmButtonColor: '#3085d6',
 		cancelButtonColor: '#d33',
-		confirmButtonText: 'Yes, delete it!'
+		cancelButtonText: 'Cancelar',
+		confirmButtonText: 'Si, Eliminar'
 	  }).then((result) => {
 		if (result.isConfirmed) {
 			notadato.push({'phone_idProd_10':codPRod,'phone_nota_10':nota});

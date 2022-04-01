@@ -219,6 +219,13 @@ class Utls{
                     $retorno = 'Remision';
                 }
                 break;
+            case 'Venta':
+                if($action == 'index'){
+                    $retorno = 'Venta';
+                }elseif ($action == 'venta') {
+                    $retorno = 'Venta';
+                }
+                break;
            default:
                # code...
                break;

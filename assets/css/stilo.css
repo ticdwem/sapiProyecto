@@ -553,24 +553,19 @@ form .selectH .hideSelect {
   .botones .btn-insertarDatos{
 	  display: none
   }
-/* 
-#pedidoIndexId #rutaId{
-	width: 100%;
-	height: 250px;
-	border:1px solid green;
-	
-}
+  #titleLabelsVenta label{
+	  width: 100%;
+	  position: relative;
+	  /*  margin-left: auto;
+	  margin-right: auto;
+	  color:red; */
+  }
+	#titleLabelsVenta #cliLabelVenta{
+		position: relative;
+		margin-top: 5%;
+	}
 
-#pedidoIndexId #clienteId{
-	width: 100%;
-	height: 250px;
-	border:1px solid blue;
-	
-} */
-/* este sirver para centrar los divs dentro de otro div */
-/* #pedidoIndexId #rutaId,
-#pedidoIndexId #clienteId{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-} */
+  .botoncenter label{
+	  position: relative;
+	  margin: 50% 0 0 0;
+  }

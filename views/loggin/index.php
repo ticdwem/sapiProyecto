@@ -58,7 +58,7 @@
 <div class="limiter" data-status="<?=$status;?>">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<div class="login100-form-title" style="background-image: url(<?=base_url?>assets/img/inicio.jpg);"><!-- http://www.freepik.com -->
+				<div class="login100-form-title" ><!-- http://www.freepik.com -->
 					<span class="login100-form-title-1">
 						INICIAR SESIÓN
 					</span>

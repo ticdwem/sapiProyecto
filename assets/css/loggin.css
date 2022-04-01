@@ -209,12 +209,15 @@
   
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
+    background-position: center; 
   
     padding: 70px 15px 74px 15px;
+
+    background-size: 100% 270px;
+    background-image: url('../img/pila.png');
   }
   
-  .login100-form-title-1 {
+   .login100-form-title-1 {
     font-family: Poppins-Bold;
     font-size: 30px;
     color: #fff;
@@ -222,7 +225,7 @@
     line-height: 1.2;
     text-align: center;
   }
-  
+ 
   .login100-form-title::before {
     content: "";
     display: block;

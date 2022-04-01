@@ -10,7 +10,7 @@ class LogginController
     public $id;
 
     public function index(){
-        $_SESSION['usuario'] = array(
+        /*$ _SESSION['usuario'] = array(
             'id' => 1,
             'consultorio' =>"Miguel Angel",
             'nombre'=>"Miguel",
@@ -19,9 +19,9 @@ class LogginController
             'status'=>1
         );
 
-        echo '<script>window.location="' . base_url . 'Cliente/index"</script>';
+        echo '<script>window.location="' . base_url . 'Cliente/index"</script>'; */
 
-
+        require_once 'views/loggin/index.php';
     }
 
     public function consultaRows()
