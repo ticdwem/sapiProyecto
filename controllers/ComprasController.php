@@ -1,5 +1,6 @@
 <?php
-require_once  $_SERVER['DOCUMENT_ROOT'] . "/models/ComprasModel.php";
+require_once 'models/ComprasModel.php';
+/* require_once  $_SERVER['DOCUMENT_ROOT'] . "/models/ComprasModel.php"; */
 
 
 class ComprasController  

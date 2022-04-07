@@ -1,5 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/models/logginModel.php";
+require_once 'models/logginModel.php';
+/* require_once $_SERVER['DOCUMENT_ROOT'] . "/models/logginModel.php"; */
 
 // require_once $_SERVER['DOCUMENT_ROOT']."/models/logginModel.php";
 
