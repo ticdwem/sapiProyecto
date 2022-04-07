@@ -45,8 +45,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
-    <script src="<?=base_url?>assets/js/myjs.js"></script>
+    <script src="<?=base_url?>assets/js/scripts.js" defer></script>
     <script src="<?=base_url?>assets/js/validar-campos.js"></script>
+    <script src="<?=base_url?>assets/js/myjs.js"></script>
 <!--     <script src="<?=base_url?>assets/demo/chart-area-demo.js"></script>
     <script src="<?=base_url?>assets/demo/chart-bar-demo.js"></script>
     <script src="<?=base_url?>assets/demo/datatables-demo.js"></script> -->
@@ -65,23 +66,22 @@
 				</div>
 				 <?php if(isset($_SESSION['loggin'])){echo '<p class="alert alert-danger errorLoggin" role="alert"><strong>'.$_SESSION['loggin']."</strong></p>";}?>
 				 <?php Utls::deleteSession('loggin')?>
-				<form action="<?=base_url?>Loggin/verificar" method="POST" class="login100-form validate-form" id="frmLogginVerif" data-id="<?=$status?>">
-					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+				<form action="<?=base_url?>Loggin/verificar" method="POST" class="login100-form validate-form" id="frmLogginVerif" novalidate>
+					<div class="wrap-input100 validate-input m-b-26" >
 						<span class="label-input100">Correo</span>
-						<input class="input100" type="text" name="username" placeholder="Enter Email" id="emailLoggin">
-						<span class="focus-input100"></span>
-						<input type="hidden" name="tipoUser" id="tipoUser">
+						<input class="input100" type="text" name="emailLoggin" placeholder="Enter Email" id="emailLoggin">
+						<div class="emailLoggin"></div>
                     </div>
                     
-					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
+					<div class="wrap-input100 validate-input m-b-18" >
 						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="pass" placeholder="Enter password" id="inputPassLoggin">
-						<span class="focus-input100"></span>
+						<input class="input100" type="password" name="inputPassLoggin" placeholder="Enter password" id="inputPassLoggin">
+						<div class="inputPassLoggin"></div>
 					</div>
 
 					<div class="container-login100-form-btn">
 						<!-- <button type="submit" class="login100-form-btn btnstart"> -->
-						<button type="submit" class="login100-form-btn">
+						<button type="submit" class="login100-form-btn" id="btn-submit-loggin">
 							Login
 						</button>
                     </div>
@@ -89,4 +89,6 @@
                     <?php Utls::deleteSession('errorLoguin')?>
 				</form>
 			</div>
-		
+<script>
+
+</script>

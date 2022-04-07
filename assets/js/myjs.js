@@ -1080,6 +1080,20 @@ $(document).ready(function () {
 					}
 				/*} sdad */
 			/*}) 54545 */
+	});
+	$("#btn-submit-loggin").on("click", function(){
+		$("#frmLogginVerif").submit(function(e){
+			let validar = 0;
+			let emailLoggin = $("#emailLoggin").val();
+			let inputPassLoggin = $("#inputPassLoggin").val();
+			let verif = Array();
+	
+			verif.push({'nombre_emailLoggin_80':emailLoggin,'messagge_inputPassLoggin_50':inputPassLoggin});
+			validar = validarCampos(verif);
+			if(validar>0){
+				e.preventDefault();
+			}
+		})
 	})
 });
 

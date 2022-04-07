@@ -173,25 +173,30 @@ $(document).ready(function () {
 /* ================================================================================================================================================================ 
                                                 validar editar direccion proveedor
    ================================================================================================================================================================ */
-    $("#btn-edit-dom").on("click", function(){
-        $("#editDomicilio").submit(function(e){        
-            let addDomProveedor = Array();
-            let validar = 0;
-            let streetCustomerEdit = emptyInput($("#streetCustomerEdit").val());
-            let numeroCustomerEdit = emptyInput($("#numeroCustomerEdit").val());
-            let inputEstadoEdit = emptyInput($("#inputEstadoEdit").val());
-            let inpuMunicipioEdit = emptyInput($("#inpuMunicipioEdit").val());
-            let coloniaCustomerEdit = emptyInput($("#coloniaCustomerEdit").val());
-            let cpCustomerEdit = emptyInput($("#cpCustomerEdit").val());
-
-            addDomProveedor.push({"nombre_streetCustomerEdit_80":streetCustomerEdit,"phone_numeroCustomerEdit_5":numeroCustomerEdit,"phone_inputEstadoEdit_2":inputEstadoEdit,"phone_inpuMunicipioEdit_4":inpuMunicipioEdit,"nombre_coloniaCustomerEdit_50":coloniaCustomerEdit,"phone_cpCustomerEdit_5":cpCustomerEdit})
-            validar = validarCampos(addDomProveedor);
-            if(validar > 0){
-                e.preventDefault();
+   $("#btn-edit-dom").on("click", function(){
+       $("#editDomicilio").submit(function(e){        
+           let addDomProveedor = Array();
+           let validar = 0;
+           let streetCustomerEdit = emptyInput($("#streetCustomerEdit").val());
+           let numeroCustomerEdit = emptyInput($("#numeroCustomerEdit").val());
+           let inputEstadoEdit = emptyInput($("#inputEstadoEdit").val());
+           let inpuMunicipioEdit = emptyInput($("#inpuMunicipioEdit").val());
+           let coloniaCustomerEdit = emptyInput($("#coloniaCustomerEdit").val());
+           let cpCustomerEdit = emptyInput($("#cpCustomerEdit").val());
+           
+           addDomProveedor.push({"nombre_streetCustomerEdit_80":streetCustomerEdit,"phone_numeroCustomerEdit_5":numeroCustomerEdit,"phone_inputEstadoEdit_2":inputEstadoEdit,"phone_inpuMunicipioEdit_4":inpuMunicipioEdit,"nombre_coloniaCustomerEdit_50":coloniaCustomerEdit,"phone_cpCustomerEdit_5":cpCustomerEdit})
+           validar = validarCampos(addDomProveedor);
+           if(validar > 0){
+               e.preventDefault();
             }
         })
     })
-
+    
 });
+/* ================================================================================================================================================================ 
+                                                validar loguin
+   ================================================================================================================================================================ */
+
+
 
 

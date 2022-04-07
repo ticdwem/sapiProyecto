@@ -99,15 +99,32 @@ class LogginController
     }
 
     public function verificar()
-    {
+    {      
+         
+        require_once 'models/usuario/UsuarioModel.php';
+        Utls::deleteSession('usuario');
+        $user = (Validacion::textoLargo($_POST["emailLoggin"],50) == '0') ? false : htmlspecialchars($_POST["emailLoggin"]);
+        $password = (Validacion::textoLargo($_POST["inputPassLoggin"],50) == '0') ? false : htmlspecialchars($_POST["inputPassLoggin"]);
+        $datoUsuario = array('usuario' => $user,'password',$password );
 
-        /* 
-            
-            Utls::deleteSession('usuario'); */
-        $user = (Validacion::validarEmail($_POST["username"]) == '0') ? false : $_POST["username"];
-        //$password = (Validacion::validarPass($_POST["pass"]) == '0') ? false : $_POST["pass"];
-        $tipo = (Validacion::validarNumero("0") == '-1') ? false : "0";
+        foreach ($datoUsuario as $dato => $valor) {
+            if ($valor == false) {
+                $_SESSION['formulario_cliente'] = array(
+                    'error' => 'El campo ' . $dato . ' es incorrecto, llena los campos faltantes',
+                    'datos' => $datoUsuario
+                );
+                break;
+            }
+        }
+        if (isset($_SESSION['formulario_cliente'])) {
+            echo '<script>window.location="' . base_url . '"</script>';
+        } else {
 
+            $user = new UsarioModel($user,$password);
+            //$user->verificarUser();
+        }
+        /* $tipo = (Validacion::validarNumero("0") == '-1') ? false : "0"; */
+/* 
         if ($tipo === "0") {
             $_SESSION['usuario'] = array(
                 'id' => 1,
@@ -118,7 +135,7 @@ class LogginController
                 'status' => 1,
                 'datos' => "hola"
             );
-            echo '<script>window.location="' . base_url . 'Consultorio/nuevo"</script>';
+            echo '<script>window.location="' . base_url . 'Consultorio/nuevo"</script>'; */
             /*   $_SESSION['loggin'] = 'USUARIO O CONTRASEÑA SON INCORRECTOS';
                 echo '<script>window.location="'.base_url.'"</script>';
             }elseif($tipo === "2" || $tipo === '3'){
@@ -169,7 +186,7 @@ class LogginController
                         echo '<script>window.location="'.base_url.'"</script>';
                     }
                 } */
-        }
+       /*  } */
     }
 
     public function logout()
