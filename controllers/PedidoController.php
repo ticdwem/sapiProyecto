@@ -1,6 +1,6 @@
 <?php 
-require_once 'models/PedidoModel.php';
-/* require_once $_SERVER['DOCUMENT_ROOT'] . "/models/PedidoModel.php"; */
+/* require_once 'models/PedidoModel.php'; */
+require_once $_SERVER['DOCUMENT_ROOT'] . "/models/PedidoModel.php";
 
 class PedidoController
 {

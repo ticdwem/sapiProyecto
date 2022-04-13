@@ -1,8 +1,8 @@
 <?php
-require_once '/models/preventa/PreventaController.php';
-require_once '/models/preventa/deleteProdPreventa.php';
-/* require_once $_SERVER['DOCUMENT_ROOT'] . "/models/preventa/PreventaController.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/models/preventa/deleteProdPreventa.php"; */
+/* require_once '/models/preventa/PreventaController.php';
+require_once '/models/preventa/deleteProdPreventa.php'; */
+require_once $_SERVER['DOCUMENT_ROOT'] . "/models/preventa/PreventaController.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/models/preventa/deleteProdPreventa.php";
 
 class PreventaController{
     private $instancia;
@@ -30,7 +30,7 @@ class PreventaController{
         $dato = $datosJso["data"][0];
         
         $producto = (Validacion::validarNumero($dato["phone_idProd_10"])== -1) ? false :  $dato["phone_idProd_10"];
-        $nota = (Validacion::validarNumero($dato["phone_nota_10"])== -1) ? false :  $dato["phone_nota_10"];
+        $nota = (Validacion::validarNumero($dato["phone_numNota_10"])== -1) ? false :  $dato["phone_numNota_10"];
 
         $valArray = array('producto'=>$producto , 'nota'=> $nota);
         $dato = Utls::sessionValidate($valArray);

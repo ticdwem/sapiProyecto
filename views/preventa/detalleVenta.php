@@ -313,7 +313,6 @@ $(document).on('click','.selectAlmacen',function(){
 
     datos.push({'phone_idAlmacen_9':idAlmacen,'phone_nota_10':nota});
     validar=validarCampos(datos);
-
     if(validar > 0){
         Swal.fire(
                 'error!',

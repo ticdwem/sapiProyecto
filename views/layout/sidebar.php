@@ -3,50 +3,21 @@
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
-
                     <?php
-                    /*  $mimenu = json_decode($_SESSION['usuario']["menu"],true);
-                        $numero = 1;$grupo = "";
-                                           foreach ($mimenu as $posicion ) {         
-                                               foreach ($posicion as $name) {
-                                                   
-                                                   if($numero == $name[0]){
-                                                     switch($numero){
-                                                         case '1':
-                                                             $grupo = "PACIENTE";
-                                                             break;
-                                                        case '2':
-                                                            $grupo = "CONSULTORIO";
-                                                            break;
-                                                        case '3':
-                                                            $grupo = "AVANZADO";
-                                                            break;
-                                                        default:
-                                                            $grupo = "GRUPO DESCONOCIDO";
-                                                        break;
-                                                     }
-                                                    echo '<div class="sb-sidenav-menu-heading">'.$grupo.'</div>';
-                                                            if($numero === '3'){                                              
-                                                                ++$numero;
-                                                            }else{
-                                                                $numero++;
-                                                            }
-                                                        } 
-                                                        echo '<a class="nav-link" href="'.base_url.$name[2].'">
-                                                        <div class="sb-nav-link-icon"><i class="'.$name[3].'" aria-hidden="true"></i></div>
-                                                       '.$name[1].'
-                                                    </a>';
-                                                  //echo $name[1]."=> ".$name[2];
-                                              }
-                  
-                                           } 
-                            */
+                    
+                    $sesion = json_decode($_SESSION['usuario']['menu']);
+                    foreach($sesion as $key=>$posicion){
+                        echo '<a class="nav-link" href="'.base_url.$posicion->urlMenu.'">
+                                    <div class="sb-nav-link-icon"><i class="'.$posicion->iconoMenu.'" aria-hidden="true"></i></div>
+                                    '.$posicion->nombreMenu.'
+                                </a>';
+                    }
                     ?>
 
 
 
 
-                    <div class="sb-sidenav-menu-heading">Inicio</div>
+                    <!-- <div class="sb-sidenav-menu-heading">Inicio</div>
                     <a class="nav-link" href="<?= base_url ?>Cliente/index">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         NUEVO CLIENTE
@@ -82,7 +53,7 @@
                     <a class="nav-link" href="<?= base_url ?>Venta/index">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         VENTA
-                    </a>
+                    </a> -->
                     <div class="sb-sidenav-menu-heading">SUCURSALES</div>
                   <!--   <a class="nav-link" href="<?= base_url ?>Consultorio/nuevo">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
@@ -106,9 +77,9 @@
                 </div>
             </div>
             <div class="sb-sidenav-footer">
-                <div class="small" id="saludoDoctor" data-id="<?= $_SESSION['usuario']['status'] ?>">Hola Usuario:</div>
+                <!-- <div class="small" id="saludoDoctor" data-id="<?= $_SESSION['usuario']['status'] ?>">Hola Usuario:</div> -->
                 <?php
-                echo ucwords(SED::decryption($_SESSION['usuario']['nombre'])) . ' ' . Utls::getApellido($_SESSION['usuario']['apeliidos']);
+                //echo ucwords(SED::decryption($_SESSION['usuario']['nombre'])) . ' ' . Utls::getApellido($_SESSION['usuario']['apeliidos']);
                 //echo ucwords(SED::decryption($_SESSION['usuario']['nombre']));  
                 ?>
 

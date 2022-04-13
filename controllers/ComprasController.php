@@ -1,6 +1,6 @@
 <?php
-require_once 'models/ComprasModel.php';
-/* require_once  $_SERVER['DOCUMENT_ROOT'] . "/models/ComprasModel.php"; */
+/* require_once 'models/ComprasModel.php'; */
+require_once  $_SERVER['DOCUMENT_ROOT'] . "/models/ComprasModel.php";
 
 
 class ComprasController  
@@ -13,7 +13,7 @@ class ComprasController
         $almacenes = $alm->getAll('almacen');
 
         $prod = new ComprasModel();
-        $producto = $prod->getAll('productos');
+        $producto = $prod->getAll('producto');
 
         $lista = new ComprasModel();
         $listaProducto = $lista->getAll('producto');

@@ -1,7 +1,7 @@
 <?php
-require_once 'models/ClienteModel.php';
+/* require_once 'models/ClienteModel.php'; */
 /* mandamos a llamara al modelo de clientes */
-/* require_once $_SERVER['DOCUMENT_ROOT'] . "/models/ClienteModel.php"; */
+require_once $_SERVER['DOCUMENT_ROOT'] . "/models/ClienteModel.php";
 
 class ClienteController
 {

@@ -272,7 +272,6 @@ $contador = 1;
                             $('.spinnerCliente').html('<i class="fas fa-sync fa-spin"></i>');
                         },
                         success: function (Compra) {
-                            console.log(Compra)
                             $("#acceptCompra").removeAttr('disabled','disabled');
                             $("#acceptCompra span").removeClass("spinner-border spinner-border-sm");
                             location.reload();

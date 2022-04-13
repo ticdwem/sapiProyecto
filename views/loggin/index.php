@@ -55,6 +55,8 @@
 </head>
 <body>
     <?php
+    if(isset($_SESSION['formulario_cliente'])){ var_dump($_SESSION['formulario_cliente']); Utls::deleteSession('formulario_cliente'); }
+    
     $status = 0; if (isset($_SESSION['usuario'])){$status = $_SESSION['usuario']['status'];} ?>
 <div class="limiter" data-status="<?=$status;?>">
 		<div class="container-login100">

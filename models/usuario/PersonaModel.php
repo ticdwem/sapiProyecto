@@ -1,10 +1,11 @@
 <?php
-require_once 'config/modeloBase.php';
-
+/* require_once 'config/modeloBase.php'; */
+require_once $_SERVER['DOCUMENT_ROOT'] . "/config/modeloBase.php";
 class PersonaModel extends ModeloBase {
      
    protected $nombre;
    protected $apellido;
+   protected $id;
 
     public function __construct($nombre = null)
     {
@@ -48,6 +49,24 @@ class PersonaModel extends ModeloBase {
    public function setApellido($apellido): self
    {
       $this->apellido = $apellido;
+
+      return $this;
+   }
+
+   /**
+    * Get the value of id
+    */
+   public function getId()
+   {
+      return $this->id;
+   }
+
+   /**
+    * Set the value of id
+    */
+   public function setId($id): self
+   {
+      $this->id = $id;
 
       return $this;
    }

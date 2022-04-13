@@ -992,11 +992,20 @@ $(document).ready(function () {
 						
 					},
 					success: function (pedido) {
-						console.log(pedido)
 						if(pedido >= 1) {
+							Swal.fire({
+								position: 'center',
+								icon: 'success',
+								title: 'Your work has been saved',
+								showConfirmButton: false,
+								timer: 1500
+							  }).then(function(){
+								  
+								  $(location).attr('href',getAbsolutePath()+'Pedido/index')
+								});
 							$('#alertaInsert').html('<div class="alert alert-success" role="alert"> El producto correctamente </div>');
 						}else{
-							$('#alertaInsert').html('<div class="alert alert-danger" role="alert"> LoLamento pero no </div>');
+							$('#alertaInsert').html('<div class="alert alert-danger" role="alert">LLAMA A TU ADMINISTRADOR NO SE INSERTO</div>');
 
 						}
 						
@@ -1153,7 +1162,7 @@ $(document).on('click','.deleteOnclickDb',function(e){
 		confirmButtonText: 'Si, Eliminar'
 	  }).then((result) => {
 		if (result.isConfirmed) {
-			notadato.push({'phone_idProd_10':codPRod,'phone_nota_10':nota});
+			notadato.push({'phone_idProd_10':codPRod,'phone_numNota_10':nota});
 			validar = validarCampos(notadato);
 			if(validar>0){
 				Swal.fire(
@@ -1172,8 +1181,7 @@ $(document).on('click','.deleteOnclickDb',function(e){
 					cache: false,
 					beforeSend: function () {
 					},
-					success: function (deletePRoducDbNota) {				
-						console.log(deletePRoducDbNota);
+					success: function (deletePRoducDbNota) {	
 						if(deletePRoducDbNota == 0){
 							Swal.fire(
 								'error!',

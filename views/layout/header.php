@@ -60,7 +60,7 @@
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button><!-- Navbar Search-->
             <div class="" id="headerBienestar">
                 <div class="input-group divconsul">
-                    <p class="consul"><?php if(isset($_SESSION['usuario'])){echo $_SESSION["usuario"]["consultorio"];} ?></p>                    
+                    <p class="consul"><?php if(isset($_SESSION['usuario'])){echo $_SESSION["usuario"]["nombre"];} ?></p>                    
                     <input type="hidden" name="idUser" id="idUser" class="idUser" value="<?=$_SESSION["usuario"]["id"]?>">
                 </div>
             </div>

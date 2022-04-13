@@ -1,8 +1,9 @@
 <?php
-require_once 'models/logginModel.php';
-/* require_once $_SERVER['DOCUMENT_ROOT'] . "/models/logginModel.php"; */
-
-// require_once $_SERVER['DOCUMENT_ROOT']."/models/logginModel.php";
+/* require_once 'models/logginModel.php'; */
+require_once $_SERVER['DOCUMENT_ROOT'] . "/models/logginModel.php";
+/* echo "hola";
+ //var_dump(root . "models/logginModel.php");
+require_once root . "/sapi/models/logginModel.php"; */
 
 class LogginController
 {
@@ -102,7 +103,7 @@ class LogginController
     {      
          
         require_once 'models/usuario/UsuarioModel.php';
-        Utls::deleteSession('usuario');
+        
         $user = (Validacion::textoLargo($_POST["emailLoggin"],50) == '0') ? false : htmlspecialchars($_POST["emailLoggin"]);
         $password = (Validacion::textoLargo($_POST["inputPassLoggin"],50) == '0') ? false : htmlspecialchars($_POST["inputPassLoggin"]);
         $datoUsuario = array('usuario' => $user,'password',$password );
@@ -119,9 +120,42 @@ class LogginController
         if (isset($_SESSION['formulario_cliente'])) {
             echo '<script>window.location="' . base_url . '"</script>';
         } else {
-
+           $returnJson=[];
             $user = new UsarioModel($user,$password);
-            //$user->verificarUser();
+            $verify = $user->verificarUser();
+            $fila = $verify->fetch_assoc();
+            if(password_verify($password,$fila['passwordUsuario'])){
+                $menu = new UsarioModel();
+                $menu->setId($fila['idUsuario']);
+                $permitido =$menu->getMenu();
+                if($permitido){
+                    while($menuP = $permitido->fetch_object()){
+                        $returnJson[] = array(
+                            'idMenu' => $menuP->id_menu,
+                            'idUsuario' => $menuP->id_usuario,
+                            'idMenu'=>$menuP->idMenu,
+                            'nombreMenu'=>$menuP->nombreMenu,
+                            'urlMenu'=>$menuP->urlMenu,
+                            'iconoMenu'=>$menuP->iconoMenu
+                        );
+                    }
+                   $json = json_encode($returnJson, JSON_FORCE_OBJECT);
+                    $_SESSION['usuario'] = array(
+                        'id' => $fila["idUsuario"],
+                        'nombre'=>$fila["nombrEmpleado"],
+                        'apeliidos'=>$fila["apellidosEmpleado"],
+                        'status'=>$fila["statusUsuario"],
+                        'menu'=> $json
+                    );  
+
+                    echo '<script>window.location="'.base_url.'Venta/index"</script>';
+                }else{
+                    var_dump("no se encontro datos de menu");  
+                }
+            }else{
+                $_SESSION['errorLoguin'] = 'Usuario o Contraseña son Incorrectos';
+                echo '<script>window.location="'.base_url.'"</script>';
+            }
         }
         /* $tipo = (Validacion::validarNumero("0") == '-1') ? false : "0"; */
 /* 
