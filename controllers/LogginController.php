@@ -82,21 +82,29 @@ class LogginController
         }
     }
 
-    public function verifEmailLog($email)
-    {
-        $validarEmail = Validacion::validarEmail($email);
-        if ($validarEmail != '0') {
-            $login = new Login();
-            $tipoUser = $login->getEmailExis($validarEmail);
-            if ($tipoUser && $tipoUser->num_rows == 1) {
+    public function verifNameLog($name)
+    {       
+        $validarnameLog = Validacion::textoLargo($name,50);
+        if ($validarnameLog != '0') {
+            $user = new UsarioModel($name);
+            $dtsUser = $user->verificarUser()->fetch_object();
+          
+                if($dtsUser->gerarquia == 0){                   
+                   echo 3;
+                   exit();
+                }
+                echo 4;
+               /*  echo "=========================ya pasamos el var_dump"; */
+            } 
+            /* if ($tipoUser && $tipoUser->num_rows == 1) {
                 $tipo = $tipoUser->fetch_object();
                 $logiin["correo"] = $tipo->correoUsuario;
-                $logiin["tipo"] = $tipo->tipoUsuario;
+                $logiin["tipo"] = $tipo->tipoUsuario;UsarioModel
 
                 header('content-type: application/json; charset=utf8');
                 echo json_encode($logiin);
-            }
-        }
+            } 
+        }*/
     }
 
     public function verificar()
@@ -145,10 +153,12 @@ class LogginController
                         'nombre'=>$fila["nombrEmpleado"],
                         'apeliidos'=>$fila["apellidosEmpleado"],
                         'status'=>$fila["statusUsuario"],
+                        'grerarquia'=>$fila["gerarquia"],
                         'menu'=> $json
                     );  
 
-                    echo '<script>window.location="'.base_url.'Venta/index"</script>';
+                    $redirectTo = Utls::viewProfile($fila["gerarquia"]);
+                    echo '<script>window.location="'.base_url. $redirectTo.'"</script>';
                 }else{
                     var_dump("no se encontro datos de menu");  
                 }

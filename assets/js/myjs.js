@@ -132,16 +132,16 @@ $(document).ready(function () {
 
 	/* :::::::::::::::::::::::::::::::::::::::::::::::loguin:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 	$("#emailLoggin").on('change', function () {
-		var email = $(this).val();
-		var validarEmail = expRegular("email", email);
+		var user = $(this).val();
+		var validarEmail = expRegular("nombre", user);
 
 		if (validarEmail != 0) {
-			var mail = new FormData();
-			mail.append("correoLoggin", email);
+			var usuario = new FormData();
+			usuario.append("correoLoggin", user);
 			$.ajax({
 				url: getAbsolutePath() + "views/layout/ajax.php",
 				method: "POST",
-				data: mail,
+				data: usuario,
 				cache: false,
 				contentType: false,
 				processData: false,
@@ -149,16 +149,11 @@ $(document).ready(function () {
 					$('.spinnerWhite').html('<i class="fas fa-sync fa-spin"></i>');
 				},
 				success: function (emaillog) {
-					if (emaillog) {
-						$("#tipoUser").val(emaillog.tipo);
-						if (emaillog.tipo == 2 || emaillog.tipo == 3) {
-							$(".selectH").css('display', 'block');
-						} else {
-							$(".selectH").css('display', 'none');
-						}
-					} else {
-						$("#tipoUser").val(0);
-					}
+					 if (emaillog == 3) {
+						$("#select").css('display','block');
+					 }else{
+						$("#select").css('display','none');
+					 }
 				}
 			})
 		}

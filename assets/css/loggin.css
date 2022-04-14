@@ -517,6 +517,10 @@
       opacity: 1;
     }
   }
+
+  #select{
+    display: none;
+  }
   
   
   

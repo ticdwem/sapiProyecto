@@ -81,6 +81,18 @@
 						<div class="inputPassLoggin"></div>
 					</div>
 
+                    <div class="wrap-input100 validate-input m-b-18"  id="select">
+						<span class="label-input100">Camara</span>
+						<select class="form-control ">
+                            <option>Large select</option>
+                            <option>Large select</option>
+                            <option>Large select</option>
+                            <option>Large select</option>
+                            <option>Large select</option>
+                        </select>
+						<div class="inputPassLoggin"></div>
+					</div>
+
 					<div class="container-login100-form-btn">
 						<!-- <button type="submit" class="login100-form-btn btnstart"> -->
 						<button type="submit" class="login100-form-btn" id="btn-submit-loggin">

@@ -3,15 +3,13 @@ require_once 'PersonaModel.php';
 
 class UsarioModel extends PersonaModel{
     private $password;
+    protected $puesto;
 
     public function __construct($nombre=null,$password=null)
     {
         parent::__construct($nombre);
         $this->password = $password;
     }
-
-    
-
 
     /**
      * Get the value of password

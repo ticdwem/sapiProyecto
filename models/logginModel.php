@@ -11,6 +11,9 @@ class Login extends ModeloBase{
     private $pass;
     private $idEstado;
     
+    public function __construct() {
+        parent::__construct();
+    }
     /**
      * Get the value of id
      */ 
@@ -109,9 +112,7 @@ class Login extends ModeloBase{
         return $this;
     }
     
-    public function __construct() {
-        parent::__construct();
-    }
+
 
     public function getDoctor(){
         $result = false;

@@ -5,6 +5,7 @@ require_once "../../models/pacienteModels.php";
 require_once "../../models/PedidoModel.php";
 require_once "../../models/preventa/deleteProdPreventa.php";
 require_once "../../models/preventa/UpdateProducto.php";
+require_once "../../models/usuario/UsuarioModel.php";
 require_once "../../helpers/validacion.php";
 require_once "../../helpers/crypt.php";
 require_once "../../helpers/utls.php";
@@ -107,7 +108,7 @@ class Ajax
 	{
 		$query = $this->getDato();
 		$sent = new LogginController();
-		$sent->verifEmailLog($query);
+		$sent->verifNameLog($query);
 	}
 
 	// creamo session para agregar al contacto solo se permiten 3 contactos por cliente

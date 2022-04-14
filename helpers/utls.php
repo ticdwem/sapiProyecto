@@ -233,4 +233,24 @@ class Utls{
 
        return $retorno;
     }
+/* 
+* dependiendo del perfil es la primer pantalla vista que entra
+*/
+    public static function viewProfile($profile){
+        $menu = '';
+        switch ($profile) {
+            case '0':
+                $menu = 'Anden/index';
+                break;
+            case '1': 
+               $menu = 'Pedido/index';
+                break;
+            default:
+                $menu = 'Vista/default';
+                # code...
+                break;
+        }
+
+        return $menu;
+    }
 }
