@@ -242,14 +242,13 @@ class ComprasModel extends ModeloBase
         $query = "INSERT INTO compras
                     (usuario_compra, NumeroDeNotasCompras, FechaCompra,idProveedor)
                 VALUES ({$this->getIdUsuer()}, {$this->getNota()}, '{$this->getFecha()}',{$this->getProveedor()})";
-
-$querydb = $this->db->query($query);
-$insert = false;
-if ($querydb) {
-    $insert = true;
-}
-return $insert;     
-}
+        $querydb = $this->db->query($query);
+        $insert = false;
+        if ($querydb) {
+            $insert = true;
+        }
+        return $insert;     
+    }
 
 public function insertDetalleCompras(){
     $query = "CALL insertProducto({$this->getIdProducto()}, {$this->getNota()}, {$this->getPzDetalleCompra()}, '{$this->getPesoDetalleCompra()}', {$this->getLoteDetalleCompra()}, '{$this->getPrecioUnitarioDetalleCompra()}', '{$this->getSubtotalDetalleCompra()}', {$this->getAlmacen()})";

@@ -267,7 +267,6 @@ class Ajax
 
 	public function registroCompra(){
 		$ver = $this->getDato();
-		
 		$registro = new ComprasController();
 		$registro->insertCompras($ver);
 		//echo $registro;

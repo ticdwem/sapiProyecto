@@ -578,3 +578,12 @@ function cambiarAempty(dato){
 
   return v;
 }
+
+function  visible(dato){
+  datos = dato;
+  var esVisible = false;
+			if($("#"+dato).is(':visible') && $("#"+dato).css("visibility") != "hidden" && $("#"+dato).css("opacity") > 0) {
+				esVisible =true;
+			}
+      return esVisible;
+}

@@ -1087,12 +1087,18 @@ $(document).ready(function () {
 	});
 	$("#btn-submit-loggin").on("click", function(){
 		$("#frmLogginVerif").submit(function(e){
+
+			let isBisible = visible('select');
 			let validar = 0;
 			let emailLoggin = $("#emailLoggin").val();
 			let inputPassLoggin = $("#inputPassLoggin").val();
+			let camara = 0;
 			let verif = Array();
-	
-			verif.push({'nombre_emailLoggin_80':emailLoggin,'messagge_inputPassLoggin_50':inputPassLoggin});
+			if(isBisible){
+				camara = $("#camara").val();
+			}
+			verif.push({'nombre_emailLoggin_80':emailLoggin,'messagge_inputPassLoggin_50':inputPassLoggin,'phone_camara_5':camara});
+			
 			validar = validarCampos(verif);
 			if(validar>0){
 				e.preventDefault();

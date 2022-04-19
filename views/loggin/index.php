@@ -83,13 +83,12 @@
 
                     <div class="wrap-input100 validate-input m-b-18"  id="select">
 						<span class="label-input100">Camara</span>
-						<select class="form-control ">
-                            <option>Large select</option>
-                            <option>Large select</option>
-                            <option>Large select</option>
-                            <option>Large select</option>
-                            <option>Large select</option>
-                        </select>
+                        <select class="form-control " name="camara" id="camara">
+                            <option value="0">Elige una Camara</option>
+                        <?php while ($camaras=$datos->fetch_object()): ?>
+                            <option value="<?= $camaras->idAlmacen ?>"><?= $camaras->nombreAlmacen ?></option>
+                        <?php endwhile;  ?>
+                        </select> 
 						<div class="inputPassLoggin"></div>
 					</div>
 

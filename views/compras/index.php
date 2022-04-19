@@ -5,6 +5,7 @@
         Utls::deleteSession('formulario_cliente');
     }
 $contador = 1;
+
     ?>
 </div>
 <div class="">
@@ -153,8 +154,8 @@ $contador = 1;
                     </tr>
                 </thead>
                 <tbody id="registroProducto">
-                                                
-                </tbody>
+                
+            </tbody>
             </table>
         </div>
     </div>
@@ -221,9 +222,10 @@ $contador = 1;
         let valor = new Array(); // declaramos un nuevo array
         /* hacemos un */
         $("#acceptCompra").on('click',function(e){
+            
             let campos = Array();
             e.preventDefault();
-            let idUser = $("#idUser").attr("id-user");
+            let idUser = $("#idUser").val();
             let nota = $("#nota").val();
             let fechaCompra = $("#fechaCompra").val();
             let selectNombreProveedor = $('#selectNombreProveedor option:selected').val();
@@ -232,7 +234,7 @@ $contador = 1;
 
             var datos = validarCampos(campos)
             if(datos == 0){
-                let tabla = existeRegistro(registroProductotable);
+                let tabla = existeRegistro("registroProductotable");
                 if (tabla == 0){
                     Swal.fire({
                         position: 'center',
@@ -272,9 +274,21 @@ $contador = 1;
                             $('.spinnerCliente').html('<i class="fas fa-sync fa-spin"></i>');
                         },
                         success: function (Compra) {
-                            $("#acceptCompra").removeAttr('disabled','disabled');
-                            $("#acceptCompra span").removeClass("spinner-border spinner-border-sm");
-                            location.reload();
+                            if(Compra == 0){
+                                console.log(Compra)
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'INSERTADO',
+                                    title: 'Se han insertado correctamente',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                                $("#acceptCompra").removeAttr('disabled','disabled');
+                                $("#acceptCompra span").removeClass("spinner-border spinner-border-sm");
+                                location.reload();
+                            }else{
+                                alert("noooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+                            }
                         }
                     });                   
                 }

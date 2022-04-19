@@ -165,10 +165,6 @@ class Login extends ModeloBase{
         return $query;
     }
 
-    
-
-
-
 
 
 }

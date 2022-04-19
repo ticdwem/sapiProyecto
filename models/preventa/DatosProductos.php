@@ -18,7 +18,7 @@ class Producto extends ModeloBase{
      *
      * @return int
      */
-    public function getNota(): int
+    public function getNota()
     {
         return $this->nota;
     }
@@ -30,7 +30,7 @@ class Producto extends ModeloBase{
      *
      * @return self
      */
-    public function setNota(int $nota): self
+    public function setNota($nota)
     {
         $this->nota = $nota;
 
@@ -42,7 +42,7 @@ class Producto extends ModeloBase{
      *
      * @return int
      */
-    public function getIdProducto(): int
+    public function getIdProducto()
     {
         return $this->idProducto;
     }
@@ -55,7 +55,7 @@ class Producto extends ModeloBase{
      *
      * @return self
      */
-    public function setIdProducto(int $idProducto): self
+    public function setIdProducto($idProducto)
     {
         $this->idProducto = $idProducto;
 

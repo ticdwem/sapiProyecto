@@ -46,6 +46,7 @@ class ComprasController
             $notaCompra->setProveedor($datos['provedor']);
             $insert = $notaCompra->insertCompras();
             if($insert){
+                $insertDetalle=0;
                 for ($i=0; $i < $contar; $i++) { 
                    $producto = new ComprasModel();
                    $producto->setIdProducto($datos["productos"][$i]['codigo']);
@@ -58,11 +59,11 @@ class ComprasController
                    $producto->setAlmacen($datos["productos"][$i]["almacen"]);
                    $inserta = $producto->insertDetalleCompras();
                    if($inserta ==  false){
-                    $inserta ++;
+                    $insertDetalle ++;
                      $_SESSION["nombre"] = $datos["productos"][$i]['nombre'];
                    }
                 }
-                if($inserta > 0){
+                if($insertDetalle > 0){
                     $_SESSION['formulario_Inserta'] = "hubo un error al insertar ".$_SESSION["nombre"]." corrige los datos e ingresa de nuevo";
                 }else{
                     echo 0;

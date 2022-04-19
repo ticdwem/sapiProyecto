@@ -12,17 +12,8 @@ class LogginController
     public $id;
 
     public function index(){
-        /*$ _SESSION['usuario'] = array(
-            'id' => 1,
-            'consultorio' =>"Miguel Angel",
-            'nombre'=>"Miguel",
-            'apeliidos'=>"Dewm",
-            'tipo'=>1,
-            'status'=>1
-        );
-
-        echo '<script>window.location="' . base_url . 'Cliente/index"</script>'; */
-
+        $almacen = new Login();
+        $datos = $almacen->getAllWhere('almacen','where idAlmacen <> 1');
         require_once 'views/loggin/index.php';
     }
 
@@ -93,28 +84,18 @@ class LogginController
                    echo 3;
                    exit();
                 }
-                echo 4;
-               /*  echo "=========================ya pasamos el var_dump"; */
+              
             } 
-            /* if ($tipoUser && $tipoUser->num_rows == 1) {
-                $tipo = $tipoUser->fetch_object();
-                $logiin["correo"] = $tipo->correoUsuario;
-                $logiin["tipo"] = $tipo->tipoUsuario;UsarioModel
-
-                header('content-type: application/json; charset=utf8');
-                echo json_encode($logiin);
-            } 
-        }*/
     }
 
     public function verificar()
-    {      
-         
+    {
         require_once 'models/usuario/UsuarioModel.php';
         
         $user = (Validacion::textoLargo($_POST["emailLoggin"],50) == '0') ? false : htmlspecialchars($_POST["emailLoggin"]);
         $password = (Validacion::textoLargo($_POST["inputPassLoggin"],50) == '0') ? false : htmlspecialchars($_POST["inputPassLoggin"]);
-        $datoUsuario = array('usuario' => $user,'password',$password );
+        $camara = (Validacion::textoLargo($_POST["camara"],2) == '0') ? false : htmlspecialchars($_POST["camara"]);
+        $datoUsuario = array('usuario' => $user,'password',$password,'camara'=>$camara );
 
         foreach ($datoUsuario as $dato => $valor) {
             if ($valor == false) {
@@ -154,6 +135,7 @@ class LogginController
                         'apeliidos'=>$fila["apellidosEmpleado"],
                         'status'=>$fila["statusUsuario"],
                         'grerarquia'=>$fila["gerarquia"],
+                        'camra'=>$camara,
                         'menu'=> $json
                     );  
 
