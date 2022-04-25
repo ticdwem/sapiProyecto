@@ -1,11 +1,11 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/models/venta/ventaModel.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/models/anden/venta/ventaModel.php";
 
 class VentaController{
   private $instancia;
 
     public function __construct(){
-        $this->instancia = new VentaModel();
+        $this->instancia = new VentaModel($_SESSION['usuario']['camra']);
     }
 
     public function venta(){

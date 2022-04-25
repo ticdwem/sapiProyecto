@@ -1,15 +1,12 @@
 <?php
 require_once 'DatosAnden.php';
 
-class verifyExistence extends DatosAnden
+class GetProdutos extends DatosAnden
 {
-    protected $productosNotas;
-    protected $productosanden;
 
    public function __construct()
    {
-       $this->productosNotas = Array();
-       $this->productosanden = Array();
+       parent::__construct($_SESSION['usuario']['camra']);
    }
     
 
@@ -49,5 +46,10 @@ class verifyExistence extends DatosAnden
         return $this;
     }
 
-    
+    public function listas(){
+        $datos ='SELECT SUM(pzProductoPedido)AS suma,pedidoscliente.* FROM pedidoscliente WHERE idAlmacenPedidos ='.$this->getNumAnden().' GROUP BY idnotaPedido';
+        $query = $this->db->query($datos);
+        return $query;
+    }
+   
 }

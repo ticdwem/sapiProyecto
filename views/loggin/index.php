@@ -84,7 +84,7 @@
                     <div class="wrap-input100 validate-input m-b-18"  id="select">
 						<span class="label-input100">Camara</span>
                         <select class="form-control " name="camara" id="camara">
-                            <option value="0">Elige una Camara</option>
+                            <option value="100">Elige una Camara</option>
                         <?php while ($camaras=$datos->fetch_object()): ?>
                             <option value="<?= $camaras->idAlmacen ?>"><?= $camaras->nombreAlmacen ?></option>
                         <?php endwhile;  ?>

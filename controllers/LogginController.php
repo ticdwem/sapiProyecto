@@ -94,7 +94,7 @@ class LogginController
         
         $user = (Validacion::textoLargo($_POST["emailLoggin"],50) == '0') ? false : htmlspecialchars($_POST["emailLoggin"]);
         $password = (Validacion::textoLargo($_POST["inputPassLoggin"],50) == '0') ? false : htmlspecialchars($_POST["inputPassLoggin"]);
-        $camara = (Validacion::textoLargo($_POST["camara"],2) == '0') ? false : htmlspecialchars($_POST["camara"]);
+        $camara = (Validacion::textoLargo($_POST["camara"],3) == '0') ? false : htmlspecialchars($_POST["camara"]);
         $datoUsuario = array('usuario' => $user,'password',$password,'camara'=>$camara );
 
         foreach ($datoUsuario as $dato => $valor) {
@@ -114,6 +114,7 @@ class LogginController
             $verify = $user->verificarUser();
             $fila = $verify->fetch_assoc();
             if(password_verify($password,$fila['passwordUsuario'])){
+                if($camara == 100){$camara = 0;}
                 $menu = new UsarioModel();
                 $menu->setId($fila['idUsuario']);
                 $permitido =$menu->getMenu();
@@ -142,7 +143,8 @@ class LogginController
                     $redirectTo = Utls::viewProfile($fila["gerarquia"]);
                     echo '<script>window.location="'.base_url. $redirectTo.'"</script>';
                 }else{
-                    var_dump("no se encontro datos de menu");  
+                    $_SESSION['errorLoguin'] = 'NO SE ENCONTRARON DATOS PARA EL MENU';
+                echo '<script>window.location="'.base_url.'"</script>';  
                 }
             }else{
                 $_SESSION['errorLoguin'] = 'Usuario o Contraseña son Incorrectos';

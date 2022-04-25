@@ -13,10 +13,6 @@ class PersonaModel extends ModeloBase {
         $this->nombre = $nombre;
         
     }
-
-
-
-
    /**
     * Get the value of nombre
     */

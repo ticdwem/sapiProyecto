@@ -1092,7 +1092,7 @@ $(document).ready(function () {
 			let validar = 0;
 			let emailLoggin = $("#emailLoggin").val();
 			let inputPassLoggin = $("#inputPassLoggin").val();
-			let camara = 0;
+			let camara = 100;
 			let verif = Array();
 			if(isBisible){
 				camara = $("#camara").val();
