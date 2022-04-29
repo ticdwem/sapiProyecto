@@ -9,6 +9,7 @@ class VentaController{
     }
 
     public function venta(){
+      echo "sdesde vent";
          $datos = $this->instancia->getAllWhere('clientepedido','WHERE id='.$_GET['cli'])->fetch_object();   //datos de contacto de cliente      
          $dom = $this->instancia->getAllWhere('mostrardatospedido','WHERE clienteId='.$_GET['cli'])->fetch_object(); //datos de domicilio de cliente
         $prod = $this->instancia->getAllWhere('viewPedidosProducto','WHERE idnotaPedido = '.$_GET['id']);  //datos de productos

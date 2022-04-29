@@ -253,4 +253,19 @@ class Utls{
 
         return $menu;
     }
+
+    public static function multiply($dato1 = 0,$dato2 = 0){
+        $resultado = 0;
+        $uno = (Validacion::validarNumero($dato1) == -1) ? false : $dato1 ;
+        $dos = (Validacion::validarNumero($dato2) == -1) ? false : $dato2 ;
+
+        if($uno == false || $dos == false ){
+            $resultado = 0;
+            return $resultado;
+        }
+        $resultado = round($uno * $dos,2);
+
+        return $resultado;
+
+    }
 }

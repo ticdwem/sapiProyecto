@@ -6,6 +6,8 @@ require_once "../../models/PedidoModel.php";
 require_once "../../models/preventa/deleteProdPreventa.php";
 require_once "../../models/preventa/UpdateProducto.php";
 require_once "../../models/usuario/UsuarioModel.php";
+require_once "../../models/anden/clienteVenta.php";
+require_once "../../models/anden/venta/VentaLotenota.php";
 require_once "../../helpers/validacion.php";
 require_once "../../helpers/crypt.php";
 require_once "../../helpers/utls.php";
@@ -15,6 +17,7 @@ require_once "../../controllers/ComprasController.php";
 require_once "../../controllers/RemisionController.php";
 require_once "../../controllers/PedidoController.php";
 require_once "../../controllers/PreventaController.php";
+require_once "../../controllers/UpdateVentaLoteController.php";
 
 
 class Ajax
@@ -334,6 +337,16 @@ class Ajax
 		$toventas->sendToVentas($datos);
 
 	}
+
+	public function upLotePeso(){
+		
+		$datoJson = json_decode($this->getDato(),true);
+		$datos = $datoJson["data"][0];
+		$venta = new UpdateVentaLoteController($datos["phone_idget_50"],$datos["phone_idProducto_80"],$datos["phone_loteVenta_50"],$datos["decimales_peso_50"]);
+		$venta->setCliente($datos["phone_idcli_10"]);    
+		$venta->lotePeso();
+		
+	}
 }
 /* echo "<pre> //////";
 var_dump($_POST);
@@ -521,4 +534,10 @@ if(isset($_POST['updateToVenta'])){
 	$update = new Ajax();
 	$update->setDato($_POST['updateToVenta']);
 	$update->toVenta();
+}
+
+if(isset($_POST['updateVenta'])){
+	$venta = new Ajax();
+	$venta->setDato($_POST['updateVenta']);
+	$venta->upLotePeso();
 }

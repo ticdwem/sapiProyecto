@@ -20,7 +20,7 @@
               <tr>
                 <td><?= $notas->idnotaPedido ?></td>
                 <th ><?= $notas->nombreCliente ?></th>
-                <td ><a class="btn btn-primary btn-lg btn-block" href="<?= base_url ?>Anden/venta&id=<?= $notas->idPeddios ?>" role="button">Venta</a></td>
+                <td ><a class="btn btn-primary btn-lg btn-block" href="<?= base_url ?>Anden/venta&nota=<?= $notas->idnotaPedido ?>&cli=<?=$notas->idClientePedido?>" role="button">Venta</a></td>
                 <th ></th>
               </tr>
             <?php endwhile ?>

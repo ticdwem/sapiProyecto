@@ -10,22 +10,22 @@ class AndenController{
     public function index(){
         $prueba = new GetProdutos();
         $datos = $prueba->listas();
-
         require_once 'views/anden/andenVenta.php';
     }
 
-    public function detalle(){
+    public function Venta(){
+        /* selecccion los productos dependidendo del  */
         $datos = new VentaModel($_SESSION['usuario']['camra'],$_GET['nota']);
         $productos = $datos->selectNotaVenta();
         
+        /* selecciona el numero del cliente y muestra la informacion completa del cliente */
         $cliente = new ClienteVenta($_GET['cli']);
-        $datosCli = $cliente->selectCliente();
-        
-        $domicilio = $cliente->selectDatosPedidos();
-        
-        require_once 'views/anden/venta.php';
+        $datosCli = $cliente->selectCliente()->fetch_object();        
+        $domicilio = $cliente->selectDatosPedidos()->fetch_object();
 
-        
+        require_once 'views/remisiones/venta.php';        
     }
+
+   
 
 }

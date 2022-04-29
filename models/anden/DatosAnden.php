@@ -6,7 +6,7 @@ class DatosAnden extends ModeloBase
     protected $numAnden;
 
     
-    public function __construct($numAnden)
+    public function __construct($numAnden=null)
     {
         parent::__construct();
         $this->numAnden = $numAnden;
@@ -25,4 +25,6 @@ class DatosAnden extends ModeloBase
         $query = $this->db->query($datos);
         return $query;
     }
+
+    
 }
