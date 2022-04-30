@@ -541,3 +541,7 @@ if(isset($_POST['updateVenta'])){
 	$venta->setDato($_POST['updateVenta']);
 	$venta->upLotePeso();
 }
+
+/* if(isset($_POST['existencia'])){
+	$existencia = new Ajax
+} */

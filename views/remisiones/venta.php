@@ -247,13 +247,7 @@
 </div>
 
 <script> 
-$(document).on('click','.modalEditProduct',function(){
-    let idPro = $(this).parents("tr").find("td")[0].innerHTML;
-    let producto = $(this).parents("tr").find("td")[1].innerHTML;
-    $("#idProducto").val(idPro);
-    $("#nombreProdcuto").val(producto);
-    $('#modalProducto').modal('show');
-});
+
 
 $("#updatePesoVenta").on('click',function(e){
     let verif = Array();

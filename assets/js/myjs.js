@@ -1341,6 +1341,36 @@ $(document).on('click','.seleccionarIdProductoXAlmacen', function(e){
 });
 
 
+$(document).on('click','.modalEditProduct',function(){
+	let datos = Array();
+    let idPro = $(this).parents("tr").find("td")[0].innerHTML;
+    let producto = $(this).parents("tr").find("td")[1].innerHTML;
+	let pz = $(this).parents("tr").find("td")[2].innerHTML;
+    let nota = $("#idget").val();
+
+	datos.push({'id_producto':idPro,'producto':producto,'piezas':pz,'nota':nota});
+		
+    let data = { "verificar": datos }
+	var json = JSON.stringify(data);
+    $.ajax({
+        url: getAbsolutePath() + "views/layout/ajax/AjaxCheckStock.php",
+        method: "POST",
+        data: { "existencia": json },
+        cache: false,
+        beforeSend: function () {
+        },
+        success: function (verificar) {	
+            console.log(verificar);
+        }
+    });
+
+    $("#idProducto").val(idPro);
+    $("#nombreProdcuto").val(producto);
+
+    $('#modalProducto').modal('show');
+});
+
+
 
 
 
