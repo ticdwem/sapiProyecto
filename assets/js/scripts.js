@@ -27,12 +27,12 @@
 function getAbsolutePath() {
   var loc = window.location;
 
-  //var pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
-  var pathName = loc.pathname.substring(0, 1);
+  //var pathNamecsdfswfdfsdfdf = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
+  var pathName = loc.pathname.substring(0, 14);
   // var pathName = loc.pathname.substring(0, 1);
   return loc.href.substring(0, loc.href.length - ((loc.pathname + loc.search + loc.hash).length - pathName.length));
 }
-//console.log(getAbsolutePath());
+
 /*validacion*/
 function expRegular(texto, contenido) {
   let letras_latinas;
