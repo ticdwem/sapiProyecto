@@ -85,7 +85,7 @@ class Utls{
     }
 
     public static function cuentaPedidos($usuario){
-        require_once $_SERVER['DOCUMENT_ROOT']."/config/modeloBase.php";
+        require_once $_SERVER['DOCUMENT_ROOT']."/sapiProyecto/config/modeloBase.php";
         $datosWhere = "idUsuarioPedido =".$usuario."
         AND fechaAltaProductoPedido = CURDATE() GROUP BY idClientePedido";
         $datos = new ModeloBase();
@@ -94,7 +94,7 @@ class Utls{
         return $contados;
     }
     public function getlastDateOrder(){
-        require_once $_SERVER['DOCUMENT_ROOT']."/models/PedidoModel.php";
+        require_once $_SERVER['DOCUMENT_ROOT']."/sapiProyecto/models/PedidoModel.php";
         $myDate = '';
         $dateOrder = new PedidoModels();
         $dateOrder->setIdUsuarioPedido($_SESSION['usuario']['id']);

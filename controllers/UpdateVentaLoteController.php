@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT']."/models/anden/DatosAnden.php";
+require_once $_SERVER['DOCUMENT_ROOT']."/sapiProyecto/models/anden/DatosAnden.php";
 
 
 class UpdateVentaLoteController extends DatosAnden
@@ -73,7 +73,7 @@ class UpdateVentaLoteController extends DatosAnden
     }
 
     public function lotePeso(){
-        require_once $_SERVER["DOCUMENT_ROOT"]."/models/anden/venta/VentaLotenota.php";
+        require_once $_SERVER["DOCUMENT_ROOT"]."/sapiProyecto/models/anden/venta/VentaLotenota.php";
         $lote = (Validacion::validarNumero($this->getLote()) == -1) ? false : $this->getLote() ;
         $peso = (Validacion::validarNumero($this->getPeso()) == -1) ? false : $this->getPeso() ;
         $producto = (Validacion::validarNumero($this->getIdProducto()) == -1) ? false : $this->getIdProducto() ;

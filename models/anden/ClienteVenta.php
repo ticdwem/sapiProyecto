@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT']. '../models/anden/DatosAnden.php';
+require_once $_SERVER['DOCUMENT_ROOT']. '/sapiProyecto/models/anden/DatosAnden.php';
 
 class ClienteVenta extends DatosAnden
 {

@@ -1,7 +1,7 @@
 <?php
 /* require_once 'models/ClienteModel.php'; */
 /* mandamos a llamara al modelo de clientes */
-require_once $_SERVER['DOCUMENT_ROOT'] . "/models/ClienteModel.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/models/ClienteModel.php";
 
 class ClienteController
 {
@@ -9,7 +9,7 @@ class ClienteController
     /* invocamos a al metodo index */
     public function index()
     {
-        require_once $_SERVER['DOCUMENT_ROOT'] . "/models/logginModel.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/models/logginModel.php";
         $estado = new Login();
         $nombreE = $estado->getAll('estados');
 
@@ -156,7 +156,7 @@ class ClienteController
     {
 
         if (isset($_GET["id"])) {
-            require_once $_SERVER['DOCUMENT_ROOT'] . "/models/logginModel.php";
+            require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/models/logginModel.php";
             // obtenemos informacion del cliente
             $clientes = new ModeloBase();
             $cliente = mysqli_fetch_row($clientes->getAllWhere("cliente", "WHERE idCliente = " . $_GET['id']));
@@ -382,7 +382,7 @@ class ClienteController
             } else {
                 switch ($_POST['contactoAddProv']) {
                     case 'ed53a12cecc92e4014e5f0438e17185a':
-                        require_once $_SERVER['DOCUMENT_ROOT'] . "/models/proveedorModels.php";
+                        require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/models/proveedorModels.php";
                         $actualiza = new ProveedorModels();
                         $actualiza->setNombreCliente($nombreContacto);
                         $actualiza->setTelefonoCliente($telfono);
@@ -479,7 +479,7 @@ class ClienteController
                /*  switch ($_POST["contactoAdd"]) {
                     case 'ed53a12cecc92e4014e5f0438e17185a':
                         $url = 'Proveedor/';
-                        require_once $_SERVER['DOCUMENT_ROOT'] . "/models/proveedorModels.php";
+                        require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/models/proveedorModels.php";
                         $altaContactoPro = new ProveedorModels();
 
                         $altaContactoPro->setId($_POST['iCliente']);

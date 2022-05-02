@@ -1,5 +1,5 @@
 <?php
-    include_once $_SERVER['DOCUMENT_ROOT'].'/config/modeloBase.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/sapiProyecto/config/modeloBase.php';
 
 class DatosAnden extends ModeloBase
 {

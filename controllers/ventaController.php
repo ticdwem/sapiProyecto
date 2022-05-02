@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/models/anden/venta/ventaModel.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/models/anden/venta/ventaModel.php";
 
 class VentaController{
   private $instancia;

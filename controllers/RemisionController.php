@@ -1,6 +1,6 @@
 <?php
 /* mandamos a llamara al modelo de clientes */
-require_once $_SERVER['DOCUMENT_ROOT'] . "/models/RemisionModel.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/models/RemisionModel.php";
 
 class RemisionController{
 

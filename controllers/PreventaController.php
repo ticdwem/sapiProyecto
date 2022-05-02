@@ -1,8 +1,8 @@
 <?php
 /* require_once '/models/preventa/PreventaController.php';
 require_once '/models/preventa/deleteProdPreventa.php'; */
-require_once $_SERVER['DOCUMENT_ROOT'] . "/models/preventa/PreventaController.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/models/preventa/deleteProdPreventa.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/models/preventa/PreventaController.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/models/preventa/deleteProdPreventa.php";
 
 class PreventaController{
     private $instancia;

@@ -1,6 +1,6 @@
 <?php
 /* require_once 'models/logginModel.php'; */
-require_once $_SERVER['DOCUMENT_ROOT'] . "/models/logginModel.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/models/logginModel.php";
 
 /* echo "hola";
  //var_dump(root . "models/logginModel.php");

@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/models/proveedorModels.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/models/proveedorModels.php";
 
 
 class ProveedorController
