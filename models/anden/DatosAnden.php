@@ -26,5 +26,6 @@ class DatosAnden extends ModeloBase
         return $query;
     }
 
+
     
 }

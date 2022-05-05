@@ -6,7 +6,7 @@ require_once "../../../controllers/UpdateVentaLoteController.php";
 require_once "../../../models/anden/venta/VerifStock.php";
 require_once "../../../controllers/verifStock/verificarstock.php";
 
-class AjaxCheckStock extends AjaxDefault
+class AjaxCheckLote extends AjaxDefault
 {
     
     public function __construct($post)
@@ -16,16 +16,17 @@ class AjaxCheckStock extends AjaxDefault
     public function sendToController(){
         $datos = json_decode($this->getDatos());
         $json = $datos->verificar[0];
-        $alm = (Validacion::validarNumero($json->almacen) == -1)? false : $json->almacen;
+        $alm = (Validacion::validarNumero($json->phone_almacen_8) == -1)? false : $json->phone_almacen_8;
         if($alm == false){
             echo -1;
+            return;
         }
-        $verif = new verificarStock($json,$alm);
-        $verif->checkDatos();
+        $verif = new verificarStock($json, $alm);
+        $verif->checkLote();
     }
 }
 
-$ajax = new AjaxCheckStock($_POST["existencia"]);
+$ajax = new AjaxCheckLote($_POST["existencialote"]);
 $ajax->sendToController();
 
 

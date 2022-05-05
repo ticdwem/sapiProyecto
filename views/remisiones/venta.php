@@ -104,7 +104,7 @@
                             <td><?=$producto->lote?></td>
                             <td><?=$producto->precioProductoUnidad?></td>
                             <td><?= $sub; ?></td>
-                            <td><button type="button" class="btn btn-success modalEditProduct" id="<?=$producto->idProducto?>">Seleccionar</button></td>
+                            <td><button type="button" class="btn btn-success modalEditProduct" id="<?=$producto->idProductoPedido?>">Seleccionar</button></td>
                         </tr>
                     <?php $total +=$sub; endwhile; ?>                          
                 </tbody>
@@ -215,33 +215,34 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="idProducto">Id</label>
-                    <input type="text" class="form-control idProducto" id="idProducto" value="" disabled>
+                    <input type="text" class="form-control idProducto" id="idProductoModal" value="" disabled>
                     <div class="idProducto"></div>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="nombreProdcuto">Nombre </label>
-                    <input type="text" class="form-control nombreProdcuto" id="nombreProdcuto" value="" disabled>
+                    <input type="text" class="form-control nombreProdcuto" id="nombreProdcutoModal" value="" disabled>
                     <div class="nombreProdcuto"></div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="loteVenta">Lote</label>
-                    <input type="text" class="form-control loteVenta" id="loteVenta" value="">
+                    <input type="text" class="form-control loteVenta" id="loteVentaModal" value="">
                     <div class="loteVenta"></div>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="peso">Peso </label>
-                    <input type="text" class="form-control peso" id="peso" value="">
+                    <input type="text" class="form-control peso" id="pesoModal" value="">
                     <div class="peso"></div>
                 </div>
             </div>
         </div>
       </div>
-      <divx class="modal-footer">
+      <div class="modal-footer" >
         <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
         <button type="button" class="btn btn-primary" id="updatePesoVenta">Aceptar</button>
-      </divx>
+      </div>
+      <div id="message"></div>
     </div>
   </div>
 </div>
@@ -252,13 +253,13 @@
 $("#updatePesoVenta").on('click',function(e){
     let verif = Array();
     let nota = $("#idget").val();
-    let idp =  $("#idProducto").val();
-    let lote = $("#loteVenta").val();
-    let peso = $("#peso").val();
+    let idp =  $("#idProductoModal").val();
+    let lote = $("#loteVentaModal").val();
+    let peso = $("#pesoModal").val();
     let cliente = $("#idcli").val();
 
-    verif.push({'phone_idget_50':nota,'phone_idProducto_80':idp,'phone_loteVenta_50':lote,'decimales_peso_50':peso,'phone_idcli_10':cliente});
-			
+    verif.push({'phone_idget_50':nota,'phone_idProductoModal_80':idp,'phone_loteVentaModal_50':lote,'decimales_pesoModal_50':peso,'phone_idcli_10':cliente});
+	
     validar = validarCampos(verif);
     if(validar>0){
         e.preventDefault();

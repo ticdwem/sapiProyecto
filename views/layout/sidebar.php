@@ -77,9 +77,9 @@
                 </div>
             </div>
             <div class="sb-sidenav-footer">
-                <!-- <div class="small" id="saludoDoctor" data-id="<?= $_SESSION['usuario']['status'] ?>">Hola Usuario:</div> -->
+                <div class="small" id="idCamara" data-id="<?=$_SESSION['usuario']["camra"]; ?>">Hola Usuario:</div>
                 <?php
-                //echo ucwords(SED::decryption($_SESSION['usuario']['nombre'])) . ' ' . Utls::getApellido($_SESSION['usuario']['apeliidos']);
+                echo ucwords($_SESSION['usuario']['nombre']) . ' ' . ucwords($_SESSION['usuario']['apeliidos']);
                 //echo ucwords(SED::decryption($_SESSION['usuario']['nombre']));  
                 ?>
 

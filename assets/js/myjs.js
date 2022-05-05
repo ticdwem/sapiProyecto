@@ -1346,9 +1346,11 @@ $(document).on('click','.modalEditProduct',function(){
     let idPro = $(this).parents("tr").find("td")[0].innerHTML;
     let producto = $(this).parents("tr").find("td")[1].innerHTML;
 	let pz = $(this).parents("tr").find("td")[2].innerHTML;
+	let almacen = $("#idCamara").attr('data-id');
     let nota = $("#idget").val();
 
-	datos.push({'id_producto':idPro,'producto':producto,'piezas':pz,'nota':nota});
+	datos.push({'id_producto':idPro,'producto':producto,'piezas':pz,'nota':nota,'almacen':almacen});
+	
 		
     let data = { "verificar": datos }
 	var json = JSON.stringify(data);
@@ -1359,16 +1361,73 @@ $(document).on('click','.modalEditProduct',function(){
         cache: false,
         beforeSend: function () {
         },
-        success: function (verificar) {	
-            console.log(verificar);
+        success: function (verificar) {
+		console.log(verificar);
+			if(verificar.statusModal == 1){
+				$("#idProductoModal").val(idPro);
+				$("#nombreProdcutoModal").val(producto);
+				$(".modal-footer").css('display','block');
+				$("#message").css('display','none');
+				$("#message").html('');
+				
+			}else if(verificar.statusModal == 0){
+				$("#idProductoModal").val(idPro);
+				$("#nombreProdcutoModal").val(producto);
+				$(".modal-footer").css('display','none');
+				$("#message").css('display','block');
+				$("#message").html('<div class="alert alert-danger" role="alert">NO TIENES SUFICIENTE PRODUCTO</div>');
+			}
+			
+			$('#modalProducto').modal('show');
         }
     });
 
-    $("#idProducto").val(idPro);
-    $("#nombreProdcuto").val(producto);
-
-    $('#modalProducto').modal('show');
 });
+
+$(document).on('change','#loteVentaModal',function(e){
+	let datos = Array();
+    let idPro = $("#idProductoModal").val();
+    let lote = $("#loteVentaModal").val();
+	let almacen = $("#idCamara").attr('data-id');
+
+	datos.push({'phone_idProductoModal_25':idPro,'phone_loteVentaModal_50':lote,'phone_almacen_8':almacen});
+
+	var validar = validarCampos(datos);
+
+	if (validar > 0) {
+		e.preventDefault();
+	}else{		
+		let data = { "verificar": datos }
+		var json = JSON.stringify(data);
+		$.ajax({
+			url: getAbsolutePath() + "views/layout/ajax/AjaxCheckLote.php",
+			method: "POST",
+			data: { "existencialote": json },
+			cache: false,
+			beforeSend: function () {
+			},
+			success: function (verificar) {
+				if(verificar == -1){
+					$("#message").css('display','block');
+					$("#message").html('<div class="alert alert-danger" role="alert">something went wrong check the user session, specifically the store</div>');
+					
+				}else if(verificar == 0){
+					$("#loteVentaModal").css('border','1px solid red');
+					$("#message").css('display','block');
+					$("#message").html('<div class="alert alert-danger" role="alert">No se encuentra el lote en tu camara</div>');
+					
+				}else if(verificar == 1){
+					$("#loteVentaModal").css('border','1px solid green');
+					$("#message").css('display','block');
+					$("#message").html('<div class="alert alert-success" role="alert">Lote Encontrado</div>');
+					
+				}
+			}
+		});
+	}
+
+});
+
 
 
 
