@@ -93,6 +93,7 @@
                 </thead>
                 <tbody id="registroProductoVenta">
                     <?php
+                    $conId = 1;
                     $sub = 0;
                     $total = 0;
                     while ($producto = $productos->fetch_object()): $sub=Utls::multiply($producto->peso,$producto->precioProductoUnidad);?>
@@ -104,9 +105,9 @@
                             <td><?=$producto->lote?></td>
                             <td><?=$producto->precioProductoUnidad?></td>
                             <td><?= $sub; ?></td>
-                            <td><button type="button" class="btn btn-success modalEditProduct" id="<?=$producto->idProductoPedido?>">Seleccionar</button></td>
+                            <td><button type="button" class="btn btn-success modalEditProduct" data-id="<?=$conId?>btnSelect" id="<?=$producto->idProductoPedido?>">Seleccionar</button></td>
                         </tr>
-                    <?php $total +=$sub; endwhile; ?>                          
+                    <?php $total +=$sub;$conId++; endwhile; ?>                          
                 </tbody>
             </table>
         <!-- </divss> -->
@@ -210,6 +211,7 @@
         </div>
       <div id="getNota"> <input type="hidden" id="idget" value="<?=$_GET['nota'];?>"></div>
       <div id="getcli"> <input type="hidden" id="idcli" value="<?=$_GET['cli'];?>"></div>
+      <div id="btnBoton"> <input type="hidden" id="getidBtn" value=""></div>
       <div class="modal-body">
         <div class="container">
             <div class="form-row">
@@ -257,8 +259,10 @@ $("#updatePesoVenta").on('click',function(e){
     let lote = $("#loteVentaModal").val();
     let peso = $("#pesoModal").val();
     let cliente = $("#idcli").val();
-
+    let idBoton = $
+    
     verif.push({'phone_idget_50':nota,'phone_idProductoModal_80':idp,'phone_loteVentaModal_50':lote,'decimales_pesoModal_50':peso,'phone_idcli_10':cliente});
+   
 	
     validar = validarCampos(verif);
     if(validar>0){

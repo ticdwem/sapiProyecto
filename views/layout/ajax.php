@@ -342,7 +342,7 @@ class Ajax
 		
 		$datoJson = json_decode($this->getDato(),true);
 		$datos = $datoJson["data"][0];
-		$venta = new UpdateVentaLoteController($datos["phone_idget_50"],$datos["phone_idProducto_80"],$datos["phone_loteVenta_50"],$datos["decimales_peso_50"]);
+		$venta = new UpdateVentaLoteController($datos["phone_idget_50"],$datos["phone_idProductoModal_80"],$datos["phone_loteVentaModal_50"],$datos["decimales_pesoModal_50"]);
 		$venta->setCliente($datos["phone_idcli_10"]);    
 		$venta->lotePeso();
 		

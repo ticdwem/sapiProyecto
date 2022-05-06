@@ -898,7 +898,7 @@ $(document).ready(function () {
 	});
 
 	$('#rutaPedido select').on('click', 'option', function(e) {
-        console.log(this.value, 'Yeah');
+       /*  console.log(this.value, 'Yeah'); */
         // this refers to the option so you can do this.value if you need..
     });
 	
@@ -918,7 +918,7 @@ $(document).ready(function () {
 				$('#circuloCliente').html('<i class="fas fa-sync fa-spin"></i>');
 			},
 			success: function (clientesFind) {
-				console.log(clientesFind);
+				/* console.log(clientesFind); */
 				if(clientesFind == 1){
 					$(".idCliente").css("color","red");
 					$(".idCliente").html("YA EXISTE ESTE ID");
@@ -1348,6 +1348,8 @@ $(document).on('click','.modalEditProduct',function(){
 	let pz = $(this).parents("tr").find("td")[2].innerHTML;
 	let almacen = $("#idCamara").attr('data-id');
     let nota = $("#idget").val();
+	let idBtn = $(this).attr('data-id');
+	
 
 	datos.push({'id_producto':idPro,'producto':producto,'piezas':pz,'nota':nota,'almacen':almacen});
 	
@@ -1362,8 +1364,9 @@ $(document).on('click','.modalEditProduct',function(){
         beforeSend: function () {
         },
         success: function (verificar) {
-		console.log(verificar);
+		/* console.log(verificar); */
 			if(verificar.statusModal == 1){
+				$("#getidBtn").val(idBtn);
 				$("#idProductoModal").val(idPro);
 				$("#nombreProdcutoModal").val(producto);
 				$(".modal-footer").css('display','block');
@@ -1408,16 +1411,19 @@ $(document).on('change','#loteVentaModal',function(e){
 			},
 			success: function (verificar) {
 				if(verificar == -1){
+					$("#updatePesoVenta").attr('disabled','true');
 					$("#message").css('display','block');
 					$("#message").html('<div class="alert alert-danger" role="alert">something went wrong check the user session, specifically the store</div>');
 					
 				}else if(verificar == 0){
 					$("#loteVentaModal").css('border','1px solid red');
+					$("#updatePesoVenta").attr('disabled','true');
 					$("#message").css('display','block');
 					$("#message").html('<div class="alert alert-danger" role="alert">No se encuentra el lote en tu camara</div>');
 					
 				}else if(verificar == 1){
 					$("#loteVentaModal").css('border','1px solid green');
+					$("#updatePesoVenta").removeAttr('disabled');
 					$("#message").css('display','block');
 					$("#message").html('<div class="alert alert-success" role="alert">Lote Encontrado</div>');
 					

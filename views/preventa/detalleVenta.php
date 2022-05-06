@@ -331,7 +331,7 @@ $(document).on('click','.selectAlmacen',function(){
             beforeSend: function () {
             },
             success: function (updateToVenta) {	
-                console.log(updateToVenta);
+                /* console.log(updateToVenta); */
                 if(updateToVenta == 1){
                     Swal.fire({
                         position: 'top-end',
