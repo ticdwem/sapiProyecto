@@ -27,7 +27,8 @@ class VentaModel extends DatosAnden
     public function selectNotaVenta(){
        $conection = new DatosAnden($this->getNumAnden());
        $prCentas = $conection->getAllWhere('viewpedidosproducto','WHERE idnotaPedido ='.$this->getNumNota().' AND almacen = '.$this->getNumAnden());
-        return $prCentas;
+       
+       return $prCentas;
     }
 
 }

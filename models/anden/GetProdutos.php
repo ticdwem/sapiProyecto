@@ -48,6 +48,8 @@ class GetProdutos extends DatosAnden
 
     public function listas(){
         $datos ='SELECT SUM(pzProductoPedido)AS suma,pedidoscliente.* FROM pedidoscliente WHERE idAlmacenPedidos ='.$this->getNumAnden().' GROUP BY idnotaPedido';
+        var_dump($datos);
+        
         $query = $this->db->query($datos);
         return $query;
     }

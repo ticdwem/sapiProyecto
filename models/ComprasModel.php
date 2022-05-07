@@ -252,8 +252,8 @@ class ComprasModel extends ModeloBase
 
 public function insertDetalleCompras(){
     $query = "CALL insertProducto({$this->getIdProducto()}, {$this->getNota()}, {$this->getPzDetalleCompra()}, '{$this->getPesoDetalleCompra()}', {$this->getLoteDetalleCompra()}, '{$this->getPrecioUnitarioDetalleCompra()}', '{$this->getSubtotalDetalleCompra()}', {$this->getAlmacen()})";
-    var_dump($query);
-    die();    
+/*     var_dump($query);
+    die();   */  
     $querydb = $this->db->query($query);
         $insert = false;
         if ($querydb) {
