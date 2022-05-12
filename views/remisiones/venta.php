@@ -50,13 +50,13 @@
                                     <div class="col-lg-6 ">
                                         <div class="form-group input-group-sm col-lg-12 ">
                                             <label for="limCredito">Lim credito:</label>
-                                            <input type="text" name="limCredito" id="limCredito" value="<?=$datosCli->limite?>" class="form-control">                       
+                                            <input type="text" name="limCredito" id="limCredito" value="<?=$datosCli->limite?>" class="form-control" disabled="disabled">                       
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group input-group-sm col-lg-12">
                                             <label for="descuentoCliente">DESCUENTO</label>
-                                            <input type="hidden" id="descuentoCliente" name="descuentoCliente" value="<?=$datosCli->descuento?>>
+                                            <input type="hidden" id="descuentoCliente" name="descuentoCliente" value="<?=$datosCli->descuento?>">
                                             <input type="text" class="form-control" id="descuentoClienteD" value="<?=$datosCli->descuento?>" autocomplete="off" disabled="disabled">                                                
                                         </div>
                                         <div class="descuentoCliente"></div>
@@ -66,7 +66,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group input-group-sm col-lg-12">
                                             <label for="saldoCredito">Saldo:</label>
-                                            <input type="text" name="saldoCredito" id="saldoCredito" value="<?=$datosCli->saldo?>" class="form-control">
+                                            <input type="text" name="saldoCredito" id="saldoCredito" value="<?=$datosCli->saldo?>" class="form-control" disabled="disabled">
                                         </div>
                                     </div>
                                     <div class="col-lg-6"></div>

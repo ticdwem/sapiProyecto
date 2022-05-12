@@ -22,7 +22,6 @@ class AndenController{
         $cliente = new ClienteVenta($_GET['cli']);
         $datosCli = $cliente->selectCliente()->fetch_object();        
         $domicilio = $cliente->selectDatosPedidos()->fetch_object();
-
         require_once 'views/remisiones/venta.php';        
     }
 
