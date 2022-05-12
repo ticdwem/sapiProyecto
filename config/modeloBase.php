@@ -6,7 +6,9 @@ class ModeloBase{
     public function __construct() {
         $this->db = Database::connect();
     }
-
+    public function close_connection_Databa(){
+        $this->db->close();
+    }
     public function getAll($tabla){
     	$consulta = "SELECT * FROM $tabla";
         $query = $this->db->query($consulta);

@@ -3,6 +3,7 @@
     if (isset($_SESSION['formulario_cliente'])) {
         echo '<div class="alert alert-danger" role="alert" style="width:80%;">HUBO UN ERROR INTERNO EN EL SISTEMA, CONTACTA A TU ADMINISTRADOR DE SISTEMAS</div>';
         Utls::deleteSession('formulario_cliente');
+
     }
     ?>
 </div>
@@ -97,13 +98,13 @@
                     $sub = 0;
                     $total = 0;
                     while ($producto = $productos->fetch_object()): $sub=Utls::multiply($producto->peso,$producto->precioProductoUnidad);?>
-                        <tr>                            
-                            <td><?=$producto->idProductoPedido?></td>
-                            <td><?=$producto->nombreProducto?></td>
-                            <td><?=$producto->pzProductoPedido?></td>
-                            <td><?=$producto->peso?></td>
-                            <td><?=$producto->lote?></td>
-                            <td><?=$producto->precioProductoUnidad?></td>
+                        <tr class="rowVenta">                            
+                            <td class="id"><?=$producto->idProductoPedido?></td>
+                            <td class="nombre"><?=$producto->nombreProducto?></td>
+                            <td class="pz"><?=$producto->pzProductoPedido?></td>
+                            <td class="peso"><?=$producto->peso?></td>
+                            <td class="lote"><?=$producto->lote?></td>
+                            <td class='status'><?=$producto->precioProductoUnidad?></td>
                             <td><?= $sub; ?></td>
                             <td><button type="button" class="btn btn-success modalEditProduct" data-id="<?=$conId?>btnSelect" id="<?=$producto->idProductoPedido?>">Seleccionar</button></td>
                         </tr>
@@ -288,6 +289,65 @@ $("#updatePesoVenta").on('click',function(e){
             
         }
     });
+    
+});
+
+$("#acceptCompraVenta").on('click',function(e){
+    let aceptArray = Array();
+    let valarray;
+    let idget = $("#idget").val();
+    let idcli = $("#idcli").val();
+    let validar;
+
+    aceptArray.push({'phone_idget_20':idget,'phone_idcli_20':idcli});
+    valarray = validarCampos(aceptArray);
+    if(valarray>0){
+        e.preventDefault();
+        return;
+    }else{
+        /* validamos que se hallan reigistrado todos los productos */
+        validar = valTable("registroProductoVenta","rowVenta","peso");
+        if(validar>0){
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'AÚN FALTAN PRODUCTOS POR REGISTRAR',
+                showConfirmButton: false,
+                timer: 1800
+            })
+        }else{
+            let data = { "data": aceptArray }
+            var json = JSON.stringify(data);
+            $.ajax({
+                url: getAbsolutePath() + "views/layout/ajax/AjaxVenta.php",
+                method: "POST",
+                data: { "getVEnta": json },
+                cache: false,
+                beforeSend: function () {
+                },
+                success: function (upventa) {	
+                    if(upventa == 1){
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Your work has been saved',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function(){
+                            window.location = getAbsolutePath()+'Anden/index';
+                        });
+                    }else if(upventa == -1){
+                        alert("Hay datos que estan mal en la venta");
+                    }else if(upventa == 0){
+                        alert("no se pudo hacer la venta");
+                    }
+                    
+                    
+                }
+            });
+        }
+    }
+
     
 })
 </script>

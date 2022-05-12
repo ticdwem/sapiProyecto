@@ -62,6 +62,8 @@
                 <div class="input-group divconsul">
                     <p class="consul"><?php if(isset($_SESSION['usuario'])){echo $_SESSION["usuario"]["nombre"];} ?></p>                    
                     <input type="hidden" name="idUser" id="idUser" class="idUser" value="<?=$_SESSION["usuario"]["id"]?>">
+                    <input type="hidden" name="idCmara" id="idCmara" class="idCmara" value="<?=$_SESSION["usuario"]["camra"]?>">
+                    
                 </div>
             </div>
         <!-- Navbar-->

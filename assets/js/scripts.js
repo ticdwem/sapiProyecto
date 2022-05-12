@@ -438,7 +438,8 @@ return */
     const tabla = document.getElementById('tblCliente')
     tabla.replaceChild(thead, tabla.querySelector('thead'))
     tabla.replaceChild(tbody, tabla.querySelector('tbody'))
- } 
+ }
+
 /* tabl aproductos */
  function tablasProductos(jsonElement,idDiv){
   let indiceJson = 0;
@@ -586,4 +587,21 @@ function  visible(dato){
 				esVisible =true;
 			}
       return esVisible;
+}
+
+/* funcion para recorrer una tabla */
+function valTable(idTabla,classRowTable,classSelector){
+const tableRows = document.querySelectorAll(`#${idTabla} tr.${classRowTable}`);
+let cero=0;
+// Recorremos las filas que tengan el class="row"
+// así obviamos la cabecera
+for(let i=0; i<tableRows.length; i++) {
+  const row = tableRows[i];
+  const peso = row.querySelector(`.${classSelector}`);
+  let dato =  peso.innerText;
+  if(dato == 0){
+    cero++;
+  }
+}
+return cero;
 }

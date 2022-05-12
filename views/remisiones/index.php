@@ -202,7 +202,7 @@
         </div>
     </div>
     <div class="mt-4">
-        <button type="button" id="acceptCompraVenta" class="btn btn-primary btn-lg"><span  role="status" aria-hidden="true"></span>Aceptar</button>
+        <button type="button" id="acceptCompraVentaRemision" class="btn btn-primary btn-lg"><span  role="status" aria-hidden="true"></span>Aceptar</button>
         <button type="button" class="btn btn-secondary btn-lg">Cancelar</button>
     </div>
 </div>

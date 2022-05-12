@@ -14,5 +14,7 @@ class Database{
         $conexion->query("SET NAMES 'utf8'");
         return $conexion;
     }
+
+    
 }
 
