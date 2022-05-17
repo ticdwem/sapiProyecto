@@ -274,8 +274,6 @@ $contador = 1;
                             $('.spinnerCliente').html('<i class="fas fa-sync fa-spin"></i>');
                         },
                         success: function (Compra) {
-                          /*   console.log(Compra)
-                            return; */
                             if(Compra == 0){
                                 Swal.fire({
                                     position: 'center',

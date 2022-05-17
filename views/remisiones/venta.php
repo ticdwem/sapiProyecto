@@ -3,7 +3,6 @@
     if (isset($_SESSION['formulario_cliente'])) {
         echo '<div class="alert alert-danger" role="alert" style="width:80%;">HUBO UN ERROR INTERNO EN EL SISTEMA, CONTACTA A TU ADMINISTRADOR DE SISTEMAS</div>';
         Utls::deleteSession('formulario_cliente');
-
     }
     ?>
 </div>
@@ -106,41 +105,49 @@
                             <td class="lote"><?=$producto->lote?></td>
                             <td class='status'><?=$producto->precioProductoUnidad?></td>
                             <td><?= $sub; ?></td>
-                            <td><button type="button" class="btn btn-success modalEditProduct" data-id="<?=$conId?>btnSelect" id="<?=$producto->idProductoPedido?>">Seleccionar</button></td>
+                            <td >
+                                <button type="button" class="btn btn-success modalEditProduct " data-id="<?=$conId?>btnSelect" id="<?=$producto->idProductoPedido?>">
+                                Seleccionar
+                                </button>
+                            </td>
                         </tr>
-                    <?php $total +=$sub;$conId++; endwhile; ?>                          
+                    <?php $total +=$sub;$conId++; endwhile; 
+                        $descuento = Utls::porcentaje($datosCli->descuento,$total);
+                        $totalCdescuento = Utls::restar($total,$descuento);
+                    ?>                          
                 </tbody>
             </table>
         <!-- </divss> -->
     </div>
     <div class="row">
-        <div class="tot-comp col-lg-10 text-right">
-            <label for="totalVenta">Subtotal: $</label> 
+        <div class="tot-comp col-lg-9 text-right">
+            <label for="totalVenta">Subtotal:</label> 
         </div>
-        <div id="totalDivVenta" class="tot-comp col-lg-2 text-left">    
-            <p class="total"  id="totalVenta"> <?= number_format($total,2);?> </p>
+        <div id="totalDivVenta" class="tot-comp col-lg-3 text-left"> 
+            <input type="hidden" name="totalVentaHidden" id="totalVentaHidden" value="<?=$total?>">   
+            <p class="total"  id="totalVenta">$ <?= number_format($total,2);?> </p>
         </div>
     </div>
     <div class="row">
-        <div class="tot-comp col-lg-10 text-right">
+        <div class="tot-comp col-lg-9 text-right">
             <label for="totalVenta">Descuento:</label> 
         </div>
-        <div id="totalDescuento" class="tot-comp col-lg-2 text-left">    
-            <p class="totalDescuento"  id="totalDescuento"> 0000.00 </p>
+        <div id="totalDescuentoVenta" class="tot-comp col-lg-3 text-left">    
+            <p class="totalDescuentoShow"  id="totalDescuentoShow">$ <?= number_format($descuento,2) ?></p>
         </div>
     </div>
     <div class="row">
-        <div class="tot-comp col-lg-10 text-right">
+        <div class="tot-comp col-lg-9 text-right">
             <label for="totalVenta">Total:</label> 
         </div>
-        <div id="total" class="tot-comp col-lg-2 text-left">
+        <div id="total" class="tot-comp col-lg-3 text-left">
             <input type="hidden" name="totalHiden" id="totalHiden" class="totalHiden">    
-            <p class="totalCliente"  id="total"> $0000.00 </p>
+            <p class="totalCliente"  id="total">$ <?=number_format($totalCdescuento,2)?> </p>
         </div>
     </div>
     <div class="mt-4">
         <button type="button" id="acceptCompraVenta" class="btn btn-primary btn-lg"><span  role="status" aria-hidden="true"></span>Aceptar</button>
-        <button type="button" class="btn btn-secondary btn-lg">Cancelar</button>
+        <!-- <button type="button" class="btn btn-secondary btn-lg">Cancelar</button> -->
     </div>
 </div>
 
@@ -230,12 +237,12 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="loteVenta">Lote</label>
-                    <input type="text" class="form-control loteVenta" id="loteVentaModal" value="">
+                    <input type="text" class="form-control loteVenta" id="loteVentaModal" value="" ?>
                     <div class="loteVenta"></div>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="peso">Peso </label>
-                    <input type="text" class="form-control peso" id="pesoModal" value="">
+                    <input type="text" class="form-control peso" id="pesoModal" value="" <?php ?>>
                     <div class="peso"></div>
                 </div>
             </div>
@@ -253,44 +260,7 @@
 <script> 
 
 
-$("#updatePesoVenta").on('click',function(e){
-    let verif = Array();
-    let nota = $("#idget").val();
-    let idp =  $("#idProductoModal").val();
-    let lote = $("#loteVentaModal").val();
-    let peso = $("#pesoModal").val();
-    let cliente = $("#idcli").val();
-    let idBoton = $
-    
-    verif.push({'phone_idget_50':nota,'phone_idProductoModal_80':idp,'phone_loteVentaModal_50':lote,'decimales_pesoModal_50':peso,'phone_idcli_10':cliente});
-   
-	
-    validar = validarCampos(verif);
-    if(validar>0){
-        e.preventDefault();
-        return;
-    }
-    let data = { "data": verif }
-	var json = JSON.stringify(data);
-    $.ajax({
-        url: getAbsolutePath() + "views/layout/ajax.php",
-        method: "POST",
-        data: { "updateVenta": json },
-        cache: false,
-        beforeSend: function () {
-        },
-        success: function (upventa) {	
-            if(upventa == 1){
-                $('#registroProductotableVenta').load(" #registroProductotableVenta");
-                $('#totalDivVenta').load(" #totalDivVenta");
-                $('#modalProducto').modal('hide');
-            }
-            
-            
-        }
-    });
-    
-});
+
 
 $("#acceptCompraVenta").on('click',function(e){
     let aceptArray = Array();

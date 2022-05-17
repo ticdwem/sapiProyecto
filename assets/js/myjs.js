@@ -898,7 +898,6 @@ $(document).ready(function () {
 	});
 
 	$('#rutaPedido select').on('click', 'option', function(e) {
-       /*  console.log(this.value, 'Yeah'); */
         // this refers to the option so you can do this.value if you need..
     });
 	
@@ -918,7 +917,6 @@ $(document).ready(function () {
 				$('#circuloCliente').html('<i class="fas fa-sync fa-spin"></i>');
 			},
 			success: function (clientesFind) {
-				/* console.log(clientesFind); */
 				if(clientesFind == 1){
 					$(".idCliente").css("color","red");
 					$(".idCliente").html("YA EXISTE ESTE ID");
@@ -1104,7 +1102,60 @@ $(document).ready(function () {
 				e.preventDefault();
 			}
 		})
-	})
+	});
+
+
+	$("#updatePesoVenta").on('click',function(e){
+		let verif = Array();
+		let discount = $("#descuentoCliente").val();
+		let nota = $("#idget").val();
+		let idp =  $("#idProductoModal").val();
+		let lote = $("#loteVentaModal").val();
+		let peso = $("#pesoModal").val();
+		let cliente = $("#idcli").val();
+		let idBoton = $("#getidBtn").val();
+		
+		verif.push({'phone_idget_50':nota,'phone_idProductoModal_80':idp,'phone_loteVentaModal_50':lote,'decimales_pesoModal_50':peso,'phone_idcli_10':cliente});
+	   
+		
+		validar = validarCampos(verif);
+		if(validar>0){
+			e.preventDefault();
+			return;
+		}
+		let data = { "data": verif }
+		var json = JSON.stringify(data);
+		$.ajax({
+			url: getAbsolutePath() + "views/layout/ajax.php",
+			method: "POST",
+			data: { "updateVenta": json },
+			cache: false,
+			beforeSend: function () {
+			},
+			success: function (upventa) {	
+				if(upventa == 1){
+					var des = $("#getidBtn").val();
+					$('#registroProductotableVenta').load(" #registroProductotableVenta");
+					$('#totalVenta').load(" #totalVenta");
+					$('#totalVentaHidden').load(" #totalVentaHidden");
+					$('#totalDescuentoShow').load(" #totalDescuentoShow");
+					let totalVenta = $("#totalVentaHidden").val();
+					let total = porcentaje(discount,totalVenta);
+					$('#total').load(" #total");
+					$("#totalHiden").val(total)
+					$("#total").html(total)
+					$('#totalHiden').load(" #totalHiden");
+					
+					
+					$('#modalProducto').modal('hide');
+				}
+				
+				
+			}
+		});
+		
+		$("#"+idBoton).addClass("disableBtn");
+	});
 });
 
 
@@ -1346,14 +1397,16 @@ $(document).on('click','.modalEditProduct',function(){
     let idPro = $(this).parents("tr").find("td")[0].innerHTML;
     let producto = $(this).parents("tr").find("td")[1].innerHTML;
 	let pz = $(this).parents("tr").find("td")[2].innerHTML;
+	let peso = $(this).parents("tr").find("td")[3].innerHTML;
+	let lote = $(this).parents("tr").find("td")[4].innerHTML;
 	let almacen = $("#idCamara").attr('data-id');
     let nota = $("#idget").val();
-	let idBtn = $(this).attr('data-id');
+	let idBtn = $(this).attr('id');
 	
 
 	datos.push({'id_producto':idPro,'producto':producto,'piezas':pz,'nota':nota,'almacen':almacen});
 	
-		
+	//$("#"+idBtn).addClass("disableBtn");
     let data = { "verificar": datos }
 	var json = JSON.stringify(data);
     $.ajax({
@@ -1364,14 +1417,19 @@ $(document).on('click','.modalEditProduct',function(){
         beforeSend: function () {
         },
         success: function (verificar) {
-		/* console.log(verificar); */
+
+		if(peso != 0){$("#pesoModal").attr('disabled','disabled');}
+		if(lote != 0){$("#loteVentaModal").attr('disabled','disabled');}
 			if(verificar.statusModal == 1){
 				$("#getidBtn").val(idBtn);
 				$("#idProductoModal").val(idPro);
 				$("#nombreProdcutoModal").val(producto);
+				$("#loteVentaModal").val(lote);
+				$("#pesoModal").val(peso);
 				$(".modal-footer").css('display','block');
 				$("#message").css('display','none');
 				$("#message").html('');
+				if(peso != 0 && lote != 0){$("#updatePesoVenta").css("display","none")}
 				
 			}else if(verificar.statusModal == 0){
 				$("#idProductoModal").val(idPro);
@@ -1381,7 +1439,8 @@ $(document).on('click','.modalEditProduct',function(){
 				$("#message").html('<div class="alert alert-danger" role="alert">NO TIENES SUFICIENTE PRODUCTO</div>');
 			}
 			
-			$('#modalProducto').modal('show');
+
+			$('#modalProducto').modal({backdrop: 'static', keyboard: false});
         }
     });
 

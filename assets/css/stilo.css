@@ -582,3 +582,14 @@ form .selectH .hideSelect {
   #message{
 	  display: none;
   }
+
+  #registroProductoVenta tr td .disableBtn{
+	  cursor: not-allowed;
+	  background-color:rgba(40, 167, 70, 0.555);
+	  border:1px solid red;
+	}
+	#registroProductoVenta tr td .disableBtn:hover{
+		pointer-events: none;
+	}
+	/* #registroProductoVenta tr td  .disableBtn:hover{
+} */

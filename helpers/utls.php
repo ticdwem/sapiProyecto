@@ -226,6 +226,11 @@ class Utls{
                     $retorno = 'Venta';
                 }
                 break;
+            case 'Anden':
+                if($action == 'venta'){
+                    $retorno = 'Venta';
+                }
+                break;
            default:
                # code...
                break;
@@ -268,4 +273,23 @@ class Utls{
         return $resultado;
 
     }
+
+    public static function porcentaje($porcentaje,$total){
+         $dato1 = floatval($porcentaje);
+         $dato2 = floatval($total);
+         $reesultadoDato  =  (($dato1 * $dato2) / 100);
+        /*  reesultado = restar(total, reesultadoDato) */
+        return $reesultadoDato;
+       }
+
+       public static function restar($uno, $dos) {
+        $resultado = 0;
+        $resultado = (floatval($uno) - floatval($dos));
+      
+        if ($resultado < 0) {
+          return -1;
+        } else {
+          return $resultado;
+        }
+      }
 }

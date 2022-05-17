@@ -9,6 +9,7 @@ class UpdateVentaLoteController extends DatosAnden
     private $lote;
     private $peso;
     private $cliente;
+   
 
     public function __construct($nota,$idProducto,$lote,$peso)
     {
@@ -17,6 +18,7 @@ class UpdateVentaLoteController extends DatosAnden
         $this->idProducto=$idProducto;
         $this->lote=$lote;
         $this->peso=$peso;
+        
         
 
     }

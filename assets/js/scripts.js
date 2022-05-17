@@ -562,7 +562,7 @@ return */
  function porcentaje(porcentaje,total){
   let dato1 = parseFloat(porcentaje);
   let dato2 = parseFloat(total);
-  let reesultadoDato  =  (dato1 * dato2) / 100;
+  let reesultadoDato  =  ((dato1 * dato2) / 100);
   let reesultado = restar(total, reesultadoDato)
   return reesultado.toFixed(2);
  }

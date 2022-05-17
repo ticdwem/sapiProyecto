@@ -7,6 +7,7 @@ class VentaLotenota extends DatosAnden
     private $idProducto;
     private $lote;
     private $peso;
+    private $idUsuario;
 
     public function __construct($nota,$idProducto,$lote,$peso)
     {
@@ -15,6 +16,7 @@ class VentaLotenota extends DatosAnden
         $this->idProducto=$idProducto;
         $this->lote=$lote;
         $this->peso=$peso;
+        $this->idUsuario = $_SESSION['usuario']['id'];
     }
     /**
      * Get the value of nota
@@ -47,11 +49,21 @@ class VentaLotenota extends DatosAnden
     {
         return $this->peso;
     }
+
+    public function getidUsuario(){
+        return $this->idUsuario;
+    }
+
+
+
+
+
     public function update(){
         $update = "UPDATE pedidos
                             SET                                
                                 loteProductoPedido='{$this->getLote()}',
-                                pesoProductoPedido='{$this->getPeso()}'
+                                pesoProductoPedido='{$this->getPeso()}',
+                                idUsuarioVenta = '{$this->getidUsuario()}'
                             WHERE 
                                 idProductoPedido='{$this->getIdProducto()}'  AND 
                                 idnotaPedido='{$this->getNota()}'";

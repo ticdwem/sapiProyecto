@@ -2,7 +2,7 @@
     <?php require_once 'views/layout/cabeceraLogo.php';
     if (isset($_SESSION['formulario_cliente'])) {
         echo '<div class="alert alert-danger" role="alert" style="width:80%;">HUBO UN ERROR INTERNO EN EL SISTEMA, CONTACTA A TU ADMINISTRADOR DE SISTEMAS</div>';
-        Utls::deleteSession('formulario_cliente');
+       // Utls::deleteSession('formulario_cliente');
     }
 
 
@@ -259,8 +259,10 @@ $(document).on('click','.modalEditProduct',function(){
     $("#nombreProdcuto").val(producto);
     $("#presentacion").val(present);
     $("#piezas").val(pieza);
-    $("#pzoldValue").val(pieza)
-    $('#modalEditProduct').modal('show');
+    $("#pzoldValue").val(pieza);
+alert(pzOld);
+
+    //$('#modalEditProduct').modal('show');
 });
 
 $("#designAlmacen").on("click",function(){
@@ -294,7 +296,6 @@ $(document).on('click','.selectAlmacen',function(){
             beforeSend: function () {
             },
             success: function (updateToVenta) {	
-               /*  console.log(updateToVenta); */
                 if(updateToVenta == 1){
                     Swal.fire({
                         position: 'top-end',
