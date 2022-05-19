@@ -42,6 +42,33 @@ class VentaTerminadaModel extends DatosAnden
     {
         return $this->notaVenta;
     }
+    /**
+     * Get the value of total
+     */
+    public function getTotal()
+    {
+        return $this->total;
+    }
+
+    /**
+     * Get the value of limCredito
+     */
+    public function getLimCredito()
+    {
+        return $this->limCredito;
+    }
+
+    /**
+     * Get the value of descuento
+     */
+    public function getDescuento()
+    {
+        return $this->descuento;
+    }
+
+
+
+    
     
     public function deleteFromPedidos(){
        $deletePedido = "CALL confirmVenta('{$this->getNumNota()}', '{$this->getNumCli()}', '{$this->getNumAnden()}', '8450.97','{$this->getNotaVenta()}')";
@@ -50,6 +77,7 @@ class VentaTerminadaModel extends DatosAnden
        $this->close_connection_Databa();
        return $query;
     }
+
 
 }
 
