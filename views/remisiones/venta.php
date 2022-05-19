@@ -19,7 +19,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"  id="inputGroup-sizing-lg">NUMERO DE REMISION:</span>
                                     </div>
-                                    <input type="text" class="form-control" id="idVentas" aria-label="Large" aria-describedby="inputGroup-sizing-sm">     
+                                    <input type="text" class="form-control" id="idVentas" aria-label="Large" aria-describedby="inputGroup-sizing-sm" value="A10547">     
                                 </div>                              
                                 <div class="idVentas"></div>
                             </div>
@@ -141,7 +141,7 @@
             <label for="totalVenta">Total:</label> 
         </div>
         <div id="total" class="tot-comp col-lg-3 text-left">
-            <input type="hidden" name="totalHiden" id="totalHiden" class="totalHiden">    
+            <input type="text" name="totalHiden" id="totalHiden" class="totalHiden" value="<?=$totalCdescuento?>">    
             <p class="totalCliente"  id="total">$ <?=number_format($totalCdescuento,2)?> </p>
         </div>
     </div>
@@ -237,12 +237,12 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="loteVenta">Lote</label>
-                    <input type="text" class="form-control loteVenta" id="loteVentaModal" value="" ?>
+                    <input type="text" class="form-control loteVenta" id="loteVentaModal" value="">
                     <div class="loteVenta"></div>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="peso">Peso </label>
-                    <input type="text" class="form-control peso" id="pesoModal" value="" <?php ?>>
+                    <input type="text" class="form-control peso" id="pesoModal" value="">
                     <div class="peso"></div>
                 </div>
             </div>
@@ -267,10 +267,16 @@ $("#acceptCompraVenta").on('click',function(e){
     let valarray;
     let idget = $("#idget").val();
     let idcli = $("#idcli").val();
+    let notaPEdidos = $("#idVentas").val();
+    let limCredito = $("#limCredito").val();
+    let descuentoCliente = $("#descuentoCliente").val();
+    let totalHiden = redondearNumero($("#totalHiden").val());
     let validar;
+    
+    aceptArray.push({'phone_idget_20':idget,'phone_idcli_20':idcli,'messagge_idVentas_40':notaPEdidos,'decimales_totalHiden_50':totalHiden,'decimales_limCredito_50':limCredito,'decimales_descuentoCliente_50':descuentoCliente});
 
-    aceptArray.push({'phone_idget_20':idget,'phone_idcli_20':idcli});
     valarray = validarCampos(aceptArray);
+
     if(valarray>0){
         e.preventDefault();
         return;
@@ -296,6 +302,7 @@ $("#acceptCompraVenta").on('click',function(e){
                 beforeSend: function () {
                 },
                 success: function (upventa) {	
+                    console.log(upventa)
                     if(upventa == 1){
                         Swal.fire({
                             position: 'top-end',

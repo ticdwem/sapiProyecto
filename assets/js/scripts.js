@@ -605,3 +605,8 @@ for(let i=0; i<tableRows.length; i++) {
 }
 return cero;
 }
+
+function redondearNumero(numero){
+  let  numeroRound = parseFloat(numero).toFixed(2);
+  return numeroRound;
+}

@@ -1393,6 +1393,8 @@ $(document).on('click','.seleccionarIdProductoXAlmacen', function(e){
 
 
 $(document).on('click','.modalEditProduct',function(){
+	let pesoDato;
+	let loteDato;
 	let datos = Array();
     let idPro = $(this).parents("tr").find("td")[0].innerHTML;
     let producto = $(this).parents("tr").find("td")[1].innerHTML;
@@ -1402,8 +1404,6 @@ $(document).on('click','.modalEditProduct',function(){
 	let almacen = $("#idCamara").attr('data-id');
     let nota = $("#idget").val();
 	let idBtn = $(this).attr('id');
-	
-
 	datos.push({'id_producto':idPro,'producto':producto,'piezas':pz,'nota':nota,'almacen':almacen});
 	
 	//$("#"+idBtn).addClass("disableBtn");
@@ -1418,18 +1418,22 @@ $(document).on('click','.modalEditProduct',function(){
         },
         success: function (verificar) {
 
-		if(peso != 0){$("#pesoModal").attr('disabled','disabled');}
-		if(lote != 0){$("#loteVentaModal").attr('disabled','disabled');}
+		if(peso != 0){$("#pesoModal").attr('disabled','disabled');pesoDato = peso;}else if( peso== 0){$("#pesoModal").removeAttr('disabled')}
+		if(lote != 0){$("#loteVentaModal").attr('disabled','disabled');loteDato = lote}else if(lote == 0){$("#loteVentaModal").removeAttr('disabled')}
 			if(verificar.statusModal == 1){
 				$("#getidBtn").val(idBtn);
 				$("#idProductoModal").val(idPro);
 				$("#nombreProdcutoModal").val(producto);
-				$("#loteVentaModal").val(lote);
-				$("#pesoModal").val(peso);
+				$("#loteVentaModal").val(loteDato);
+				$("#pesoModal").val(pesoDato);
 				$(".modal-footer").css('display','block');
 				$("#message").css('display','none');
 				$("#message").html('');
-				if(peso != 0 && lote != 0){$("#updatePesoVenta").css("display","none")}
+				if(peso != 0 && lote != 0){
+					$("#updatePesoVenta").css("display","none");
+				}else if(peso == 0 && lote == 0){
+					$("#updatePesoVenta").css("display","inline");
+				}
 				
 			}else if(verificar.statusModal == 0){
 				$("#idProductoModal").val(idPro);
