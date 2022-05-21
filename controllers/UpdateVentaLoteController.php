@@ -9,6 +9,7 @@ class UpdateVentaLoteController extends DatosAnden
     private $lote;
     private $peso;
     private $cliente;
+    private $idNotaVendido;
    
 
     public function __construct($nota,$idProducto,$lote,$peso)
@@ -74,19 +75,41 @@ class UpdateVentaLoteController extends DatosAnden
         return $this;
     }
 
+        /**
+     * Get the value of idNotaVendido
+     */
+    public function getIdNotaVendido()
+    {
+        return $this->idNotaVendido;
+    }
+
+    /**
+     * Set the value of idNotaVendido
+     */
+    public function setIdNotaVendido($idNotaVendido)
+    {
+        $this->idNotaVendido = $idNotaVendido;
+
+        return $this;
+    }
+
     public function lotePeso(){
         require_once $_SERVER["DOCUMENT_ROOT"]."/sapiProyecto/models/anden/venta/VentaLotenota.php";
         $lote = (Validacion::validarNumero($this->getLote()) == -1) ? false : $this->getLote() ;
         $peso = (Validacion::validarNumero($this->getPeso()) == -1) ? false : $this->getPeso() ;
         $producto = (Validacion::validarNumero($this->getIdProducto()) == -1) ? false : $this->getIdProducto() ;
         $nota = (Validacion::validarNumero($this->getNota()) == -1) ? false : $this->getNota() ;
-        $verif = array('lote' =>$lote ,'peso' =>$peso ,'producto' =>$producto ,'nota' =>$nota);
+        $notaVenta = (Validacion::textoLargo($this->getIdNotaVendido(),15) == 900)?false : $this->getIdNotaVendido();
 
+
+        $verif = array('lote' =>$lote ,'peso' =>$peso ,'producto' =>$producto ,'nota' =>$nota,'notaVenta'=>$notaVenta);
         $validar = Utls::sessionValidate($verif);
+
         if ($validar > 1) {
             echo '<script>window.location="' . base_url . 'Anden/venta&nota='.$this->getNota().'&cli='.$this->getCliente().'"</script>';
         }else{
             $venta = new VentaLotenota($nota,$producto,$lote,$peso);
+            $venta -> setNotaVenta($notaVenta);
             $datos = $venta->update();
 
             if($datos){
@@ -99,4 +122,6 @@ class UpdateVentaLoteController extends DatosAnden
         
     }
     
+
+
 }

@@ -9,6 +9,7 @@ class VentaTerminadaModel extends DatosAnden
     private $total;
     private $limCredito;
     private $descuento;
+    private $usuarioVenta; 
 
     public function __construct($numNota,$numCli,$notaVenta,$total,$limCredito,$descuento)
     {
@@ -19,6 +20,7 @@ class VentaTerminadaModel extends DatosAnden
         $this->total = $total;
         $this->limCredito = $limCredito;
         $this->descuento = $descuento;
+        $this->usuarioVenta = $_SESSION['usuario']['id'];
     }  
 
     /**
@@ -65,13 +67,28 @@ class VentaTerminadaModel extends DatosAnden
     {
         return $this->descuento;
     }
+  /**
+     * Get the value of descuento
+     */
+    public function getusuarioVenta()
+    {
+        return $this->usuarioVenta;
+    }
 
 
 
     
     
     public function deleteFromPedidos(){
-       $deletePedido = "CALL confirmVenta('{$this->getNumNota()}', '{$this->getNumCli()}', '{$this->getNumAnden()}', '8450.97','{$this->getNotaVenta()}')";
+       $deletePedido = "CALL confirmVenta('{$this->getNumNota()}', 
+                                          '{$this->getNumCli()}', 
+                                          '{$this->getNumAnden()}', 
+                                          '{$this->getTotal()}',
+                                          '{$this->getNotaVenta()}',
+                                          '{$this->getLimCredito()}',
+                                          '{$this->getDescuento()}',
+                                          '{$this->getusuarioVenta()}')";
+
 
        $query = $this->db->query($deletePedido);
        $this->close_connection_Databa();

@@ -8,6 +8,7 @@ class VentaLotenota extends DatosAnden
     private $lote;
     private $peso;
     private $idUsuario;
+    private $notaVenta;
 
     public function __construct($nota,$idProducto,$lote,$peso)
     {
@@ -53,7 +54,23 @@ class VentaLotenota extends DatosAnden
     public function getidUsuario(){
         return $this->idUsuario;
     }
+    /**
+     * Get the value of notaVenta
+     */
+    public function getNotaVenta()
+    {
+        return $this->notaVenta;
+    }
 
+    /**
+     * Set the value of notaVenta
+     */
+    public function setNotaVenta($notaVenta)
+    {
+        $this->notaVenta = $notaVenta;
+
+        return $this;
+    }
 
 
 
@@ -63,7 +80,8 @@ class VentaLotenota extends DatosAnden
                             SET                                
                                 loteProductoPedido='{$this->getLote()}',
                                 pesoProductoPedido='{$this->getPeso()}',
-                                idUsuarioVenta = '{$this->getidUsuario()}'
+                                idUsuarioVenta = '{$this->getidUsuario()}',
+                                idNotaVendida = '{$this->getNotaVenta()}'
                             WHERE 
                                 idProductoPedido='{$this->getIdProducto()}'  AND 
                                 idnotaPedido='{$this->getNota()}'";
@@ -74,6 +92,8 @@ class VentaLotenota extends DatosAnden
         }
         return $pass;
     }
+
+
 
 
 }

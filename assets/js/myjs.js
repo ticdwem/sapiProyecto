@@ -1114,8 +1114,9 @@ $(document).ready(function () {
 		let peso = $("#pesoModal").val();
 		let cliente = $("#idcli").val();
 		let idBoton = $("#getidBtn").val();
+		let idNotaVenta = $("#idVentas").val();
 		
-		verif.push({'phone_idget_50':nota,'phone_idProductoModal_80':idp,'phone_loteVentaModal_50':lote,'decimales_pesoModal_50':peso,'phone_idcli_10':cliente});
+		verif.push({'phone_idget_50':nota,'phone_idProductoModal_80':idp,'phone_loteVentaModal_50':lote,'decimales_pesoModal_50':peso,'phone_idcli_10':cliente,'messagge_idVentas_50':idNotaVenta});
 	   
 		
 		validar = validarCampos(verif);
@@ -1133,7 +1134,7 @@ $(document).ready(function () {
 			beforeSend: function () {
 			},
 			success: function (upventa) {	
-				if(upventa == 1){
+ 				if(upventa == 1){
 					var des = $("#getidBtn").val();
 					$('#registroProductotableVenta').load(" #registroProductotableVenta");
 					$('#totalVenta').load(" #totalVenta");
@@ -1148,7 +1149,7 @@ $(document).ready(function () {
 					
 					
 					$('#modalProducto').modal('hide');
-				}
+				} 
 				
 				
 			}
