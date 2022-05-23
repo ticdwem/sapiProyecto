@@ -9,6 +9,8 @@ class VentaLotenota extends DatosAnden
     private $peso;
     private $idUsuario;
     private $notaVenta;
+    private $almacen;
+    private $piezas;
 
     public function __construct($nota,$idProducto,$lote,$peso)
     {
@@ -18,6 +20,7 @@ class VentaLotenota extends DatosAnden
         $this->lote=$lote;
         $this->peso=$peso;
         $this->idUsuario = $_SESSION['usuario']['id'];
+        $this->almacen = $_SESSION['usuario']['camra'];
     }
     /**
      * Get the value of nota
@@ -72,11 +75,33 @@ class VentaLotenota extends DatosAnden
         return $this;
     }
 
+    public function getAlmacen(){
+        return $this->almacen;
+    }
 
+        /**
+     * Get the value of piezas
+     */
+    public function getPiezas()
+    {
+        return $this->piezas;
+    }
 
+    /**
+     * Set the value of piezas
+     */
+    public function setPiezas($piezas)
+    {
+        $this->piezas = $piezas;
+
+        return $this;
+    }
 
     public function update(){
-        $update = "UPDATE pedidos
+
+       $update = "CALL updateVentaLote('{$this->getLote()}','{$this->getPeso()}', '{$this->getIdProducto()}', '{$this->getNota()}', '{$this->getNotaVenta()}', '{$this->getPiezas()}', '{$this->getidUsuario()}', '{$this->getAlmacen()}')";
+
+       /*         $update = "UPDATE pedidos
                             SET                                
                                 loteProductoPedido='{$this->getLote()}',
                                 pesoProductoPedido='{$this->getPeso()}',
@@ -84,7 +109,7 @@ class VentaLotenota extends DatosAnden
                                 idNotaVendida = '{$this->getNotaVenta()}'
                             WHERE 
                                 idProductoPedido='{$this->getIdProducto()}'  AND 
-                                idnotaPedido='{$this->getNota()}'";
+                                idnotaPedido='{$this->getNota()}'"; */
         $upVenta = $this->db->query($update);
         $pass = false;
         if($upVenta){
@@ -92,6 +117,8 @@ class VentaLotenota extends DatosAnden
         }
         return $pass;
     }
+
+
 
 
 

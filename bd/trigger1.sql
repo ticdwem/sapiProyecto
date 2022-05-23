@@ -7,7 +7,7 @@ FOR EACH ROW
 				(idPeddios, 
 				idnotaPedido, 
 				idUsuarioPedido, 
-				idCliente, 
+				idClientePedido, 
 				idProductoPedido, 
 				pzProductoPedido, 
 				loteProductoPedido, 
@@ -16,6 +16,8 @@ FOR EACH ROW
 				idAlmacenPedidos, 
 				statusProductoPedido, 
 				fechaEntregaPedido,
+				idUsuarioVenta,
+				idNotaVendida,
 				dateDrop)
 		VALUES 
 				(OLD.idPeddios, 
@@ -31,6 +33,7 @@ FOR EACH ROW
 				OLD.statusProductoPedido,
 				OLD.fechaEntregaPedido,
 				OLD.idUsuarioVenta,
+				OLD.idNotaVendida,
 				CURRENT_TIMESTAMP);
 	END;
 //

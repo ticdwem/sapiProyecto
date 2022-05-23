@@ -2,17 +2,17 @@
 DELIMITER //
 DROP PROCEDURE IF EXISTS confirmVenta //
 	CREATE  PROCEDURE confirmVenta(
-	IN _idNotaPedido INT, -- numero de nota de venta del pedido
-	IN _numCliente INT, -- numero de cliente
-	IN _numAnden INT, -- numeroi de anden
-	IN _totalVenta FLOAT, -- total de la venta pot nota
-	IN _notaVenta FLOAT, -- numero de nota de la venta
-	IN _limCredito FLOAT, -- limite de credito
-	IN _descuento	FLOAT, -- descuento que se ha asignado al cliente
-	IN _Usuario INT -- numero de empleadi que realizo la venta
+	IN _idNotaPedido INT, 
+	IN _numCliente INT, 
+	IN _numAnden INT, 
+	IN _totalVenta FLOAT
+	IN _notaVenta VARCHAR(20), 
+	IN _limCredito FLOAT,
+	IN _descuento	FLOAT, 
+	IN _Usuario INT 
 	)
 	BEGIN
-		DECLARE _resultSum float;
+		DECLARE _resultSum 
 		DECLARE _saldo FLOAT;
 		DECLARE _lastInsert INT;
 
@@ -29,7 +29,7 @@ DROP PROCEDURE IF EXISTS confirmVenta //
 			(idNotaVendida, idCliente, limiteCredito, descuento, usuarioNotaVenta)
 				VALUES (_notaVenta, _numCliente, _limCredito, _descuento, _Usuario);
 				
-		
+		/* Error de SQL (1054): Unknown column 'idClientePedido' in 'field list' */
 		
 		-- tenemos un trigger cuando eliminamos de la tabla pedidos este inserta en la tabla ventas
 		

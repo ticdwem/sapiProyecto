@@ -19,6 +19,15 @@ class DatosAnden extends ModeloBase
     {
         return $this->numAnden;
     }
+    /**
+     * Set the value of numAnden
+     */
+    public function setNumAnden($numAnden): self
+    {
+        $this->numAnden = $numAnden;
+
+        return $this;
+    }
 
     public function listas(){
         $datos ='select * from pedidos where idAlmacenPedidos ='.$this->getNumAnden();
@@ -28,4 +37,6 @@ class DatosAnden extends ModeloBase
 
 
     
+
+
 }

@@ -10,6 +10,7 @@ class UpdateVentaLoteController extends DatosAnden
     private $peso;
     private $cliente;
     private $idNotaVendido;
+    private $piezas;
    
 
     public function __construct($nota,$idProducto,$lote,$peso)
@@ -19,9 +20,6 @@ class UpdateVentaLoteController extends DatosAnden
         $this->idProducto=$idProducto;
         $this->lote=$lote;
         $this->peso=$peso;
-        
-        
-
     }
     /**
      * Get the value of nota
@@ -92,6 +90,24 @@ class UpdateVentaLoteController extends DatosAnden
 
         return $this;
     }
+       
+    /**
+     * Get the value of piezas
+     */
+    public function getPiezas()
+    {
+        return $this->piezas;
+    }
+
+    /**
+     * Set the value of piezas
+     */
+    public function setPiezas($piezas): self
+    {
+        $this->piezas = $piezas;
+
+        return $this;
+    }
 
     public function lotePeso(){
         require_once $_SERVER["DOCUMENT_ROOT"]."/sapiProyecto/models/anden/venta/VentaLotenota.php";
@@ -100,9 +116,10 @@ class UpdateVentaLoteController extends DatosAnden
         $producto = (Validacion::validarNumero($this->getIdProducto()) == -1) ? false : $this->getIdProducto() ;
         $nota = (Validacion::validarNumero($this->getNota()) == -1) ? false : $this->getNota() ;
         $notaVenta = (Validacion::textoLargo($this->getIdNotaVendido(),15) == 900)?false : $this->getIdNotaVendido();
+        $pieza = (Validacion::validarNumero($this->getPiezas()) == -1) ? false : $this->getPiezas();
+        
 
-
-        $verif = array('lote' =>$lote ,'peso' =>$peso ,'producto' =>$producto ,'nota' =>$nota,'notaVenta'=>$notaVenta);
+        $verif = array('lote' =>$lote ,'peso' =>$peso ,'producto' =>$producto ,'nota' =>$nota,'notaVenta'=>$notaVenta,'pieza '=>$pieza );
         $validar = Utls::sessionValidate($verif);
 
         if ($validar > 1) {
@@ -110,6 +127,7 @@ class UpdateVentaLoteController extends DatosAnden
         }else{
             $venta = new VentaLotenota($nota,$producto,$lote,$peso);
             $venta -> setNotaVenta($notaVenta);
+            $venta-> setPiezas($pieza);
             $datos = $venta->update();
 
             if($datos){
@@ -122,6 +140,5 @@ class UpdateVentaLoteController extends DatosAnden
         
     }
     
-
 
 }

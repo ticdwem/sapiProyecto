@@ -141,7 +141,7 @@
             <label for="totalVenta">Total:</label> 
         </div>
         <div id="total" class="tot-comp col-lg-3 text-left">
-            <input type="text" name="totalHiden" id="totalHiden" class="totalHiden" value="<?=$totalCdescuento?>">    
+            <input type="hidden" name="totalHiden" id="totalHiden" class="totalHiden" value="<?=$totalCdescuento?>">    
             <p class="totalCliente"  id="total">$ <?=number_format($totalCdescuento,2)?> </p>
         </div>
     </div>
@@ -307,7 +307,7 @@ $("#acceptCompraVenta").on('click',function(e){
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
-                            title: 'Your work has been saved',
+                            title: 'SE HA HECHO LA VENTA',
                             showConfirmButton: false,
                             timer: 1500
                         }).then(function(){
