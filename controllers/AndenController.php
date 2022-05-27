@@ -25,6 +25,12 @@ class AndenController{
         require_once 'views/remisiones/venta.php';        
     }
 
+    public function traspaso(){
+        $anden = new DatosAnden();
+        $andenes = $anden->getAll('almacen');
+        require 'views/remisiones/traspaso.php';
+    }
+
    
 
 }

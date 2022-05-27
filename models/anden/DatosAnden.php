@@ -22,7 +22,7 @@ class DatosAnden extends ModeloBase
     /**
      * Set the value of numAnden
      */
-    public function setNumAnden($numAnden): self
+    public function setNumAnden($numAnden)
     {
         $this->numAnden = $numAnden;
 

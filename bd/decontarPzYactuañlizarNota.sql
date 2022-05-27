@@ -14,6 +14,9 @@ DROP PROCEDURE IF EXISTS updateVentaLote //
 	BEGIN
 		DECLARE _totalProductos INT;
 		DECLARE _resultRest INT;
+		DECLARE _resultPesoCentral FLOAT;
+		DECLARE _pesoAlmacen FLOAT;
+		DECLARE _totalPeso FLOAT;
 
 -- obtenemos el total de piezas en la tabla de almacen central de cada producto
 	SELECT ac.cantidadPzACentral INTO _totalProductos FROM almacencentral ac 
@@ -32,11 +35,16 @@ DROP PROCEDURE IF EXISTS updateVentaLote //
                          idNotaVendida = _notaVenta
                      WHERE 
                           idProductoPedido=_producto  AND 
-                           idnotaPedido=_nota;
-      /* actuzlaizamos las piez<as*/
+                           idnotaPedido=_nota AND 
+                           idAlmacenPedidos = _almacen;
+   
+	   SELECT sacarPeso(_producto, _lote, _almacen) INTO _pesoAlmacen;
+	   SELECT restSomting(_pesoAlmacen,_peso) INTO _totalPeso;
+		/* actuzlaizamos las piez<as*/
 		UPDATE almacencentral
 								SET	
-									cantidadPzACentral= _resultRest
+									cantidadPzACentral= _resultRest,
+									pesoACentral = _totalPeso
 								WHERE
 									idProductoACentral=_producto AND 
 									loteACentral= _lote AND 

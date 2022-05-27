@@ -229,6 +229,8 @@ class Utls{
             case 'Anden':
                 if($action == 'venta'){
                     $retorno = 'Venta';
+                }elseif ($action == 'traspaso') {
+                    $retorno = 'Traspaso Producto';
                 }
                 break;
            default:
