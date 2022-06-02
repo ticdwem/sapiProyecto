@@ -40,7 +40,7 @@ class PedidoController
         if (isset($_SESSION['formulario_cliente'])) {
             echo '<script>window.location="' . base_url . 'Pedido/pedido&id="'.$idCliente.'</script>';
         } else {
-            
+           
             $registroInsert = 0;
             
             for ($j=0; $j <$contar ; $j++) { 

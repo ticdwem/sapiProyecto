@@ -303,7 +303,7 @@ $("#acceptCompraVenta").on('click',function(e){
                 },
                 success: function (upventa) {	
                     console.log(upventa)
-                    if(upventa == 1){
+                    /* if(upventa == 1){
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
@@ -317,7 +317,7 @@ $("#acceptCompraVenta").on('click',function(e){
                         alert("Hay datos que estan mal en la venta");
                     }else if(upventa == 0){
                         alert("no se pudo hacer la venta");
-                    }
+                    } */
                     
                     
                 }

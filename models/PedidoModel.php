@@ -158,7 +158,9 @@ class PedidoModels extends ModeloBase
 							(idnotaPedido, idUsuarioPedido, idClientePedido, idProductoPedido, pzProductoPedido, fechaAltaProductoPedido, statusProductoPedido,fechaEntregaPedido)
 							 VALUES ('{$this->getIdnotaPedido()}', '{$this->getIdUsuarioPedido()}', '{$this->getIdClientePedido()}', '{$this->getIdProductoPedido()}', '{$this->getPzProductoPedido()}', now(), '1','{$this->getFechaEntrega()}')";
 
-		$query = $this->db->query($insert);
+
+	
+$query = $this->db->query($insert);
 		$insertPedido = false;
         if($query){
             $insertPedido = true;

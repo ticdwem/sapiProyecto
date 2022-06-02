@@ -84,6 +84,7 @@
             </button>
         </div>
       <div class="modal-body">
+          <input type="hidden" id="hiddenPesoTotalTraspaso" value="">
         <div class="container">
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -155,57 +156,75 @@
 		}
     })
 
-    $("#inputIdProducto").keyup(function(e){         
-        let producto = $(this).val();
-        let almacen = $("#selectAlmacen").val();
-        let productoArray = Array();
-        let validar;
-        $('#tblTraspasoProducto').empty()
-        if(almacen == -1){
-            Swal.fire({
-                icon: 'error',
-                title: 'ANDEN',
-                text: 'DEBES SELECCIONAR UN ANDEN '
-            });
-            $("#inputIdProducto").val("");
-            e.preventDefault();
-        }else{
-            productoArray.push({'phone_selectAlmacen_10':almacen,'messagge_inputIdProducto_80':producto});
-            validar = validarCampos(productoArray);
-            if(validar > 0){
+        $("#inputIdProducto").keyup(function(e){         
+            let producto = $(this).val();
+            let almacen = $("#selectAlmacen").val();
+            let productoArray = Array();
+            let validar;
+            $('#tblTraspasoProducto').empty()
+            if(almacen == -1){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'ANDEN',
+                    text: 'DEBES SELECCIONAR UN ANDEN '
+                });
+                $("#inputIdProducto").val("");
                 e.preventDefault();
             }else{
-                let data = { "data": productoArray }
-                var json = JSON.stringify(data);
-                $.ajax({
-                    url: getAbsolutePath() + "views/layout/ajax/AjaxSearchProducto.php",
-                    method: "POST",
-                    data: { "productoAlmacen": json },
-                    cache: false,
-                    beforeSend: function () {
-                       
-                    },
-                    success: function (searchprd) {
-                    let encontrado = Object.keys(searchprd).length;
-                    if(encontrado > 0)
-                    var contador = 1;
-                    for(let x of Object.keys(searchprd)){
-                         let datoProducto = searchprd[x];
-                    var contenido = '<tr>';
-                        contenido += '<td>'+datoProducto.id+'</td>';
-                        contenido += '<td>'+datoProducto.nombreProducto+'</td>';
-                        contenido += '<td>'+datoProducto.loteACentral+'</td>';
-                        contenido += '<td>'+datoProducto.cantidadPzACentral+'</td>';
-                        contenido += '<td><button type="button" class="btn btn-primary btnselectidProducto">Traspasar</button></td>';
-                        contenido += '</tr>';
-                        contador ++;
-                        $('#tblTraspasoProducto').append(contenido);
-                    }   
-                    }
-                })
-               
+                productoArray.push({'phone_selectAlmacen_10':almacen,'messagge_inputIdProducto_80':producto});
+                validar = validarCampos(productoArray);
+                if(validar > 0){
+                    e.preventDefault();
+                }else{
+                    let data = { "data": productoArray }
+                    var json = JSON.stringify(data);
+                    $.ajax({
+                        url: getAbsolutePath() + "views/layout/ajax/AjaxSearchProducto.php",
+                        method: "POST",
+                        data: { "productoAlmacen": json },
+                        cache: false,
+                        beforeSend: function () {
+                        
+                        },
+                        success: function (searchprd) {
+                            let encontrado = Object.keys(searchprd).length;
+                            if(encontrado > 0){
+                                var contador = 1;
+                                for(let x of Object.keys(searchprd)){
+                                    let datoProducto = searchprd[x];
+                                    var contenido = '<tr>';
+                                        contenido += '<td>'+datoProducto.id+'</td>';
+                                        contenido += '<td>'+datoProducto.nombreProducto+'</td>';
+                                        contenido += '<td>'+datoProducto.loteACentral+'</td>';
+                                        contenido += '<td>'+datoProducto.cantidadPzACentral+'</td>';
+                                        contenido += '<td><button type="button" data-id="'+datoProducto.pesoACentral+'" class="btn btn-primary btnselectidProducto">Traspasar</button></td>';
+                                        contenido += '</tr>';
+                                        contador ++;
+                                    $('#tblTraspasoProducto').append(contenido);
+                                } 
+                            }  
+                        }
+                    })
+                
+                }
             }
+        })
+
+    $("#traspasoAceptar").on('click',function(e){
+        let idProdcuto = $("#idProductoTraspasoModal").val();
+        let loteVentaTraspasoModal = $("#loteVentaTraspasoModal").val();
+        let pesoTraspasoModal = $("#pesoTraspasoModal").val();
+        let piezasVentaTraspasoModal = $("#piezasVentaTraspasoModal").val();
+        let hiddenPesoTotalTraspaso = $("#hiddenPesoTotalTraspaso").val();
+
+        if(pesoTraspasoModal > hiddenPesoTotalTraspaso){
+            $("#pesoTraspasoModal").css('border','1px solid red');
+            $(".pesoTraspaso").css({"color":"red", "font-size":"12px"});
+            $(".pesoTraspaso").html("INSERTASTE UN PESO MAYOR AL REGISTRADO EN LA BASE DE DATOS");
         }
-    })
+
+    });
+
+
 
 </script>

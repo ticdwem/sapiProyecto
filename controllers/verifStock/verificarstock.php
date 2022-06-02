@@ -27,7 +27,6 @@ class verificarStock
         $contarProducto = -1;
         $id = (Validacion::validarNumero($this->getJsonStock()->id_producto) == -1) ? false : $this->getJsonStock()->id_producto;
         $pz = (Validacion::validarNumero($this->getJsonStock()->piezas) == -1)? false : $this->getJsonStock()->piezas;
-        
 
         if($id == false || $pz == false){
             $_SESSION['formulario_cliente'] = array(

@@ -995,6 +995,7 @@ $(document).ready(function() {
 
                     },
                     success: function(pedido) {
+                        console.log(pedido)
                         if (pedido >= 1) {
                             Swal.fire({
                                 position: 'center',
@@ -1144,7 +1145,6 @@ $(document).ready(function() {
             cache: false,
             beforeSend: function() {},
             success: function(upventa) {
-                console.log(upventa)
                 if (upventa == 1) {
                     var des = $("#getidBtn").val();
                     $('#registroProductotableVenta').load(" #registroProductotableVenta");
@@ -1415,18 +1415,18 @@ $(document).on('click', '.modalEditProduct', function() {
     let nota = $("#idget").val();
     let idBtn = $(this).attr('id');
     datos.push({ 'id_producto': idPro, 'producto': producto, 'piezas': pz, 'nota': nota, 'almacen': almacen });
-
     //$("#"+idBtn).addClass("disableBtn");
     let data = { "verificar": datos }
-    var json = JSON.stringify(data);
+    var jsonCheckStock = JSON.stringify(data);
+    /*     console.log(jsonCheckStock); */
+
     $.ajax({
         url: getAbsolutePath() + "views/layout/ajax/AjaxCheckStock.php",
         method: "POST",
-        data: { "existencia": json },
+        data: { "existencia": jsonCheckStock },
         cache: false,
         beforeSend: function() {},
         success: function(verificar) {
-
             if (peso != 0) {
                 $("#pesoModal").attr('disabled', 'disabled');
                 pesoDato = peso;
@@ -1512,12 +1512,13 @@ $(document).on('change', '#loteVentaModal', function(e) {
 });
 
 $(document).on('click', '.btnselectidProducto', function(e) {
-    let AlmacenOrigen = $("#selectAlmacen").val();
-    let AlmacenDestino = $("#DataAlmacenes").val();
+
     let idProducto = $(this).parents('tr').find('td')[0].innerHTML;
     let nombreProdcuto = $(this).parents('tr').find('td')[1].innerHTML;
     let loteVentaTraspasoModal = $(this).parents('tr').find('td')[2].innerHTML;
+    let hiddenPesoTotalTraspaso = $(this).attr("data-id");
 
+    $("#hiddenPesoTotalTraspaso").val(hiddenPesoTotalTraspaso);
     $("#idProductoTraspasoModal").val(idProducto)
     $("#nombreProdcutoTraspasoModal").val(nombreProdcuto)
     $("#loteVentaTraspasoModal").val(loteVentaTraspasoModal)

@@ -53,7 +53,8 @@ class ConsultaAlmacen extends VerifAlmacenSetGet
                     'nombreProducto'=> $a->nombreProducto,
                     'loteACentral'=> $a->loteACentral,
                     'cantidadPzACentral'=> $a->cantidadPzACentral,
-                    'almacenACentral'=>$a->almacenACentral
+                    'almacenACentral'=>$a->almacenACentral,
+                    'pesoACentral' => $a->pesoACentral
                 );
 
                 array_push($jsonWhile,$data);

@@ -13,9 +13,11 @@ class AjaxCheckStock extends AjaxDefault
     {
         parent::__construct($post);        
     }
+    
     public function sendToController(){
         $datos = json_decode($this->getDatos());
         $json = $datos->verificar[0];
+        
         $alm = (Validacion::validarNumero($json->almacen) == -1)? false : $json->almacen;
         if($alm == false){
             echo -1;
@@ -24,6 +26,8 @@ class AjaxCheckStock extends AjaxDefault
         $verif->checkDatos();
     }
 }
+
+
 
 $ajax = new AjaxCheckStock($_POST["existencia"]);
 $ajax->sendToController();
