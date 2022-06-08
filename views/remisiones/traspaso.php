@@ -85,6 +85,7 @@
         </div>
       <div class="modal-body">
           <input type="hidden" id="hiddenPesoTotalTraspaso" value="">
+          <input type="hidden" id="hiddenPiezastotalTraspaso" value="">
         <div class="container">
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -211,16 +212,67 @@
         })
 
     $("#traspasoAceptar").on('click',function(e){
+        let errordatos = 0;
+        let traspasoArray = Array();
+        let selectAlmacen = parseInt($("#selectAlmacen").val());
+        let DataAlmacenes = parseInt($("#DataAlmacenes").val());
         let idProdcuto = $("#idProductoTraspasoModal").val();
         let loteVentaTraspasoModal = $("#loteVentaTraspasoModal").val();
-        let pesoTraspasoModal = $("#pesoTraspasoModal").val();
-        let piezasVentaTraspasoModal = $("#piezasVentaTraspasoModal").val();
-        let hiddenPesoTotalTraspaso = $("#hiddenPesoTotalTraspaso").val();
+        let pesoTraspasoModal = parseFloat($("#pesoTraspasoModal").val());
+        let piezasVentaTraspasoModal =parseInt($("#piezasVentaTraspasoModal").val());
+        let hiddenPesoTotalTraspaso = parseFloat($("#hiddenPesoTotalTraspaso").val());
+        let hiddenPiezastotalTraspaso = parseInt($("#hiddenPiezastotalTraspaso").val());
 
-        if(pesoTraspasoModal > hiddenPesoTotalTraspaso){
-            $("#pesoTraspasoModal").css('border','1px solid red');
-            $(".pesoTraspaso").css({"color":"red", "font-size":"12px"});
-            $(".pesoTraspaso").html("INSERTASTE UN PESO MAYOR AL REGISTRADO EN LA BASE DE DATOS");
+        traspasoArray.push({'phone_idProdcuto_10':idProdcuto,
+                            'phone_loteVentaTraspasoModal_20':loteVentaTraspasoModal,
+                            "decimales_pesoTraspasoModal_10":pesoTraspasoModal,
+                            "phone_piezasVentaTraspasoModal_10":piezasVentaTraspasoModal,
+                            "phone_selectAlmacen_20":selectAlmacen,
+                            "phone_DataAlmacenes_20":DataAlmacenes,});
+        validar = validarCampos(traspasoArray);
+        if(validar > 0){
+            alert("hay problemas");
+        }else{
+            if(pesoTraspasoModal > hiddenPesoTotalTraspaso){
+                $("#pesoTraspasoModal").css('border','1px solid red');
+                $(".pesoTraspaso").css({"color":"red", "font-size":"12px"});
+                $(".pesoTraspaso").html("INSERTASTE UN PESO MAYOR AL REGISTRADO EN LA BASE DE DATOS");
+               errordatos++;
+            }else{
+                $("#pesoTraspasoModal").css('border','1px solid green');
+                $(".pesoTraspaso").css({"color":"green", "font-size":"12px"});
+                $(".pesoTraspaso").html("correcto");
+            }
+            if(piezasVentaTraspasoModal > hiddenPiezastotalTraspaso){
+                $("#piezasVentaTraspasoModal").css('border','1px solid red');
+                $(".piezasVentaTraspaso").css({"color":"red", "font-size":"12px"});
+                $(".piezasVentaTraspaso").html("NO HAY SUFICIENTE PIEZAS EN LA BASE DE DATOS");
+                errordatos++
+            }else{
+                $("#piezasVentaTraspasoModal").css('border','1px solid green');
+                $(".piezasVentaTraspaso").css({"color":"green", "font-size":"12px"});
+                $(".piezasVentaTraspaso").html("correcto");
+            }
+/* ############################################################################################################################################### */
+              if(errordatos>0){
+                  return
+              }else{
+                let data = { "data": traspasoArray }
+                var json = JSON.stringify(data);
+                $.ajax({
+                    url: getAbsolutePath() + "views/layout/ajax/AjaxTraspaso.php",
+                    method: "POST",
+                    data: { "traspasoAlmacen": json },
+                    cache: false,
+                    beforeSend: function () {
+                    
+                    },
+                    success: function (traspasoWherhouse) {
+                        console.log(traspasoWherhouse)
+                    }
+                })
+/* ############################################################################################################################################### */
+            }
         }
 
     });

@@ -1516,11 +1516,15 @@ $(document).on('click', '.btnselectidProducto', function(e) {
     let idProducto = $(this).parents('tr').find('td')[0].innerHTML;
     let nombreProdcuto = $(this).parents('tr').find('td')[1].innerHTML;
     let loteVentaTraspasoModal = $(this).parents('tr').find('td')[2].innerHTML;
+    let piezasVentaTraspasoModal = $(this).parents('tr').find('td')[3].innerHTML;
     let hiddenPesoTotalTraspaso = $(this).attr("data-id");
 
     $("#hiddenPesoTotalTraspaso").val(hiddenPesoTotalTraspaso);
+    $("#hiddenPiezastotalTraspaso").val(piezasVentaTraspasoModal);
     $("#idProductoTraspasoModal").val(idProducto)
     $("#nombreProdcutoTraspasoModal").val(nombreProdcuto)
     $("#loteVentaTraspasoModal").val(loteVentaTraspasoModal)
+    $("#pesoTraspasoModal").attr('placeholder', "peso maximo: " + hiddenPesoTotalTraspaso + " kg")
+    $("#piezasVentaTraspasoModal").attr('placeholder', "piezas maximas: " + piezasVentaTraspasoModal + " pz")
     $("#modalProductoTraspaso").modal();
 })
