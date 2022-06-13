@@ -16,6 +16,8 @@ class UpdateVentaLoteController extends DatosAnden
     public function __construct($nota,$idProducto,$lote,$peso)
     {
         parent::__construct();
+        //validamos si extiste a sesison
+      if(!isset($_SESSION['usuario'])){Utls::sinSession();}
         $this->nota=$nota;
         $this->idProducto=$idProducto;
         $this->lote=$lote;

@@ -11,6 +11,8 @@ class verificarStock
 
     public function __construct($jsonStock,$almacen)
     {
+        //validamos si extiste a sesison
+      if(!isset($_SESSION['usuario'])){Utls::sinSession();}
        $this->jsonStock = $jsonStock;
        $this->almacen = $almacen;
     }   

@@ -7,6 +7,8 @@ class ConsultaAlmacen extends VerifAlmacenSetGet
 {
     public function __construct($datos){
         parent::__construct($datos);
+        //validamos si extiste a sesison
+      if(!isset($_SESSION['usuario'])){Utls::sinSession();}
     }
 
     public function andenQuery(){

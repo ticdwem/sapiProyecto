@@ -7,6 +7,11 @@ require_once 'models/anden/ClienteVenta.php';
 class AndenController{
 
 
+    public function __construct()
+    {
+        //validamos si extiste a sesison
+      if(!isset($_SESSION['usuario'])){Utls::sinSession();}
+    }
     public function index(){
         $prueba = new GetProdutos();
         $datos = $prueba->listas();

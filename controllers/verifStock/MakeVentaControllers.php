@@ -3,6 +3,11 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/sapiProyecto/models/anden/venta/VentaTe
 
 class MakeVentaControllers
 {
+    public function __construct()
+    {
+        //validamos si extiste a sesison
+      if(!isset($_SESSION['usuario'])){Utls::sinSession();}
+    }
     public function venta($datos){
         $nota = ((Validacion::validarNumero($datos->phone_idget_20) == -1)) ? false : $datos->phone_idget_20;
         $idCli = ((Validacion::validarNumero($datos->phone_idcli_20) == -1)) ? false : $datos->phone_idcli_20;

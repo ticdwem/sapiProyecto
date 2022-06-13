@@ -6,6 +6,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/models/ClienteModel.php"
 class ClienteController
 {
 
+    public function __construct()
+    {
+        //validamos si extiste a sesison
+      if(!isset($_SESSION['usuario'])){Utls::sinSession();}
+    }
+
     /* invocamos a al metodo index */
     public function index()
     {

@@ -8,7 +8,10 @@ class PreventaController{
     private $instancia;
 
     public function __construct(){
+        //validamos si extiste a sesison
+      if(!isset($_SESSION['usuario'])){Utls::sinSession();}
         $this->instancia = new PreventaModel();
+
     }
 
     public function index(){

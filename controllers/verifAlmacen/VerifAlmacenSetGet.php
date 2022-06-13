@@ -6,6 +6,8 @@ class VerifAlmacenSetGet
 
     public function __construct($idAlmacen)
     {
+        //validamos si extiste a sesison
+      if(!isset($_SESSION['usuario'])){Utls::sinSession();}
         $this->idAlmacen = $idAlmacen;
         
     }

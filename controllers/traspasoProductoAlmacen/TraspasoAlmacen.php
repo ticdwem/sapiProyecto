@@ -1,5 +1,6 @@
 <?php
 
+
 class TraspasoAlmacen
 {   
     private $idProducto;
@@ -11,6 +12,8 @@ class TraspasoAlmacen
     
     public function __construct($idProducto,$lote,$peso,$piezas,$almacenInicio,$almacenfin)
     {
+        //validamos si extiste a sesison
+      if(!isset($_SESSION['usuario'])){Utls::sinSession();}
         $this->idProducto = $idProducto;
         $this->lote = $lote;
         $this->peso = $peso;
@@ -58,8 +61,14 @@ class TraspasoAlmacen
          $almacenfin = (Validacion::validarFloat($this->getAlmacenfin()) == false ) ? false : $this->getAlmacenfin();
 
          $traspaso = array('id' =>$idProducto ,'lote'=>$lote,'peso'=>$peso,'piezas'=>$piezas,'almacenInicio'=>$almacenInicio,'almacenfin'=>$almacenfin );
-         var_dump($traspaso);
+         
+         $val = Utls::sessionValidate($traspaso);
 
+         if($val > 1){
+             echo 0;
+         }else{
+             
+         }
 
     }
 

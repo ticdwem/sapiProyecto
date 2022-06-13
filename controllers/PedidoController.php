@@ -4,6 +4,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/models/PedidoModel.php";
 
 class PedidoController
 {
+
+    public function __construct()
+    {
+        //validamos si extiste a sesison
+      if(!isset($_SESSION['usuario'])){Utls::sinSession();}
+    }
     public function index(){
         $ruta = new PedidoModels();
         $pedido = $ruta->getAllWhere('clientepedido','GROUP BY clientepedido.id,clientepedido.nomRuta ORDER BY	clientepedido.idruta');

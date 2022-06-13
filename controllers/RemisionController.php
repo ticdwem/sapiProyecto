@@ -4,6 +4,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/models/RemisionModel.php
 
 class RemisionController{
 
+  public function __construct()
+  {
+    //validamos si extiste a sesison
+    if(!isset($_SESSION['usuario'])){Utls::sinSession();}
+  }
+
     public function index(){
       // hacemos consulta para la lista de clientes
       $cliente = new RemisionModel();
