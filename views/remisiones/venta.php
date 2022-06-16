@@ -17,9 +17,10 @@
                             <div class="col-md-6">
                                 <div class="input-group input-group-sm mb-3 col-lg-12">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text"  id="inputGroup-sizing-lg">NUMERO DE REMISION:</span>
+                                        <span class="input-group-text"  id="inputGroup-sizing-lg">NUMERO DE REMISION:</span> <span class="input-group-text"  id="inputGroup-sizing-lg"> <?=ALMACEN[($_SESSION['usuario']['camra']-1)];?></span>
                                     </div>
-                                    <input type="text" class="form-control" id="idVentas" aria-label="Large" aria-describedby="inputGroup-sizing-sm" value="A10547">     
+                                    <input type="hidden" name="idVentas" id="idVentas" value="<?=Utls::getNumRemision()?>">
+                                    <input type="text" class="form-control" id="idVentas" aria-label="Large" aria-describedby="inputGroup-sizing-sm" value="<?=Utls::getNumRemision()?>" disabled>     
                                 </div>                              
                                 <div class="idVentas"></div>
                             </div>

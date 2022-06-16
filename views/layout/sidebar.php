@@ -2,9 +2,9 @@
     <div id="layoutSidenav_nav">
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
+                <?php if (isset($_SESSION['usuario'])): ?>
                 <div class="nav">
                     <?php
-                    
                     $sesion = json_decode($_SESSION['usuario']['menu']);
                     foreach($sesion as $key=>$posicion){
                         echo '<a class="nav-link" href="'.base_url.$posicion->urlMenu.'">
@@ -84,6 +84,7 @@
                 ?>
 
             </div>
+            <?php endif;?>
         </nav>
     </div>
     <div id="layoutSidenav_content">

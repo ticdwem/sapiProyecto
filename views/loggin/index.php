@@ -70,14 +70,14 @@
 				 <?php Utls::deleteSession('loggin')?>
 				<form action="<?=base_url?>Loggin/verificar" method="POST" class="login100-form validate-form" id="frmLogginVerif" novalidate>
 					<div class="wrap-input100 validate-input m-b-26" >
-						<span class="label-input100">Correo</span>
-						<input class="input100" type="text" name="emailLoggin" placeholder="Enter Email" id="emailLoggin">
+						<span class="label-input100">USUARIO</span>
+						<input class="input100" type="text" name="emailLoggin" placeholder="NOMBRE USUARIO" id="emailLoggin">
 						<div class="emailLoggin"></div>
                     </div>
                     
 					<div class="wrap-input100 validate-input m-b-18" >
-						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="inputPassLoggin" placeholder="Enter password" id="inputPassLoggin">
+						<span class="label-input100">CONTRASEÑA</span>
+						<input class="input100" type="password" name="inputPassLoggin" placeholder="**********" id="inputPassLoggin">
 						<div class="inputPassLoggin"></div>
 					</div>
 

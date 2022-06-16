@@ -1,6 +1,5 @@
 <?php
-
-
+include_once $_SERVER['DOCUMENT_ROOT'].'/sapiProyecto/models/anden/traspasoProducto/TraspasoProductoModels.php';
 class TraspasoAlmacen
 {   
     private $idProducto;
@@ -67,7 +66,13 @@ class TraspasoAlmacen
          if($val > 1){
              echo 0;
          }else{
-             
+             $traspaso = new TraspasoProductoModels($almacenInicio,$almacenfin,$idProducto,$lote,$peso,$piezas);
+             $traspasoStatus = $traspaso->makeTraspaso();
+             if($traspasoStatus){
+                echo 1;
+             }else{
+                echo 0;
+             }
          }
 
     }

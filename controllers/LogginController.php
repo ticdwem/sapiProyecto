@@ -137,7 +137,7 @@ class LogginController
                         'apeliidos'=>$fila["apellidosEmpleado"],
                         'status'=>$fila["statusUsuario"],
                         'grerarquia'=>$fila["gerarquia"],
-                        'camra'=>$camara,
+                        'camra'=> $camara,
                         'menu'=> $json
                     );  
 

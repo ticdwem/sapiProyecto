@@ -268,7 +268,11 @@
                     
                     },
                     success: function (traspasoWherhouse) {
-                        console.log(traspasoWherhouse)
+                        if(traspasoWherhouse == 1){
+                            alert('traspaso correcto');
+                        }else{
+                            alert('no se realizo clgun traspaso');
+                        }
                     }
                 })
 /* ############################################################################################################################################### */

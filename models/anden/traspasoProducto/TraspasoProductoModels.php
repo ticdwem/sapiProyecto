@@ -1,6 +1,5 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'].'/sapiProyecto/models/anden/DatosAnden.php';
-
 class TraspasoProductoModels extends DatosAnden 
 {
 
@@ -16,7 +15,9 @@ class TraspasoProductoModels extends DatosAnden
         parent::__construct($andenInicio);
         $this->andenFin = $andenFin;
         $this->idProducto = $idProducto;
-        
+        $this->lote = $lote;
+        $this->peso = $peso;
+        $this->piezas = $piezas;
     }
     
 

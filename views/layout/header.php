@@ -59,12 +59,14 @@
             <!-- <a class="navbar-brand" href="index.html">CByNI</a> --> <img src="<?=base_url?>assets/img/pila.png" width="225px" height="75px" alt=""> 
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button><!-- Navbar Search-->
             <div class="" id="headerBienestar">
+                <?php if(isset($_SESSION['usuario'])): ?>
                 <div class="input-group divconsul">
-                    <p class="consul"><?php if(isset($_SESSION['usuario'])){echo $_SESSION["usuario"]["nombre"];} ?></p>                    
+                    <p class="consul"><?php echo $_SESSION["usuario"]["nombre"].Utls::printHeaderAlmacen(); ?></p>                    
                     <input type="hidden" name="idUser" id="idUser" class="idUser" value="<?=$_SESSION["usuario"]["id"]?>">
                     <input type="hidden" name="idCmara" id="idCmara" class="idCmara" value="<?=$_SESSION["usuario"]["camra"]?>">
                     
                 </div>
+                <?php endif; ?>
             </div>
         <!-- Navbar-->
                 <ul class="navbar-nav ml-auto ml-md-0">

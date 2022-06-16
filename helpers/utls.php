@@ -294,4 +294,24 @@ class Utls{
           return $resultado;
         }
       }
+
+      public static function getNumRemision(){
+        require_once $_SERVER['DOCUMENT_ROOT']."/sapiProyecto/config/modeloBase.php";
+
+        $idAlmacen = new ModeloBase();
+        $id =  $idAlmacen->getIdCleinte($_SESSION['usuario']['camra'])->fetch_object();
+        return $id->id;
+      }
+
+      public static function printHeaderAlmacen(){
+        $almacen = ($_SESSION['usuario']['camra']);
+        $name = "";
+
+        if($almacen != 0){
+            $anden = $almacen-1;
+            $name = "--".ALMACEN[$anden];
+        }
+
+        return $name;
+      }
 }

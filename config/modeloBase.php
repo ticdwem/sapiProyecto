@@ -27,10 +27,10 @@ class ModeloBase{
         $contar = $this->db->query($consulta);
         return $contar;
     }
-    public function getIdCleinte($id,$tabla,$idConsultorio){
+    public function getIdCleinte($idAlmacen){
         // $getId = "SELECT IFNULL(MAX($id),0)+1 as id FROM $tabla";
-         $getId = "SELECT IFNULL(MAX($id),0)+1 as id FROM $tabla
-        WHERE id_consultorio = $idConsultorio";
+         $getId = "SELECT IFNULL(MAX(idNotaVendida),0)+1 as id FROM pedidos
+        WHERE idAlmacenPedidos = $idAlmacen";
         
          $id = $this->db->query($getId);
          return $id;

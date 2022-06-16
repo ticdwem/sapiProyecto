@@ -30,10 +30,10 @@ DROP PROCEDURE IF EXISTS CambioDeAlmacen //
 	 	select sacarPeso(_idProducto,_lote,_idAlmacenInicial) INTO _psoUnoFinal;
 	 	
 	 	-- restamos las piezas
-	 	select restaArticulos(_pz,_totalpz) INTO _restarPzTotal;
+	 	select restaArticulos(_totalpz,_pz) INTO _restarPzTotal;
 	 	
 	 	-- restamos los pesos 
-	 	select restSomting(_peso,_psoUnoFinal) INTO _restarPesoTotal;
+	 	select restSomting(_psoUnoFinal,_peso) INTO _restarPesoTotal;
 	 	
 	 	-- obtenermos los datos del almcaen destino
 	 	select sacarCantidad(_idProducto,_lote,_idAlmacenFinal)INTO _totalpzDos;
@@ -42,9 +42,7 @@ DROP PROCEDURE IF EXISTS CambioDeAlmacen //
 	 	SELECT precioProductoUnidad INTO _precioProducto FROM producto WHERE idProducto = _idProducto;
 	 	SELECT precioTotalProduto(_peso, _precioProducto) INTO _precioTotal;
 	 	
-		IF(_totalpzDos IS NULL OR _totalpzDos = '')  then 		 
-		 
-		 
+		IF(_totalpzDos IS NULL OR _totalpzDos = '')  then 			 
 		 
 		 INSERT INTO almacencentral
 				(idProductoACentral, loteACentral, pesoACentral, cantidadPzACentral, almacenACentral, fechaACentral, precioTotal)

@@ -5,6 +5,7 @@ define("controller_default", "LogginController"); // controlador por defecto
 define("action_default","index");
 DEFINE ('MINXDAY',86400); // OBTENEMOS LOS MINUTOS DE TOTALE DE UNA HORA
 const GERARQUIA = array('anden','recepcion','supervision','administrador','superadminmistrador');
+const ALMACEN = array('z','A','B','C','D');
 
 
 //define("root",$_SERVER['DOCUMENT_ROOT']);
