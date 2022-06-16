@@ -70,13 +70,13 @@
 				 <?php Utls::deleteSession('loggin')?>
 				<form action="<?=base_url?>Loggin/verificar" method="POST" class="login100-form validate-form" id="frmLogginVerif" novalidate>
 					<div class="wrap-input100 validate-input m-b-26" >
-						<span class="label-input100">USUARIO</span>
+						<span class="label-input100">USUARIO:</span>
 						<input class="input100" type="text" name="emailLoggin" placeholder="NOMBRE USUARIO" id="emailLoggin">
 						<div class="emailLoggin"></div>
                     </div>
                     
 					<div class="wrap-input100 validate-input m-b-18" >
-						<span class="label-input100">CONTRASEÑA</span>
+						<span class="label-input100">CONTRASEÑA:</span>
 						<input class="input100" type="password" name="inputPassLoggin" placeholder="**********" id="inputPassLoggin">
 						<div class="inputPassLoggin"></div>
 					</div>
@@ -95,7 +95,7 @@
 					<div class="container-login100-form-btn">
 						<!-- <button type="submit" class="login100-form-btn btnstart"> -->
 						<button type="submit" class="login100-form-btn" id="btn-submit-loggin">
-							Login
+							ENTRAR
 						</button>
                     </div>
                     <?php if(isset($_SESSION['errorLoguin'])){echo '<p class="alert alert-danger text-black-50 small mt-3" role="alert"><strong>'.$_SESSION['errorLoguin']."</strong></p>";}?>

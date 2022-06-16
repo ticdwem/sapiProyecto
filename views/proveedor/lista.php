@@ -19,7 +19,7 @@
                 <tr>
                   <th><?= $prov->nombreProveesor ?></th>
                   <td><?= $prov->rfcProveedor ?></td>
-                  <td><a class="btn btn-primary" href="<?= base_url ?>Proveedor/edit&id=<?= $prov->idProveedor ?>" role="button">Link</a></td>
+                  <td><a class="btn btn-primary" href="<?= base_url ?>Proveedor/edit&id=<?= $prov->idProveedor ?>" role="button">Ver</a></td>
                 </tr>
               <?php endwhile ?>
             </tbody>
