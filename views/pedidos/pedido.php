@@ -68,7 +68,7 @@
                 <form id="frmPedido">
                     <div class="row " id="prodNewForm">
                         <div class="col-lg-2">
-                            <label class="mr-sm-2" for="inputCodigoPedido">Código</label>
+                            <label class="mr-sm-2" for="inputCodigoPedido">Código Producto</label>
                             <div class="input-group">
                                 <input type="text" name="inputCodigoPedido" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputCodigoPedido" autocomplete="off">
                             </div>
@@ -126,6 +126,55 @@
             <button type="button" class="btn btn-success" id="btnPedidoAceptar">HACER PEDIDO</button>
         </div>
         <div class="alertaInsert col-md-12 col-sm-12 mt-3 mb-3" id="alertaInsert"></div>
+</div>
+
+<!-- modal de las editar Pedido  -->
+<div class="modal fade bd-example-modal-lg" id="editProductoPedido" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Editar pedido</h5>
+            <input type="hidden" id="idhiddeneditproduct" value="">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="editProducto">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputIdProdcuto">IdProducto</label>
+                        <input type="text" class="form-control inputIdProdcuto" id="inputIdProdcuto" placeholder="id Producto" disabled>
+                        <div class="inputIdProdcuto"></div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputNombreProducto">Nombre</label>
+                        <input type="text" class="form-control inputNombreProducto" id="inputNombreProducto" placeholder="Nombre Producto" disabled>
+                        <div class="inputNombreProducto"></div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputPresentacionEditar">Presentacion</label>
+                        <input type="text" class="form-control inputPresentacionEditar" id="inputPresentacionEditar" placeholder="Presentacion Producto" disabled>
+                        <div class="inputPresentacionEditar"></div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPiezasEditar">Piezas</label>
+                        <input type="text" class="form-control inputPiezasEditar" id="inputPiezasEditar" placeholder="Nombre Producto">
+                        <div class="inputPiezasEditar"></div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-lg-12 mt-4">
+                        <button type="button" class="btn btn-success" id="idEditarPzProdcuto">Aceptar</button>
+                        <button type="button" class="btn btn-warning" id="" >Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
 </div>
 
 <!-- modal de las lista de los productos  -->
@@ -239,6 +288,7 @@ $(document).on('click','.selectPRoductPEdido',function(e){
 $(document).ready(function(){
     $("#inputCodigoPedido").on('change',function(){
         let codigo = $(this).val();
+
         var validarCodugo = expRegular("phone", codigo);
         if (validarCodugo != 0) {
             var verifProd = new FormData();
@@ -261,6 +311,7 @@ $(document).ready(function(){
                         
                         focusInput('inputPiezasPedido');
                     }else{
+                        focusInput('inputCodigoPedido');
                         Swal.fire({
                                     icon: 'error',
                                     title: 'ERROR',
@@ -287,23 +338,24 @@ $(document).ready(function(){
 });
        const formPedidos = document.getElementById("frmPedido");
         
+       let num = 0;
         formPedidos.addEventListener("submit", function (event) {
+            num++;
             event.preventDefault();
-
             let validar = Array();
             let transactionFormData = new FormData(formPedidos); // obtiene los datos del formulario
-
+            
             let inputCodigo = document.getElementById('inputCodigoPedido').value; 
             let inputNombreProd = document.getElementById('inputNombreProdPedido').value; 
             let inputPresentacion = document.getElementById('inputPresentacionPedido').value; 
             let inputPieza = document.getElementById('inputPiezasPedido').value; 
-
+            
             validar.push({"phone_inputCodigoPedido_6":inputCodigo,"nombre_inputNombreProdPedido_80":inputNombreProd,"nombre_inputPresentacionPedido_80":inputPresentacion,"decimales_inputPiezasPedido_12":inputPieza});
             var campos = validarCampos(validar);
             if(campos == 0 ){
+                let inputsCorrects = ["inputCodigoPedido","inputNombreProdPedido","inputPresentacionPedido","inputPiezasPedido"];
                 let insertProducto = document.getElementById("registroProductoPedido"); // este es el id de la tabla
                 let newProductoRow = insertProducto.insertRow(-1); //este retorna una fila en la ultima fila de 
-                
                 let newproductoCellNew = newProductoRow.insertCell(0);// posisicion de la celda
                 newproductoCellNew.textContent = transactionFormData.get("inputCodigoPedido");
                 
@@ -314,30 +366,29 @@ $(document).ready(function(){
                 newproductoCellNew.textContent = transactionFormData.get("inputPresentacionPedido");
                 
                 newproductoCellNew = newProductoRow.insertCell(3);// posisicion de la celda
-                newproductoCellNew.textContent = transactionFormData.get("inputPiezasPedido");
+                newproductoCellNew.textContent = transactionFormData.get("inputPiezasPedido");                
+                newproductoCellNew.setAttribute("id","editPedido_"+num)
 
                 
                 newproductoCellNew = newProductoRow.insertCell(4);// posisicion de la celda
-                newproductoCellNew.insertAdjacentHTML("afterbegin","<button type='button' class='btn btn-danger deleteOnclick' onclick='deleteRow(this)'><i class='fa fa-times-circle' id='' aria-hidden='true'></i></button>");
-
-                limpiarInput("inputCodigoPedido");
+                newproductoCellNew.insertAdjacentHTML("afterbegin","<button type='button' class='btn btn-warning mr-1 editProductoPedido' data-id='editPedido_"+num+"'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><button type='button' class='btn btn-danger deleteOnclick' onclick='deleteRow(this)'><i class='fa fa-times-circle' id='' aria-hidden='true'></i></button>");
+             
+                inputsCorrects.forEach(function(element){
+                    limpiarInput(element);
+                })
+                /* limpiarInput("inputCodigoPedido");
                 limpiarInput("inputNombreProdPedido");
                 limpiarInput("inputPresentacionPedido");
-                limpiarInput("inputPiezasPedido");
+                limpiarInput("inputPiezasPedido"); */
                 // este codigo sirve para poner el cursor en la primer input
                 focusInput('inputCodigoPedido');
-                /* let totalCompra = 0;
-                    $("#registroProducto tr").each(function(){
-                        totalCompra +=parseFloat($(this).find('td').eq(6).html());
-                    }) 
-                    $("#total").html(totalCompra.toFixed(2)); */
             }else{
                 Swal.fire({
                     position: 'center',
                     icon: 'info',
                     title: 'TODOS LOS CAMPOS SON OBLIGATORIOS, VERIFIQUE LOS DATOS ',
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 2500
                 });  
                 
                 limpiarInput("inputPeso");

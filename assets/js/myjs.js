@@ -1000,9 +1000,9 @@ $(document).ready(function() {
                             Swal.fire({
                                 position: 'center',
                                 icon: 'success',
-                                title: 'Your work has been saved',
+                                title: 'SE HA GUARDADO SU PEDIDO CON ÉXITO',
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 2500
                             }).then(function() {
 
                                 $(location).attr('href', getAbsolutePath() + 'Pedido/index')
@@ -1167,6 +1167,14 @@ $(document).ready(function() {
         });
 
         $("#" + idBoton).addClass("disableBtn");
+    });
+
+    $("#idEditarPzProdcuto").on("click", function(e) {
+        let idhiddenProducto = $("#idhiddeneditproduct").val();
+        let pzNuevoProducto = $("#inputPiezasEditar").val();
+
+        console.log($("#" + idhiddenProducto).val(pzNuevoProducto));
+
     });
 });
 
@@ -1527,4 +1535,14 @@ $(document).on('click', '.btnselectidProducto', function(e) {
     $("#pesoTraspasoModal").attr('placeholder', "peso maximo: " + hiddenPesoTotalTraspaso + " kg")
     $("#piezasVentaTraspasoModal").attr('placeholder', "piezas maximas: " + piezasVentaTraspasoModal + " pz")
     $("#modalProductoTraspaso").modal();
+});
+
+$(document).on('click', '.editProductoPedido', function(e) {
+    let getIdPRoductoPz = $(this).attr("data-id");
+    $("#idhiddeneditproduct").val(getIdPRoductoPz);
+    $("#inputIdProdcuto").val($(this).parents('tr').find('td')[0].innerHTML);
+    $("#inputNombreProducto").val($(this).parents('tr').find('td')[1].innerHTML);
+    $("#inputPresentacionEditar").val($(this).parents('tr').find('td')[2].innerHTML);
+    $("#inputPiezasEditar").val($(this).parents('tr').find('td')[3].innerHTML);
+    $('#editProductoPedido').modal({ backdrop: 'static', keyboard: false });
 })

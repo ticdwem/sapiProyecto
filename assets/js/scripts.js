@@ -115,7 +115,17 @@ function limpiarFormulario(formulario) {
 }
 // funcion para limpiar inputs
 function limpiarInput(idInput) {
-    document.getElementById(idInput).value = "";
+    let idInputFuntion = document.getElementById(idInput).value;
+    if (idInputFuntion.length > 0) {
+        document.getElementById(idInput).value = '';
+    }
+
+}
+
+function lipiarDiv(elemento) {
+    let idBorder = document.getElementById(elemento);
+    idBorder.style.border = '1px solid green';
+    document.getElementsByClassName(elemento)[0].innerHTML = '';
 }
 
 
@@ -560,6 +570,10 @@ function deleteRow(r) {
 
 }
 
+function changetrtd(r) {
+    var row = upTo(r, 'tr');
+    console.log(row);
+}
 
 function porcentaje(porcentaje, total) {
     let dato1 = parseFloat(porcentaje);

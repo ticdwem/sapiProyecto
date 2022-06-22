@@ -48,8 +48,8 @@
     <script src="<?=base_url?>assets/js/scripts.js" defer></script>
     <script src="<?=base_url?>assets/js/validar-campos.js"></script>
     <script src="<?=base_url?>assets/js/myjs.js"></script>
-<!--     <script src="<?=base_url?>assets/demo/chart-area-demo.js"></script>
-    <script src="<?=base_url?>assets/demo/chart-bar-demo.js"></script>
+    <script src="<?=base_url?>assets/js/jqueryarchivos.js"></script>
+<!--         <script src="<?=base_url?>assets/demo/chart-bar-demo.js"></script>
     <script src="<?=base_url?>assets/demo/datatables-demo.js"></script> -->
 
 </head>
