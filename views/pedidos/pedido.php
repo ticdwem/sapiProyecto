@@ -371,15 +371,11 @@ $(document).ready(function(){
 
                 
                 newproductoCellNew = newProductoRow.insertCell(4);// posisicion de la celda
-                newproductoCellNew.insertAdjacentHTML("afterbegin","<button type='button' class='btn btn-warning mr-1 editProductoPedido' data-id='editPedido_"+num+"'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><button type='button' class='btn btn-danger deleteOnclick' onclick='deleteRow(this)'><i class='fa fa-times-circle' id='' aria-hidden='true'></i></button>");
+                newproductoCellNew.insertAdjacentHTML("afterbegin","<button type='button' class='btn btn-warning mr-1 editProductoPedido' onclick='changetrtd(this)' data-id='editPedido_"+num+"'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><button type='button' class='btn btn-danger deleteOnclick' onclick='deleteRow(this)'><i class='fa fa-times-circle' id='' aria-hidden='true'></i></button>");
              
                 inputsCorrects.forEach(function(element){
                     limpiarInput(element);
                 })
-                /* limpiarInput("inputCodigoPedido");
-                limpiarInput("inputNombreProdPedido");
-                limpiarInput("inputPresentacionPedido");
-                limpiarInput("inputPiezasPedido"); */
                 // este codigo sirve para poner el cursor en la primer input
                 focusInput('inputCodigoPedido');
             }else{

@@ -1170,10 +1170,41 @@ $(document).ready(function() {
     });
 
     $("#idEditarPzProdcuto").on("click", function(e) {
-        let idhiddenProducto = $("#idhiddeneditproduct").val();
-        let pzNuevoProducto = $("#inputPiezasEditar").val();
+        let idPRoducto = $("#inputIdProdcuto").val();
+        let nomPRoducto = $("#inputNombreProducto").val();
+        let presentacionProducto = $("#inputPresentacionEditar").val();
+        let pzProducto = $("#inputPiezasEditar").val();
+        let valPz = expRegular("phone", pzProducto);
+        if (valPz != 0) {
+            let insertProducto = document.getElementById("registroProductoPedido"); // este es el id de la tabla
+            let newProductoRow = insertProducto.insertRow(-1); //este retorna una fila en la ultima fila de 
+            let newproductoCellNew = newProductoRow.insertCell(0); // posisicion de la celda
+            newproductoCellNew.textContent = idPRoducto;
 
-        console.log($("#" + idhiddenProducto).val(pzNuevoProducto));
+            newproductoCellNew = newProductoRow.insertCell(1); // posisicion de la celda
+            newproductoCellNew.textContent = nomPRoducto;
+
+            newproductoCellNew = newProductoRow.insertCell(2); // posisicion de la celda
+            newproductoCellNew.textContent = presentacionProducto;
+
+            newproductoCellNew = newProductoRow.insertCell(3); // posisicion de la celda
+            newproductoCellNew.textContent = pzProducto;
+
+            newproductoCellNew = newProductoRow.insertCell(4); // posisicion de la celda
+            newproductoCellNew.insertAdjacentHTML("afterbegin", "<button type='button' class='btn btn-warning mr-1 editProductoPedido' onclick='changetrtd(this)' data-id='editPedido_" + num + "'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><button type='button' class='btn btn-danger deleteOnclick' onclick='deleteRow(this)'><i class='fa fa-times-circle' id='' aria-hidden='true'></i></button>");
+
+            // este codigo sirve para poner el cursor en la primer input
+            focusInput('inputCodigoPedido');
+            $('#editProductoPedido').modal('hide');
+        } else {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'DATOS ERRONEOS',
+                showConfirmButton: false,
+                timer: 2000
+            })
+        }
 
     });
 });

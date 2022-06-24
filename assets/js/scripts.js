@@ -571,8 +571,7 @@ function deleteRow(r) {
 }
 
 function changetrtd(r) {
-    var row = upTo(r, 'tr');
-    console.log(row);
+    deleteRow(r);
 }
 
 function porcentaje(porcentaje, total) {
