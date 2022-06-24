@@ -75,5 +75,7 @@ class PedidoController
 
     }
 
-
+    Public function listaAnterior(){
+        require_once('views/pedidos/listaPedidos.php');
+    }
 }

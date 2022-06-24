@@ -42,6 +42,12 @@ DROP PROCEDURE IF EXISTS CambioDeAlmacen //
 	 	SELECT precioProductoUnidad INTO _precioProducto FROM producto WHERE idProducto = _idProducto;
 	 	SELECT precioTotalProduto(_peso, _precioProducto) INTO _precioTotal;
 	 	
+	 	/*
+		  * este if actualiza la tabla destino, si en la tabla destino no existe el producto este sera insertardo;
+		  * de lo contrario, sacamos su precio final que tiene lo sumamos con el precio que que vamos a sacar de la 
+		  * los productos. sumamos la cantidad que scamos de la tabla origen mas lo que tiene la tabla destino, de la
+		  * misma manera en el peso, y al final actualoizamos todo en la tabla origen
+		 */
 		IF(_totalpzDos IS NULL OR _totalpzDos = '')  then 			 
 		 
 		 INSERT INTO almacencentral
@@ -54,20 +60,19 @@ DROP PROCEDURE IF EXISTS CambioDeAlmacen //
 		 
 		 	SELECT sumSomting(_pz,_totalpzDos) INTO _sumPz;
 	    	SELECT sumSomting(_peso,_psoDosFinal) INTO _sumPeso;
-	    	
-	    --	SELECT precioTotalProduto(_sumPeso, _precioProducto) INTO _precioTotal;	    	 
+			     	 
 	    	SELECT sumSomting(_precioTotal,_precioFinalAlmacenDestino) INTO _precioFinalSumado;
 		
 		
-		UPDATE almacencentral
-				SET						
-					pesoACentral=_sumPeso,
-					cantidadPzACentral=_sumPz,
-					precioTotal = _precioFinalSumado
-				WHERE 
-					idProductoACentral=_idProducto
-					and
-					almacenACentral = _idAlmacenFinal;
+			UPDATE almacencentral
+					SET						
+						pesoACentral=_sumPeso,
+						cantidadPzACentral=_sumPz,
+						precioTotal = _precioFinalSumado
+					WHERE 
+						idProductoACentral=_idProducto
+						and
+						almacenACentral = _idAlmacenFinal;
 		END IF;
 			
 			SELECT ac.precioTotal INTO _totalALmacenIncial FROM almacencentral ac 
@@ -86,10 +91,6 @@ DROP PROCEDURE IF EXISTS CambioDeAlmacen //
 					idProductoACentral=_idProducto AND 
 					loteACentral=_lote AND
 					almacenACentral=_idAlmacenInicial;
-				/*	SELECT _restarPesoTotal;
-					SELECT _restarPzTotal;
-					SELECT _restarPzTotal;
-					select _precioTotal;*/
 					
 	 	
 	END
