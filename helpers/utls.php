@@ -233,6 +233,10 @@ class Utls{
                     $retorno = 'Traspaso Producto';
                 }
                 break;
+            case 'Pedido':
+                if ($action == 'PedidoAnterior') {
+                    $retorno = 'Lista de Pedidos Anteriores';
+                }
            default:
                # code...
                break;
@@ -313,5 +317,26 @@ class Utls{
         }
 
         return $name;
+      }
+
+      public static function diasAnteriores($fecha,$diasAtrazo){
+        $fecha;
+        $dateToday = Validacion::valFecha($fecha);
+        if($dateToday == 0 || $dateToday == -1){
+            $fecha = 0;
+        }else{
+            if($diasAtrazo == 1){            
+                $ayer = strtotime('-1 days',strtotime($dateToday));
+                $nameDay = date('l',$ayer);
+                if($nameDay == "Sunday"){
+                    $TwoDays = strtotime('-2 days',strtotime($dateToday));
+                    $fecha = date('Y-m-d',$TwoDays);
+                }else{
+                    $fecha = date('Y-m-d',$ayer);
+                }
+            }
+        }
+
+        return $fecha;
       }
 }

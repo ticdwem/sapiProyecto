@@ -1,4 +1,11 @@
 <?php
+/**
+ * esta clase es heredada para todos los ajax 
+ * este ya contiene las configuraciones de 
+ * los principales archivos que re quiere para su fucionameinto
+ * Contiene una clase para que esta sea utilizada en los archivos heredados
+ * esta sera reescrita
+ */
 require '../../../config/requireoncedefault.php';
 
 class AjaxDefault{
@@ -28,7 +35,7 @@ class AjaxDefault{
         return $this;
     }
 
-    public function sendToController(){
+    public function  sendToController(){
         return 0;
     }
     

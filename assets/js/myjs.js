@@ -1576,4 +1576,17 @@ $(document).on('click', '.editProductoPedido', function(e) {
     $("#inputPresentacionEditar").val($(this).parents('tr').find('td')[2].innerHTML);
     $("#inputPiezasEditar").val($(this).parents('tr').find('td')[3].innerHTML);
     $('#editProductoPedido').modal({ backdrop: 'static', keyboard: false });
-})
+});
+
+/* 
+$(document).on("change","#dateId",function(e){
+    let fecha = $(this).val();
+
+    if(fecha.length>0){
+        let validarFEcha = expRegular("date",fecha);
+        if(validarFEcha != 0){    alert("tenmos fecha");    }else{alert("formato incorrecto");}
+
+    }else{
+
+    }
+}) */
