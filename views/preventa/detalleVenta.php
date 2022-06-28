@@ -4,8 +4,6 @@
         echo '<div class="alert alert-danger" role="alert" style="width:80%;">HUBO UN ERROR INTERNO EN EL SISTEMA, CONTACTA A TU ADMINISTRADOR DE SISTEMAS</div>';
         Utls::deleteSession('formulario_cliente');
     }
-
-
     ?>
 </div>
 <div class="">
@@ -124,19 +122,23 @@
                         <td><?=$producto->presentacionProducto;?></td>
                         <td><?=$producto->pzProductoPedido;?></td>
                         <td>
+                            <?php if($_GET["controller"] == "Preventa"): ?>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <button type='button' class='btn btn-warning modalEditProduct' data-id="<?=$producto->pzProductoPedido;?>"><i class="fas fa-edit"></i></button>
                                 <button type='button' class='btn btn-danger deleteOnclickDb ml-2' id="<?=$producto->idProductoPedido?>" data-get="<?=$_GET['id']?>"><i class='fa fa-times-circle' id='' aria-hidden='true'></i></button>
                             </div>
+                            <?php endif; ?>
                         </td>
                     </tr>
                <?php endwhile; ?>
                 </tbody>
             </table> 
         </div>
-        <div id="divBtnPedidoAceptar" class="mt-3">
-            <button type="button" class="btn btn-success" id="designAlmacen">DESIGNAR ALMACEN</button>
-        </div>
+        <?php if($_GET["controller"] == "Preventa"): ?>
+            <div id="divBtnPedidoAceptar" class="mt-3">
+                <button type="button" class="btn btn-success" id="designAlmacen">DESIGNAR ALMACEN</button>
+            </div>
+         <?php endif; ?>
         <div class="alertaInsert col-md-12 col-sm-12 mt-3 mb-3" id="alertaInsert"></div>
 </div>
 

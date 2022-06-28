@@ -339,4 +339,38 @@ class Utls{
 
         return $fecha;
       }
+
+      public static function restarDias($fechaincial,$diasArestar){
+        $regreso = '';
+        $fechahoy = date("d-m-Y");
+        $incial = (Validacion::valFecha($fechaincial) == 0) ? false :  $fechaincial;
+        $dias = (Validacion::validarNumero($diasArestar) == -1) ? false : $diasArestar;
+        if($incial == false || $dias == false ){
+            $regreso=0;
+        }else{            
+            // esta es la fecha calculada de la fecha de hoy a N dias a tras; 
+            $fechaUno = strtotime('-'.$diasArestar.' days',strtotime($fechahoy));
+            $fecha = date('Y-m-d',$fechaUno);
+            $mesFechaUno = date('m',$fechaUno);
+            $mesincial = date('m',strtotime($incial));
+            if( $mesFechaUno == $mesincial){
+                /* verificamos que los dias fechauno sea igual o mayor a diaIncial*/
+                $diaincial = intval(date('d',strtotime($incial)));
+                $diaFechaUno = intval(date('d',strtotime($fecha)));
+
+                if($diaFechaUno <=$diaincial){
+                    $regreso=1050;// correcto
+                }else{
+                    $regreso=1051; // por dias se pasa de los 30 dias
+                }
+            }else if($mesFechaUno > $mesincial){
+                $regreso=1052; // se pasa por meses
+            }else{
+                $regreso=1053; // default regreso este es por que la fecha esta dentro de los 30 dias
+            }
+
+        }
+
+        return $regreso;
+      }
 }

@@ -331,6 +331,13 @@ $(document).ready(function(){
     });
     $("#btnFindProduct").on('click',function(e){
         e.preventDefault();
+        let texto = document.getElementsByClassName('inputCodigoPedido')[0].innerHTML;
+        let clases = ["inputCodigoPedido", "inputNombreProdPedido", "inputPresentacionPedido", "inputPiezasPedido"];
+        if (texto.length > 0) {
+            clases.forEach(function(elemento) {
+                lipiarDiv(elemento)
+            })
+        }
         $("#ListPRod").modal('toggle',{backdrop: 'static', keyboard: false});
     })
     

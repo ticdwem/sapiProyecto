@@ -4,7 +4,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/models/PedidoModel.php";
 
 class PedidoController
 {
-
     public function __construct()
     {
         //validamos si extiste a sesison
@@ -77,5 +76,14 @@ class PedidoController
 
     Public function PedidoAnterior(){
         require_once('views/pedidos/listaPedidos.php');
+    }
+
+    public function detalle(){
+        $detallePEdido = new PedidoModels();
+        $datos = $detallePEdido->getAllWhere('clientepedido','WHERE id='.$_GET['cli'])->fetch_object();  // datos de contacto de cliente      
+        $dom = $detallePEdido->getAllWhere('mostrardatospedido','WHERE clienteId='.$_GET['cli'])->fetch_object(); // datos de domicilio de cliente
+        $prod = $detallePEdido->getAllWhere('viewPedidosProducto','WHERE idnotaPedido = '.$_GET['id']); // datos de productos
+        $almacenes = $detallePEdido->getAllwhere('almacen','WHERE idAlmacen <> 1'); // traer almacenes excepto el almacen 1 que es el default
+        require_once 'views/preventa/detalleVenta.php';
     }
 }

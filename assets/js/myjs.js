@@ -38,6 +38,26 @@ $(document).ready(function() {
         "drawCallback": function(settings) {
             $('ul.pagination').addClass("pagination-sm");
             $('ul.pagination li').removeClass("paginate_button");
+        },
+        "language": {
+            "decimal":        "",
+            "emptyTable":     "Sin Datos",
+            "info":           "Mostrando _START_ A _END_ de _TOTAL_ registros Totales",
+            "infoEmpty":      "Mostrando 0 de 0 de 0 Registros Totales",
+            "infoFiltered":   "(Filtrado De _MAX_ Registros totales)",
+            "infoPostFix":    "",
+            "thousands":      ",",
+            "lengthMenu":     "Mostrar _MENU_ Registros",
+            "loadingRecords": "Cargando...",
+            "processing":     "Procesando",
+            "search":         "Buscar:",
+            "zeroRecords":    "No se encontraron registros coincidentes",
+            "paginate": {
+                "first":      "Primero",
+                "last":       "Último",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+            }
         }
     });
     /* DATATABLE pEDIDOS 
