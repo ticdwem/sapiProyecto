@@ -236,6 +236,8 @@ class Utls{
             case 'Pedido':
                 if ($action == 'PedidoAnterior') {
                     $retorno = 'Lista de Pedidos Anteriores';
+                }elseif ($action == 'pedidos') {
+                    $retorno = 'Lista de Pedidos A Editar';
                 }
            default:
                # code...
@@ -373,4 +375,6 @@ class Utls{
 
         return $regreso;
       }
+
+
 }

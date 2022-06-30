@@ -4,7 +4,6 @@
         echo '<div class="alert alert-danger" role="alert" style="width:80%;">HUBO UN ERROR INTERNO EN EL SISTEMA, CONTACTA A TU ADMINISTRADOR DE SISTEMAS</div>';
         Utls::deleteSession('formulario_cliente');
     }
-
     ?>
 </div>
 <div class="">
@@ -97,9 +96,17 @@
                         </div>
                     
                     </div>
-                    <div class="col-lg-12 mt-4">
-                                <button type="submit" class="btn btn-success" id="enterProducto" name="btn-acepta">Aceptar</button>
-                                <button type="button" class="btn btn-warning" id="btnFindProduct">Buscar</button>
+                    <div class="row col-lg-12 mt-4">
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <button type="submit" class="btn btn-success" id="enterProducto" name="btn-acepta">Aceptar</button>
+                            <button type="button" class="btn btn-warning" id="btnFindProduct">Buscar</button>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="row">  
+                            <label for="exampleFormControlFile1">Ingrese Fecha de entrega</label>  
+                            <input class="datepicker" data-date-format="dd/mm/yyyy" id="dateIdPedido" autocomplete="off" readonly>
+                        </div>
+                        </div>
                     </div>
                 </form>
             </div>                      
@@ -135,9 +142,7 @@
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Editar pedido</h5>
             <input type="hidden" id="idhiddeneditproduct" value="">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
+
         </div>
         <div class="modal-body">
             <div class="editProducto">
@@ -168,7 +173,6 @@
                 <div class="form-row">
                     <div class="col-lg-12 mt-4">
                         <button type="button" class="btn btn-success" id="idEditarPzProdcuto">Aceptar</button>
-                        <button type="button" class="btn btn-warning" id="" >Cancelar</button>
                     </div>
                 </div>
             </div>
@@ -286,6 +290,25 @@ $(document).on('click','.selectPRoductPEdido',function(e){
 });
 
 $(document).ready(function(){
+
+    $('#dateIdPedido').datepicker({
+        defaultDate: sumarDias(1),
+        minDate:sumarDias(1),
+        inputs: "hola",
+        format: 'dd-mm-yyyy',
+        uiLibrary: 'bootstrap4',
+        locale: 'es-es',
+        startDate: '-3d',
+        beforeShowDay:  function(date){
+                show = true;
+                if(date.getDay() == 0 || date.getDay() == 6){show = false;}//No Weekends
+                for (var i = 0; i < holidays.length; i++) {
+                    if (new Date(holidays[i]).toString() == date.toString()) {show = false;}//No Holidays
+                }
+                var display = [show,'',(show)?'':'No Weekends or Holidays'];//With Fancy hover tooltip!
+                return display;
+            }
+    }).val(sumarDias(1))
     $("#inputCodigoPedido").on('change',function(){
         let codigo = $(this).val();
 
@@ -326,6 +349,13 @@ $(document).ready(function(){
     });
     $(document).keydown(function(tecla){
        if(tecla.keyCode == 113){
+        let texto = document.getElementsByClassName('inputCodigoPedido')[0].innerHTML;
+        let clases = ["inputCodigoPedido", "inputNombreProdPedido", "inputPresentacionPedido", "inputPiezasPedido"];
+        if (texto.length > 0) {
+            clases.forEach(function(elemento) {
+                lipiarDiv(elemento)
+            })
+        }
           $("#ListPRod").modal('toggle',{backdrop: 'static', keyboard: false});
        }  
     });
@@ -400,6 +430,5 @@ $(document).ready(function(){
                
              }
         });
-
 
 </script>

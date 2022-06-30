@@ -198,6 +198,46 @@ function hoy() {
     return hoyDia + "-" + hoyMes + "-" + hoyAno;
 }
 
+/* Función que suma o resta días a una fecha, si el parámetro
+   días es negativo restará los días*/
+   function restarDias(dias){
+        let hoy = new Date();
+        let semMinisegundos = 1000 * 60 * 60 * 24 * dias;
+        let suma = hoy.getTime() - semMinisegundos;
+        let nuevaFecha = new Date(suma);
+
+        let fechaAno = nuevaFecha.getFullYear();
+        let fechaMes = nuevaFecha.getMonth() + 1;
+        let fechaHoy = nuevaFecha.getDate();
+
+        return fechaHoy+"-"+fechaMes+"-"+fechaAno;
+  }
+  /* Función que suma o resta días a una fecha, si el parámetro
+   días es negativo restará los días*/
+   function sumarDias(dias){
+    let hoy = new Date();
+    let semMinisegundos = 1000 * 60 * 60 * 24 * dias;
+    let suma = hoy.getTime() + semMinisegundos;
+    let nuevaFecha = new Date(suma);
+
+    let fechaAno = nuevaFecha.getFullYear();
+    let fechaMes = nuevaFecha.getMonth() + 1;
+    let fechaHoy = nuevaFecha.getDate();
+
+    return fechaHoy+"-"+fechaMes+"-"+fechaAno;
+    }
+/**
+ * extrae el numero del dia sabiendo que el dia 0 es domingo 
+ * el dia 6 es sabado
+ */
+    function numberDay(date){
+        let separar = separarFecha(date);
+        let mes = (separar[1] - 1);
+        let MyDate = new Date(separar[2],mes,separar[0]);
+        let getdayNumber = MyDate.getDay();
+        return getdayNumber;
+    }
+
 function mayusculas(e) {
     e.value = e.value.toUpperCase();
 }
@@ -277,20 +317,18 @@ function validarInput(input) {
         "\nFormato: " + valido;
 }
 
+function separarFecha(fecha){
+    let separador = "-";
+    let fechaNuevo = "";
+    fechaNuevo = fecha.split(separador,3);
+    return fechaNuevo;
+}
 
 function separaTexto(texto, limite) {
     let separador = "_";
-    //let limit = 3;
     let textoNuevo = "";
     textoNuevo = texto.split(separador, limite);
     return textoNuevo
-        /* let validarTexto = expRegular('nombre', texto)
-        if (validarTexto = !0) {
-          textoNuevo = texto.split(separador, limit);
-          return textoNuevo
-        } else {
-          return 0
-        } */
 }
 
 function tamanoTxt(texto, length_txt) {

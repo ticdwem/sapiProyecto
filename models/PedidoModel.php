@@ -156,16 +156,31 @@ class PedidoModels extends ModeloBase
 	public function insertPedido(){
 		$insert= "INSERT INTO pedidos 
 							(idnotaPedido, idUsuarioPedido, idClientePedido, idProductoPedido, pzProductoPedido, fechaAltaProductoPedido, statusProductoPedido,fechaEntregaPedido)
-							 VALUES ('{$this->getIdnotaPedido()}', '{$this->getIdUsuarioPedido()}', '{$this->getIdClientePedido()}', '{$this->getIdProductoPedido()}', '{$this->getPzProductoPedido()}', now(), '1','{$this->getFechaEntrega()}')";
-
-
-	
-$query = $this->db->query($insert);
+							 VALUES ('{$this->getIdnotaPedido()}', '{$this->getIdUsuarioPedido()}', '{$this->getIdClientePedido()}', '{$this->getIdProductoPedido()}', '{$this->getPzProductoPedido()}', now(), '1','{$this->getFechaEntrega()}')";	
+		$query = $this->db->query($insert);
 		$insertPedido = false;
         if($query){
             $insertPedido = true;
         }
         return $insertPedido;
+	}
+
+	public function getPedidosEditar()
+	{
+		$verPedidos = "SELECT pds.idnotaPedido,pds.idClientePedido,pds.fechaAltaProductoPedido,pds.fechaEntregaPedido,cl.nombreCliente,dc.rutaId,rt.nombreRuta
+						FROM pedidos pds 
+						INNER JOIN cliente cl
+						ON pds.idClientePedido = cl.idCliente
+						INNER JOIN domiciliocliente dc
+						ON dc.clienteId = cl.idCliente
+						INNER JOIN ruta rt
+						ON rt.idRuta = dc.rutaId
+						WHERE fechaEntregaPedido BETWEEN /* NOW() */'2022-06-27' AND (SELECT MAX(pd.fechaEntregaPedido) FROM pedidos pd) GROUP BY pds.idnotaPedido";
+		/* WHERE fechaEntregaPedido BETWEEN '2022-06-23' AND (SELECT MAX(pd.fechaEntregaPedido) FROM pedidos pd) GROUP BY pds.idnotaPedido"; */				
+		$query = $this->db->query($verPedidos);
+
+		return $query;
+
 	}
 
 

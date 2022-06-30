@@ -976,10 +976,11 @@ $(document).ready(function() {
         let idNota = $("#numNota").val();
         let idCliente = $("#inputIdCliente").val();
         let idUser = $("#idUser").val();
-        var valId = expRegular("phone", idCliente);
-        var valNota = expRegular("phone", idNota);
-        if (valId != 0 && valNota != 0) {
-            /* let tabla = $('table#registroProductotablePedido tbody tr').length; */
+        let fechaEntrega = $("#dateIdPedido").val();
+        let valId = expRegular("phone", idCliente);
+        let valNota = expRegular("phone", idNota);
+        let valFecha = expRegular("date",fechaEntrega);
+        if (valId != 0 && valNota != 0 && valFecha != 0) {
             let tabla = existeRegistro('registroProductotablePedido');
             if (tabla == 0) {
                 Swal.fire({
@@ -990,6 +991,23 @@ $(document).ready(function() {
                     timer: 1500
                 });
             } else {
+                let numeroFecha = numberDay(fechaEntrega);
+                if(numeroFecha == 0){
+                    Swal.fire({
+                        title: '¿El día seleccionado es domingo es correcto?',
+                        showDenyButton: true,
+                        showCancelButton: false,
+                        confirmButtonText: 'Guardar',
+                        denyButtonText: `No guardar`,
+                      }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                          
+                        } else if (result.isDenied) {
+                          return false;
+                        }
+                      })
+                }
                 $("#registroProductoPedido tr").each(function() {
                     let codigo = $(this).find('td').eq(0).html();
                     let producto = $(this).find('td').eq(1).html();
@@ -1002,6 +1020,7 @@ $(document).ready(function() {
                     "idCliente": idCliente,
                     "nota": idNota,
                     "user": idUser,
+                    "fecha":fechaEntrega,
                     "productos": valorPedido
                 }
                 let JsonString = JSON.stringify(data);

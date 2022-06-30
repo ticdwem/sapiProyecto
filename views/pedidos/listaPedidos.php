@@ -52,6 +52,7 @@
 $(document).ready(function(){
    
     $('.datepicker').datepicker({
+        minDate:restarDias(30),
         format: 'dd-mm-yyyy',
         uiLibrary: 'bootstrap4',
         locale: 'es-es',
