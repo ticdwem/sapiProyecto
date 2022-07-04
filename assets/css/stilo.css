@@ -594,9 +594,12 @@ form .selectH .hideSelect {
 	/* #registroProductoVenta tr td  .disableBtn:hover{
 } */
 
-/* 	#tablaEditarPEdidos{
-		border: 1px solid red;
+	#DateDevelopersProductoContenedor{
 		width: 100%;
-		min-height: 680px;
-		max-height: 700px;
-	} */
+	}
+	
+	#DateDevelopersProductoContenedor #DateDevelopersProducto{
+		position: relative;
+		left: 20%;
+		width: 70%;
+	}

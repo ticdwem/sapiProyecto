@@ -4,7 +4,6 @@
         echo '<div class="alert alert-danger" role="alert" style="width:80%;">HUBO UN ERROR INTERNO EN EL SISTEMA, CONTACTA A TU ADMINISTRADOR DE SISTEMAS</div>';
         Utls::deleteSession('formulario_cliente');
     }
-
     ?>
 </div>
 <div class="">
@@ -16,7 +15,7 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 row mb-3" id="divbtnClosePedidos">
                         <div class="col-sm-12 col-md-6 col-lg-6" id="idEmptyPedios"></div>
                         <div class="col-sm-12 col-md-6 col-lg-6" id="iddivbntPedidos">
-                            <button type="button" class="btn btn-primary btn-lg btn-block">Cerrar Pedidos</button>
+                            <button type="button" class="btn btn-primary btn-lg btn-block btnClosePEdido" id="btnClosePEdido" data-id="<?=IDUSER?>">Enviar Pedidos</button>
                         </div>
                     </div>
                     <table class="table table-striped table-hover tablaGenerica" id="tablaEditarPEdidos">
@@ -60,4 +59,37 @@
 
         })
     })
+
+    $("#btnClosePEdido").on("click", function(e){
+        $btnId = $(this).attr("data-id");
+        Swal.fire({
+            title: 'Envar los pedidos?',
+            text: "Se enviaran los pedidos al area de Anden",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si enviar',
+            cancelButtonText: 'Cancelar',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: getAbsolutePath() + "views/layout/ajax/AjaxTerminarPedido.php",
+                    method: "POST",
+                    data: { "idUSEr": $btnId },
+                    cache: false,
+                    beforeSend: function () {
+                    },
+                    success: function (terminado) {	
+                        console.log(terminado)
+                    }
+                });
+               /*  Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+                ) */
+            }
+        })
+    });
 </script>

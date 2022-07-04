@@ -63,7 +63,7 @@
                 </div>
                     <hr>
                 <?php if($_GET["controller"] == "Pedido"): ?>
-                    <form id="frmPedido">
+                    <!-- <form id="">
                         <div class="row " id="prodNewForm">
                             <div class="col-lg-2">
                                 <label class="mr-sm-2" for="inputCodigoPedido">Código</label>
@@ -106,7 +106,7 @@
                                 </div>                        
                             </div>
                         </div>
-                    </form>
+                    </form> -->
                 <?php endif; ?>
             </div>                      
         </div>        
@@ -128,14 +128,14 @@
                         <td><?=$producto->nombreProducto;?></td>
                         <td><?=$producto->presentacionProducto;?></td>
                         <td><?=$producto->pzProductoPedido;?></td>
+                        <?php if($_GET['action']!="detalle"): ?>
                         <td>
-                            
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <button type='button' class='btn btn-warning modalEditProduct' data-id="<?=$producto->pzProductoPedido;?>"><i class="fas fa-edit"></i></button>
                                 <button type='button' class='btn btn-danger deleteOnclickDb ml-2' id="<?=$producto->idProductoPedido?>" data-get="<?=$_GET['id']?>"><i class='fa fa-times-circle' id='' aria-hidden='true'></i></button>
-                            </div>
-                            
+                            </div>                            
                         </td>
+                        <?php endif ?>
                     </tr>
                <?php endwhile; ?>
                 </tbody>
@@ -295,6 +295,7 @@
    </div>
 </div>
 <script> 
+
 $(document).on('click','.modalEditProduct',function(){
     let idPro = $(this).parents("tr").find("td")[0].innerHTML;
     let producto = $(this).parents("tr").find("td")[1].innerHTML;
@@ -357,137 +358,5 @@ $(document).on('click','.selectAlmacen',function(){
 
 });
 
-$(document).on('change','#inputCodigoPedidoEditar',function(){
-        let codigo = $(this).val();
-alert(codigo);
-return false;
-        var validarCodugo = expRegular("phone", codigo);
-        if (validarCodugo != 0) {
-            var verifProd = new FormData();
-			verifProd.append("producto", codigo);
-			$.ajax({
-				url: getAbsolutePath() + "views/layout/ajax.php",
-				method: "POST",
-				data: verifProd,
-				cache: false,
-				contentType: false,
-				processData: false,
-				beforeSend: function () {
-					$('.spinnerWhite').html('<i class="fas fa-sync fa-spin"></i>');
-				},
-				success: function (datos) {
-                    if(datos != "0"){
 
-                        $("#inputNombreProdPedido").val(datos.descripcionProd);
-                        $("#inputPresentacionPedido").val(datos.presentacion);
-                        
-                        focusInput('inputPiezasPedido');
-                    }else{
-                        focusInput('inputCodigoPedido');
-                        Swal.fire({
-                                    icon: 'error',
-                                    title: 'ERROR',
-                                    text: 'No hay registro de este identificador de producto'
-                                 })
-                    }
-				}
-			})
-        }else{
-            alert("algo salio mal")
-        }
-    });
-
-    $("#btnPedidoAceptar").on("click", function(e) {
-        let valorPedido = Array();
-        let idNota = $("#numNota").val();
-        let idCliente = $("#inputIdCliente").val();
-        let idUser = $("#idUser").val();
-        let fechaEntrega = $("#dateIdPedido").val();
-        let valId = expRegular("phone", idCliente);
-        let valNota = expRegular("phone", idNota);
-        let valFecha = expRegular("date",fechaEntrega);
-        if (valId != 0 && valNota != 0 && valFecha != 0) {
-            let tabla = existeRegistro('registroProductotablePedido');
-            if (tabla == 0) {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: 'DEBES REGISTR AL MENOS UN PRODUCTO',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            } else {
-                let numeroFecha = numberDay(fechaEntrega);
-                if(numeroFecha == 0){
-                    Swal.fire({
-                        title: '¿El día seleccionado es domingo es correcto?',
-                        showDenyButton: true,
-                        showCancelButton: false,
-                        confirmButtonText: 'Guardar',
-                        denyButtonText: `No guardar`,
-                      }).then((result) => {
-                        /* Read more about isConfirmed, isDenied below */
-                        if (result.isConfirmed) {
-                          
-                        } else if (result.isDenied) {
-                          return false;
-                        }
-                      })
-                }
-                $("#registroProductoPedido tr").each(function() {
-                    let codigo = $(this).find('td').eq(0).html();
-                    let producto = $(this).find('td').eq(1).html();
-                    let presentacion = $(this).find('td').eq(2).html();
-                    let pieza = $(this).find('td').eq(3).html();
-                    valorPedido.push({ 'codigo': codigo, 'producto': producto, 'present': presentacion, 'pz': pieza });
-                });
-
-                let data = {
-                    "idCliente": idCliente,
-                    "nota": idNota,
-                    "user": idUser,
-                    "fecha":fechaEntrega,
-                    "productos": valorPedido
-                }
-                let JsonString = JSON.stringify(data);
-
-                $.ajax({
-                    url: getAbsolutePath() + "views/layout/ajax.php",
-                    method: "POST",
-                    data: { "pedido": JsonString },
-                    cache: false,
-                    beforeSend: function(setContacto) {
-
-                    },
-                    success: function(pedido) {
-                        console.log(pedido)
-                        if (pedido >= 1) {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: 'SE HA GUARDADO SU PEDIDO CON ÉXITO',
-                                showConfirmButton: false,
-                                timer: 2500
-                            }).then(function() {
-
-                                $(location).attr('href', getAbsolutePath() + 'Pedido/index')
-                            });
-                            $('#alertaInsert').html('<div class="alert alert-success" role="alert"> El producto correctamente </div>');
-                        } else {
-                            $('#alertaInsert').html('<div class="alert alert-danger" role="alert">LLAMA A TU ADMINISTRADOR NO SE INSERTO</div>');
-
-                        }
-
-                        //location.reload();
-                    }
-                });
-            }
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'ERROR',
-                text: 'HAY ERRORES EN LOS IDENTIFICADORES INGRESE DE NUEVO '
-            })
-        }
-    });
 </script>

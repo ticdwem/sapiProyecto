@@ -309,6 +309,7 @@ $(document).ready(function(){
                 return display;
             }
     }).val(sumarDias(1))
+    
     $("#inputCodigoPedido").on('change',function(){
         let codigo = $(this).val();
 

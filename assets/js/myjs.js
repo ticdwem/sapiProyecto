@@ -1132,6 +1132,7 @@ $(document).ready(function() {
         /*} sdad */
         /*}) 54545 */
     });
+    
     $("#btn-submit-loggin").on("click", function() {
         $("#frmLogginVerif").submit(function(e) {
 
@@ -1330,6 +1331,7 @@ $(document).on('click', '.deleteOnclickDb', function(e) {
                                 'error'
                             )
                         } else if (deletePRoducDbNota == 1) {
+                            $('#registroProductotablePedidoEditar').load(" #registroProductotablePedidoEditar");
                             Swal.fire({
                                 position: 'center',
                                 icon: 'success',

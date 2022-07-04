@@ -175,7 +175,12 @@ class PedidoModels extends ModeloBase
 						ON dc.clienteId = cl.idCliente
 						INNER JOIN ruta rt
 						ON rt.idRuta = dc.rutaId
-						WHERE fechaEntregaPedido BETWEEN /* NOW() */'2022-06-27' AND (SELECT MAX(pd.fechaEntregaPedido) FROM pedidos pd) GROUP BY pds.idnotaPedido";
+						WHERE 
+						statusProductoPedido = 1
+						And
+						idUsuarioPedido = ".IDUSER."
+						AND
+						fechaEntregaPedido BETWEEN NOW() AND (SELECT MAX(pd.fechaEntregaPedido) FROM pedidos pd) GROUP BY pds.idnotaPedido";
 		/* WHERE fechaEntregaPedido BETWEEN '2022-06-23' AND (SELECT MAX(pd.fechaEntregaPedido) FROM pedidos pd) GROUP BY pds.idnotaPedido"; */				
 		$query = $this->db->query($verPedidos);
 

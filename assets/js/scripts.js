@@ -664,4 +664,3 @@ function redondearNumero(numero) {
     return numeroRound;
 }
 
-//function limpiar

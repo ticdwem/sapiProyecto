@@ -356,7 +356,7 @@ $(document).on('click','.seleccionarIdCliente',function(e){
                           "nombre_inputLoteVenta_50":inputLote,"decimales_inputPrecioVenta_12":inputPrecio,"decimales_inputSubtotalVenta_12":inputSubtotal});
             var campos = validarCampos(validar);
             if(campos == 0 ){
-                docuemnt.getElementById("registroProductoVenta").insertRow
+                document.getElementById("registroProductoVenta").insertRow
                 let insertProducto = document.getElementById("registroProductoVenta"); // este es el id de la tabla
                 let newProductoRow = insertProducto.insertRow(-1); //este retorna una fila en la ultima fila de 
                 
