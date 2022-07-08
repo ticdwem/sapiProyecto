@@ -7,11 +7,14 @@ class PedidoModels extends ModeloBase
 	private $idUsuarioPedido; // id del usuario
  	private $idnotaPedido; // id de la nota del pedido
 	private $idClientePedido; //id del cliente
-
+	
 	private $idProductoPedido; // del producto
 	private $pzProductoPedido; //piezas del producto
+	private $detalleEntrega; // detalle de la entrega
 	private $presentacion; // presentacion
 	protected $fechaEntrega; // fecha de entrega
+	private $comentarioNotaPedidos;
+	private $notaCobranza;
 
 	/**
 	 * Get the value of idUsuarioPedido
@@ -103,6 +106,26 @@ class PedidoModels extends ModeloBase
  
 		 return $this;
 	 }
+
+	 
+
+	/**
+	 * Get the value of detalleEntrega
+	 */
+	public function getDetalleEntrega()
+	{
+		return $this->detalleEntrega;
+	}
+
+	/**
+	 * Set the value of detalleEntrega
+	 */
+	public function setDetalleEntrega($detalleEntrega): self
+	{
+		$this->detalleEntrega = $detalleEntrega;
+
+		return $this;
+	}
  
 	 /**
 	  * Get the value of fechaAltaProductoPedido
@@ -138,6 +161,43 @@ class PedidoModels extends ModeloBase
 
 		return $this;
 	}
+	/**
+	 * Get the value of comentarioNotaPedidos
+	 */
+	public function getComentarioNotaPedidos()
+	{
+		return $this->comentarioNotaPedidos;
+	}
+
+	/**
+	 * Set the value of comentarioNotaPedidos
+	 */
+	public function setComentarioNotaPedidos($comentarioNotaPedidos): self
+	{
+		$this->comentarioNotaPedidos = $comentarioNotaPedidos;
+
+		return $this;
+	}
+
+	
+	/**
+	 * Get the value of notaCobranza
+	 */
+	public function getNotaCobranza()
+	{
+		return $this->notaCobranza;
+	}
+
+	/**
+	 * Set the value of notaCobranza
+	 */
+	public function setNotaCobranza($notaCobranza): self
+	{
+		$this->notaCobranza = $notaCobranza;
+
+		return $this;
+	}
+
 
 
 	public function lastDate(){
@@ -155,8 +215,8 @@ class PedidoModels extends ModeloBase
 
 	public function insertPedido(){
 		$insert= "INSERT INTO pedidos 
-							(idnotaPedido, idUsuarioPedido, idClientePedido, idProductoPedido, pzProductoPedido, fechaAltaProductoPedido, statusProductoPedido,fechaEntregaPedido)
-							 VALUES ('{$this->getIdnotaPedido()}', '{$this->getIdUsuarioPedido()}', '{$this->getIdClientePedido()}', '{$this->getIdProductoPedido()}', '{$this->getPzProductoPedido()}', now(), '1','{$this->getFechaEntrega()}')";	
+							(idnotaPedido, idUsuarioPedido, idClientePedido, idProductoPedido, pzProductoPedido,detalleEntrega, fechaAltaProductoPedido, statusProductoPedido,fechaEntregaPedido,comentarioNotaPedidos)
+							 VALUES ('{$this->getIdnotaPedido()}', '{$this->getIdUsuarioPedido()}', '{$this->getIdClientePedido()}', '{$this->getIdProductoPedido()}', '{$this->getPzProductoPedido()}','{$this->getDetalleEntrega()}' ,now(), '1','{$this->getFechaEntrega()}','{$this->getComentarioNotaPedidos()}')";	
 		$query = $this->db->query($insert);
 		$insertPedido = false;
         if($query){
@@ -187,6 +247,42 @@ class PedidoModels extends ModeloBase
 		return $query;
 
 	}
+
+	public function updatePedidos(){
+		$update = "UPDATE pedidos p
+		SET
+			p.statusProductoPedido='2'
+		WHERE 
+			p.idUsuarioPedido = ".IDUSER."
+			AND p.fechaEntregaPedido = sumarFecha()
+			AND p.statusProductoPedido = 1";
+		
+	$upVenta = $this->db->query($update);
+	$pass = false;
+	if($upVenta){
+		$pass = true;
+	}
+	return $pass;	
+}
+
+	public function updateComentario(){
+		$comnentario = "UPDATE pedidos
+						SET
+							comentarioNotaPedidos='{$this->getNotaCobranza()}'
+						WHERE 
+							idnotaPedido={$this->getIdnotaPedido()} and
+							idUsuarioPedido= ".IDUSER." and
+							idClientePedido= {$this->getIdClientePedido()}";
+/* 		var_dump($comnentario);
+		die(); */
+		$upVenta = $this->db->query($comnentario);
+		$pass = false;
+		if($upVenta){
+			$pass = true;
+		}
+		return $pass;
+	}
+
 
 
 }

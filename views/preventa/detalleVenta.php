@@ -80,7 +80,7 @@
                                 <div class="inputNombreProdPedido"></div>
                             </div>
                             <div class="col-lg-2">
-                                <label class="mr-sm-2" for="inputPresentacionPedido">Presentación</label>
+                                <label class="mr-sm-2" for="inputPresentacionPedido">Observaciones(nota)</label>
                                 <div class="input-group">
                                 <input type="text" name="inputPresentacionPedido" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPresentacionPedido" readonly autocomplete="off">
                                 </div>
@@ -117,17 +117,17 @@
                     <tr>
                         <th scope="col">Id Producto</th>
                         <th scope="col">Producto</th>
-                        <th scope="col">Presentacion</th>
                         <th scope="col">Piezas</th>
+                        <th scope="col">Presentacion</th>
                     </tr>
                 </thead>
                 <tbody id="registroProductoPedido"> 
-                <?php while ($producto = $prod->fetch_object()):?> 
+                <?php while ($producto = $prod->fetch_object()): var_dump($producto)?> 
                     <tr>
                         <td><?=$producto->idProductoPedido;?></td>
                         <td><?=$producto->nombreProducto;?></td>
-                        <td><?=$producto->presentacionProducto;?></td>
                         <td><?=$producto->pzProductoPedido;?></td>
+                        <td><?=$producto->detalleEntrega;?></td>
                         <?php if($_GET['action']!="detalle"): ?>
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic example">

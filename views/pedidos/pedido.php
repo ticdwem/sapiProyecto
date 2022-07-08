@@ -15,6 +15,17 @@
                 </ol>
             </nav>
             <div class="container" id="">
+                <div class="col-md-12 col-sm-12 col-lg" id="comentarioNota">
+                    <div class="row">
+                        <div id="notaClienteComentario" class="col-lg-1 col-md-1 col-sm-12 notaClienteComentario">
+                            <label for="notaComentario">Nota</label>
+                        </div>
+                        <div id="inputNota" class="col-lg-11 col-md-11 col-sm-12 inputNota">
+                            <input type="text" class="form-control" id="notaComentario" name="notaComentario" aria-describedby="id" placeholder="nota" value="">
+                            <small id="notaComentario" class="form-text text-muted"></small>
+                        </div>
+                    </div>
+                </div>
             <div id="nota" class="col-lg-12 col-md-12 col-sm-12 nota">
                     <div class="row">
                         <div id="" class="col-lg-6 col-md-6 col-sm-12">
@@ -66,26 +77,19 @@
                 <hr>
                 <form id="frmPedido">
                     <div class="row " id="prodNewForm">
-                        <div class="col-lg-2">
-                            <label class="mr-sm-2" for="inputCodigoPedido">Código Producto</label>
+                        <div class="col-lg-1">
+                            <label class="mr-sm-2" for="inputCodigoPedido">Clave</label>
                             <div class="input-group">
                                 <input type="text" name="inputCodigoPedido" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputCodigoPedido" autocomplete="off">
                             </div>
                             <div class="inputCodigoPedido"></div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-3">
                             <label class="mr-sm-4" for="inputNombreProdPedido">Nombre</label>
                             <div class="input-group">
                                 <input type="text" name="inputNombreProdPedido" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputNombreProdPedido" readonly autocomplete="off">
                             </div>
                             <div class="inputNombreProdPedido"></div>
-                        </div>
-                        <div class="col-lg-2">
-                            <label class="mr-sm-2" for="inputPresentacionPedido">Presentación</label>
-                            <div class="input-group">
-                            <input type="text" name="inputPresentacionPedido" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPresentacionPedido" readonly autocomplete="off">
-                            </div>
-                            <div class="inputPresentacionPedido"></div>
                         </div>
                         <div class="col-lg-2">
                             <label class="mr-sm-2" for="inputPiezasPedido">Piezas</label>
@@ -95,6 +99,13 @@
                             <div class="inputPiezasPedido"></div>
                         </div>
                     
+                        <div class="col-lg-6">
+                            <label class="mr-sm-2" for="inputPresentacionPedido">Observaciones(nota)</label>
+                            <div class="input-group">
+                            <input type="text" name="inputPresentacionPedido" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPresentacionPedido"  autocomplete="off">
+                            </div>
+                            <div class="inputPresentacionPedido"></div>
+                        </div>
                     </div>
                     <div class="row col-lg-12 mt-4">
                         <div class="col-sm-6 col-md-6 col-lg-6">
@@ -118,8 +129,8 @@
                     <tr>
                         <th scope="col">Id Producto</th>
                         <th scope="col">Producto</th>
-                        <th scope="col">Presentacion</th>
                         <th scope="col">Piezas</th>
+                        <th scope="col">Observaciones</th>
                     </tr>
                 </thead>
                  <!-- <tbody id="registroProductoPedido">
@@ -129,8 +140,8 @@
                 </tbody>
             </table> 
         </div>
-        <div id="divBtnPedidoAceptar">
-            <button type="button" class="btn btn-success" id="btnPedidoAceptar">HACER PEDIDO</button>
+        <div id="divBtnPedidoAceptar" class=" mt-4 col-md-6 col-sm-12 col-lg-6">
+            <button type="button" class="btn btn-success btn-block" id="btnPedidoAceptar">HACER PEDIDO</button>
         </div>
         <div class="alertaInsert col-md-12 col-sm-12 mt-3 mb-3" id="alertaInsert"></div>
 </div>
@@ -160,14 +171,14 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputPresentacionEditar">Presentacion</label>
-                        <input type="text" class="form-control inputPresentacionEditar" id="inputPresentacionEditar" placeholder="Presentacion Producto" disabled>
-                        <div class="inputPresentacionEditar"></div>
-                    </div>
-                    <div class="form-group col-md-6">
                         <label for="inputPiezasEditar">Piezas</label>
                         <input type="text" class="form-control inputPiezasEditar" id="inputPiezasEditar" placeholder="Nombre Producto">
                         <div class="inputPiezasEditar"></div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPresentacionEditar">Observaciones</label>
+                        <input type="text" class="form-control inputPresentacionEditar" id="inputPresentacionEditar" placeholder="Presentacion Producto" >
+                        <div class="inputPresentacionEditar"></div>
                     </div>
                 </div>
                 <div class="form-row">
@@ -197,7 +208,7 @@
                     <thead>
                         <th>Código</th>
                         <th>Nombre</th>
-                        <th>Presentación</th>
+                        <th>Observaciones</th>
                         <th>Acción</th>
                     </thead>
                     <tbody>
@@ -331,7 +342,7 @@ $(document).ready(function(){
                     if(datos != "0"){
 
                         $("#inputNombreProdPedido").val(datos.descripcionProd);
-                        $("#inputPresentacionPedido").val(datos.presentacion);
+                        $("#inputPresentacionPedido").val("NADA");
                         
                         focusInput('inputPiezasPedido');
                     }else{
@@ -388,7 +399,7 @@ $(document).ready(function(){
             let inputPresentacion = document.getElementById('inputPresentacionPedido').value; 
             let inputPieza = document.getElementById('inputPiezasPedido').value; 
             
-            validar.push({"phone_inputCodigoPedido_6":inputCodigo,"nombre_inputNombreProdPedido_80":inputNombreProd,"nombre_inputPresentacionPedido_80":inputPresentacion,"decimales_inputPiezasPedido_12":inputPieza});
+            validar.push({"phone_inputCodigoPedido_6":inputCodigo,"nombre_inputNombreProdPedido_80":inputNombreProd,"messagge_inputPresentacionPedido_500":inputPresentacion,"decimales_inputPiezasPedido_12":inputPieza});
             var campos = validarCampos(validar);
             if(campos == 0 ){
                 let inputsCorrects = ["inputCodigoPedido","inputNombreProdPedido","inputPresentacionPedido","inputPiezasPedido"];
@@ -401,10 +412,11 @@ $(document).ready(function(){
                 newproductoCellNew.textContent = transactionFormData.get("inputNombreProdPedido");                    
                 
                 newproductoCellNew = newProductoRow.insertCell(2);// posisicion de la celda
+                newproductoCellNew.textContent = transactionFormData.get("inputPiezasPedido");   
+                             
+                newproductoCellNew = newProductoRow.insertCell(3);// posisicion de la celda
                 newproductoCellNew.textContent = transactionFormData.get("inputPresentacionPedido");
                 
-                newproductoCellNew = newProductoRow.insertCell(3);// posisicion de la celda
-                newproductoCellNew.textContent = transactionFormData.get("inputPiezasPedido");                
                 newproductoCellNew.setAttribute("id","editPedido_"+num)
 
                 

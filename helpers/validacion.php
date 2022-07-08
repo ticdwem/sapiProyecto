@@ -220,7 +220,7 @@ class Validacion
 	{
 		if ($texto != "") {
 			$contar = strlen($texto);
-			if (preg_match("/^[0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_.+\s]+$/", $texto) && $contar <= $largo) {
+			if (preg_match("/^[0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_,.+\s]+$/", $texto) && $contar <= $largo) {
 				return strtoupper($texto);
 			} else {
 				return 900;

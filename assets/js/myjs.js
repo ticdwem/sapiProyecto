@@ -973,6 +973,7 @@ $(document).ready(function() {
     /* este funcion es para ingresar los datos a la base de dato pedidos */
     $("#btnPedidoAceptar").on("click", function(e) {
         let valorPedido = Array();
+        let notaComentario = $("#notaComentario").val();
         let idNota = $("#numNota").val();
         let idCliente = $("#inputIdCliente").val();
         let idUser = $("#idUser").val();
@@ -1011,12 +1012,13 @@ $(document).ready(function() {
                 $("#registroProductoPedido tr").each(function() {
                     let codigo = $(this).find('td').eq(0).html();
                     let producto = $(this).find('td').eq(1).html();
-                    let presentacion = $(this).find('td').eq(2).html();
-                    let pieza = $(this).find('td').eq(3).html();
+                    let pieza = $(this).find('td').eq(2).html();
+                    let presentacion = $(this).find('td').eq(3).html();
                     valorPedido.push({ 'codigo': codigo, 'producto': producto, 'present': presentacion, 'pz': pieza });
                 });
 
                 let data = {
+                    "notaComentario":notaComentario,
                     "idCliente": idCliente,
                     "nota": idNota,
                     "user": idUser,
@@ -1223,12 +1225,13 @@ $(document).ready(function() {
 
             newproductoCellNew = newProductoRow.insertCell(1); // posisicion de la celda
             newproductoCellNew.textContent = nomPRoducto;
-
+            
             newproductoCellNew = newProductoRow.insertCell(2); // posisicion de la celda
-            newproductoCellNew.textContent = presentacionProducto;
+            newproductoCellNew.textContent = pzProducto;
 
             newproductoCellNew = newProductoRow.insertCell(3); // posisicion de la celda
-            newproductoCellNew.textContent = pzProducto;
+            newproductoCellNew.textContent = presentacionProducto;
+
 
             newproductoCellNew = newProductoRow.insertCell(4); // posisicion de la celda
             newproductoCellNew.insertAdjacentHTML("afterbegin", "<button type='button' class='btn btn-warning mr-1 editProductoPedido' onclick='changetrtd(this)' data-id='editPedido_" + num + "'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button><button type='button' class='btn btn-danger deleteOnclick' onclick='deleteRow(this)'><i class='fa fa-times-circle' id='' aria-hidden='true'></i></button>");
@@ -1614,8 +1617,8 @@ $(document).on('click', '.editProductoPedido', function(e) {
     $("#idhiddeneditproduct").val(getIdPRoductoPz);
     $("#inputIdProdcuto").val($(this).parents('tr').find('td')[0].innerHTML);
     $("#inputNombreProducto").val($(this).parents('tr').find('td')[1].innerHTML);
-    $("#inputPresentacionEditar").val($(this).parents('tr').find('td')[2].innerHTML);
-    $("#inputPiezasEditar").val($(this).parents('tr').find('td')[3].innerHTML);
+    $("#inputPiezasEditar").val($(this).parents('tr').find('td')[2].innerHTML);
+    $("#inputPresentacionEditar").val($(this).parents('tr').find('td')[3].innerHTML);
     $('#editProductoPedido').modal({ backdrop: 'static', keyboard: false });
 });
 

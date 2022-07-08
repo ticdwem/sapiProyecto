@@ -4,6 +4,14 @@
         echo '<div class="alert alert-danger" role="alert" style="width:80%;">HUBO UN ERROR INTERNO EN EL SISTEMA, CONTACTA A TU ADMINISTRADOR DE SISTEMAS</div>';
         Utls::deleteSession('formulario_cliente');
     }
+    $com = "";
+    $comentario = $prod->fetch_object()->comentario;
+    if(is_null($comentario)){
+        $com = "Sin nota";
+    }else{
+        $com = $comentario;
+    }
+   
     ?>
 </div>
 <div class="">
@@ -15,6 +23,24 @@
                 </ol>
             </nav>
             <div class="container" id="">
+            <div class="col-md-12 col-sm-12 col-lg" id="comentarioNota">
+                <form action="<?=base_url?>Pedido/editarNota" method="post">
+                <input type="hidden" name="cliente" value="<?=$_GET['cli']?>">
+                <input type="hidden" name="nota" value="<?=$_GET['id']?>">
+                    <div class="row">
+                        <div id="notaClienteComentario" class="col-lg-1 col-md-1 col-sm-12 notaClienteComentario">
+                            <label for="notaComentario">Nota</label>
+                        </div>
+                        <div id="inputNota" class="col-lg-8 col-md-8 col-sm-12 inputNota">
+                            <input type="text" class="form-control" id="notaComentario" name="notaComentario" aria-describedby="id" placeholder="nota" value="<?=$com?>">
+                            <small id="notaComentario" class="form-text text-muted"></small>
+                        </div>
+                        <div id="btnNota" class="col-lg-3 col-md-3 col-sm-12 btnNota">
+                            <button type="submit" class="btn btn-warning btn-lg">Editar Nota</button>
+                        </div>
+                    </div>
+                </form>
+                </div>
                 <div id="nota" class="col-lg-12 col-md-12 col-sm-12 nota">
                     <div class="row">
                         <div id="" class="col-lg-6 col-md-6 col-sm-12">
@@ -64,26 +90,19 @@
                     <hr>
                     <form id="prodEditForm">
                         <div class="row " id="prodNewForm">
-                            <div class="col-lg-2">
-                                <label class="mr-sm-2" for="inputCodigoPedidoEditar">Código</label>
+                            <div class="col-lg-1">
+                                <label class="mr-sm-2" for="inputCodigoPedidoEditar">Clave</label>
                                 <div class="input-group">
                                     <input type="text" name="inputCodigoPedidoEditar" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputCodigoPedidoEditar" autocomplete="off">
                                 </div>
                                 <div class="inputCodigoPedidoEditar"></div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
                                 <label class="mr-sm-4" for="inputNombreProdPedidoEditar">Nombre</label>
                                 <div class="input-group">
                                     <input type="text" name="inputNombreProdPedidoEditar" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputNombreProdPedidoEditar" readonly autocomplete="off">
                                 </div>
                                 <div class="inputNombreProdPedidoEditar"></div>
-                            </div>
-                            <div class="col-lg-2">
-                                <label class="mr-sm-2" for="inputPresentacionPedidoEditar">Presentación</label>
-                                <div class="input-group">
-                                <input type="text" name="inputPresentacionPedidoEditar" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPresentacionPedidoEditar" readonly autocomplete="off">
-                                </div>
-                                <div class="inputPresentacionPedidoEditar"></div>
                             </div>
                             <div class="col-lg-2">
                                 <label class="mr-sm-2" for="inputPiezasPedidoEditar">Piezas</label>
@@ -92,6 +111,13 @@
                                 </div>
                                 <div class="inputPiezasPedidoEditar"></div>
                             </div>                        
+                            <div class="col-lg-6">
+                                <label class="mr-sm-2" for="inputPresentacionPedidoEditar">Observaciones </label>
+                                <div class="input-group">
+                                <input type="text" name="inputPresentacionPedidoEditar" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="inputPresentacionPedidoEditar"  autocomplete="off">
+                                </div>
+                                <div class="inputPresentacionPedidoEditar"></div>
+                            </div>
                         </div>
                         <div class="row col-lg-12 mt-4">
                             <div class="col-sm-6 col-md-6 col-lg-6 row">
@@ -120,8 +146,8 @@
                     <tr>
                         <th scope="col">Id Producto</th>
                         <th scope="col">Producto</th>
-                        <th scope="col">Presentacion</th>
                         <th scope="col">Piezas</th>
+                        <th scope="col">Presentacion</th>
                     </tr>
                 </thead>
                 <tbody id="registroProductoPedidoEditar"> 
@@ -129,8 +155,8 @@
                     <tr>
                         <td><?=$producto->idProductoPedido;?></td>
                         <td><?=$producto->nombreProducto;?></td>
-                        <td><?=$producto->presentacionProducto;?></td>
                         <td><?=$producto->pzProductoPedido;?></td>
+                        <td><?=$producto->detalleEntrega;?></td>
                         <td>
                             
                             <div class="btn-group" role="group" aria-label="Basic example">
@@ -162,13 +188,13 @@
                     <thead>
                         <th>Código</th>
                         <th>Nombre</th>
-                        <th>Presentación</th>
+                        <th>Observaciones(nota)</th>
                         <th>Acción</th>
                     </thead>
                     <tbody>
-                        <?php while($producto = $productos->fetch_object() ): /* var_dump($prod); */
-                            ?>
-                        <tr>                            
+                        <?php while($producto = $productos->fetch_object() ): ?>
+                        <tr>    
+                                                    
                             <td><?=$producto->idProducto?></td>
                             <td><?=$producto->nombreProducto?></td>
                             <td><?=$producto->presentacionProducto?></td>
@@ -266,14 +292,14 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="presentacionModalEdit">Presentacion</label>
-                    <input type="text" class="form-control presentacionModalEdit" id="presentacionModalEdit" value="" disabled>
-                    <div class="presentacionModalEdit"></div>
-                </div>
-                <div class="form-group col-md-6">
                     <label for="piezasModalEdit">Piezas </label>
                     <input type="text" class="form-control piezasModalEdit" id="piezasModalEdit" value="">
                     <div class="piezasModalEdit"></div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="presentacionModalEdit">Presentacion</label>
+                    <input type="text" class="form-control presentacionModalEdit" id="presentacionModalEdit" value="" >
+                    <div class="presentacionModalEdit"></div>
                 </div>
             </div>
         </div>
@@ -294,9 +320,10 @@ $("#updatePzModalEdit").on("click", function(e) {
         let idget = $("#idgetEditar").val();
         let idProducto = $("#idProductoModalEdit").val();
         let pz = $("#piezasModalEdit").val();
+        let present = $("#presentacionModalEdit").val();
         let pzold = $("#pzoldValue").val();
         let datosArray = Array();
-        datosArray.push({ 'phone_idget_12': idget, 'phone_idProducto_12': idProducto, 'phone_piezas_10': pz });
+        datosArray.push({ 'phone_idget_12': idget, 'phone_idProducto_12': idProducto, 'phone_piezas_10': pz,'messagge_presentacionModalEdit_500':present });
         var validar = validarCampos(datosArray);
         if (validar > 0) {
             Swal.fire(
@@ -307,39 +334,27 @@ $("#updatePzModalEdit").on("click", function(e) {
         } else {
             let data = { "data": datosArray }
             var json = JSON.stringify(data);
-            if (pz == pzold) {
-                $("#piezas").css('border', '1px solid red')
-                $(".piezas").html('correcto')
-                $(".piezas").css('color', 'red')
-
-                Swal.fire(
-                    'CAMBIOS?',
-                    'No se ha hecho algún cambio, para actualizar debes cambiar las piezas',
-                    'question'
-                )
-                e.preventDefault();
-            } else {
-                $.ajax({
-                    url: getAbsolutePath() + "views/layout/ajax.php",
-                    method: "POST",
-                    data: { "updatePro": json },
-                    cache: false,
-                    beforeSend: function() {},
-                    success: function(updatePz) {
-                        console.log(updatePz)
-                        if (updatePz == 1) {
-                            $('#modalEditProductEntrega').modal('hide');
-                            $('#registroProductotablePedidoEditar').load(" #registroProductotablePedidoEditar");
-                        } else {
-                            Swal.fire(
-                                'ERROR?',
-                                'Hubo un error al intentar Editar llame a su adminsitrador',
-                                'question'
-                            )
-                        }
+            $.ajax({
+                url: getAbsolutePath() + "views/layout/ajax.php",
+                method: "POST",
+                data: { "updatePro": json },
+                cache: false,
+                beforeSend: function() {},
+                success: function(updatePz) {
+                    console.log(updatePz)
+                    if (updatePz == 1) {
+                        $('#modalEditProductEntrega').modal('hide');
+                        $('#registroProductotablePedidoEditar').load(" #registroProductotablePedidoEditar");
+                    } else {
+                        Swal.fire(
+                            'ERROR?',
+                            'Hubo un error al intentar Editar llame a su adminsitrador',
+                            'question'
+                        )
                     }
-                });
-            }
+                }
+            });
+            
 
         }
     });
@@ -365,7 +380,7 @@ $("#updatePzModalEdit").on("click", function(e) {
                     if(datos != "0"){
 
                         $("#inputNombreProdPedidoEditar").val(datos.descripcionProd);
-                        $("#inputPresentacionPedidoEditar").val(datos.presentacion);
+                        $("#inputPresentacionPedidoEditar").val("Nada");
                         
                         focusInput('inputPiezasPedidoEditar');
                     }else{
@@ -436,8 +451,8 @@ $("#updatePzModalEdit").on("click", function(e) {
     $(document).on('click','.btnEditarPzProducto',function(){
     let idPro = $(this).parents("tr").find("td")[0].innerHTML;
     let producto = $(this).parents("tr").find("td")[1].innerHTML;
-    let present = $(this).parents("tr").find("td")[2].innerHTML;
-    let pieza = $(this).parents("tr").find("td")[3].innerHTML;
+    let present = $(this).parents("tr").find("td")[3].innerHTML;
+    let pieza = $(this).parents("tr").find("td")[2].innerHTML;
     let pzOld = $(this).attr('data-id')
     $("#idProductoModalEdit").val(idPro);
     $("#nombreProdcutoModalEdit").val(producto);

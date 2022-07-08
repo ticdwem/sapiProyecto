@@ -53,17 +53,21 @@ class PreventaController{
     public function updatePiezas($datos){
         $datosJson = json_decode($datos,true);
         $update = $datosJson["data"][0];
-
+        
         $nota =(Validacion::validarNumero($update["phone_idget_12"])==-1)? false: $update["phone_idget_12"];
         $producto =(Validacion::validarNumero($update["phone_idProducto_12"])==-1)? false: $update["phone_idProducto_12"];
         $piezas = (Validacion::validarNumero($update["phone_piezas_10"])==-1)? false: $update["phone_piezas_10"];
-
-        $valArray = array('producto'=>$producto , 'nota'=> $nota,'piezas'=>$piezas);
+        $presentacion = (Validacion::textoLargo($update["messagge_presentacionModalEdit_500"],500) == 900) ? false : $update["messagge_presentacionModalEdit_500"];
+        
+        $valArray = array('producto'=>$producto , 'nota'=> $nota,'piezas'=>$piezas,'presentacion'=>$presentacion);
         $dato = Utls::sessionValidate($valArray);
+/*         var_dump($valArray);
+        die(); */
+
         if($dato>1){
             echo 0;
         }else{
-            $updateDatos = new UpdateProducto( $piezas, $nota,$producto);
+            $updateDatos = new UpdateProducto( $piezas, $nota,$producto,$presentacion);
             $edit = $updateDatos->updateDato();
             if($edit){
                 echo 1;
