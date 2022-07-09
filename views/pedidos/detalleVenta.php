@@ -5,13 +5,12 @@
         Utls::deleteSession('formulario_cliente');
     }
     $com = "";
-    $comentario = $prod->fetch_object()->comentario;
+    $comentario = $prodEditar[0][13];
     if(is_null($comentario)){
         $com = "Sin nota";
     }else{
         $com = $comentario;
     }
-   
     ?>
 </div>
 <div class="">
@@ -23,23 +22,23 @@
                 </ol>
             </nav>
             <div class="container" id="">
-            <div class="col-md-12 col-sm-12 col-lg" id="comentarioNota">
-                <form action="<?=base_url?>Pedido/editarNota" method="post">
-                <input type="hidden" name="cliente" value="<?=$_GET['cli']?>">
-                <input type="hidden" name="nota" value="<?=$_GET['id']?>">
-                    <div class="row">
-                        <div id="notaClienteComentario" class="col-lg-1 col-md-1 col-sm-12 notaClienteComentario">
-                            <label for="notaComentario">Nota</label>
+                <div class="col-md-12 col-sm-12 col-lg" id="comentarioNota">
+                    <form action="<?=base_url?>Pedido/editarNota" method="post">
+                        <input type="hidden" name="cliente" value="<?=$_GET['cli']?>">
+                        <input type="hidden" name="nota" value="<?=$_GET['id']?>">
+                        <div class="row">
+                            <div id="notaClienteComentario" class="col-lg-1 col-md-1 col-sm-12 notaClienteComentario">
+                                <label for="notaComentario">Nota</label>
+                            </div>
+                            <div id="inputNota" class="col-lg-8 col-md-8 col-sm-12 inputNota">
+                                <input type="text" class="form-control" id="notaComentario" name="notaComentario" aria-describedby="id" placeholder="nota" value="<?=$com?>">
+                                <small id="notaComentario" class="form-text text-muted"></small>
+                            </div>
+                            <div id="btnNota" class="col-lg-3 col-md-3 col-sm-12 btnNota">
+                                <button type="submit" class="btn btn-warning btn-lg">Editar Nota</button>
+                            </div>
                         </div>
-                        <div id="inputNota" class="col-lg-8 col-md-8 col-sm-12 inputNota">
-                            <input type="text" class="form-control" id="notaComentario" name="notaComentario" aria-describedby="id" placeholder="nota" value="<?=$com?>">
-                            <small id="notaComentario" class="form-text text-muted"></small>
-                        </div>
-                        <div id="btnNota" class="col-lg-3 col-md-3 col-sm-12 btnNota">
-                            <button type="submit" class="btn btn-warning btn-lg">Editar Nota</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
                 </div>
                 <div id="nota" class="col-lg-12 col-md-12 col-sm-12 nota">
                     <div class="row">
@@ -129,15 +128,18 @@
                                 </div>
                             </div>
                     
-                            <div class="col-sm-6 col-md-6 col-lg-6 m-1" id="DateDevelopersProductoContenedor">
-                                <div class="row" id="DateDevelopersProducto">
-                                    <label for="exampleFormControlFile1" class="ml-6">Ingrese Fecha de entrega (YYYY-MM-DD)</label> 
-                                    <input type="text" id="fechaEntregaEditar" class="form-control" name="" id="" value="<?=$almacenes->fechaEntregaPedido?>" disabled> 
-                                </div>                        
+                            <div class="col-sm-6 col-md-6 col-lg-6 m-1 row" id="DateDevelopersProductoContenedor">
+                                <div class="row col-sm-6 col-md-6 col-lg-6" id="DateDevelopersProducto" >
+                                    <label for="exampleFormControlFile1">Ingrese Fecha de entrega</label>  
+                                    <input class="datepicker" data-date-format="dd/mm/yyyy" id="dateIdPedido" data-id="dateIdPedidoEditar" autocomplete="off" readonly>
+                                </div>  
+                                <div class="row col-sm-6 col-md-6 col-lg-6" id="BtnDateDevelopersProducto">   
+                                    <button type="button" id="btnIdChangeDate" class="btn btn-primary btn-sm">Cambiar Fecha</button>
+                                </div>                
                             </div>
                         </div>
                     </form>
-            </div>                      
+            </div>                  
         </div>        
     </div>
     <div id="divproductosEditar" class="col-lg-12 m-t-5">
@@ -151,22 +153,22 @@
                     </tr>
                 </thead>
                 <tbody id="registroProductoPedidoEditar"> 
-                <?php while ($producto = $prod->fetch_object()):?> 
+                <?php foreach($prodEditar as $key): ?> 
                     <tr>
-                        <td><?=$producto->idProductoPedido;?></td>
-                        <td><?=$producto->nombreProducto;?></td>
-                        <td><?=$producto->pzProductoPedido;?></td>
-                        <td><?=$producto->detalleEntrega;?></td>
+                        <td><?=$key[4]?></td>
+                        <td><?=$key[14]?></td>
+                        <td><?=$key[5]?></td>
+                        <td><?=$key[6]?></td>
                         <td>
                             
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type='button' class='btn btn-warning btnEditarPzProducto' data-id="<?=$producto->pzProductoPedido;?>"><i class="fas fa-edit"></i></button>
-                                <button type='button' class='btn btn-danger deleteOnclickDb ml-2' id="<?=$producto->idProductoPedido?>" data-get="<?=$_GET['id']?>"><i class='fa fa-times-circle' id='' aria-hidden='true'></i></button>
+                                <button type='button' class='btn btn-warning btnEditarPzProducto' data-id="<?=$key[5];?>"><i class="fas fa-edit"></i></button>
+                                <button type='button' class='btn btn-danger deleteOnclickDb ml-2' id="<?=$key[4];?>" data-get="<?=$_GET['id']?>"><i class='fa fa-times-circle' id='' aria-hidden='true'></i></button>
                             </div>
                             
                         </td>
                     </tr>
-               <?php endwhile; ?>
+               <?php endforeach; ?>
                 </tbody>
             </table> 
         </div>
@@ -315,8 +317,26 @@
 
 <script> 
 $(document).ready(function(){
+    $('#dateIdPedido').datepicker({
+        defaultDate: sumarDias(1),
+        minDate:sumarDias(1),
+        inputs: "hola",
+        format: 'dd-mm-yyyy',
+        uiLibrary: 'bootstrap4',
+        locale: 'es-es',
+        startDate: '-3d',
+        beforeShowDay:  function(date){
+                show = true;
+                if(date.getDay() == 0 || date.getDay() == 6){show = false;}//No Weekends
+                for (var i = 0; i < holidays.length; i++) {
+                    if (new Date(holidays[i]).toString() == date.toString()) {show = false;}//No Holidays
+                }
+                var display = [show,'',(show)?'':'No Weekends or Holidays'];//With Fancy hover tooltip!
+                return display;
+            }
+    }).val(sumarDias(1))
 
-$("#updatePzModalEdit").on("click", function(e) {
+    $("#updatePzModalEdit").on("click", function(e) {
         let idget = $("#idgetEditar").val();
         let idProducto = $("#idProductoModalEdit").val();
         let pz = $("#piezasModalEdit").val();
@@ -354,8 +374,6 @@ $("#updatePzModalEdit").on("click", function(e) {
                     }
                 }
             });
-            
-
         }
     });
 
@@ -406,7 +424,8 @@ $("#updatePzModalEdit").on("click", function(e) {
         let numNota = $("#numNota").val();
         let idUser = $("#idUser").val();
         let inputIdClienteEditar = $("#inputIdClienteEditar").val();
-        let fechaEntregaEditar = $("#fechaEntregaEditar").val();
+        let fechaEntregaEditar = $("#dateIdPedido").val();
+        let comentario = $("#notaComentario").val();
         e.preventDefault();
         const formPedidos = document.getElementById("prodEditForm");
         /* ////////////////////////////////// */
@@ -427,6 +446,7 @@ $("#updatePzModalEdit").on("click", function(e) {
                     "nota": numNota,
                     "user": idUser,
                     "fecha":fechaEntregaEditar,
+                    "notaComentario":comentario,
                     "productos": valorPedido
                 }
                 let JsonString = JSON.stringify(data);
@@ -446,6 +466,34 @@ $("#updatePzModalEdit").on("click", function(e) {
             }
         /* ////////////////////////////////// */
 
+    });
+
+    $("#btnIdChangeDate").on("click",function(e){
+        let validar = Array();
+        let dateChange = $("#dateIdPedido").val();
+        let numNota = $("#numNota").val();
+        let cliente = $("#inputIdClienteEditar").val();
+        let idUser = $("#idUser").val();
+        validar.push({"date_dateIdPedido_15":dateChange,"phone_numNota_20":numNota,"phone_inputIdClienteEditar_25":cliente,"phone_idUser_20":idUser});
+        let campos = validarCampos(validar);
+
+        if(campos == 0){
+            let JsonString = JSON.stringify(validar);
+
+            $.ajax({
+                url: getAbsolutePath() + "views/layout/ajax/AjaxChangeDate.php",
+                method: "POST",
+                data: {"data":JsonString},
+                cache: false,
+                beforeSend: function() {
+                    $('.spinnerWhite').html('<i class="fas fa-sync fa-spin"></i>');
+                },
+                success: function(resultSentToAjax) {
+                    console.log(resultSentToAjax);
+                   
+                }
+            });
+        }
     })
 })
     $(document).on('click','.btnEditarPzProducto',function(){

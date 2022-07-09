@@ -113,10 +113,10 @@
                             <button type="button" class="btn btn-warning" id="btnFindProduct">Buscar</button>
                         </div>
                         <div class="col-sm-6 col-md-6 col-lg-6">
-                        <div class="row">  
-                            <label for="exampleFormControlFile1">Ingrese Fecha de entrega</label>  
-                            <input class="datepicker" data-date-format="dd/mm/yyyy" id="dateIdPedido" autocomplete="off" readonly>
-                        </div>
+                            <div class="row">  
+                                <label for="exampleFormControlFile1">Ingrese Fecha de entrega</label>  
+                                <input class="datepicker" data-date-format="dd/mm/yyyy" id="dateIdPedido" autocomplete="off" readonly>
+                            </div>
                         </div>
                     </div>
                 </form>

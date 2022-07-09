@@ -217,6 +217,8 @@ class PedidoModels extends ModeloBase
 		$insert= "INSERT INTO pedidos 
 							(idnotaPedido, idUsuarioPedido, idClientePedido, idProductoPedido, pzProductoPedido,detalleEntrega, fechaAltaProductoPedido, statusProductoPedido,fechaEntregaPedido,comentarioNotaPedidos)
 							 VALUES ('{$this->getIdnotaPedido()}', '{$this->getIdUsuarioPedido()}', '{$this->getIdClientePedido()}', '{$this->getIdProductoPedido()}', '{$this->getPzProductoPedido()}','{$this->getDetalleEntrega()}' ,now(), '1','{$this->getFechaEntrega()}','{$this->getComentarioNotaPedidos()}')";	
+/* 		var_dump($insert);
+		die(); */
 		$query = $this->db->query($insert);
 		$insertPedido = false;
         if($query){
@@ -273,9 +275,23 @@ class PedidoModels extends ModeloBase
 							idnotaPedido={$this->getIdnotaPedido()} and
 							idUsuarioPedido= ".IDUSER." and
 							idClientePedido= {$this->getIdClientePedido()}";
-/* 		var_dump($comnentario);
-		die(); */
 		$upVenta = $this->db->query($comnentario);
+		$pass = false;
+		if($upVenta){
+			$pass = true;
+		}
+		return $pass;
+	}
+
+	public function changeDatePEdido(){
+		$changeFecha = "UPDATE pedidos
+						SET
+							fechaEntregaPedido='{$this->getFechaEntrega()}'
+						WHERE 
+							idnotaPedido={$this->getIdnotaPedido()} and
+							idUsuarioPedido= ".IDUSER." and
+							idClientePedido= {$this->getIdClientePedido()}";
+		$upVenta = $this->db->query($changeFecha);
 		$pass = false;
 		if($upVenta){
 			$pass = true;

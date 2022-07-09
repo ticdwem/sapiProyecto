@@ -105,10 +105,10 @@ class PedidoController
         $detallePEdido = new PedidoModels();
         $datos = $detallePEdido->getAllWhere('clientepedido','WHERE id='.$_GET['cli'])->fetch_object();  // datos de contacto de cliente      
         $dom = $detallePEdido->getAllWhere('mostrardatospedido','WHERE clienteId='.$_GET['cli'])->fetch_object(); // datos de domicilio de cliente
-        $prod = $detallePEdido->getAllWhere('viewPedidosProducto','WHERE idnotaPedido = '.$_GET['id']); // datos de productos
+        $prodEditar = $detallePEdido->getAllWhere('viewPedidosProducto','WHERE idnotaPedido = '.$_GET['id'])->fetch_all(); // datos de productos
         $almacenes = $detallePEdido->distinctQuery('fechaEntregaPedido','pedidos','WHERE idnotaPedido = '.$_GET['id'])->fetch_object();
         $productos = $detallePEdido->getAll('producto');
-        require_once 'views/pedidos/detalleVenta.php';
+       require_once 'views/pedidos/detalleVenta.php';
 
     }
 
@@ -144,6 +144,37 @@ class PedidoController
         echo '<script>window.location="' . base_url .'Pedido/editar&id='.$nota.'&cli='.$cliente.'"</script>';
        }
 
+    }
+
+    public function changeDatePEdido($fechaChange){
+       $datos = json_decode($fechaChange);
+       $data = $datos[0];
+        
+       $fecha = (Validacion::valFecha($data->date_dateIdPedido_15) == 0) ? false:$data->date_dateIdPedido_15;
+       $nota = (Validacion::validarNumero($data->phone_numNota_20) == -1) ? false:$data->phone_numNota_20;
+       $cliente = (Validacion::validarNumero($data->phone_inputIdClienteEditar_25) == -1) ? false:$data->phone_inputIdClienteEditar_25;
+       $usuario = (Validacion::validarNumero($data->phone_idUser_20) == -1) ? false:$data->phone_idUser_20;
+
+       $validar = array('fecha' =>$fecha ,'nota' =>$nota ,'cliente' =>$cliente ,'usuario' =>$usuario);
+         
+       $val = Utls::sessionValidate($validar);
+
+       if($val > 1){
+            echo 0;
+        }else{
+            $changeFecha = new PedidoModels();
+            $changeFecha->setFechaEntrega(Validacion::valFecha($data->date_dateIdPedido_15));
+            $changeFecha->setIdnotaPedido($nota);
+            $changeFecha->setIdClientePedido($cliente);
+            $changeFecha->setIdUsuarioPedido($usuario);
+            $nuevaFecha = $changeFecha->changeDatePEdido();
+
+            if($nuevaFecha){
+                echo 1;
+            }else{
+                echo 2;
+            }
+        }
     }
 
 }

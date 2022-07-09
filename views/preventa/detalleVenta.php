@@ -4,6 +4,13 @@
         echo '<div class="alert alert-danger" role="alert" style="width:80%;">HUBO UN ERROR INTERNO EN EL SISTEMA, CONTACTA A TU ADMINISTRADOR DE SISTEMAS</div>';
         Utls::deleteSession('formulario_cliente');
     }
+    $com = "";
+    $comentario = $prod->fetch_object()->comentario;
+    if(is_null($comentario)){
+        $com = "Sin nota";
+    }else{
+        $com = $comentario;
+    }
     ?>
 </div>
 <div class="">
@@ -15,6 +22,26 @@
                 </ol>
             </nav>
             <div class="container" id="">
+            <div class="col-md-12 col-sm-12 col-lg" id="comentarioNota">
+                    <form action="<?=base_url?>Pedido/editarNota" method="post">
+                        <input type="hidden" name="cliente" value="<?=$_GET['cli']?>">
+                        <input type="hidden" name="nota" value="<?=$_GET['id']?>">
+                        <div class="row">
+                            <div id="notaClienteComentario" class="col-lg-1 col-md-1 col-sm-12 notaClienteComentario">
+                                <label for="notaComentario">Nota</label>
+                            </div>
+                            <div id="inputNota" class="col-lg-8 col-md-8 col-sm-12 inputNota">
+                                <input type="text" class="form-control" id="notaComentario" name="notaComentario" aria-describedby="id" placeholder="nota" value="<?=$com?>" disabled>
+                                <small id="notaComentario" class="form-text text-muted"></small>
+                            </div>
+                            <?php if($_GET['action']!="detalle"): ?>
+                            <div id="btnNota" class="col-lg-3 col-md-3 col-sm-12 btnNota">
+                                <button type="submit" class="btn btn-warning btn-lg">Editar Nota</button>
+                            </div>
+                            <?php endif;?>
+                        </div>
+                    </form>
+                </div>
                 <div id="nota" class="col-lg-12 col-md-12 col-sm-12 nota">
                     <div class="row">
                         <div id="" class="col-lg-6 col-md-6 col-sm-12">
@@ -122,7 +149,7 @@
                     </tr>
                 </thead>
                 <tbody id="registroProductoPedido"> 
-                <?php while ($producto = $prod->fetch_object()): var_dump($producto)?> 
+                <?php while ($producto = $prod->fetch_object()): ?> 
                     <tr>
                         <td><?=$producto->idProductoPedido;?></td>
                         <td><?=$producto->nombreProducto;?></td>
