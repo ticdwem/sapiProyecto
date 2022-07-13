@@ -23,7 +23,6 @@ class ModeloBase{
     public function getCountDatos($tabla,$where,$idAContar){
         $consulta = "SELECT COUNT($idAContar) FROM $tabla
                     WHERE $where ";
-        
         $contar = $this->db->query($consulta);
         return $contar;
     }

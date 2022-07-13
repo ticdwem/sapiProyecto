@@ -5,6 +5,9 @@ if (isset($_SESSION['formulario_cliente'])) {
     echo '<p class="alert alert-danger error " role="alert">' . $_SESSION['formulario_cliente']["error"] . "</p>";
   }
 }
+/* Utls::deleteSession("domiciliocli");
+Utls::deleteSession("contactoCliente");
+var_dump($_SESSION); */
 
 ?>
 

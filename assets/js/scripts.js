@@ -81,7 +81,7 @@ function expRegular(texto, contenido) {
 
         case "messagge":
         case "dir":
-            mesaje = /^[0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_;,.()¿$?\s]+$/;
+            mesaje = /^[0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_/;,.()¿$?\s]+$/;
             varif = mesaje;
             break;
 

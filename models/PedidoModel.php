@@ -4,18 +4,23 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/config/modeloBase.php";
 
 class PedidoModels extends ModeloBase
 {
-	private $idUsuarioPedido; // id del usuario
- 	private $idnotaPedido; // id de la nota del pedido
-	private $idClientePedido; //id del cliente
 	
-	private $idProductoPedido; // del producto
-	private $pzProductoPedido; //piezas del producto
+	protected $idUsuarioPedido; // id del usuario
+ 	protected $idnotaPedido; // id de la nota del pedido
+	protected $idClientePedido; //id del cliente
+	
+	protected $idProductoPedido; // del producto
+	protected $pzProductoPedido; //piezas del producto
 	private $detalleEntrega; // detalle de la entrega
-	private $presentacion; // presentacion
+	protected $presentacion; // presentacion
 	protected $fechaEntrega; // fecha de entrega
-	private $comentarioNotaPedidos;
-	private $notaCobranza;
+	protected $comentarioNotaPedidos;
+	protected $notaCobranza;
 
+	public function __construct()
+    {
+        parent::__construct();
+    }
 	/**
 	 * Get the value of idUsuarioPedido
 	 */
@@ -213,19 +218,20 @@ class PedidoModels extends ModeloBase
 			return $query;
 	}
 
-	public function insertPedido(){
+/* 	
+este metodo se pasa a pedidoinsertNota
+public function insertPedido(){
 		$insert= "INSERT INTO pedidos 
 							(idnotaPedido, idUsuarioPedido, idClientePedido, idProductoPedido, pzProductoPedido,detalleEntrega, fechaAltaProductoPedido, statusProductoPedido,fechaEntregaPedido,comentarioNotaPedidos)
 							 VALUES ('{$this->getIdnotaPedido()}', '{$this->getIdUsuarioPedido()}', '{$this->getIdClientePedido()}', '{$this->getIdProductoPedido()}', '{$this->getPzProductoPedido()}','{$this->getDetalleEntrega()}' ,now(), '1','{$this->getFechaEntrega()}','{$this->getComentarioNotaPedidos()}')";	
-/* 		var_dump($insert);
-		die(); */
+
 		$query = $this->db->query($insert);
 		$insertPedido = false;
         if($query){
             $insertPedido = true;
         }
         return $insertPedido;
-	}
+	} */
 
 	public function getPedidosEditar()
 	{

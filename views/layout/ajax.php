@@ -313,11 +313,11 @@ class Ajax
 		$cliente->verificarId($dato);
 	}
 
-	public function pedidos(){
+/* 	public function pedidos(){
 		$dato = $this->getDato();
 		$pedido = new PedidoController();
 		$pedido->crearPedido($dato);
-	}
+	} */
 
 	public function deletePordPEdido(){
 		$datos = $this->getDato();
@@ -517,11 +517,11 @@ if (isset($_POST["producto"])) {
 	$dirPro->findDatosCleente('producto','idProducto');
 }
 
-if(isset($_POST["pedido"])){
+/* if(isset($_POST["pedido"])){
 	$dirPro = new Ajax();
 	$dirPro->setDato($_POST["pedido"]);
 	$dirPro->pedidos();
-}
+} */
 if(isset($_POST['notaDeleteDb'])){
 	$idDelete = new Ajax();
 	$idDelete->setDato($_POST["notaDeleteDb"]);

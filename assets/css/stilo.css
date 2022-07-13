@@ -608,3 +608,7 @@ form .selectH .hideSelect {
 		left: 26%;
 		width: 70%;
 	}
+
+	#rowsCount{
+		font-size:x-large
+	}

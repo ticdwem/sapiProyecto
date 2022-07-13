@@ -24,7 +24,7 @@ class PedidoController
         require_once 'views/pedidos/pedido.php';
     }
 
-    public function crearPedido($dato){
+/*     public function crearPedido($dato){
         $decod = json_decode($dato);
 
         $contar = count($decod->productos);
@@ -77,7 +77,7 @@ class PedidoController
             }
         }
 
-    }
+    } */
 
     Public function PedidoAnterior(){
         require_once('views/pedidos/listaPedidos.php');

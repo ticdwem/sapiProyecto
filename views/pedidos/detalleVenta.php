@@ -129,9 +129,10 @@
                             </div>
                     
                             <div class="col-sm-6 col-md-6 col-lg-6 m-1 row" id="DateDevelopersProductoContenedor">
+                                <input type="hidden" name="" id="fechaEntregaPedidoEditar" value="<?=$prodEditar[0][11];?>">
                                 <div class="row col-sm-6 col-md-6 col-lg-6" id="DateDevelopersProducto" >
                                     <label for="exampleFormControlFile1">Ingrese Fecha de entrega</label>  
-                                    <input class="datepicker" data-date-format="dd/mm/yyyy" id="dateIdPedido" data-id="dateIdPedidoEditar" autocomplete="off" readonly>
+                                    <input class="datepicker" data-date-format="dd/mm/yyyy" id="dateIdPedido" data-id="dateIdPedidoEditar" autocomplete="off" readonly placeholder="<?=$prodEditar[0][11]?>">
                                 </div>  
                                 <div class="row col-sm-6 col-md-6 col-lg-6" id="BtnDateDevelopersProducto">   
                                     <button type="button" id="btnIdChangeDate" class="btn btn-primary btn-sm">Cambiar Fecha</button>
@@ -317,14 +318,13 @@
 
 <script> 
 $(document).ready(function(){
-    $('#dateIdPedido').datepicker({
+    $('#dateIdPedido').datepicker(
+        {
         defaultDate: sumarDias(1),
         minDate:sumarDias(1),
-        inputs: "hola",
         format: 'dd-mm-yyyy',
         uiLibrary: 'bootstrap4',
         locale: 'es-es',
-        startDate: '-3d',
         beforeShowDay:  function(date){
                 show = true;
                 if(date.getDay() == 0 || date.getDay() == 6){show = false;}//No Weekends
@@ -334,7 +334,7 @@ $(document).ready(function(){
                 var display = [show,'',(show)?'':'No Weekends or Holidays'];//With Fancy hover tooltip!
                 return display;
             }
-    }).val(sumarDias(1))
+    })
 
     $("#updatePzModalEdit").on("click", function(e) {
         let idget = $("#idgetEditar").val();
@@ -424,7 +424,7 @@ $(document).ready(function(){
         let numNota = $("#numNota").val();
         let idUser = $("#idUser").val();
         let inputIdClienteEditar = $("#inputIdClienteEditar").val();
-        let fechaEntregaEditar = $("#dateIdPedido").val();
+        let fechaEntregaEditar = $("#fechaEntregaPedidoEditar").val();
         let comentario = $("#notaComentario").val();
         e.preventDefault();
         const formPedidos = document.getElementById("prodEditForm");

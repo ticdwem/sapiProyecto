@@ -86,11 +86,9 @@ class Utls{
 
     public static function cuentaPedidos($usuario){
         require_once $_SERVER['DOCUMENT_ROOT']."/sapiProyecto/config/modeloBase.php";
-        $datosWhere = "idUsuarioPedido =".$usuario."
-        AND fechaAltaProductoPedido = CURDATE() GROUP BY idClientePedido";
+        $datosWhere = "idUsuarioNotaPedido = ".$usuario." AND fechaAltaNotaPedido = CURDATE()";
         $datos = new ModeloBase();
-        $contados = $datos -> getCountDatos('pedidos',$datosWhere,'idUsuarioPedido')->fetch_all();
-
+        $contados = $datos -> getCountDatos('notapedido',$datosWhere,'idUsuarioNotaPedido')->fetch_all();
         return $contados;
     }
     public function getlastDateOrder(){
@@ -173,7 +171,7 @@ class Utls{
         $idUsuario = $_SESSION['usuario']['id'];
         /* contamos para saber cuantos dias han pasado desde su ultima conexion  */
         $contar = self::cuentaPedidos($idUsuario);
-        $countNota = count($contar);
+        $countNota = $contar[0][0];
         $yearNumber = date('y');
 
         $nota = $fecha1.$idUsuario.$countNota.$yearNumber;

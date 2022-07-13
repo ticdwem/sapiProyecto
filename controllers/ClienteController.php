@@ -33,7 +33,6 @@ class ClienteController
     public function create()
     {
         if (isset($_POST["btnEnviar"])) {
-
             $id = (Validacion::validarNumero($_POST['idCliente']) == -1) ? false :  htmlspecialchars($_POST['idCliente']);
             $nameCustomer = (Validacion::textoLargo($_POST['nameCustomer'], 50) == 900) ? false :  htmlspecialchars($_POST['nameCustomer']);
             $rfcCustomer = (Validacion::validarRFC($_POST['rfcCustomer'] == false)) ? false :  htmlspecialchars($_POST['rfcCustomer']);
@@ -131,7 +130,8 @@ class ClienteController
                         }
                         if ($verifInsert) {
                             $_SESSION['statusSave'] = "SE INSERTO CORRECTAMENTE";
-                            Utls::deleteSession('contactoCliente');
+                            Utls::deleteSession("domiciliocli");
+                            Utls::deleteSession("contactoCliente");
                         } else {
                             $_SESSION['formulario_cliente'] = array(
                                 'error' => 'hubo un error al insertar contacto',
