@@ -24,61 +24,6 @@ class PedidoController
         require_once 'views/pedidos/pedido.php';
     }
 
-/*     public function crearPedido($dato){
-        $decod = json_decode($dato);
-
-        $contar = count($decod->productos);
-        $notaComentario = (Validacion::textoLargo($decod->notaComentario,500)==0) ? "s/c" : 0;
-        if($notaComentario == 0){
-            $notaComentario = (Validacion::textoLargo($decod->notaComentario,500)==900) ? false : $decod->notaComentario;
-        }
-        $idCliente = (Validacion::validarNumero($decod->idCliente)== -1) ? false : true;
-        $fechaEnvio = (Validacion::valFecha($decod->fecha) == 0) ? false:Validacion::valFecha($decod->fecha);
-        if($idCliente == false || $fechaEnvio == false){
-            $_SESSION['formulario_cliente'] = array('error' => 'Error en los datos de cliente');
-        }else{
-            for ($i=0; $i <$contar ; $i++) { 
-                $codigo = (Validacion::validarNumero($decod->productos[$i]->codigo) != -1) ?  true: $_SESSION['formulario_cliente'] = array('error' => 'Error en los datos de productos'); break; 
-                $prod = (Validacion::validarNumero($decod->productos[$i]->producto) != -1) ?  true:$_SESSION['formulario_cliente'] = array('error' => 'Error en los datos de productos'); break;
-                $presn = (Validacion::textoLargo($decod->productos[$i]->present,250) != -1) ?  true : $_SESSION['formulario_cliente'] = array('error' => 'Error en los datos de productos'); break;
-                $pz = (Validacion::validarNumero($decod->productos[$i]->pz) != -1) ?  true : $_SESSION['formulario_cliente'] = array('error' => 'Error en los datos de productos'); break; ;
-            }
-            
-            if (isset($_SESSION['formulario_cliente'])) {
-                echo '<script>window.location="' . base_url . 'Pedido/pedido&id="'.$idCliente.'</script>';
-            } else {
-            
-                $registroInsert = 0;
-                
-                for ($j=0; $j <$contar ; $j++) { 
-                    $registerPedido = new PedidoModels();
-                    $registerPedido->setIdnotaPedido($decod->nota);
-                    $registerPedido->setIdClientePedido($decod->idCliente);
-                    $registerPedido->setIdUsuarioPedido($decod->user);
-                    $registerPedido->setIdProductoPedido($decod->productos[$j]->codigo);
-                    $registerPedido->setPresentacionProductoPedido($decod->productos[$j]->present);
-                    $registerPedido->setPzProductoPedido($decod->productos[$j]->pz);
-                    $registerPedido->setDetalleEntrega($decod->productos[$j]->present);
-                    $registerPedido->setFechaEntrega($fechaEnvio);
-                    $registerPedido->setComentarioNotaPedidos($notaComentario);
-                    $registro = $registerPedido->insertPedido();
-                    
-                    if($registro){
-                        $registroInsert ++;
-                    }else{
-                        $registroInsert = 0;
-                    }
-
-                    echo $registroInsert;
-                }
-            
-
-
-            }
-        }
-
-    } */
-
     Public function PedidoAnterior(){
         require_once('views/pedidos/listaPedidos.php');
     }

@@ -235,7 +235,15 @@ public function insertPedido(){
 
 	public function getPedidosEditar()
 	{
-		$verPedidos = "SELECT pds.idnotaPedido,pds.idClientePedido,pds.fechaAltaProductoPedido,pds.fechaEntregaPedido,cl.nombreCliente,dc.rutaId,rt.nombreRuta
+		$verPedidos = "SELECT np.fechaAltaNotaPedido AS fechaInicial,np.fechaEnregaNotaPedido AS fechaFin,np.idNotaPedido AS nota,np.idClienteNotaPedido AS clente,cl.nombreCliente AS nameCl,rt.nombreRuta AS rutaname
+		FROM notapedido np
+		INNER JOIN cliente cl
+		ON np.idClienteNotaPedido = cl.idCliente
+		INNER JOIN domiciliocliente dc
+		ON dc.clienteId = cl.idCliente
+		INNER JOIN ruta rt
+		ON dc.rutaId = rt.idRuta";			
+		/* $verPedidos = "SELECT pds.idnotaPedido,pds.idClientePedido,pds.fechaAltaProductoPedido,pds.fechaEntregaPedido,cl.nombreCliente,dc.rutaId,rt.nombreRuta
 						FROM pedidos pds 
 						INNER JOIN cliente cl
 						ON pds.idClientePedido = cl.idCliente
@@ -248,8 +256,7 @@ public function insertPedido(){
 						And
 						idUsuarioPedido = ".IDUSER."
 						AND
-						fechaEntregaPedido BETWEEN NOW() AND (SELECT MAX(pd.fechaEntregaPedido) FROM pedidos pd) GROUP BY pds.idnotaPedido";
-		/* WHERE fechaEntregaPedido BETWEEN '2022-06-23' AND (SELECT MAX(pd.fechaEntregaPedido) FROM pedidos pd) GROUP BY pds.idnotaPedido"; */				
+						fechaEntregaPedido BETWEEN NOW() AND (SELECT MAX(pd.fechaEntregaPedido) FROM pedidos pd) GROUP BY pds.idnotaPedido";	 */		
 		$query = $this->db->query($verPedidos);
 
 		return $query;

@@ -16,6 +16,7 @@
     </div>
     <script src="<?= base_url ?>assets/js/comprasTablaex.js"></script>
     <script src="<?= base_url ?>assets/js/filesJs/makePedido.js"></script>
+    <script src="<?= base_url ?>assets/js/filesJs/listaEditarPEdidos.js"></script>
 </body>
 </html>
             <!-- <p>DESARROLLADO POR TIdfsdfsdfCDWEM &COPY; <?= date('Y') ?></p> -->
