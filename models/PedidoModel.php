@@ -233,7 +233,7 @@ public function insertPedido(){
         return $insertPedido;
 	} */
 
-	public function getPedidosEditar()
+/* 	public function getPedidosEditar()
 	{
 		$verPedidos = "SELECT np.fechaAltaNotaPedido AS fechaInicial,np.fechaEnregaNotaPedido AS fechaFin,np.idNotaPedido AS nota,np.idClienteNotaPedido AS clente,cl.nombreCliente AS nameCl,rt.nombreRuta AS rutaname
 		FROM notapedido np
@@ -242,36 +242,25 @@ public function insertPedido(){
 		INNER JOIN domiciliocliente dc
 		ON dc.clienteId = cl.idCliente
 		INNER JOIN ruta rt
-		ON dc.rutaId = rt.idRuta";			
-		/* $verPedidos = "SELECT pds.idnotaPedido,pds.idClientePedido,pds.fechaAltaProductoPedido,pds.fechaEntregaPedido,cl.nombreCliente,dc.rutaId,rt.nombreRuta
-						FROM pedidos pds 
-						INNER JOIN cliente cl
-						ON pds.idClientePedido = cl.idCliente
-						INNER JOIN domiciliocliente dc
-						ON dc.clienteId = cl.idCliente
-						INNER JOIN ruta rt
-						ON rt.idRuta = dc.rutaId
-						WHERE 
-						statusProductoPedido = 1
-						And
-						idUsuarioPedido = ".IDUSER."
-						AND
-						fechaEntregaPedido BETWEEN NOW() AND (SELECT MAX(pd.fechaEntregaPedido) FROM pedidos pd) GROUP BY pds.idnotaPedido";	 */		
+		ON dc.rutaId = rt.idRuta
+		WHERE np.statusNotaPEdido = 1";			
+		
 		$query = $this->db->query($verPedidos);
 
 		return $query;
 
-	}
+	} */
 
 	public function updatePedidos(){
-		$update = "UPDATE pedidos p
+		$update = "UPDATE notapedido p
 		SET
-			p.statusProductoPedido='2'
+			p.statusNotaPEdido='2'
 		WHERE 
-			p.idUsuarioPedido = ".IDUSER."
-			AND p.fechaEntregaPedido = sumarFecha()
-			AND p.statusProductoPedido = 1";
-		
+			p.idUsuarioNotaPedido = ".IDUSER."
+			AND p.fechaEnregaNotaPedido = sumarFecha()
+			AND p.statusNotaPEdido = 1";
+/* 		var_dump($update);
+		die(); */
 	$upVenta = $this->db->query($update);
 	$pass = false;
 	if($upVenta){
@@ -279,39 +268,5 @@ public function insertPedido(){
 	}
 	return $pass;	
 }
-
-	public function updateComentario(){
-		$comnentario = "UPDATE pedidos
-						SET
-							comentarioNotaPedidos='{$this->getNotaCobranza()}'
-						WHERE 
-							idnotaPedido={$this->getIdnotaPedido()} and
-							idUsuarioPedido= ".IDUSER." and
-							idClientePedido= {$this->getIdClientePedido()}";
-		$upVenta = $this->db->query($comnentario);
-		$pass = false;
-		if($upVenta){
-			$pass = true;
-		}
-		return $pass;
-	}
-
-	public function changeDatePEdido(){
-		$changeFecha = "UPDATE pedidos
-						SET
-							fechaEntregaPedido='{$this->getFechaEntrega()}'
-						WHERE 
-							idnotaPedido={$this->getIdnotaPedido()} and
-							idUsuarioPedido= ".IDUSER." and
-							idClientePedido= {$this->getIdClientePedido()}";
-		$upVenta = $this->db->query($changeFecha);
-		$pass = false;
-		if($upVenta){
-			$pass = true;
-		}
-		return $pass;
-	}
-
-
 
 }

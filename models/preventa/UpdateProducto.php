@@ -77,8 +77,6 @@ class UpdateProducto extends Producto{
                             idnotaPedido={$this->getNota()}
                             and
                             idProductoPedido={$this->getIdProducto()}";
-/* var_dump($update);
-die(); */
          $UpdatePedidoProducto = $this->db->query($update);
          $upPedido = false;
          if($UpdatePedidoProducto){

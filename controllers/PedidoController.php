@@ -40,7 +40,8 @@ class PedidoController
 
     public function pedidos()
     {
-        $verPedidosDia = new PedidoModels();
+        require_once ('models/pedidosHistorico/ListarPedidos.php');
+        $verPedidosDia = new ListarPedidos(1);
         $pedidos =$verPedidosDia->getPedidosEditar();
         require_once('views/pedidos/listaEditarPedidos.php');
     }
@@ -51,7 +52,7 @@ class PedidoController
         $datos = $detallePEdido->getAllWhere('clientepedido','WHERE id='.$_GET['cli'])->fetch_object();  // datos de contacto de cliente      
         $dom = $detallePEdido->getAllWhere('mostrardatospedido','WHERE clienteId='.$_GET['cli'])->fetch_object(); // datos de domicilio de cliente
         $prodEditar = $detallePEdido->getAllWhere('viewPedidosProducto','WHERE idnotaPedido = '.$_GET['id'])->fetch_all(); // datos de productos
-        $almacenes = $detallePEdido->distinctQuery('fechaEntregaPedido','pedidos','WHERE idnotaPedido = '.$_GET['id'])->fetch_object();
+        //$almacenes = $detallePEdido->distinctQuery('fechaEntregaPedido','pedidos','WHERE idnotaPedido = '.$_GET['id'])->fetch_object();
         $productos = $detallePEdido->getAll('producto');
        require_once 'views/pedidos/detalleVenta.php';
 
@@ -68,6 +69,7 @@ class PedidoController
     }
 
     public function editarNota(){
+        require_once 'models/pedidosHistorico/EditarPedidos.php';
         $notaNueva = (Validacion::textoLargo($_POST["notaComentario"],500) == 0) ? "s/c" : 0;
         if($notaNueva == 0){
             $notaNueva = (Validacion::textoLargo($_POST["notaComentario"],500) == 0) ? false : $_POST["notaComentario"];
@@ -75,7 +77,7 @@ class PedidoController
         $nota = (Validacion::validarNumero($_POST["nota"]) == -1) ? false : $_POST["nota"];
         $cliente = (Validacion::validarNumero($_POST["cliente"]) == -1) ? false : $_POST["cliente"];
 
-        $notaModels = new PedidoModels();
+        $notaModels = new EditarPedidos();
         $notaModels->setIdnotaPedido($nota);
         $notaModels->setIdClientePedido($cliente);
         $notaModels->setNotaCobranza($notaNueva);
@@ -107,7 +109,7 @@ class PedidoController
        if($val > 1){
             echo 0;
         }else{
-            $changeFecha = new PedidoModels();
+            $changeFecha = new EditarFecha();
             $changeFecha->setFechaEntrega(Validacion::valFecha($data->date_dateIdPedido_15));
             $changeFecha->setIdnotaPedido($nota);
             $changeFecha->setIdClientePedido($cliente);
@@ -120,6 +122,13 @@ class PedidoController
                 echo 2;
             }
         }
+    }
+
+    public function anden(){
+        require_once ('models/pedidosHistorico/ListarPedidos.php');
+        $verPedidosDia = new ListarPedidos(2);
+        $pedidos =$verPedidosDia->getPedidosEditar();
+        require_once('views/pedidos/listaEditarPedidos.php');
     }
 
 }

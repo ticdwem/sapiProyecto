@@ -12,12 +12,14 @@
         <?php require_once 'views/layout/breadcrup.php';?>
             <div class="container" id="contenidoTablaHistorico">
                 <div class="col-sm-12 col-md-12 col-lg-12">
-                    <div class="col-sm-12 col-md-12 col-lg-12 row mb-3" id="divbtnClosePedidos">
-                        <div class="col-sm-12 col-md-6 col-lg-6" id="idEmptyPedios"></div>
-                        <div class="col-sm-12 col-md-6 col-lg-6" id="iddivbntPedidos">
-                            <button type="button" class="btn btn-primary btn-lg btn-block btnClosePEdido" id="btnClosePEdido" data-id="<?=IDUSER?>">Enviar Pedidos</button>
+                    <?php if($_GET['action'] == "pedidos"):?>
+                        <div class="col-sm-12 col-md-12 col-lg-12 row mb-3" id="divbtnClosePedidos">
+                            <div class="col-sm-12 col-md-6 col-lg-6" id="idEmptyPedios"></div>
+                            <div class="col-sm-12 col-md-6 col-lg-6" id="iddivbntPedidos">
+                                <button type="button" class="btn btn-primary btn-lg btn-block btnClosePEdido" id="btnClosePEdido" data-id="<?=IDUSER?>">Enviar Pedidos</button>
+                            </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
                     <table class="table table-striped table-hover tablaGenerica" id="tablaEditarPEdidos">
                         <thead>
                             <tr>

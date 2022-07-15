@@ -65,6 +65,41 @@ class PedidoMakeController
         }
     
     } 
+
+    public function addPedido(){
+        $idCliente = $this->getArraydatos()->idCliente;
+        $contar = count($this->getArraydatos()->productos);
+            for ($i=0; $i <$contar ; $i++) { 
+                $codigo = (Validacion::validarNumero($this->getArraydatos()->productos[$i]->codigo) != -1) ?  true: $_SESSION['formulario_cliente'] = array('error' => 'Error en los datos de productos'); break; 
+                $prod = (Validacion::validarNumero($this->getArraydatos()->productos[$i]->producto) != -1) ?  true:$_SESSION['formulario_cliente'] = array('error' => 'Error en los datos de productos'); break;
+                $presn = (Validacion::textoLargo($this->getArraydatos()->productos[$i]->present,250) != -1) ?  true : $_SESSION['formulario_cliente'] = array('error' => 'Error en los datos de productos'); break;
+                $pz = (Validacion::validarNumero($this->getArraydatos()->productos[$i]->pz) != -1) ?  true : $_SESSION['formulario_cliente'] = array('error' => 'Error en los datos de productos'); break; ;
+            }
+            
+            if (isset($_SESSION['formulario_cliente'])) {
+                echo '<script>window.location="' . base_url . 'Pedido/pedido&id="'.$idCliente.'</script>';
+            } else {
+                
+                   $registroInsert = 0;
+                   for ($j=0; $j <$contar ; $j++) { 
+                       $registerPedido = new InsertPedidoDetalle($this->getArraydatos()->nota,$this->getArraydatos()->productos[$j]->codigo,$this->getArraydatos()->productos[$j]->pz,$this->getArraydatos()->productos[$j]->present);
+                       $registro = $registerPedido->insertPedido();
+                       
+                       if($registro){
+                           $registroInsert ++;
+                       }else{
+                           $registroInsert = 0;
+                       }
+       
+                       echo $registroInsert;
+                   }
+               
+            
+            
+    
+    
+            }
+    }
     
 
 }

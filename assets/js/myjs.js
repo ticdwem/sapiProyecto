@@ -1198,73 +1198,7 @@ $(document).on('click', '.detallesPreventa', function() {
 
 })
 
-$(document).on('click', '.deleteOnclickDb', function(e) {
-    let codPRod = $(this).attr('id');
-    let nota = $(this).attr('data-get');
-    let notadato = Array();
-    Swal.fire({
-        title: 'Estas Seguro?',
-        text: "Eliminar de la lista",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        cancelButtonText: 'Cancelar',
-        confirmButtonText: 'Si, Eliminar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            notadato.push({ 'phone_idProd_10': codPRod, 'phone_numNota_10': nota });
-            validar = validarCampos(notadato);
-            if (validar > 0) {
-                Swal.fire(
-                    'ERROR',
-                    'Hay errores en los datos',
-                    'error'
-                )
-                e.preventDefault();
-            } else {
-                let data = { "data": notadato }
-                var json = JSON.stringify(data);
-                $.ajax({
-                    url: getAbsolutePath() + "views/layout/ajax.php",
-                    method: "POST",
-                    data: { "notaDeleteDb": json },
-                    cache: false,
-                    beforeSend: function() {},
-                    success: function(deletePRoducDbNota) {
-                        if (deletePRoducDbNota == 0) {
-                            Swal.fire(
-                                'error!',
-                                'HAY DATOS ERRONEOS VERIFICA O LLAMA A TU ADMINISTRADOR',
-                                'error'
-                            )
-                        } else if (deletePRoducDbNota == 1) {
-                            $('#registroProductotablePedidoEditar').load(" #registroProductotablePedidoEditar");
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: 'SE HA ELIMINADO CORRECTAMENTE',
-                                showConfirmButton: false,
-                                timer: 1500
-                            })
-                        } else {
-                            Swal.fire(
-                                'error!',
-                                'HAY UN FALLO NO SE PUDO ELIMINAR, INTENTA DE NUEVO',
-                                'error'
-                            )
-                        }
 
-                        $('#registroProductotablePedido').load(" #registroProductotablePedido");
-                    }
-                });
-            }
-
-
-        }
-    })
-
-});
 
 // verifica e inserta los datos en el textarea si el usuario es encontrado
 $(document).on('click', '.findCliente', function(e) {

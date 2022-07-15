@@ -1,6 +1,7 @@
 <?php
 require_once "AjaxDefault.php";
 require_once "../../../controllers/PedidoController.php";
+require_once "../../../controllers/pedidosAdvanced/PedidoMakeController.php";
 
 class AjaxAddPedido extends AjaxDefault
 {
@@ -12,8 +13,8 @@ class AjaxAddPedido extends AjaxDefault
     public function addPedidoAjax()
     {
         $dato = $this->getDatos();
-		$pedido = new PedidoController();
-		$pedido->crearPedido($dato);
+        $pedido = new PedidoMakeController($dato);
+		$pedido->addPedido();
     }
     
 }

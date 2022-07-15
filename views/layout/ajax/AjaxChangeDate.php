@@ -1,6 +1,7 @@
 <?php
 require_once "AjaxDefault.php";
 require_once "../../../controllers/PedidoController.php";
+require_once "../../../models/pedidosHistorico/EditarFecha.php";
 
 class AjaxChangeDate extends AjaxDefault
 {

@@ -4,8 +4,9 @@
         echo '<div class="alert alert-danger" role="alert" style="width:80%;">HUBO UN ERROR INTERNO EN EL SISTEMA, CONTACTA A TU ADMINISTRADOR DE SISTEMAS</div>';
         Utls::deleteSession('formulario_cliente');
     }
+    $contar = 0;
     $com = "";
-    $comentario = $prodEditar[0][13];
+    $comentario = $prodEditar[0][5];
     if(is_null($comentario)){
         $com = "Sin nota";
     }else{
@@ -129,10 +130,10 @@
                             </div>
                     
                             <div class="col-sm-6 col-md-6 col-lg-6 m-1 row" id="DateDevelopersProductoContenedor">
-                                <input type="hidden" name="" id="fechaEntregaPedidoEditar" value="<?=$prodEditar[0][11];?>">
+                                <input type="hidden" name="" id="fechaEntregaPedidoEditar" value="<?=$prodEditar[0][4];?>">
                                 <div class="row col-sm-6 col-md-6 col-lg-6" id="DateDevelopersProducto" >
                                     <label for="exampleFormControlFile1">Ingrese Fecha de entrega</label>  
-                                    <input class="datepicker" data-date-format="dd/mm/yyyy" id="dateIdPedido" data-id="dateIdPedidoEditar" autocomplete="off" readonly placeholder="<?=$prodEditar[0][11]?>">
+                                    <input class="datepicker" data-date-format="dd/mm/yyyy" id="dateIdPedido" data-id="dateIdPedidoEditar" autocomplete="off" readonly placeholder="<?=$prodEditar[0][4]?>">
                                 </div>  
                                 <div class="row col-sm-6 col-md-6 col-lg-6" id="BtnDateDevelopersProducto">   
                                     <button type="button" id="btnIdChangeDate" class="btn btn-primary btn-sm">Cambiar Fecha</button>
@@ -143,35 +144,41 @@
             </div>                  
         </div>        
     </div>
-    <div id="divproductosEditar" class="col-lg-12 m-t-5">
+    <div id="cajaPedido" class="col-lg-12 m-t-5">
            <table class="table table-striped" id="registroProductotablePedidoEditar">
                 <thead>
                     <tr>
                         <th scope="col">Id Producto</th>
                         <th scope="col">Producto</th>
                         <th scope="col">Piezas</th>
-                        <th scope="col">Presentacion</th>
+                        <th scope="col">Observaciones(nota)</th>
                     </tr>
                 </thead>
                 <tbody id="registroProductoPedidoEditar"> 
                 <?php foreach($prodEditar as $key): ?> 
                     <tr>
-                        <td><?=$key[4]?></td>
-                        <td><?=$key[14]?></td>
-                        <td><?=$key[5]?></td>
                         <td><?=$key[6]?></td>
+                        <td><?=$key[9]?></td>
+                        <td><?=$key[7]?></td>
+                        <td><?=$key[8]?></td>
                         <td>
                             
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type='button' class='btn btn-warning btnEditarPzProducto' data-id="<?=$key[5];?>"><i class="fas fa-edit"></i></button>
-                                <button type='button' class='btn btn-danger deleteOnclickDb ml-2' id="<?=$key[4];?>" data-get="<?=$_GET['id']?>"><i class='fa fa-times-circle' id='' aria-hidden='true'></i></button>
+                                <button type='button' class='btn btn-warning btnEditarPzProducto' data-id="<?=$key[7];?>"><i class="fas fa-edit"></i></button>
+                                <button type='button' class='btn btn-danger deleteOnclickDb ml-2' id="<?=$key[6];?>" data-get="<?=$_GET['id']?>"><i class='fa fa-times-circle' id='' aria-hidden='true'></i></button>
                             </div>
                             
                         </td>
                     </tr>
-               <?php endforeach; ?>
+               <?php $contar++; endforeach; ?>
                 </tbody>
             </table> 
+
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+
+            <div id="idViewAllRows" class="col-sm-12 col-md-6 col-lg-6 mt-4 "><div class="alert alert-info" id="rowsCount" role="alert"> Total Productos: <?=$contar?></div></div>
+            <div id="" class="col-sm-12 col-md-6 col-lg-6 mt-4 "></div>
         </div>
 </div>
 
@@ -191,7 +198,7 @@
                     <thead>
                         <th>Código</th>
                         <th>Nombre</th>
-                        <th>Observaciones(nota)</th>
+                        <th>Presentacion</th>
                         <th>Acción</th>
                     </thead>
                     <tbody>
@@ -318,6 +325,7 @@
 
 <script> 
 $(document).ready(function(){
+
     $('#dateIdPedido').datepicker(
         {
         defaultDate: sumarDias(1),
@@ -336,193 +344,7 @@ $(document).ready(function(){
             }
     })
 
-    $("#updatePzModalEdit").on("click", function(e) {
-        let idget = $("#idgetEditar").val();
-        let idProducto = $("#idProductoModalEdit").val();
-        let pz = $("#piezasModalEdit").val();
-        let present = $("#presentacionModalEdit").val();
-        let pzold = $("#pzoldValue").val();
-        let datosArray = Array();
-        datosArray.push({ 'phone_idget_12': idget, 'phone_idProducto_12': idProducto, 'phone_piezas_10': pz,'messagge_presentacionModalEdit_500':present });
-        var validar = validarCampos(datosArray);
-        if (validar > 0) {
-            Swal.fire(
-                'error!',
-                'HAY DATOS ERRONEOS VERIFICA O LLAMA A TU ADMINISTRADOR',
-                'error'
-            )
-        } else {
-            let data = { "data": datosArray }
-            var json = JSON.stringify(data);
-            $.ajax({
-                url: getAbsolutePath() + "views/layout/ajax.php",
-                method: "POST",
-                data: { "updatePro": json },
-                cache: false,
-                beforeSend: function() {},
-                success: function(updatePz) {
-                    console.log(updatePz)
-                    if (updatePz == 1) {
-                        $('#modalEditProductEntrega').modal('hide');
-                        $('#registroProductotablePedidoEditar').load(" #registroProductotablePedidoEditar");
-                    } else {
-                        Swal.fire(
-                            'ERROR?',
-                            'Hubo un error al intentar Editar llame a su adminsitrador',
-                            'question'
-                        )
-                    }
-                }
-            });
-        }
-    });
 
-    $("#inputCodigoPedidoEditar").on("change", function() {
-        let codigo = $(this).val();
-
-        var validarCodugo = expRegular("phone", codigo);
-        if (validarCodugo != 0) {
-            var verifProd = new FormData();
-            verifProd.append("producto", codigo);
-            $.ajax({
-                url: getAbsolutePath() + "views/layout/ajax.php",
-                method: "POST",
-                data: verifProd,
-                cache: false,
-                contentType: false,
-                processData: false,
-                beforeSend: function () {
-                    $('.spinnerWhite').html('<i class="fas fa-sync fa-spin"></i>');
-                },
-                success: function (datos) {
-                    if(datos != "0"){
-
-                        $("#inputNombreProdPedidoEditar").val(datos.descripcionProd);
-                        $("#inputPresentacionPedidoEditar").val("Nada");
-                        
-                        focusInput('inputPiezasPedidoEditar');
-                    }else{
-                        focusInput('inputCodigoPedidoEditar');
-                        Swal.fire({
-                                    icon: 'error',
-                                    title: 'ERROR',
-                                    text: 'No hay registro de este identificador de producto'
-                                })
-                    }
-                }
-            })
-        }else{
-            alert("algo salio mal")
-        }
-    })
-    $("#btnFindProductEditar").on('click', function() {
-        $("#ListPRod").modal({backdrop: 'static', keyboard: false})
-    });
-
-    $("#enterProductoEditar").on('click',function(e){
-        let valorPedido = Array();
-        let numNota = $("#numNota").val();
-        let idUser = $("#idUser").val();
-        let inputIdClienteEditar = $("#inputIdClienteEditar").val();
-        let fechaEntregaEditar = $("#fechaEntregaPedidoEditar").val();
-        let comentario = $("#notaComentario").val();
-        e.preventDefault();
-        const formPedidos = document.getElementById("prodEditForm");
-        /* ////////////////////////////////// */
-        let validar = Array();
-            let transactionFormData = new FormData(formPedidos); // obtiene los datos del formulario 
-            
-            let inputCodigo = document.getElementById('inputCodigoPedidoEditar').value; 
-            let inputNombreProd = document.getElementById('inputNombreProdPedidoEditar').value; 
-            let inputPresentacion = document.getElementById('inputPresentacionPedidoEditar').value; 
-            let inputPieza = document.getElementById('inputPiezasPedidoEditar').value; 
-            
-            validar.push({"phone_inputCodigoPedido_6":inputCodigo,"nombre_inputNombreProdPedido_80":inputNombreProd,"nombre_inputPresentacionPedido_80":inputPresentacion,"decimales_inputPiezasPedido_12":inputPieza});
-            var campos = validarCampos(validar);
-            if(campos == 0 ){
-                valorPedido.push({ 'codigo': inputCodigo, 'producto': inputNombreProd, 'present': inputPresentacion, 'pz': inputPieza });
-                let data = {
-                    "idCliente": inputIdClienteEditar,
-                    "nota": numNota,
-                    "user": idUser,
-                    "fecha":fechaEntregaEditar,
-                    "notaComentario":comentario,
-                    "productos": valorPedido
-                }
-                let JsonString = JSON.stringify(data);
-                $.ajax({
-                    url: getAbsolutePath() + "views/layout/ajax/AjaxAddPedido.php",
-                    method: "POST",
-                    data: {"data":JsonString},
-                    cache: false,
-                    beforeSend: function() {
-                        $('.spinnerWhite').html('<i class="fas fa-sync fa-spin"></i>');
-                    },
-                    success: function(resultSentToAjax) {
-                        console.log(resultSentToAjax);
-                        $('#registroProductotablePedidoEditar').load(" #registroProductotablePedidoEditar");
-                    }
-                });
-            }
-        /* ////////////////////////////////// */
-
-    });
-
-    $("#btnIdChangeDate").on("click",function(e){
-        let validar = Array();
-        let dateChange = $("#dateIdPedido").val();
-        let numNota = $("#numNota").val();
-        let cliente = $("#inputIdClienteEditar").val();
-        let idUser = $("#idUser").val();
-        validar.push({"date_dateIdPedido_15":dateChange,"phone_numNota_20":numNota,"phone_inputIdClienteEditar_25":cliente,"phone_idUser_20":idUser});
-        let campos = validarCampos(validar);
-
-        if(campos == 0){
-            let JsonString = JSON.stringify(validar);
-
-            $.ajax({
-                url: getAbsolutePath() + "views/layout/ajax/AjaxChangeDate.php",
-                method: "POST",
-                data: {"data":JsonString},
-                cache: false,
-                beforeSend: function() {
-                    $('.spinnerWhite').html('<i class="fas fa-sync fa-spin"></i>');
-                },
-                success: function(resultSentToAjax) {
-                    console.log(resultSentToAjax);
-                   
-                }
-            });
-        }
-    })
-})
-    $(document).on('click','.btnEditarPzProducto',function(){
-    let idPro = $(this).parents("tr").find("td")[0].innerHTML;
-    let producto = $(this).parents("tr").find("td")[1].innerHTML;
-    let present = $(this).parents("tr").find("td")[3].innerHTML;
-    let pieza = $(this).parents("tr").find("td")[2].innerHTML;
-    let pzOld = $(this).attr('data-id')
-    $("#idProductoModalEdit").val(idPro);
-    $("#nombreProdcutoModalEdit").val(producto);
-    $("#presentacionModalEdit").val(present);
-    $("#piezasModalEdit").val(pieza);
-    $("#pzoldValue").val(pieza)
-    $('#modalEditProductEntrega').modal('show');
 });
-
-
-$(document).on('click','.selectPRoductPEdido',function(e){
-    let codigo = $(this).parents("tr").find("td")[0].innerHTML;
-    let nombre = $(this).parents("tr").find("td")[1].innerHTML;
-    let presentacion = $(this).parents("tr").find("td")[2].innerHTML;
-    $("#inputCodigoPedidoEditar").val(codigo);
-    $("#inputNombreProdPedidoEditar").val(nombre);
-    $("#inputPresentacionPedidoEditar").val(presentacion);
-    $("#ListPRod").modal('hide');
-    if ($('.modal-backdrop').is(':visible')) {
-        $('body').removeClass('modal-open'); 
-        $('.modal-backdrop').remove(); 
-        focusInput('inputPiezasPedido');
-    };
-});
+    
 </script>
