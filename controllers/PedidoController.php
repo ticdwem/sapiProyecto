@@ -41,6 +41,7 @@ class PedidoController
     public function pedidos()
     {
         require_once ('models/pedidosHistorico/ListarPedidos.php');
+        $getController = "Pedido";
         $verPedidosDia = new ListarPedidos(1);
         $pedidos =$verPedidosDia->getPedidosEditar();
         require_once('views/pedidos/listaEditarPedidos.php');

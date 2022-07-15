@@ -314,10 +314,6 @@
                 </table>
             </div>
       </div>
-<!--       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-        <button type="button" class="btn btn-primary" id="updatePz">Actualizar</button>
-      </div> -->
     </div>
    </div>
 </div>

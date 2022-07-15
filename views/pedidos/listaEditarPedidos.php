@@ -6,7 +6,7 @@
     }
     ?>
 </div>
-<div class="">
+<div class="" id="controllerRedirectJs" data-id="<?=$getController;?>">
     <div class="row">
         <div class="col-lg-12">
         <?php require_once 'views/layout/breadcrup.php';?>

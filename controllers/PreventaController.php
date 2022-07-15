@@ -15,17 +15,30 @@ class PreventaController{
     }
 
     public function index(){
-        //$preventa = $this->instancia->getAllWhere('viewPreventa','WHERE statusProductoPedido = 1 GROUP BY idnotaPedido');
-        $preventa = $this->instancia->getAllWhere('viewPreventa','Where statusProductoPedido = 1 GROUP BY idnotaPedido');
-        require_once 'views/preventa/index.php';
+        require_once ('models/pedidosHistorico/ListarPedidos.php');
+        $getController = "Preventa";
+        $verPedidosDia = new ListarPedidos(2);
+        $pedidos =$verPedidosDia->getPedidosEditar();
+        require_once('views/pedidos/listaEditarPedidos.php');
+       // require_once 'views/preventa/index.php';
     }
 
+
     public function detalle(){
-        $datos = $this->instancia->getAllWhere('clientepedido','WHERE id='.$_GET['cli'])->fetch_object();  // datos de contacto de cliente      
+        require_once ('models/PedidoModel.php');
+        $detallePEdido = new PedidoModels();
+        $datos = $detallePEdido->getAllWhere('clientepedido','WHERE id='.$_GET['cli'])->fetch_object();  // datos de contacto de cliente      
+        $dom = $detallePEdido->getAllWhere('mostrardatospedido','WHERE clienteId='.$_GET['cli'])->fetch_object(); // datos de domicilio de cliente
+        $prodEditar = $detallePEdido->getAllWhere('viewPedidosProducto','WHERE idnotaPedido = '.$_GET['id'])->fetch_all(); // datos de productos
+        $almacenes = $detallePEdido->getAll('almacen'); // traer almacenes excepto el almacen 1 que es el default
+        $productos = $detallePEdido->getAll('producto');
+       require_once 'views/pedidos/detalleVenta.php';
+
+       /*  $datos = $this->instancia->getAllWhere('clientepedido','WHERE id='.$_GET['cli'])->fetch_object();  // datos de contacto de cliente      
         $dom = $this->instancia->getAllWhere('mostrardatospedido','WHERE clienteId='.$_GET['cli'])->fetch_object(); // datos de domicilio de cliente
         $prod = $this->instancia->getAllWhere('viewPedidosProducto','WHERE idnotaPedido = '.$_GET['id']); // datos de productos
         $almacenes = $this->instancia->getAllwhere('almacen','WHERE idAlmacen <> 1'); // traer almacenes excepto el almacen 1 que es el default
-        require_once 'views/preventa/detalleVenta.php';
+        require_once 'views/preventa/detalleVenta.php'; */
     }
 
     public function deleteDatoPedido($datos){
@@ -79,28 +92,7 @@ class PreventaController{
     }
 
     public function sendToVentas($datos){
-        $jsonVentas = json_decode($datos,true);
-        $venta = $jsonVentas["data"][0];
-
-        $almacen =(Validacion::validarNumero($venta["phone_idAlmacen_9"])==-1)? false: $venta["phone_idAlmacen_9"];
-        $nota =(Validacion::validarNumero($venta["phone_nota_10"])==-1)? false: $venta["phone_nota_10"];
-
-        $validar = array('almacen'=>$almacen,'nota'=>$nota);
-        $valDato= Utls::sessionValidate($validar);
-
-        if($valDato>1){
-            echo 0;
-        }else{
-            $updateToventa = new UpdateProducto(0,$nota,0);
-            $updateToventa->setAlmacen($almacen);
-            $todoVenta = $updateToventa->passToVenta();
-            if ($todoVenta) {
-                echo 1;
-            } else {
-                echo 2;
-            }
-            
-        }
+        
     }
     
 }

@@ -1190,13 +1190,13 @@ $(document).on('click', '.seleccionarIdProducto', function() {
         }
     });
 });
-
+/* 
 $(document).on('click', '.detallesPreventa', function() {
     let idNota = $(this).attr('id');
     let cliente = $(this).attr('data-id');
     window.location.href = getAbsolutePath() + 'Preventa/detalle&id=' + idNota + '&cli=' + cliente;
 
-})
+}) */
 
 
 

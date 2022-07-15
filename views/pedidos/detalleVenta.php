@@ -35,9 +35,11 @@
                                 <input type="text" class="form-control" id="notaComentario" name="notaComentario" aria-describedby="id" placeholder="nota" value="<?=$com?>">
                                 <small id="notaComentario" class="form-text text-muted"></small>
                             </div>
-                            <div id="btnNota" class="col-lg-3 col-md-3 col-sm-12 btnNota">
-                                <button type="submit" class="btn btn-warning btn-lg">Editar Nota</button>
-                            </div>
+                            <?php if($_GET['action'] == 'editar'):?>
+                                <div id="btnNota" class="col-lg-3 col-md-3 col-sm-12 btnNota">
+                                    <button type="submit" class="btn btn-warning btn-lg">Editar Nota</button>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </form>
                 </div>
@@ -135,9 +137,11 @@
                                     <label for="exampleFormControlFile1">Ingrese Fecha de entrega</label>  
                                     <input class="datepicker" data-date-format="dd/mm/yyyy" id="dateIdPedido" data-id="dateIdPedidoEditar" autocomplete="off" readonly placeholder="<?=$prodEditar[0][4]?>">
                                 </div>  
-                                <div class="row col-sm-6 col-md-6 col-lg-6" id="BtnDateDevelopersProducto">   
-                                    <button type="button" id="btnIdChangeDate" class="btn btn-primary btn-sm">Cambiar Fecha</button>
-                                </div>                
+                                <?php if($_GET['action'] == 'editar'):?>
+                                    <div class="row col-sm-6 col-md-6 col-lg-6" id="BtnDateDevelopersProducto">   
+                                        <button type="button" id="btnIdChangeDate" class="btn btn-primary btn-sm">Cambiar Fecha</button>
+                                    </div>    
+                                <?php endif; ?>            
                             </div>
                         </div>
                     </form>
@@ -175,10 +179,16 @@
             </table> 
 
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-sm-12 col-md-12 col-lg-12 row">
 
+            <div id="" class="col-sm-12 col-md-6 col-lg-6 mt-4 ">
+            <?php if($_GET["controller"] == "Preventa"): ?>
+                <div id="divBtnPedidoAceptar" class="mt-3">
+                    <button type="button" class="btn btn-success" id="designAlmacen">DESIGNAR ALMACEN</button>
+                </div>
+         <?php endif; ?>
+            </div>
             <div id="idViewAllRows" class="col-sm-12 col-md-6 col-lg-6 mt-4 "><div class="alert alert-info" id="rowsCount" role="alert"> Total Productos: <?=$contar?></div></div>
-            <div id="" class="col-sm-12 col-md-6 col-lg-6 mt-4 "></div>
         </div>
 </div>
 
@@ -321,7 +331,46 @@
     </div>
   </div>
 </div>
-
+<!-- Modal -->
+<div class="modal fade" id="SelectAlmacen" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <div class="container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">Almacen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while($almacen = $almacenes->fetch_object()):?>
+                            <tr>
+                                <th><?=$almacen->idAlmacen?></th>
+                                <td><?=$almacen->nombreAlmacen?></td>
+                                <td>
+                                    <button type='button' class='btn btn-success selectAlmacen' data-id="<?=$almacen->idAlmacen;?>">SELECCIONAR</button>
+                                </td>
+                            </tr>                        
+                        <?php endwhile?>
+                    </tbody>
+                </table>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script> 
 $(document).ready(function(){

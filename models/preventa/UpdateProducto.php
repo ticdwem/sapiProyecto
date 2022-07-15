@@ -86,12 +86,12 @@ class UpdateProducto extends Producto{
     }
 
     public function passToVenta(){
-        $update = "UPDATE pedidos
+        $update = "UPDATE notapedido
                     SET
-                        statusProductoPedido='2',
+                        statusNotaPEdido='3',
                         idAlmacenPedidos='{$this->getAlmacen()}'
                     WHERE 
-                        idnotaPedido='{$this->getNota()}'";
+                        idNotaPedido='{$this->getNota()}'";
         $ventasUp = $this->db->query($update);
         $venta = false;
         if($ventasUp){
