@@ -81,6 +81,7 @@ $(document).on('click','.selectPRoductPEdido',function(e){
             /* este funcion es para ingresar los datos a la base de dato pedidos */
             $("#btnPedidoAceptar").on("click", function(e) {
                 let valorPedido = Array();
+                let ventaContado = Array({2:2});
                 let notaComentario = $("#notaComentario").val();
                 let idNota = $("#numNota").val();
                 let idCliente = $("#inputIdCliente").val();
@@ -89,6 +90,28 @@ $(document).on('click','.selectPRoductPEdido',function(e){
                 let valId = expRegular("phone", idCliente);
                 let valNota = expRegular("phone", idNota);
                 let valFecha = expRegular("date",fechaEntrega);
+                
+                if(idCliente == 713){
+                    let ClienteArray = Array();
+                    let name = $("#customName").val();
+                    let tel = $("#customPhone").val();
+                    let ruta = $("#rutaClienteSlect").val();
+
+                    ClienteArray.push({"nombre_customName_60":name,"messagge_customPhone_10":tel,"phone_rutaClienteSlect_10":ruta});
+                    var campos = validarCampos(ClienteArray);
+                    if(campos != 0){
+                        return false;
+                    }else{
+                        ventaContado.push({'nombre':name,'telNombre':tel,'rutaCliente':ruta});
+                    }
+                }
+
+                let numeroFecha = numberDay(fechaEntrega);
+
+                if(numeroFecha == 0){
+                    
+                }
+
                 if (valId != 0 && valNota != 0 && valFecha != 0) {
                     let tabla = existeRegistro('registroProductotablePedido');
                     if (tabla == 0) {
@@ -100,23 +123,7 @@ $(document).on('click','.selectPRoductPEdido',function(e){
                             timer: 1500
                         });
                     } else {
-                        let numeroFecha = numberDay(fechaEntrega);
-                        if(numeroFecha == 0){
-                            Swal.fire({
-                                title: '¿El día seleccionado es domingo es correcto?',
-                                showDenyButton: true,
-                                showCancelButton: false,
-                                confirmButtonText: 'Guardar',
-                                denyButtonText: `No guardar`,
-                              }).then((result) => {
-                                /* Read more about isConfirmed, isDenied below */
-                                if (result.isConfirmed) {
-                                  
-                                } else if (result.isDenied) {
-                                  return false;
-                                }
-                              })
-                        }
+                        
                         $("#registroProductoPedido tr").each(function() {
                             let codigo = $(this).find('td').eq(0).html();
                             let producto = $(this).find('td').eq(1).html();
@@ -131,6 +138,7 @@ $(document).on('click','.selectPRoductPEdido',function(e){
                             "nota": idNota,
                             "user": idUser,
                             "fecha":fechaEntrega,
+                            "vc":ventaContado,
                             "productos": valorPedido
                         }
                         let JsonString = JSON.stringify(data);
@@ -144,6 +152,7 @@ $(document).on('click','.selectPRoductPEdido',function(e){
         
                             },
                             success: function(pedido) {
+                                console.log(pedido)
                                 if (pedido >= 1) {
                                     Swal.fire({
                                         position: 'center',
@@ -164,16 +173,16 @@ $(document).on('click','.selectPRoductPEdido',function(e){
                                 //location.reload();
                             }
                         });
-                    }
+                    } 
                 } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'ERROR',
                         text: 'HAY ERRORES EN LOS IDENTIFICADORES INGRESE DE NUEVO '
                     })
-                }
+                }/* ddes peus de ste debe pegar el else */
             });
-    
+    /* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
         $('#dateIdPedido').datepicker({
             defaultDate: sumarDias(1),
             minDate:sumarDias(1),
@@ -191,7 +200,7 @@ $(document).on('click','.selectPRoductPEdido',function(e){
                     var display = [show,'',(show)?'':'No Weekends or Holidays'];//With Fancy hover tooltip!
                     return display;
                 }
-        }).val(sumarDias(1))
+        }).val(verifDay(1))
         
         $("#inputCodigoPedido").on('change',function(){
             let codigo = $(this).val();

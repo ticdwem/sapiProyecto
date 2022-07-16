@@ -192,14 +192,18 @@ $(document).ready(function () {
         })
     })
     
+    $('#dateIdPedido').on('change',function(){
+        
+        let codigo = $(this).val();
+        let domingo = numberDay(codigo);
+        if(domingo == 0){
+            $("#alertDaySunday").html('<small><div class="alert alert-danger" role="alert">ESTA FECHA ES DIA DOMINGO</div></small>');
+        }
+    })
 });
 /* ================================================================================================================================================================ 
                                                 validar loguin
    ================================================================================================================================================================ */
-$('#inputCodigoPedidoEditar').on('change',function(){
-    let codigo = $(this).val();
-    console.log(codigo)
-})
 
 
 

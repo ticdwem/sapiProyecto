@@ -21,6 +21,9 @@ class PedidoController
         $datos = $pedidos->getAllWhere('clientepedido','WHERE id='.$_GET['id'])->fetch_object();        
         $dom = $pedidos->getAllWhere('mostrardatospedido','WHERE clienteId='.$_GET['id'])->fetch_object();        
         $prod = $pedidos->getAll('producto');
+        if($_GET['id'] == 713){
+            $rutas = $pedidos->getAll('ruta');
+        }
         require_once 'views/pedidos/pedido.php';
     }
 

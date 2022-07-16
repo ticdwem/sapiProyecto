@@ -19,7 +19,7 @@
         <div class="col-lg-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item active" aria-current="page">Pedidos</li>
+                    <li class="breadcrumb-item active" aria-current="page">Pedidosdfddsd</li>
                 </ol>
             </nav>
             <div class="container" id="">
@@ -317,8 +317,8 @@
                     <div class="piezasModalEdit"></div>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="presentacionModalEdit">Presentacion</label>
-                    <input type="text" class="form-control presentacionModalEdit" id="presentacionModalEdit" value="" >
+                    <label for="presentacionModalEdit">Observaciones</label>
+                    <input type="text" class="form-control presentacionModalEdit" id="presentacionModalEdit" value=""  <?php if($_GET['action'] == 'detalle'){ echo "disabled";}?>>
                     <div class="presentacionModalEdit"></div>
                 </div>
             </div>

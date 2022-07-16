@@ -233,6 +233,18 @@ function hoy() {
 
     return fechaHoy+"-"+fechaMes+"-"+fechaAno;
     }
+
+    /**
+     * este funcon detecta si es el dia es domingo lo pasamos al lunes
+     */
+    function verifDay(dias){
+        let sumday = sumarDias(dias);
+        let weekend = numberDay(sumday);
+        if(weekend == 0){
+            sumday = sumarDias(2);
+        }
+        return sumday;
+    }
 /**
  * extrae el numero del dia sabiendo que el dia 0 es domingo 
  * el dia 6 es sabado
@@ -242,6 +254,7 @@ function hoy() {
         let mes = (separar[1] - 1);
         let MyDate = new Date(separar[2],mes,separar[0]);
         let getdayNumber = MyDate.getDay();
+        
         return getdayNumber;
     }
 

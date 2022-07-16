@@ -55,25 +55,53 @@
                         </div>
                     </div> 
                 </div>
-                <div id="datoContacto" class="col-lg-12 col-md-12 col-sm-12 datoContacto">
-                    <div class="row">
-                        <div id="telPrin" class="col-lg-4 col-md-4 col-sm-12 telPrin">
-                            <label for="telefonoPricnipal">Telefono Principal</label>
-                            <input type="text" class="form-control" id="telefonoPricnipal" name="telefonoPricnipal" aria-describedby="telPrin" placeholder="Telefono Principal" value="<?=$datos->telPrinContactoCliente?>" readonly>
-                            <small id="telefonoPricnipal" class="form-text text-muted"></small>
-                        </div>
-                        <div id="telSec" class="col-lg-4 col-md-4 col-sm-12 telSec">
-                            <label for="TelSecundario">Telefono Secundario</label>
-                            <input type="text" class="form-control" id="TelSecundario" name="TelSecundario" aria-describedby="telSec" placeholder="Telefono Secundario" value="<?php if($datos->telSecundario == 500){echo "Sin Datos";}else{$datos->telSecundario;} ?>" readonly>
-                            <small id="TelSecundario" class="form-text text-muted"></small>
-                        </div>
-                        <div id="ruta" class="col-lg-4 col-md-4 col-sm-12 ruta">
-                            <label for="rutaCliente">Ruta</label>
-                            <input type="text" class="form-control" id="rutaCliente" name="rutaCliente" aria-describedby="ruta" placeholder="ruta" value="<?=$datos->nomRuta?>" readonly>
-                            <small id="rutaCliente" class="form-text text-muted"></small>
-                        </div>
-                    </div> 
-                </div>
+                <?php if($_GET['id'] != 713):?>
+                    <div id="datoContacto" class="col-lg-12 col-md-12 col-sm-12 datoContacto">
+                        <div class="row">
+                            <div id="telPrin" class="col-lg-4 col-md-4 col-sm-12 telPrin">
+                                <label for="telefonoPricnipal">Telefono Principal</label>
+                                <input type="text" class="form-control" id="telefonoPricnipal" name="telefonoPricnipal" aria-describedby="telPrin" placeholder="Telefono Principal" value="<?=$datos->telPrinContactoCliente?>" readonly>
+                                <small id="telefonoPricnipal" class="form-text text-muted"></small>
+                            </div>
+                            <div id="telSec" class="col-lg-4 col-md-4 col-sm-12 telSec">
+                                <label for="TelSecundario">Telefono Secundario</label>
+                                <input type="text" class="form-control" id="TelSecundario" name="TelSecundario" aria-describedby="telSec" placeholder="Telefono Secundario" value="<?php if($datos->telSecundario == 500){echo "Sin Datos";}else{$datos->telSecundario;} ?>" readonly>
+                                <small id="TelSecundario" class="form-text text-muted"></small>
+                            </div>
+                            <div id="ruta" class="col-lg-4 col-md-4 col-sm-12 ruta">
+                                <label for="rutaCliente">Ruta</label>
+                                <input type="text" class="form-control" id="rutaCliente" name="rutaCliente" aria-describedby="ruta" placeholder="ruta" value="<?=$datos->nomRuta?>" readonly>
+                                <small id="rutaCliente" class="form-text text-muted"></small>
+                            </div>
+                        </div> 
+                    </div>
+                <?php endif; ?>
+                <?php if($_GET['id'] == 713):?>
+                    <div id="datoContacto" class="col-lg-12 col-md-12 col-sm-12 datoContacto">
+                        <div class="row">
+                            <div id="telPrin" class="col-lg-4 col-md-4 col-sm-12 telPrin">
+                                <label for="customName">Nombre Cliente</label>
+                                <input type="text" class="form-control" id="customName" name="customName" aria-describedby="telPrin" placeholder="Nombre Cliente" value="" >
+                                <small id="customName" class="form-text text-muted"></small>
+                            </div>
+                            <div id="telSec" class="col-lg-4 col-md-4 col-sm-12 telSec">
+                                <label for="customPhone">Telefono Contacto</label>
+                                <input type="text" class="form-control" id="customPhone" name="customPhone" aria-describedby="telSec" placeholder="Telefono cliente" value="" >
+                                <small id="customPhone" class="form-text text-muted"></small>
+                            </div>
+                            <div id="ruta" class="col-lg-4 col-md-4 col-sm-12 ruta">
+                                <label for="rutaCliente">Ruta</label>
+                                <select class="form-select form-control " id="rutaClienteSlect" >
+                                    <option selected>Selecciona una ruta</option>
+                                   <?php while ($ruta = $rutas->fetch_object()): ?>
+                                    <option value="<?=$ruta->idRuta;?>"><?=$ruta->nombreRuta;?></option>
+                                   <?php endwhile; ?>
+                                </select>
+                            </div>
+                            <small id="rutaClienteSlect" class="form-text text-muted"></small>
+                        </div> 
+                    </div>
+                <?php endif; ?>
                 <hr>
                 <form id="frmPedido">
                     <div class="row " id="prodNewForm">
@@ -112,10 +140,13 @@
                             <button type="submit" class="btn btn-success" id="enterProducto" name="btn-acepta">Aceptar</button>
                             <button type="button" class="btn btn-warning" id="btnFindProduct">Buscar</button>
                         </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6">
-                            <div class="row">  
+                        <div class="col-sm-6 col-md-6 col-lg-6 ">
+                            <div class="col-sm-12 col-md-12 col-lg-12 row">  
                                 <label for="exampleFormControlFile1">Ingrese Fecha de entrega</label>  
                                 <input class="datepicker" data-date-format="dd/mm/yyyy" id="dateIdPedido" autocomplete="off" readonly>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6 row mt-2">  
+                                <div id="alertDaySunday"></div>
                             </div>
                         </div>
                     </div>

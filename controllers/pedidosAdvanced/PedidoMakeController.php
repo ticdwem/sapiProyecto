@@ -18,6 +18,8 @@ class PedidoMakeController
     
     public function crearPedido(){
         
+        var_dump($this->getArraydatos());
+        die();
         $notaComentario = (Validacion::textoLargo($this->getArraydatos()->notaComentario,500)==0) ? "S/C" : 0;
 
         if($notaComentario == 0){
