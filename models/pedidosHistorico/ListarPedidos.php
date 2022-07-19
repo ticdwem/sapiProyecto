@@ -20,15 +20,25 @@ class ListarPedidos extends PedidoModels
     }
 
     public function getPedidosEditar(){
-        $verPedidos = "SELECT np.fechaAltaNotaPedido AS fechaInicial,np.fechaEnregaNotaPedido AS fechaFin,np.idNotaPedido AS nota,np.idClienteNotaPedido AS clente,cl.nombreCliente AS nameCl,rt.nombreRuta AS rutaname
-                        FROM notapedido np
-                        INNER JOIN cliente cl
-                        ON np.idClienteNotaPedido = cl.idCliente
-                        INNER JOIN domiciliocliente dc
-                        ON dc.clienteId = cl.idCliente
-                        INNER JOIN ruta rt
-                        ON dc.rutaId = rt.idRuta
-                        WHERE np.statusNotaPEdido = '{$this->getNumero()}'";		
+        $verPedidos = "SELECT 
+                            np.fechaAltaNotaPedido AS fechaInicial,np.fechaEnregaNotaPedido AS fechaFin,np.idNotaPedido AS nota,np.idClienteNotaPedido AS clente,cl.nombreCliente AS nameCl,
+                            rt.nombreRuta AS rutaname,np.rutaNotaPEdido as rutaNP , rta.nombreRuta as nameRuta
+                        FROM 
+                            notapedido np
+                        INNER JOIN 
+                            cliente cl
+                            ON np.idClienteNotaPedido = cl.idCliente
+                        INNER JOIN 
+                            domiciliocliente dc
+                            ON dc.clienteId = cl.idCliente
+                        INNER JOIN 
+                            ruta rt
+                            ON dc.rutaId = rt.idRuta
+                        left JOIN 
+                            ruta rta
+                            ON np.rutaNotaPEdido = rta.idRuta
+                        WHERE np.statusNotaPEdido = '{$this->getNumero()}'
+                        AND np.idUsuarioNotaPedido = '".IDUSER."'";		
 		$query = $this->db->query($verPedidos);
 
 		return $query;

@@ -4,10 +4,11 @@
         echo '<div class="alert alert-danger" role="alert" style="width:80%;">HUBO UN ERROR INTERNO EN EL SISTEMA, CONTACTA A TU ADMINISTRADOR DE SISTEMAS</div>';
         Utls::deleteSession('formulario_cliente');
     }
+ 
     ?>
 </div>
 <div class="" id="controllerRedirectJs" data-id="<?=$getController;?>">
-    <div class="row">
+    <div class="row" id="getmd" data-id="<?=$anden?>">
         <div class="col-lg-12">
         <?php require_once 'views/layout/breadcrup.php';?>
             <div class="container" id="contenidoTablaHistorico">
@@ -32,13 +33,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while ($pedido = $pedidos->fetch_object()):?>
+                        <?php while ($pedido = $pedidos->fetch_object()):
+                            if(is_null($pedido->rutaNP)){$ruta = $pedido->rutaname;}else{$ruta = $pedido->nameRuta;}
+                            ?>
                             <tr>
                                 <td><?=$pedido->fechaInicial?></td>
                                 <td><?=$pedido->fechaFin?></td>
                                 <td><?=$pedido->nota?></td>
                                 <td><?=$pedido->nameCl?></td>
-                                <td><?=$pedido->rutaname?></td>
+                                <td><?=$ruta?></td>
                                 <td><button type="button" class="btn btn-info btnEditarPedido" id="<?=$pedido->clente?>" data-id="<?=$pedido->nota?>">Detalle</button></td>
                             </tr>
                         <?php endwhile; ?>

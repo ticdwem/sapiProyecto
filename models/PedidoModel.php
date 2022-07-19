@@ -17,6 +17,10 @@ class PedidoModels extends ModeloBase
 	protected $comentarioNotaPedidos;
 	protected $notaCobranza;
 
+	protected $nombreCliente;
+	protected $telefono;
+	protected $ruta;
+
 	public function __construct()
     {
         parent::__construct();
@@ -203,6 +207,59 @@ class PedidoModels extends ModeloBase
 		return $this;
 	}
 
+	/**
+	 * Get the value of nombreCliente
+	 */
+	public function getNombreCliente()
+	{
+		return $this->nombreCliente;
+	}
+
+	/**
+	 * Set the value of nombreCliente
+	 */
+	public function setNombreCliente($nombreCliente): self
+	{
+		$this->nombreCliente = $nombreCliente;
+
+		return $this;
+	}
+
+	/**
+	 * Get the value of telefono
+	 */
+	public function getTelefono()
+	{
+		return $this->telefono;
+	}
+
+	/**
+	 * Set the value of telefono
+	 */
+	public function setTelefono($telefono): self
+	{
+		$this->telefono = $telefono;
+
+		return $this;
+	}
+
+	/**
+	 * Get the value of ruta
+	 */
+	public function getRuta()
+	{
+		return $this->ruta;
+	}
+
+	/**
+	 * Set the value of ruta
+	 */
+	public function setRuta($ruta): self
+	{
+		$this->ruta = $ruta;
+
+		return $this;
+	}
 
 
 	public function lastDate(){
@@ -218,38 +275,6 @@ class PedidoModels extends ModeloBase
 			return $query;
 	}
 
-/* 	
-este metodo se pasa a pedidoinsertNota
-public function insertPedido(){
-		$insert= "INSERT INTO pedidos 
-							(idnotaPedido, idUsuarioPedido, idClientePedido, idProductoPedido, pzProductoPedido,detalleEntrega, fechaAltaProductoPedido, statusProductoPedido,fechaEntregaPedido,comentarioNotaPedidos)
-							 VALUES ('{$this->getIdnotaPedido()}', '{$this->getIdUsuarioPedido()}', '{$this->getIdClientePedido()}', '{$this->getIdProductoPedido()}', '{$this->getPzProductoPedido()}','{$this->getDetalleEntrega()}' ,now(), '1','{$this->getFechaEntrega()}','{$this->getComentarioNotaPedidos()}')";	
-
-		$query = $this->db->query($insert);
-		$insertPedido = false;
-        if($query){
-            $insertPedido = true;
-        }
-        return $insertPedido;
-	} */
-
-/* 	public function getPedidosEditar()
-	{
-		$verPedidos = "SELECT np.fechaAltaNotaPedido AS fechaInicial,np.fechaEnregaNotaPedido AS fechaFin,np.idNotaPedido AS nota,np.idClienteNotaPedido AS clente,cl.nombreCliente AS nameCl,rt.nombreRuta AS rutaname
-		FROM notapedido np
-		INNER JOIN cliente cl
-		ON np.idClienteNotaPedido = cl.idCliente
-		INNER JOIN domiciliocliente dc
-		ON dc.clienteId = cl.idCliente
-		INNER JOIN ruta rt
-		ON dc.rutaId = rt.idRuta
-		WHERE np.statusNotaPEdido = 1";			
-		
-		$query = $this->db->query($verPedidos);
-
-		return $query;
-
-	} */
 
 	public function updatePedidos(){
 		$update = "UPDATE notapedido p
@@ -259,14 +284,25 @@ public function insertPedido(){
 			p.idUsuarioNotaPedido = ".IDUSER."
 			AND p.fechaEnregaNotaPedido = sumarFecha()
 			AND p.statusNotaPEdido = 1";
-/* 		var_dump($update);
-		die(); */
-	$upVenta = $this->db->query($update);
-	$pass = false;
-	if($upVenta){
-		$pass = true;
+		$upVenta = $this->db->query($update);
+		$pass = false;
+		if($upVenta){
+			$pass = true;
+		}
+		return $pass;	
 	}
-	return $pass;	
-}
 
+	public function customerWithoutId(){
+		$select = "SELECT np.nombreNotaPedido, np.telNotaPEdido,np.rutaNotaPEdido,rt.nombreRuta FROM notapedido np 
+					INNER JOIN ruta rt
+					ON np.rutaNotaPEdido = rt.idRuta
+					WHERE np.idNotaPedido = '{$this->getIdnotaPedido()}' AND np.idClienteNotaPedido = '{$this->getIdClientePedido()}'";
+		$query = $this->db->query($select);
+
+		return $query;
+	}
+
+
+
+	
 }

@@ -47,12 +47,22 @@ class PedidoController
         $getController = "Pedido";
         $verPedidosDia = new ListarPedidos(1);
         $pedidos =$verPedidosDia->getPedidosEditar();
+        $anden = md5('PedidosDia');
         require_once('views/pedidos/listaEditarPedidos.php');
     }
 
     public function editar()
     {
         $detallePEdido = new PedidoModels();
+        $datosVentaContado = null;
+        if($_GET['cli'] == 713){
+                $detallePEdido->setIdnotaPedido($_GET['id']);
+                $detallePEdido->setIdClientePedido($_GET['cli']);
+                $datosVentaContado = $detallePEdido->customerWithoutId()->fetch_object();
+
+                $rutas = $detallePEdido->getAll('ruta');
+            }
+
         $datos = $detallePEdido->getAllWhere('clientepedido','WHERE id='.$_GET['cli'])->fetch_object();  // datos de contacto de cliente      
         $dom = $detallePEdido->getAllWhere('mostrardatospedido','WHERE clienteId='.$_GET['cli'])->fetch_object(); // datos de domicilio de cliente
         $prodEditar = $detallePEdido->getAllWhere('viewPedidosProducto','WHERE idnotaPedido = '.$_GET['id'])->fetch_all(); // datos de productos
@@ -132,7 +142,31 @@ class PedidoController
         require_once ('models/pedidosHistorico/ListarPedidos.php');
         $verPedidosDia = new ListarPedidos(2);
         $pedidos =$verPedidosDia->getPedidosEditar();
+        $anden = md5('sendFromRecept');
         require_once('views/pedidos/listaEditarPedidos.php');
+    }
+
+    public function editarCliente(){
+        require_once ('models/pedidosHistorico/EditarCliente.php');
+        $IdNota = (Validacion::validarNumero($_POST['idNota']) == -1) ? false : $_POST['idNota']; 
+        $IdCli = (Validacion::validarNumero($_POST['idCli']) == -1) ? false : $_POST['idCli']; 
+        $name = (Validacion::validarLArgo($_POST['customName'],50) == -1) ? false : $_POST['customName'] ;
+        $telefono = (Validacion::validarLArgo($_POST['customPhone'],10) == -1) ? false : $_POST['customPhone'] ;
+        $ruta = (Validacion::validarNumero($_POST['rutaClienteSlect']) == -1) ? false : $_POST['rutaClienteSlect'] ;
+
+        if($IdNota == false ||$IdCli == false ||$name == false || $telefono == false || $ruta == false){
+            $_SESSION['formulario_cliente'] = array(
+                'error' => 'faltan datos necesarios para hacer la acción'
+            );
+        }else{
+            $editar = new EditarCliente($IdNota,$IdCli,$name,$telefono,$ruta,);
+            $edit = $editar->editarCliente();
+
+            if($edit){
+               echo "<script>Swal.fire({position: 'center',icon: 'success',title: 'SE ACTUALIZO CON EXITO',showConfirmButton: false,timer: 6000}).then(window.location='" . base_url ."Pedido/editar&id=".$IdNota."&cli=".$IdCli."')</script>";
+               //echo '<script>window.location="' . base_url .'Pedido/editar&id='.$IdNota.'&cli='.$IdCli.'"</script>';
+            }
+        }
     }
 
 }

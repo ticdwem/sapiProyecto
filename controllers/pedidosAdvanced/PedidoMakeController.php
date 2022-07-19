@@ -17,9 +17,21 @@ class PedidoMakeController
     }
     
     public function crearPedido(){
-        
-        var_dump($this->getArraydatos());
-        die();
+        $contarf = count($this->getArraydatos()->vc);
+        if($contarf == 1){
+            $nombre = -1;
+            $tel = -1;
+            $ruta = -1;
+        }else if($contarf == 2){
+            $nombre =(Validacion::textoLargo($this->getArraydatos()->vc[1]->nombre,50) == 0) ? false : $this->getArraydatos()->vc[1]->nombre;
+            $tel =(Validacion::textoLargo($this->getArraydatos()->vc[1]->telNombre,10) == 0) ? false : $this->getArraydatos()->vc[1]->telNombre;
+            $ruta =(Validacion::validarNumero($this->getArraydatos()->vc[1]->rutaCliente,50) == -1) ? false : $this->getArraydatos()->vc[1]->rutaCliente;
+
+            if($nombre == false || $tel == false || $ruta == false){
+                $_SESSION['formulario_cliente'] = array('error' => 'Error en los datos de cliente sin numero de cliente');
+            }
+        }
+
         $notaComentario = (Validacion::textoLargo($this->getArraydatos()->notaComentario,500)==0) ? "S/C" : 0;
 
         if($notaComentario == 0){
@@ -43,6 +55,9 @@ class PedidoMakeController
                 echo '<script>window.location="' . base_url . 'Pedido/pedido&id="'.$idCliente.'</script>';
             } else {
                $registroNota = new PedidoInsertNota($this->getArraydatos()->nota,$this->getArraydatos()->idCliente,$this->getArraydatos()->user,$fechaEnvio,$notaComentario);
+               $registroNota->setNombreCliente($nombre);
+               $registroNota->setTelefono($tel);
+               $registroNota->setRuta($ruta);
                $insertado = $registroNota->insertPedido();
                if($insertado){
                    $registroInsert = 0;

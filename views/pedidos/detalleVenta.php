@@ -12,6 +12,8 @@
     }else{
         $com = $comentario;
     }
+    if($_GET['data'] == "0ea4751abee9821ecdecd7da2fa5b7a2"){$data = 1;}elseif ($_GET['data'] == 'a428a6a869c87ef27f982441b9a14171') {$data = 2;}
+
     ?>
 </div>
 <div class="">
@@ -19,7 +21,7 @@
         <div class="col-lg-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item active" aria-current="page">Pedidosdfddsd</li>
+                    <li class="breadcrumb-item active" aria-current="page">Pedido</li>
                 </ol>
             </nav>
             <div class="container" id="">
@@ -35,7 +37,7 @@
                                 <input type="text" class="form-control" id="notaComentario" name="notaComentario" aria-describedby="id" placeholder="nota" value="<?=$com?>">
                                 <small id="notaComentario" class="form-text text-muted"></small>
                             </div>
-                            <?php if($_GET['action'] == 'editar'):?>
+                            <?php if($_GET['action'] == 'editar' && $data == 1):?>
                                 <div id="btnNota" class="col-lg-3 col-md-3 col-sm-12 btnNota">
                                     <button type="submit" class="btn btn-warning btn-lg">Editar Nota</button>
                                 </div>
@@ -64,12 +66,13 @@
                             <label for="inputNombreClienteEditar">Nombre</label>
                             <input type="text" class="form-control" id="inputNombreClienteEditar" name="inputNombreClienteEditar" aria-describedby="nombreCliente" placeholder="Nombre Cliente" value="<?=$datos->nombre?>" readonly>
                             <small id="inputNombreClienteEditar" class="form-text text-muted"></small>
-                        </div>
+                        </div> 
                         <div id="detalle" class="col-lg-4 col-md-4 col-sm-12 p-4 detalle">
-                            <button type="button" id="btnIdModalDomicilio"  class="btn btn-primary btn-lg btn-block">DETALLE</button>
+                            <button type="button" id="btnIdModalDomicilio"  class="btn btn-primary btn-lg btn-block" <?php if($_GET["cli"] == 713){echo 'disabled';} ?>>DETALLE</button>
                         </div>
                     </div> 
                 </div>
+                <?php if(is_null($datosVentaContado)): ?>                
                 <div id="datoContacto" class="col-lg-12 col-md-12 col-sm-12 datoContacto">
                     <div class="row">
                         <div id="telPrin" class="col-lg-4 col-md-4 col-sm-12 telPrin">
@@ -89,8 +92,52 @@
                         </div>
                     </div> 
                 </div>
-                    <hr>
-                    <form id="prodEditForm">
+                <?php else: ?>
+           <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->    
+           <div id="datoContacto" class="col-lg-12 col-md-12 col-sm-12 datoContacto">
+                <form action="<?=base_url?>Pedido/editarCliente" method="post">
+                <input type="hidden" name="idNota" value="<?=$_GET['id']?>">
+                <input type="hidden" name="idCli" value="<?=$_GET['cli']?>">
+                    <div class="row">
+                        <div id="telPrin" class="col-lg-4 col-md-4 col-sm-12 telPrin">
+                            <label for="customName">Nombre Cliente</label>
+                            <input type="text" class="form-control" id="customName" name="customName" aria-describedby="telPrin" placeholder="Nombre Cliente" value="<?=$datosVentaContado->nombreNotaPedido?>" onkeyup="mayusculas(this)" <?php if($data == 2){echo 'disabled';} ?>>
+                            <small id="customName" class="form-text text-muted"></small>
+                        </div>
+                        <div id="telSec" class="col-lg-4 col-md-4 col-sm-12 telSec">
+                            <label for="customPhone">Telefono Contacto</label>
+                            <input type="text" class="form-control" id="customPhone" name="customPhone" aria-describedby="telSec" placeholder="Telefono cliente" value="<?=$datosVentaContado->telNotaPEdido?>" <?php if($data == 2){echo 'disabled';} ?>>
+                            <small id="customPhone" class="form-text text-muted"></small>
+                        </div>
+                        <div id="ruta" class="col-lg-4 col-md-4 col-sm-12 ruta">
+                            <label for="rutaCliente">Ruta</label>
+                            <select class="form-select form-control " name="rutaClienteSlect" id="rutaClienteSlect" <?php if($data == 2){echo 'disabled';} ?>>
+                                <option value="<?=$datosVentaContado->rutaNotaPEdido?>" selected><?=$datosVentaContado->nombreRuta?></option>
+                                <?php while ($ruta = $rutas->fetch_object()): ?>
+                                <option value="<?=$ruta->idRuta;?>"><?=$ruta->nombreRuta;?></option>
+                                <?php endwhile; ?>
+                            </select>
+                        </div>
+                        <small id="rutaClienteSlect" class="form-text text-muted"></small>
+                    </div> 
+                    <?php if($_GET['action'] == 'editar' && $data == 1):?>
+                        <div class="col-sm-12 col-md-12 col-lg-12 row mt-3">
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div id="mensajeEditar"></div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <button type="submit" class="btn btn-warning btn-lg btn-block">Editar Cliente</button>
+                            </div>
+
+                        </div>
+                    <?php endif; ?>
+                </form>
+            </div> 
+            <?php endif; ?>
+           <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->     
+                <hr>
+                <form id="prodEditForm">
+                        <?php if($_GET['action'] == 'editar' && $data == 1 || $_GET["controller"] == "Preventa"):?>
                         <div class="row " id="prodNewForm">
                             <div class="col-lg-1">
                                 <label class="mr-sm-2" for="inputCodigoPedidoEditar">Clave</label>
@@ -121,27 +168,32 @@
                                 <div class="inputPresentacionPedidoEditar"></div>
                             </div>
                         </div>
+                        <?php endif; ?>
                         <div class="row col-lg-12 mt-4">
                             <div class="col-sm-6 col-md-6 col-lg-6 row">
-                                <div class="col-sm-12 col-md-6 col-lg-6">
-                                    <button type="button" class="btn btn-success btn-lg btn-block" id="enterProductoEditar" name="btn-acepta">Agregar Producto</button>
-                                </div>
-                                <div class="col-sm-12 col-md-6 col-lg-6">
-                                    <button type="button" class="btn btn-warning btn-lg btn-block" id="btnFindProductEditar">Buscar</button>
-                                </div>
+                                <?php if($_GET['action'] == 'editar' && $data == 1 || $_GET["controller"] == "Preventa"):?>
+                                    <div class="col-sm-12 col-md-6 col-lg-6">
+                                        <button type="button" class="btn btn-success btn-lg btn-block" id="enterProductoEditar" name="btn-acepta">Agregar Producto</button>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-6">
+                                        <button type="button" class="btn btn-warning btn-lg btn-block" id="btnFindProductEditar">Buscar</button>
+                                    </div>
+                                <?php endif; ?>
                             </div>
-                    
                             <div class="col-sm-6 col-md-6 col-lg-6 m-1 row" id="DateDevelopersProductoContenedor">
                                 <input type="hidden" name="" id="fechaEntregaPedidoEditar" value="<?=$prodEditar[0][4];?>">
+
+                                
                                 <div class="row col-sm-6 col-md-6 col-lg-6" id="DateDevelopersProducto" >
                                     <label for="exampleFormControlFile1">Ingrese Fecha de entrega</label>  
-                                    <input class="datepicker" data-date-format="dd/mm/yyyy" id="dateIdPedido" data-id="dateIdPedidoEditar" autocomplete="off" readonly placeholder="<?=$prodEditar[0][4]?>">
-                                </div>  
-                                <?php if($_GET['action'] == 'editar'):?>
-                                    <div class="row col-sm-6 col-md-6 col-lg-6" id="BtnDateDevelopersProducto">   
-                                        <button type="button" id="btnIdChangeDate" class="btn btn-primary btn-sm">Cambiar Fecha</button>
-                                    </div>    
-                                <?php endif; ?>            
+                                    <input class="datepicker" data-date-format="dd/mm/yyyy" id="dateIdPedidoEditr" data-id="dateIdPedidoEditar" autocomplete="off" readonly placeholder="<?=$prodEditar[0][4]?>">
+                                </div>
+                                
+                                <?php if($_GET['action'] == 'editar' && $data == 1 || $_GET["controller"] == "Preventa"):?>
+                                        <div class="row col-sm-6 col-md-6 col-lg-6" id="BtnDateDevelopersProducto">   
+                                            <button type="button" id="btnIdChangeDate" class="btn btn-primary btn-sm">Cambiar Fecha</button>
+                                        </div>    
+                                    <?php endif; ?>            
                             </div>
                         </div>
                     </form>
@@ -166,12 +218,12 @@
                         <td><?=$key[7]?></td>
                         <td><?=$key[8]?></td>
                         <td>
-                            
+                        <?php if($_GET['action'] == 'editar' && $data == 1 || $_GET["controller"] == "Preventa"):?>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <button type='button' class='btn btn-warning btnEditarPzProducto' data-id="<?=$key[7];?>"><i class="fas fa-edit"></i></button>
                                 <button type='button' class='btn btn-danger deleteOnclickDb ml-2' id="<?=$key[6];?>" data-get="<?=$_GET['id']?>"><i class='fa fa-times-circle' id='' aria-hidden='true'></i></button>
                             </div>
-                            
+                        <?php endif; ?>
                         </td>
                     </tr>
                <?php $contar++; endforeach; ?>
@@ -331,12 +383,13 @@
     </div>
   </div>
 </div>
+<?php if($_GET["controller"] == "Preventa"): ?>
 <!-- Modal -->
 <div class="modal fade" id="SelectAlmacen" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Asignar a un Almacen</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -364,18 +417,18 @@
                 </table>
             </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+<!--       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Aceptar</button>
+      </div> -->
     </div>
   </div>
 </div>
-
+<?php endif;?>
 <script> 
 $(document).ready(function(){
 
-    $('#dateIdPedido').datepicker(
+    $('#dateIdPedidoEditr').datepicker(
         {
         defaultDate: sumarDias(1),
         minDate:sumarDias(1),

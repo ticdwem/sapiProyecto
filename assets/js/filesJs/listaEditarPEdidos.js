@@ -1,23 +1,18 @@
     $(document).ready(function(){
-       /* este suirve para sacar un atributo del get 
-        
-       var input_string = window.location.href
-        var url = new URL(input_string);
-            var cherry = url.searchParams.get("Preventa");
-            console.log(cherry); */
         $(document).on('click','.btnEditarPedido',function(e){
             e .preventDefault();
             let direccion="Pedido/editar";
             let direct = $("#controllerRedirectJs").attr('data-id');
             let idCleinte = $(this).attr('id');
             let nota = $(this).attr('data-id');
+            let cmd5 = $("#getmd").attr('data-id');
             
             if(direct == "Preventa"){
                 direccion = "Preventa/detalle"
             }
-            window.location.href = getAbsolutePath() +direccion+'&id=' + nota + '&cli=' + idCleinte;
+            window.location.href = getAbsolutePath() +direccion+'&id=' + nota + '&cli=' + idCleinte+'&data=' + cmd5;
 
-        })
+        });
     })
 
     $("#btnClosePEdido").on("click", function(e){

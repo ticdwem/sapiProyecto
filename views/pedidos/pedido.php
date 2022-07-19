@@ -81,7 +81,7 @@
                         <div class="row">
                             <div id="telPrin" class="col-lg-4 col-md-4 col-sm-12 telPrin">
                                 <label for="customName">Nombre Cliente</label>
-                                <input type="text" class="form-control" id="customName" name="customName" aria-describedby="telPrin" placeholder="Nombre Cliente" value="" >
+                                <input type="text" class="form-control" id="customName" name="customName" aria-describedby="telPrin" placeholder="Nombre Cliente" value="" onkeyup="mayusculas(this)">
                                 <small id="customName" class="form-text text-muted"></small>
                             </div>
                             <div id="telSec" class="col-lg-4 col-md-4 col-sm-12 telSec">

@@ -22,8 +22,8 @@ class PedidoInsertNota extends PedidoModels
     }
     public function insertPedido(){
 		$insert= "INSERT INTO notapedido 
-								(idNotaPedido, idClienteNotaPedido, idUsuarioNotaPedido, fechaAltaNotaPedido, fechaEnregaNotaPedido, comentarioNotaPedidos, statusNotaPEdido)
-                        VALUES ('{$this->getIdnotaPedido()}', '{$this->getIdClientePedido()}', '{$this->getIdUsuarioPedido()}', '{$this->getFecha()}', '{$this->getFechaEntrega()}' ,'{$this->getComentarioNotaPedidos()}',  '1')";	
+								(idNotaPedido, idClienteNotaPedido, idUsuarioNotaPedido, fechaAltaNotaPedido, fechaEnregaNotaPedido, comentarioNotaPedidos, statusNotaPEdido, nombreNotaPedido, telNotaPEdido, rutaNotaPEdido)
+                        VALUES ('{$this->getIdnotaPedido()}', '{$this->getIdClientePedido()}', '{$this->getIdUsuarioPedido()}', '{$this->getFecha()}', '{$this->getFechaEntrega()}' ,'{$this->getComentarioNotaPedidos()}',  '1','{$this->getNombreCliente()}','{$this->getTelefono()}','{$this->getRuta()}')";	
 		
         $query = $this->db->query($insert);
 		$insertPedido = false;
