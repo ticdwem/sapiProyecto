@@ -612,3 +612,8 @@ form .selectH .hideSelect {
 	#rowsCount{
 		font-size:x-large
 	}
+
+	.sumatoriaProducto{
+		position: relative;
+		float: right;
+	}

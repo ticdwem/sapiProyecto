@@ -24,7 +24,9 @@ class PedidoController
         if($_GET['id'] == 713){
             $rutas = $pedidos->getAll('ruta');
         }
-        require_once 'views/pedidos/pedido.php';
+        
+            require_once 'views/pedidos/pedido.php';
+
     }
 
     Public function PedidoAnterior(){
@@ -167,6 +169,20 @@ class PedidoController
                //echo '<script>window.location="' . base_url .'Pedido/editar&id='.$IdNota.'&cli='.$IdCli.'"</script>';
             }
         }
+    }
+
+    public function reportePedido(){
+        $reporte = new PedidoModels();
+        $lista = $reporte->repoteModel();
+
+        require_once('views/pedidos/reportePEdido.php');
+    }
+
+    public function reportePedidoDetallado(){
+        $reporte = new PedidoModels();
+        $lista = $reporte->repoteModel();
+
+        require_once('views/pedidos/reportePedidoDetallado.php');
     }
 
 }

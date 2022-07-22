@@ -344,7 +344,7 @@ $("#enterProductoEditar").on('click',function(e){
 });
 
 
-$(document).on('click','.selectPRoductPEdido',function(e){
+$(document).on('click','.selectEditarPRoductPEdido',function(e){
     let codigo = $(this).parents("tr").find("td")[0].innerHTML;
     let nombre = $(this).parents("tr").find("td")[1].innerHTML;
     let presentacion = $(this).parents("tr").find("td")[2].innerHTML;

@@ -127,7 +127,8 @@ class LogginController
                             'idMenu'=>$menuP->idMenu,
                             'nombreMenu'=>$menuP->nombreMenu,
                             'urlMenu'=>$menuP->urlMenu,
-                            'iconoMenu'=>$menuP->iconoMenu
+                            'iconoMenu'=>$menuP->iconoMenu,
+                            'controllerMenu'=>$menuP->actuveMenu
                         );
                     }
                    $json = json_encode($returnJson, JSON_FORCE_OBJECT);

@@ -163,6 +163,14 @@ class Utls{
 
     } */
 
+    public static function getisNull($get){
+        if(is_null($get)){
+            $_SESSION['errorCliente'] = "EL CLIENTE NO ESTA REGISTRADO, FAVOR DE VERIFICAR LOS DATOS";
+            echo '<script>window.location="' . base_url .'Pedido/index"</script>';
+        
+        }
+    }
+
     public static function createNotaId(){
         /* obtenemos los dias transcurridos desde el incio del año */
         $currentDate = strtotime(date("Y-m-d H:i:s"));
@@ -236,6 +244,12 @@ class Utls{
                     $retorno = 'Lista de Pedidos Anteriores';
                 }elseif ($action == 'pedidos') {
                     $retorno = 'Lista de Pedidos A Editar';
+                }elseif($action == 'anden') {
+                    $retorno = 'Pedidos Enviado a Anden';
+                }elseif($action == 'reportePedido'){
+                    $retorno = 'Reporte De Pedido (Oaxaca, Panela y Crema)';
+                }elseif($action == 'reportePedidoDetallado'){
+                    $retorno = 'Reporte De Pedido (Completo)';
                 }
            default:
                # code...

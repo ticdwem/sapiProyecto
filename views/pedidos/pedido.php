@@ -4,6 +4,7 @@
         echo '<div class="alert alert-danger" role="alert" style="width:80%;">HUBO UN ERROR INTERNO EN EL SISTEMA, CONTACTA A TU ADMINISTRADOR DE SISTEMAS</div>';
         Utls::deleteSession('formulario_cliente');
     }
+    Utls::getisNull($datos);
     ?>
 </div>
 <div class="">

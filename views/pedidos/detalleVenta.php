@@ -270,7 +270,7 @@
                             <td><?=$producto->idProducto?></td>
                             <td><?=$producto->nombreProducto?></td>
                             <td><?=$producto->presentacionProducto?></td>
-                            <td><button type="button" class="btn btn-success selectPRoductPEdido" id="<?=$producto->idProducto?>">Seleccionar</button></td>
+                            <td><button type="button" class="btn btn-success selectEditarPRoductPEdido" id="<?=$producto->idProducto?>">Seleccionar</button></td>
                         </tr>
                         <?php endwhile ?>
                     </tbody>

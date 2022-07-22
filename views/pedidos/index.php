@@ -4,7 +4,7 @@
         echo '<div class="alert alert-danger" role="alert" style="width:80%;">HUBO UN ERROR INTERNO EN EL SISTEMA, CONTACTA A TU ADMINISTRADOR DE SISTEMAS</div>';
         Utls::deleteSession('formulario_cliente');
     }
-
+    if(isset($_SESSION['errorCliente'])){echo '<div class="alert alert-danger" role="alert">'.$_SESSION['errorCliente'].'</div>';Utls::deleteSession('errorCliente');}
     ?>
 </div>
 <div class="">

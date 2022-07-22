@@ -18,7 +18,8 @@ class PreventaController{
         require_once ('models/pedidosHistorico/ListarPedidos.php');
         $getController = "Preventa";
         $verPedidosDia = new ListarPedidos(2);
-        $pedidos =$verPedidosDia->getPedidosEditar();
+        $pedidos =$verPedidosDia->getPedidosPreventa();
+        $anden = md5('Preventa');
         require_once('views/pedidos/listaEditarPedidos.php');
        // require_once 'views/preventa/index.php';
     }
@@ -32,6 +33,15 @@ class PreventaController{
         $prodEditar = $detallePEdido->getAllWhere('viewPedidosProducto','WHERE idnotaPedido = '.$_GET['id'])->fetch_all(); // datos de productos
         $almacenes = $detallePEdido->getAll('almacen'); // traer almacenes excepto el almacen 1 que es el default
         $productos = $detallePEdido->getAll('producto');
+
+        $datosVentaContado = null;
+        if($_GET['cli'] == 713){
+                $detallePEdido->setIdnotaPedido($_GET['id']);
+                $detallePEdido->setIdClientePedido($_GET['cli']);
+                $datosVentaContado = $detallePEdido->customerWithoutId()->fetch_object();
+
+                $rutas = $detallePEdido->getAll('ruta');
+            }
        require_once 'views/pedidos/detalleVenta.php';
 
        /*  $datos = $this->instancia->getAllWhere('clientepedido','WHERE id='.$_GET['cli'])->fetch_object();  // datos de contacto de cliente      
