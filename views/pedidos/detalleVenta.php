@@ -5,6 +5,7 @@
         Utls::deleteSession('formulario_cliente');
     }
     $contar = 0;
+    $data = 1;
     $com = "";
     $comentario = $prodEditar[0][5];
     if(is_null($comentario)){
@@ -12,7 +13,7 @@
     }else{
         $com = $comentario;
     }
-    if($_GET['data'] == "0ea4751abee9821ecdecd7da2fa5b7a2"){$data = 1;}elseif ($_GET['data'] == 'a428a6a869c87ef27f982441b9a14171') {$data = 2;}
+    if($_GET['data'] == "0ea4751abee9821ecdecd7da2fa5b7a2"){$data = 1;}elseif ($_GET['data'] == 'ba9a452d09970c4d31cd8c076bdd593d') {$data = 2;}
 
     ?>
 </div>
@@ -37,11 +38,11 @@
                                 <input type="text" class="form-control" id="notaComentario" name="notaComentario" aria-describedby="id" placeholder="nota" value="<?=$com?>">
                                 <small id="notaComentario" class="form-text text-muted"></small>
                             </div>
-                            <?php if($_GET['action'] == 'editar' && $data == 1):?>
+                            <?php /* if($_GET['action'] == 'editar' && $data == 1): */?>
                                 <div id="btnNota" class="col-lg-3 col-md-3 col-sm-12 btnNota">
-                                    <button type="submit" class="btn btn-warning btn-lg">Editar Nota</button>
+                                    <button type="submit" class="btn btn-warning btn-lg" <?php if($_GET["cli"] == 713){echo 'disabled';} ?>>Editar Nota</button>
                                 </div>
-                            <?php endif; ?>
+                            <?php /* endif; */ ?>
                         </div>
                     </form>
                 </div>
@@ -191,7 +192,7 @@
                                 
                                 <?php if($_GET['action'] == 'editar' && $data == 1 || $_GET["controller"] == "Preventa"):?>
                                         <div class="row col-sm-6 col-md-6 col-lg-6" id="BtnDateDevelopersProducto">   
-                                            <button type="button" id="btnIdChangeDate" class="btn btn-primary btn-sm">Cambiar Fecha</button>
+                                            <button type="button" id="btnIdChangeDate" class="btn btn-primary btn-sm" <?php if($data == 2){echo 'disabled';} ?>>Cambiar Fecha</button>
                                         </div>    
                                     <?php endif; ?>            
                             </div>
@@ -385,36 +386,18 @@
 </div>
 <?php if($_GET["controller"] == "Preventa"): ?>
 <!-- Modal -->
-<div class="modal fade" id="SelectAlmacen" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="SelectAlmacen" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Asignar a un Almacen</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Asignar a camioneta</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      <div class="container">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">Almacen</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while($almacen = $almacenes->fetch_object()):?>
-                            <tr>
-                                <th><?=$almacen->idAlmacen?></th>
-                                <td><?=$almacen->nombreAlmacen?></td>
-                                <td>
-                                    <button type='button' class='btn btn-success selectAlmacen' data-id="<?=$almacen->idAlmacen;?>">SELECCIONAR</button>
-                                </td>
-                            </tr>                        
-                        <?php endwhile?>
-                    </tbody>
-                </table>
+            <div class="container">
+                
             </div>
       </div>
 <!--       <div class="modal-footer">

@@ -195,6 +195,8 @@ class Utls{
            case 'Preventa':
                 if($action == 'index'){
                     $retorno = 'Lista Pedidos';
+                }elseif ($action == 'reportePedidoDetallado') {
+                    $retorno = 'Lista De Productos Pedidos';
                 }
                break;
             case 'Cliente':

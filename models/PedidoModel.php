@@ -303,7 +303,7 @@ class PedidoModels extends ModeloBase
 	}
 
 	public function repoteModel(){
-		$reporte = "SELECT  pr.nombreProducto AS nameP,np.fechaEnregaNotaPedido AS entrega,pd.idProductoPedido AS codigo, sum(pd.pzProductoPedido) AS suma FROM pedidos pd
+		$reporte = "SELECT  pr.nombreProducto AS nameP,pr.DescripcionProducto AS descripcion,np.fechaEnregaNotaPedido AS entrega,pd.idProductoPedido AS codigo, sum(pd.pzProductoPedido) AS suma FROM pedidos pd
 		INNER JOIN notapedido np
 		ON pd.idnotaPedido = np.idNotaPedido
 		INNER JOIN producto pr

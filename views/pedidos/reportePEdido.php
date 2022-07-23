@@ -17,6 +17,7 @@
                         <tr>
                             <th scope="col">Codigo Producto</th>
                             <th scope="col">Nombre</th>
+                            <th scope="col">Descripcion</th>
                             <th scope="col">Piezas</th>
                             <th scope="col">Fecha Entrega</th>
                         </tr>
@@ -28,6 +29,7 @@
                             <tr>
                                 <th scope="row"><?=$totales->codigo?></th>
                                 <td><?=$totales->nameP?></td>
+                                <td><?=$totales->descripcion?></td>
                                 <td><?=$totales->suma?></td>
                                 <td><?=$totales->entrega?></td>
                             </tr>                        

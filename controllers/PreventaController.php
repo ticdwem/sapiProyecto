@@ -105,4 +105,11 @@ class PreventaController{
         
     }
     
+    public function reportePedidoDetallado(){
+        require_once ('models/PedidoModel.php');
+        $reporte = new PedidoModels();
+        $lista = $reporte->repoteModel();
+
+        require_once('views/pedidos/reportePedidoDetallado.php');
+    }
 }

@@ -16,7 +16,8 @@
                     <thead>
                         <tr>
                             <th scope="col">Codigo Producto</th>
-                            <th scope="col">Nombre</th>
+                           <!--  <th scope="col">Nombre</th> -->
+                            <th scope="col">nombre</th>
                             <th scope="col">Piezas</th>
                             <th scope="col">Fecha Entrega</th>
                         </tr>
@@ -25,7 +26,8 @@
                         <?php while ($totales = $lista->fetch_object()) :?>
                             <tr>
                                 <th scope="row"><?=$totales->codigo?></th>
-                                <td><?=$totales->nameP?></td>
+                                <!-- <td><?=$totales->nameP?></td> -->
+                                <td><?=$totales->descripcion?></td>
                                 <td><?=$totales->suma?></td>
                                 <td><?=$totales->entrega?></td>
                             </tr>                        

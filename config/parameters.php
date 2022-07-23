@@ -4,7 +4,7 @@ define("base_url", "http://192.168.1.20/sapiProyecto/"); // base url para llamad
 define("controller_default", "LogginController"); // controlador por defecto
 define("action_default","index");
 DEFINE ('MINXDAY',86400); // OBTENEMOS LOS MINUTOS DE TOTALE DE UNA HORA
-const GERARQUIA = array('anden','recepcion','supervision','administrador','superadminmistrador');
+const GERARQUIA = array('anden','recepcion','supervision','administrador','superadminmistrador','chofer');
 const ALMACEN = array('z','A','B','C','D');
 
 
