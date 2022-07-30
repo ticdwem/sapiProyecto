@@ -316,6 +316,15 @@ class PedidoModels extends ModeloBase
 		return $query;
 	}
 
+	public function listChofer(){
+		$chofer = "SELECT us.idEmpleadoUsuario, CONCAT(emp.nombrEmpleado,' ' ,emp.apellidosEmpleado) AS complete FROM usuario us
+					INNER JOIN empleado emp
+					ON us.idEmpleadoUsuario = emp.idEmpleado
+					WHERE us.gerarquiaUsuario = 5";
+		$query = $this->db->query($chofer);
+		return $query;
+	}
+
 
 
 	

@@ -617,3 +617,15 @@ form .selectH .hideSelect {
 		position: relative;
 		float: right;
 	}
+
+	#exampleModalLongTitle,
+	#exampleModalLongTitle #nomRutaModelAignDelivers{
+		position: relative;
+		left: 10%;
+		top: 0%;
+	}
+	
+	#exampleModalLongTitle #nomRutaModelAignDelivers{
+		color: red;
+		text-decoration-line:underline;
+	}

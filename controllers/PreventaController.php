@@ -28,19 +28,24 @@ class PreventaController{
     public function detalle(){
         require_once ('models/PedidoModel.php');
         $detallePEdido = new PedidoModels();
-        $datos = $detallePEdido->getAllWhere('clientepedido','WHERE id='.$_GET['cli'])->fetch_object();  // datos de contacto de cliente      
+        $datos = $detallePEdido->getAllWhere('clientepedido','WHERE id='.$_GET['cli'])->fetch_object();  // datos de contacto de cliente  
+            
         $dom = $detallePEdido->getAllWhere('mostrardatospedido','WHERE clienteId='.$_GET['cli'])->fetch_object(); // datos de domicilio de cliente
         $prodEditar = $detallePEdido->getAllWhere('viewPedidosProducto','WHERE idnotaPedido = '.$_GET['id'])->fetch_all(); // datos de productos
         $almacenes = $detallePEdido->getAll('almacen'); // traer almacenes excepto el almacen 1 que es el default
         $productos = $detallePEdido->getAll('producto');
 
+        $chofer = new PedidoModels();
+        $lista = $chofer->listChofer();
         $datosVentaContado = null;
-        if($_GET['cli'] == 713){
+        if($_GET['cli'] == 713 || $_GET["data"] == 'ba9a452d09970c4d31cd8c076bdd593d'){
                 $detallePEdido->setIdnotaPedido($_GET['id']);
                 $detallePEdido->setIdClientePedido($_GET['cli']);
                 $datosVentaContado = $detallePEdido->customerWithoutId()->fetch_object();
 
                 $rutas = $detallePEdido->getAll('ruta');
+                $camionetas = $detallePEdido->getAll('camioneta');
+               // $chofer = $detallePEdido->getAll('camioneta');
             }
        require_once 'views/pedidos/detalleVenta.php';
 

@@ -98,7 +98,7 @@
             </table> 
         </div>
         <div id="divBtnPedidoAceptar" class="mt-3">
-            <button type="button" class="btn btn-success" id="designAlmacen">DESIGNAR ALMACEN</button>
+            <button type="button" class="btn btn-success" id="designAlmacen">DESIGNAR ALMACEN Esta no es</button>
         </div>
         <div class="alertaInsert col-md-12 col-sm-12 mt-3 mb-3" id="alertaInsert"></div>
 </div>

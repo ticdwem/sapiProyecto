@@ -170,7 +170,7 @@
         </div>
         <?php if($_GET["controller"] == "Preventa"): ?>
             <div id="divBtnPedidoAceptar" class="mt-3">
-                <button type="button" class="btn btn-success" id="designAlmacen">DESIGNAR ALMACEN</button>
+                <button type="button" class="btn btn-success" id="designAlmacen">DESIGNAR ALMACEN sfdfsdf</button>
             </div>
          <?php endif; ?>
         <div class="alertaInsert col-md-12 col-sm-12 mt-3 mb-3" id="alertaInsert"></div>
@@ -334,6 +334,7 @@ $(document).on('click','.modalEditProduct',function(){
 });
 
 $("#designAlmacen").on("click",function(){
+   
     $("#SelectAlmacen").modal({backdrop: 'static', keyboard: false});
 });
 

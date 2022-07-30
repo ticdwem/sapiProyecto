@@ -40,7 +40,7 @@
                             </div>
                             <?php /* if($_GET['action'] == 'editar' && $data == 1): */?>
                                 <div id="btnNota" class="col-lg-3 col-md-3 col-sm-12 btnNota">
-                                    <button type="submit" class="btn btn-warning btn-lg" <?php if($_GET["cli"] == 713){echo 'disabled';} ?>>Editar Nota</button>
+                                    <button type="submit" class="btn btn-warning btn-lg" <?php if($_GET["cli"] == 713 || $_GET['data'] == 'ba9a452d09970c4d31cd8c076bdd593d'){echo 'disabled';} ?>>Editar Nota</button>
                                 </div>
                             <?php /* endif; */ ?>
                         </div>
@@ -88,7 +88,7 @@
                         </div>
                         <div id="ruta" class="col-lg-4 col-md-4 col-sm-12 ruta">
                             <label for="rutaClienteEditar">Ruta</label>
-                            <input type="text" class="form-control" id="rutaClienteEditar" name="rutaClienteEditar" aria-describedby="ruta" placeholder="ruta" value="<?=$datos->nomRuta?>" readonly>
+                            <input type="text" class="form-control" id="rutaClienteEditar" data-id="<?=$datos->idruta?>" name="rutaClienteEditar" aria-describedby="ruta" placeholder="ruta" value="<?=$datos->nomRuta?>" readonly>
                             <small id="rutaClienteEditar" class="form-text text-muted"></small>
                         </div>
                     </div> 
@@ -112,7 +112,7 @@
                         </div>
                         <div id="ruta" class="col-lg-4 col-md-4 col-sm-12 ruta">
                             <label for="rutaCliente">Ruta</label>
-                            <select class="form-select form-control " name="rutaClienteSlect" id="rutaClienteSlect" <?php if($data == 2){echo 'disabled';} ?>>
+                            <select class="form-select form-control " name="rutaClienteSlect" id="rutaClienteSlect" <?php if($data == 2){echo 'readonly';} ?>>
                                 <option value="<?=$datosVentaContado->rutaNotaPEdido?>" selected><?=$datosVentaContado->nombreRuta?></option>
                                 <?php while ($ruta = $rutas->fetch_object()): ?>
                                 <option value="<?=$ruta->idRuta;?>"><?=$ruta->nombreRuta;?></option>
@@ -237,7 +237,7 @@
             <div id="" class="col-sm-12 col-md-6 col-lg-6 mt-4 ">
             <?php if($_GET["controller"] == "Preventa"): ?>
                 <div id="divBtnPedidoAceptar" class="mt-3">
-                    <button type="button" class="btn btn-success" id="designAlmacen">DESIGNAR ALMACEN</button>
+                    <button type="button" class="btn btn-success btn-lg btn-block" id="designAlmacen">Asignar Pedido</button>
                 </div>
          <?php endif; ?>
             </div>
@@ -386,24 +386,48 @@
 </div>
 <?php if($_GET["controller"] == "Preventa"): ?>
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="SelectAlmacen" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade" id="SelectAlmacen" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Asignar a camioneta</h5>
+        <h5 class="modal-title row" id="exampleModalLongTitle">Asignar a camioneta:  Ruta <p id="nomRutaModelAignDelivers" data-id=""></p></h5>
+        
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
             <div class="container">
-                
+                <div class="col-sm-12 col-md-12 col-lg-12 row">
+                    <div class="col-sm-12 col-md-6 col-lg-6" id="idCarDeliver">
+                        <div class="form-group">
+                            <label for="nombreProdcutoModalEdit">Camioneta </label>
+                            <select class="form-select form-control" aria-label="Default select example" id="CamionetaSeleccionada"></select>
+                            <div id="alertCamionetaSeleccionada"></div>
+                        </div>   
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6" id="idDeliverman">
+                        <div class="form-group" >
+                            <label for="choferSelect">Chofer </label>
+                            <div id="inout" >
+                                <input type="text"  class="form-control" name="choferAssigned" id="choferAssigned" value="" readonly>
+                            </div>
+                            <div id="select">
+                                <select class="form-select form-control" aria-label="Default select example" name="choferSelect" id="choferSelect">
+                                   <?php while ($chofer = $lista->fetch_object()):?>
+                                    <option value="<?=$chofer->idEmpleadoUsuario?>"><?=$chofer->complete?></option>
+                                    <?php endwhile ?>
+                                </select>
+                            </div>
+                            <div class="nombreProdcutoModalEdit"></div>
+                        </div>   
+                    </div>
+                </div>
+                <div class="botones">
+                <button type="button" class="btn btn-secondary btn-lg">Large button</button>
+                </div>
             </div>
       </div>
-<!--       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Aceptar</button>
-      </div> -->
     </div>
   </div>
 </div>

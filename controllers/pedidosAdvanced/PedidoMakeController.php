@@ -21,7 +21,7 @@ class PedidoMakeController
         if($contarf == 1){
             $nombre = -1;
             $tel = -1;
-            $ruta = -1;
+            $ruta = $this->getArraydatos()->ruta;
         }else if($contarf == 2){
             $nombre =(Validacion::textoLargo($this->getArraydatos()->vc[1]->nombre,50) == 0) ? false : $this->getArraydatos()->vc[1]->nombre;
             $tel =(Validacion::textoLargo($this->getArraydatos()->vc[1]->telNombre,10) == 0) ? false : $this->getArraydatos()->vc[1]->telNombre;

@@ -87,6 +87,7 @@ $(document).on('click','.selectPRoductPEdido',function(e){
                 let idCliente = $("#inputIdCliente").val();
                 let idUser = $("#idUser").val();
                 let fechaEntrega = $("#dateIdPedido").val();
+                let ruta = $("#rutaCliente").attr('data-id');
                 let valId = expRegular("phone", idCliente);
                 let valNota = expRegular("phone", idNota);
                 let valFecha = expRegular("date",fechaEntrega);
@@ -138,6 +139,7 @@ $(document).on('click','.selectPRoductPEdido',function(e){
                             "nota": idNota,
                             "user": idUser,
                             "fecha":fechaEntrega,
+                            "ruta": ruta,
                             "vc":ventaContado,
                             "productos": valorPedido
                         }

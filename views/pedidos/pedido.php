@@ -71,7 +71,7 @@
                             </div>
                             <div id="ruta" class="col-lg-4 col-md-4 col-sm-12 ruta">
                                 <label for="rutaCliente">Ruta</label>
-                                <input type="text" class="form-control" id="rutaCliente" name="rutaCliente" aria-describedby="ruta" placeholder="ruta" value="<?=$datos->nomRuta?>" readonly>
+                                <input type="text" class="form-control" id="rutaCliente" name="rutaCliente" aria-describedby="ruta" placeholder="ruta" data-id="<?=$datos->idruta?>" value="<?=$datos->nomRuta?>" readonly>
                                 <small id="rutaCliente" class="form-text text-muted"></small>
                             </div>
                         </div> 
