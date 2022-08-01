@@ -390,5 +390,23 @@ class Utls{
         return $regreso;
       }
 
+      /**
+       * toma la fecha de hoy, le pasamos como parameto un numero, este parametro nos indica de cuantos dias sumara a la fecha
+       */
+      public static function sumDays($sumDays){
+        $currenteDate =date("Y-m-d");
+        
+        $newDate = date('Y-m-d',strtotime($currenteDate."+ ".$sumDays." days"));
+        return $newDate;
+      }
+
+      public static function getassigned($idrutaCamioneta){
+        require_once $_SERVER['DOCUMENT_ROOT']."/sapiProyecto/models/preventa/PreventaAssignedCamioneta.php";
+        $fecha = self::sumDays(1);
+        $ass = new PreventaAssignedCamioneta($idrutaCamioneta, $fecha);                                                   
+        $verify = $ass->checkAssigned();
+
+        return $verify;
+      }
 
 }

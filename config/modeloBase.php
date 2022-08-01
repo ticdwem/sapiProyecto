@@ -14,6 +14,13 @@ class ModeloBase{
         $query = $this->db->query($consulta);
         return $query;
     }
+
+    public function getStoredProcedure($oneparameters){
+        $stored = "CALL rutasManana('".$oneparameters."')";
+        $query = $this->db->query($stored);
+        return $query;
+    }
+    
     public function getAllWhere($tabla,$where){
         $consulta = "SELECT * FROM $tabla $where";
         $query = $this->db->query($consulta);

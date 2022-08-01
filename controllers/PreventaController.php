@@ -1,7 +1,7 @@
 <?php
 /* require_once '/models/preventa/PreventaController.php';
 require_once '/models/preventa/deleteProdPreventa.php'; */
-require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/models/preventa/PreventaController.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/models/preventa/PreventaModel.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/sapiProyecto/models/preventa/deleteProdPreventa.php";
 
 class PreventaController{
@@ -38,7 +38,7 @@ class PreventaController{
         $chofer = new PedidoModels();
         $lista = $chofer->listChofer();
         $datosVentaContado = null;
-        if($_GET['cli'] == 713 || $_GET["data"] == 'ba9a452d09970c4d31cd8c076bdd593d'){
+        if($_GET['cli'] == 713 && $_GET["data"] == 'ba9a452d09970c4d31cd8c076bdd593d'){
                 $detallePEdido->setIdnotaPedido($_GET['id']);
                 $detallePEdido->setIdClientePedido($_GET['cli']);
                 $datosVentaContado = $detallePEdido->customerWithoutId()->fetch_object();
@@ -116,5 +116,14 @@ class PreventaController{
         $lista = $reporte->repoteModel();
 
         require_once('views/pedidos/reportePedidoDetallado.php');
+    }
+
+    public function rutas(){
+
+var_dump(Utls::getassigned(1)->fetch_object());
+
+        $fecha = Utls::sumDays(1);
+        $rutas = $this->instancia->getAll('ruta');
+        require_once('views/preventa/listarutas.php');
     }
 }

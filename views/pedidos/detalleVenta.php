@@ -73,7 +73,8 @@
                         </div>
                     </div> 
                 </div>
-                <?php if(is_null($datosVentaContado)): ?>                
+                <div id="hiddenControlRuta" data-get="<?=$_GET["cli"]?>"></div>              
+                <?php if(is_null($datosVentaContado)): ?>  
                 <div id="datoContacto" class="col-lg-12 col-md-12 col-sm-12 datoContacto">
                     <div class="row">
                         <div id="telPrin" class="col-lg-4 col-md-4 col-sm-12 telPrin">
@@ -112,7 +113,7 @@
                         </div>
                         <div id="ruta" class="col-lg-4 col-md-4 col-sm-12 ruta">
                             <label for="rutaCliente">Ruta</label>
-                            <select class="form-select form-control " name="rutaClienteSlect" id="rutaClienteSlect" <?php if($data == 2){echo 'readonly';} ?>>
+                            <select class="form-select form-control " data-id="<?=$datosVentaContado->rutaNotaPEdido?>" name="rutaClienteSlect" id="rutaClienteSlect" <?php if($data == 2){echo 'readonly';} ?>>
                                 <option value="<?=$datosVentaContado->rutaNotaPEdido?>" selected><?=$datosVentaContado->nombreRuta?></option>
                                 <?php while ($ruta = $rutas->fetch_object()): ?>
                                 <option value="<?=$ruta->idRuta;?>"><?=$ruta->nombreRuta;?></option>
@@ -237,7 +238,8 @@
             <div id="" class="col-sm-12 col-md-6 col-lg-6 mt-4 ">
             <?php if($_GET["controller"] == "Preventa"): ?>
                 <div id="divBtnPedidoAceptar" class="mt-3">
-                    <button type="button" class="btn btn-success btn-lg btn-block" id="designAlmacen">Asignar Pedido</button>
+                    <!-- <button type="button" class="btn btn-success btn-lg btn-block" id="designAlmacen">Asignar Pedido</button> -->
+                    <button type="button" class="btn btn-success btn-lg btn-block" id="asignarPedido">Asignar Pedido</button>
                 </div>
          <?php endif; ?>
             </div>

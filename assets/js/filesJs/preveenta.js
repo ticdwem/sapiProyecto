@@ -1,3 +1,58 @@
+
+/* 
+* esta funcion sera la encargada de cambiar el id de 2 a a3 para la venta
+*/
+$("#asignarPedido").on('click',function(e){
+    let idRuta = $("#rutaClienteEditar").attr('data-id');
+    let idNotaPVenta = $("#numNota").val();
+    let controlRutas = $("#hiddenControlRuta").attr('data-get');
+    let assignPedidoToVenta = Array();
+    
+    if(controlRutas == 713){      
+        idRuta = $("#rutaClienteSlect").attr('data-id');
+        console.log(idRuta);
+    }  
+    assignPedidoToVenta.push({ 'phone_rutaClienteEditar_20': idRuta, 'phone_numNota_20': idNotaPVenta });
+    var validar = validarCampos(assignPedidoToVenta);
+
+    if (validar > 0) {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'HAY ERRORES EN LA CAPTURA, VERIFICA O LLAMA AL ADMINSITRADOR',
+            showConfirmButton: false,
+            timer: 2100
+          }).then((result) => {
+            e.preventDefault();
+        })
+       
+    } else {
+        let data = { "data": assignPedidoToVenta }
+        var json = JSON.stringify(data);
+        $.ajax({
+            url: getAbsolutePath() + "views/layout/ajax/AjaxAssigToVenta.php",
+            method: "POST",
+            data: { "toVenta": json },
+            cache: false,
+            beforeSend: function() {},
+            success: function(update) {
+                if(update == 1){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'PEDIDO LISTO PARA VENTA',
+                        showConfirmButton: false,
+                        timer: 2100
+                      }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        $(location).attr('href', getAbsolutePath() +'Preventa/index');
+                    })
+                }
+
+            }
+        });
+    }
+})
 /*
  * cuando abre el modal para asignar una camioneta
  */
