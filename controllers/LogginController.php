@@ -252,7 +252,7 @@ class LogginController
         }
     }
 
-    public function getCorreoExistent($email)
+/*     public function getCorreoExistent($email)
     {
         $correo = Validacion::validarEmail($email);
 
@@ -267,7 +267,7 @@ class LogginController
         } else {
             echo 2;
         }
-    }
+    } */
 
     // esta consulta siempre esta disponible para las consulta de ajax simples que solicite tabla y tipo. estara conectado a funcion getAllWhere(tabla,datos);
     public function consultaGeneral($tabla, $match, $datos)
@@ -278,6 +278,8 @@ class LogginController
         $dta = (Validacion::validarNumero($datos) == '-1') ? false : true;
 
         $validacion = array("tabla" => $tbl, "idTabla" => $idTabla, "id" => $dta);
+/*         var_dump($validacion);
+        die(); */
         foreach ($validacion as $key => $value) {
             if ($value == false) {
                 $_SESSION['formulario_cliente'] = array(

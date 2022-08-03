@@ -191,12 +191,16 @@ class Utls{
     public static function namebreadcum($linkGet){
         $action = $linkGet ["action"];
         $retorno ='';
-       switch ($linkGet["controller"]) {
-           case 'Preventa':
+        switch ($linkGet["controller"]) {
+            case 'Preventa':
                 if($action == 'index'){
                     $retorno = 'Lista Pedidos';
                 }elseif ($action == 'reportePedidoDetallado') {
                     $retorno = 'Lista De Productos Pedidos';
+                }elseif($action == 'rutas'){
+                    $retorno = 'Asignar Camioneta a rutas';
+                }elseif($action == 'asignar'){
+                    $retorno = 'Seleccion de Camionetas';
                 }
                break;
             case 'Cliente':

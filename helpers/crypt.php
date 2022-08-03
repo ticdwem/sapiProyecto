@@ -4,8 +4,8 @@
  * DATE: 15/11/2018
  */
 	define('METHOD','AES-256-CBC');
-	define('SECRET_KEY','Bienestas&NuevaImagen');
-	define('SECRET_IV','05082020');
+	define('SECRET_KEY','LacteosLaPilarica');
+	define('SECRET_IV','05082022');
 	class SED {
 		public static function encryption($string){
 			$output=FALSE;

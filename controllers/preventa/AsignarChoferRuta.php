@@ -4,6 +4,7 @@ class AsignarChoferRuta
 {
    public function verifCamioneta($datos)
    {
+    $datosjson = $datos[0];
     $idCamioneta = 0;
     $idChofer = 0;
     $numeroDeCamioneta = -1;
@@ -11,14 +12,17 @@ class AsignarChoferRuta
     $suggest = array('idCamioneta' => "Sin Sugerencia",
                      'placaCamioneta' => "Sin Sugerencia",
                      'marcaCamioneta' => "Sin Sugerencia");
-    $idRuta = (Validacion::validarNumero($datos) == -1) ? 0 : $datos ;
+    $idCamionetaSelected = (Validacion::validarNumero($datosjson['phone_idCamionetaAssign_10']) == -1) ? 0 : $datosjson['phone_idCamionetaAssign_10'] ;
+    $idRuta = (Validacion::validarNumero($datosjson['phone_rutaNameidp_10']) == -1) ? 0 : $datosjson['phone_rutaNameidp_10'] ;
 
 
-    if($idRuta == 0){
+    if($idRuta == 0 || $idCamionetaSelected == 0){
         echo 0;
     }else{
         $updateToventa = new DesignarCamioneta(0,$idRuta);
         $todoVenta = $updateToventa->checkRutaCamioneta();
+        var_dump($todoVenta);
+        die();
         if ($todoVenta) {
             while ($selectCar = $todoVenta->fetch_object()) {
                if(!is_null($selectCar->idCamionetaPedido)){

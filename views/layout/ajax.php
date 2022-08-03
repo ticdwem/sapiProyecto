@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "../../config/parameters.php";
-require_once "../../models/pacienteModels.php";
+/* require_once "../../models/pacienteModels.php"; */
 require_once "../../models/PedidoModel.php";
 require_once "../../models/preventa/deleteProdPreventa.php";
 require_once "../../models/preventa/UpdateProducto.php";
@@ -100,13 +100,13 @@ class Ajax
 		$sent->getMunicipio($query);
 	}
 
-	public function verifCorreo()
+/* 	public function verifCorreo()
 	{
 		$query = $this->getDato();
 		$sent = new LogginController();
 		$sent->getCorreoExistent($query);
 	}
-
+ */
 	public function verifLogg()
 	{
 		$query = $this->getDato();
@@ -363,11 +363,11 @@ if (isset($_POST["idEstado"])) {
 	$sent->selectMun();
 }
 
-if (isset($_POST["correo"])) {
+/* if (isset($_POST["correo"])) {
 	$sent = new Ajax();
 	$sent->setDato($_POST["correo"]);
 	$sent->verifCorreo();
-}
+} */
 
 if (isset($_POST["correoLoggin"])) {
 	$sent = new Ajax();

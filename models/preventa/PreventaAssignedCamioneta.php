@@ -23,7 +23,7 @@ class PreventaAssignedCamioneta extends ModeloBase{
     }
 
     public function checkAssigned(){
-        $verify = "SELECT COUNT(rc.rutaIdRutaCamioneta) FROM rutacamioenta rc 
+        $verify = "SELECT COUNT(rc.rutaIdRutaCamioneta) as Estatus FROM rutacamioenta rc 
                     right JOIN ruta rt
                     ON rc.rutaIdRutaCamioneta = rt.idRuta 
                     WHERE rc.rutaIdRutaCamioneta = '{$this->getRutaAssigned()}' AND 

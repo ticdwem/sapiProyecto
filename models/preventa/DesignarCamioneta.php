@@ -50,6 +50,8 @@ class DesignarCamioneta extends Producto
 
     public function checkRutaCamioneta(){
         $selectCamioneta = "SELECT np.idNotaPedido,np.idClienteNotaPedido,np.rutaNotaPEdido,np.idCamionetaPedido,np.idChoferNotaPedido FROM notapedido np WHERE np.rutaNotaPEdido = {$this->getIdCamioneta()}";
+        var_dump($selectCamioneta);
+        die();
         $query = $this->db->query($selectCamioneta);
         return $query;
     }

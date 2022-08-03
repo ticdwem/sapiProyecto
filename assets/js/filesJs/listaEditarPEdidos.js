@@ -286,7 +286,7 @@ $("#enterProductoEditar").on('click',function(e){
 
     $("#inputCodigoPedidoEditar").on("change", function() {
         let codigo = $(this).val();
-
+        
         var validarCodugo = expRegular("phone", codigo);
         if (validarCodugo != 0) {
             var verifProd = new FormData();

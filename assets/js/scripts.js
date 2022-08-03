@@ -40,7 +40,8 @@ function getAbsolutePath() {
     return loc.href.substring(0, loc.href.length - ((loc.pathname + loc.search + loc.hash).length - pathName.length));
 }
 
-/*validacion*/
+/**
+ * validacion*/
 function expRegular(texto, contenido) {
     let letras_latinas;
     let letras_Frm;
@@ -422,6 +423,9 @@ function deleteArray(arrayDelete) {
     }
 }
 
+/**
+ * funcion para saber si existe registro en las tablas
+ */
 function existeRegistro(idDeTabla) {
     let filas = $('#' + idDeTabla).find('tbody tr').length;
     /* let filas = $('table#'+idDeTabla+' tbody tr').length; */

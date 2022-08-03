@@ -15,10 +15,15 @@ class ModeloBase{
         return $query;
     }
 
-    public function getStoredProcedure($oneparameters){
-        $stored = "CALL rutasManana('".$oneparameters."')";
+    public function getStoredProcedure($param1,$param2){
+        $stored = "CALL rutasManana('".$param1."','".$param2."')";
+       
         $query = $this->db->query($stored);
         return $query;
+       // $saber = $query->num_rows;
+        /* if($query !== false && $query->num_rows > 0){echo 0;}else{echo 1;} */
+        /* var_dump($query);
+        return $query; */
     }
     
     public function getAllWhere($tabla,$where){
