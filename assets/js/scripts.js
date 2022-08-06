@@ -91,6 +91,11 @@ function expRegular(texto, contenido) {
             varif = fecha;
             break;
 
+        case "dateUs":
+            fecha = /^\d{2,4}\-\d{1,2}\-\d{1,2}$/;
+            varif = fecha;
+            break;
+
         case "dateSlash":
             fecha = /^\d{2,4}\-\d{1,2}\-\d{1,2}$/;
             varif = fecha;

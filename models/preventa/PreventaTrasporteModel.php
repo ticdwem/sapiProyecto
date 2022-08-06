@@ -50,7 +50,7 @@ class PreventaTrasporteModel extends ModeloBase{
         $camioneta = "SELECT * FROM usuario us 
                         WHERE 
                             us.gerarquiaUsuario = 5 AND 
-                        NOT EXISTS (SELECT * FROM rutacamioenta rc WHERE rc.idchofer = us.idUsuario AND rc.fechaSalida = '{$this->getDateEntrega()}')";
+                        NOT EXISTS (SELECT * FROM rutacamioenta rc WHERE rc.idchofer = us.idEmpleadoUsuario AND rc.fechaSalida = '{$this->getDateEntrega()}')";
         $query = $this->db->query($camioneta);
         return $query;
     }
@@ -65,6 +65,12 @@ class PreventaTrasporteModel extends ModeloBase{
              $verifica = true;
          }
          return $verifica;
+    }
+
+    public function deleteRutaassigned(){
+        $del = "DELETE FROM rutacamioenta WHERE camionetaIdCAmioneta = '{$this->getIdCamioneta()}' AND idchofer = '{$this->getIdChofer()}' AND fechaSalida = '{$this->getDateEntrega()}'";
+        $query = $this->db->query($del);
+        return $query;
     }
 
 }

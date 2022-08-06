@@ -1,6 +1,7 @@
     $(document).ready(function(){
         $(document).on('click','.btnEditarPedido',function(e){
-            e .preventDefault();
+            //e .preventDefault();
+            console.log("hola")
             let direccion="Pedido/editar";
             let direct = $("#controllerRedirectJs").attr('data-id');
             let idCleinte = $(this).attr('id');

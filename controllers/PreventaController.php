@@ -136,6 +136,9 @@ class PreventaController{
         $chofSA = $chofer->getAllNoAssignedChofer();
 
         $asinados = $this->instancia->getStoredProcedure(Utls::sumDays(1), $rutaGet);
+
+        $asinadoEditar = new PreventaTrasporteModel(0,0,Utls::sumDays(1));
+        $sinAsignar = $asinadoEditar->getAllNoAssignedChofer();
         require_once('views/preventa/asignarRutaCamioneta.php');
     }
 
@@ -166,5 +169,21 @@ class PreventaController{
                 echo '<script>window.location="' . base_url . 'Preventa/asignar&ruta='.$_POST['idRutaCamioneta'].'&name='.$_POST['namert'].'"</script>';
             }
         }
+    }
+
+    public function RutaAsignada(){
+        require_once ('models/PreventaRutaModel.php');
+        $datos = new PreventaModel();
+        $ra = $datos->getAllWhere('viewrutacamionetaasignada','where statusRuta = 0 ORDER BY rutaIdRutaCamioneta ');
+
+        require_once ('views/preventa/listaRutaCamionetaAsignada.php');
+    }
+
+    public function verClientes(){
+        require_once ('models/PreventaRutaModel.php');
+        $datos = new PreventaModel();
+        $pas = $datos->getAllWhere('notapedido','WHERE statusNotaPEdido = 2 OR statusNotaPEdido = 3 AND rutaNotaPEdido = '.$_GET['ruta']);
+
+        require_once('views\preventa\listaPedidosAsignados.php');
     }
 }

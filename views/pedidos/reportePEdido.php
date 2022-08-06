@@ -35,7 +35,7 @@
                             </tr>                        
                         <?php $total += $totales->suma;  endif; endwhile; ?>
                         <tr>
-                            <th scope="row" colspan="2" ><p class="sumatoriaProducto">Total :</p></th>
+                            <th scope="row" colspan="3" ><p class="sumatoriaProducto">Total :</p></th>
                             <th><p class=""><?=$total?> Piezas</p></th>
                         <td></td>
                         </tr>

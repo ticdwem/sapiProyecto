@@ -201,6 +201,8 @@ class Utls{
                     $retorno = 'Asignar Camioneta a rutas';
                 }elseif($action == 'asignar'){
                     $retorno = 'Seleccion de Camionetas';
+                }elseif($action == 'RutaAsignada'){
+                    $retorno = 'Lista de camionetas asignadas a las rutas';
                 }
                break;
             case 'Cliente':

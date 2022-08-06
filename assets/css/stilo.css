@@ -629,3 +629,8 @@ form .selectH .hideSelect {
 		color: red;
 		text-decoration-line:underline;
 	}
+
+	tr.group,
+tr.group:hover {
+    background-color: #ddd !important;
+}
