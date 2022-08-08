@@ -14,8 +14,16 @@ class AndenController{
     }
     public function index(){
         $prueba = new GetProdutos();
-        $datos = $prueba->listas();
-        require_once 'views/anden/andenVenta.php';
+        $datos = $prueba->getAll('ruta');
+        $andenvClientes = md5('VEnta');
+        require_once 'views/anden/modalRuta.php';
+    }
+    
+    public function lista(){
+        $notas = new GetProdutos();
+        $andenvClientes = md5('VEnta');
+        $venta = $notas->getAllWhere('ViewNotaPedidoCliente','WHERE rutaNotaPEdido = '.SED::decryption($_GET['ruta']).' AND  _status = 3 ');
+        require_once 'views/anden/listaNotas.php';
     }
 
     public function Venta(){

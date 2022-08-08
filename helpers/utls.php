@@ -249,6 +249,8 @@ class Utls{
                     $retorno = 'Venta';
                 }elseif ($action == 'traspaso') {
                     $retorno = 'Traspaso Producto';
+                }elseif($action == 'lista'){
+                    $retorno = 'Lista Venta: RUTA &nbsp;<u> '.SED::decryption($_GET["name"]).'</u>';
                 }
                 break;
             case 'Pedido':
