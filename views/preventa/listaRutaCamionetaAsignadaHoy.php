@@ -1,7 +1,3 @@
-<?php
-$alerta = '';
-if($ra->num_rows == 0){$alerta = '<a href="'.base_url.'Preventa/RutaHoy"><div class="alert alert-success" role="alert">Ver En Ruta Asignada HOY</div></a>';}
-?>
 <div class="container" id=""> 
     <div class="cabeceraBtn">
         <?php require_once 'views/layout/cabeceraLogo.php'; ?>
@@ -9,7 +5,7 @@ if($ra->num_rows == 0){$alerta = '<a href="'.base_url.'Preventa/RutaHoy"><div cl
     <div class="">
         <div class="row">
                 <div class="col-lg-12">
-                <?php require_once 'views/layout/breadcrup.php'; echo $alerta;
+                <?php require_once 'views/layout/breadcrup.php';
                 ?>
 
                 <div class="table-responsive">
@@ -23,7 +19,7 @@ if($ra->num_rows == 0){$alerta = '<a href="'.base_url.'Preventa/RutaHoy"><div cl
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while($ras = $ra->fetch_object()):?>
+                            <?php while($ras = $ra->fetch_object()): ?>
                                 <tr>
                                     <td><?=$ras->nombreRuta?></td>
                                     <td><?=$ras->nombreUsuario?></td>

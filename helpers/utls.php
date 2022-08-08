@@ -203,6 +203,10 @@ class Utls{
                     $retorno = 'Seleccion de Camionetas';
                 }elseif($action == 'RutaAsignada'){
                     $retorno = 'Lista de camionetas asignadas a las rutas';
+                }elseif ($action == 'RutaHoy') {
+                    $retorno = 'Ruta Asiganda Para Hoy: &nbsp;<u> '.date('d').'-'.self::nameMonth(date('m')).'-'.date('Y').'</u>';
+                }elseif ($action == 'verClientes') {
+                    $retorno = 'Lista Clientes de pedidos: RUTA &nbsp;<u> '.SED::decryption($_GET["name"]).'</u>';
                 }
                break;
             case 'Cliente':

@@ -1,3 +1,4 @@
+<?php $name = "";?>
 <div class="container" id="">
     <div class="cabeceraBtn">
         <?php require_once 'views/layout/cabeceraLogo.php'; ?>
@@ -10,24 +11,21 @@
                     <table id="example" class="table table table-hover" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Ruta</th>
-                                <th>Nombre Chofer</th>
-                                <th>Camioneta</th>
+                                <th>Num Pedido</th>
+                                <th>Nombre Cliente</th>
+                                <th>Comentario Nota</th>
                                 <th>Fecha Salida</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while($ras = $pas->fetch_object()):
-                            echo "<pre>";
-                            var_dump($ras) ;
-                            echo "</pre>";?>
+                            <?php while($nota = $pas->fetch_object()):
+                             if($nota->idCliente == 713){$name = $nota->nameCliente." -> ".$nota->nombreAdicional;}else{$name = $nota->nameCliente;}?>
                                 <tr>
-                                    <td><?=$ras->idClienteNotaPedido?></td>
-                                    <td><?=$ras->nombreUsuario?></td>
-                                    <td><?=$ras->_camioneta?></td>
-                                    <td><?=$ras->fechaSalida?></td>
-                                    <td><a class="btn btn-success btn-lg btn-block" href="<?=base_url?>Preventa/asignar&ruta=<?=$ras->rutaIdRutaCamioneta?>&name=<?=SED::encryption($ras->nombreRuta)?>">Editar</a></td>
-                                    <td><a class="btn btn-info btn-lg btn-block" href="<?=base_url?>Preventa/verClientes&ruta=<?=$ras->rutaIdRutaCamioneta?>&name=<?=SED::encryption($ras->nombreRuta)?>">Ver Clientes</a></td>
+                                    <td><?=$nota->nota?></td>
+                                    <td><?=$name?></td>
+                                    <td><?=$nota->comentario?></td>
+                                    <td><?=$nota->entrega?></td>
+                                    <td><a class="btn btn-info btn-lg btn-block" href="<?=base_url?>Preventa/detalle&id=<?=$nota->nota?>&cli=<?=$nota->idCliente?>&data=<?=$andenvClientes?>">Detalles</a></td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>

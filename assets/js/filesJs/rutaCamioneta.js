@@ -129,7 +129,7 @@ $(document).on('click','#actualizarChoferDisponible',function(e){
                         position: 'center',
                         icon: 'success',
                         title: 'Se actualizo correctamente',
-                        text: 'EL CHOFER REMPLAZADP A QUEDADO DISPONIBLE PARA SER ASIGNADO A OTRA RUTA',
+                        text: 'EL CHOFER REEMPLAZADO HA QUEDADO DISPONIBLE PARA SER ASIGNADO A OTRA RUTA',
                         showConfirmButton: false,
                         timer: 2500
                       }).then((result) => {

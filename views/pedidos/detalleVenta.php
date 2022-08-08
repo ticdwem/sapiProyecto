@@ -4,6 +4,7 @@
         echo '<div class="alert alert-danger" role="alert" style="width:80%;">HUBO UN ERROR INTERNO EN EL SISTEMA, CONTACTA A TU ADMINISTRADOR DE SISTEMAS</div>';
         Utls::deleteSession('formulario_cliente');
     }
+    $asigando =0;
     $contar = 0;
     $data = 1;
     $com = "";
@@ -228,7 +229,9 @@
                         <?php endif; ?>
                         </td>
                     </tr>
-               <?php $contar++; endforeach; ?>
+               <?php
+               if($key[10] == 3){ $asigando ++;} 
+               $contar++; endforeach; ?>
                 </tbody>
             </table> 
 
@@ -236,12 +239,15 @@
         <div class="col-sm-12 col-md-12 col-lg-12 row">
 
             <div id="" class="col-sm-12 col-md-6 col-lg-6 mt-4 ">
-            <?php if($_GET["controller"] == "Preventa"): ?>
-                <div id="divBtnPedidoAceptar" class="mt-3">
-                    <!-- <button type="button" class="btn btn-success btn-lg btn-block" id="designAlmacen">Asignar Pedido</button> -->
-                    <button type="button" class="btn btn-success btn-lg btn-block" id="asignarPedido">Asignar Pedido</button>
-                </div>
-         <?php endif; ?>
+
+                <?php if($asigando == 0): ?>
+                    <?php if($_GET["controller"] == "Preventa"): ?>
+                        <div id="divBtnPedidoAceptar" class="mt-3">
+                            <!-- <button type="button" class="btn btn-success btn-lg btn-block" id="designAlmacen">Asignar Pedido</button> -->
+                            <button type="button" class="btn btn-success btn-lg btn-block" id="asignarPedido">Asignar Pedido</button>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
             </div>
             <div id="idViewAllRows" class="col-sm-12 col-md-6 col-lg-6 mt-4 "><div class="alert alert-info" id="rowsCount" role="alert"> Total Productos: <?=$contar?></div></div>
         </div>

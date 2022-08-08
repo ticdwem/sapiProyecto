@@ -32,7 +32,7 @@ class PreventaController{
             
         $dom = $detallePEdido->getAllWhere('mostrardatospedido','WHERE clienteId='.$_GET['cli'])->fetch_object(); // datos de domicilio de cliente
         $prodEditar = $detallePEdido->getAllWhere('viewPedidosProducto','WHERE idnotaPedido = '.$_GET['id'])->fetch_all(); // datos de productos
-        $almacenes = $detallePEdido->getAll('almacen'); // traer almacenes excepto el almacen 1 que es el default
+        $almacenes = $detallePEdido->getAll('almacen'); // traer almacenes
         $productos = $detallePEdido->getAll('producto');
 
         $chofer = new PedidoModels();
@@ -174,15 +174,25 @@ class PreventaController{
     public function RutaAsignada(){
         require_once ('models/PreventaRutaModel.php');
         $datos = new PreventaModel();
+        $stored = $datos->sotredRutaAsignada();
         $ra = $datos->getAllWhere('viewrutacamionetaasignada','where statusRuta = 0 ORDER BY rutaIdRutaCamioneta ');
 
         require_once ('views/preventa/listaRutaCamionetaAsignada.php');
     }
 
+    public function RutaHoy(){
+        $datos = new PreventaModel();
+        $ra = $datos->getAllWhere('viewrutacamionetaasignada','where statusRuta = 1 and fechaSalida = "'.date("Y-m-d").'" ORDER BY rutaIdRutaCamioneta ');
+
+        require_once ('views/preventa/listaRutaCamionetaAsignadaHoy.php');
+
+    }
+
     public function verClientes(){
         require_once ('models/PreventaRutaModel.php');
         $datos = new PreventaModel();
-        $pas = $datos->getAllWhere('notapedido','WHERE statusNotaPEdido = 2 OR statusNotaPEdido = 3 AND rutaNotaPEdido = '.$_GET['ruta']);
+        $pas = $datos->getAllWhere('ViewNotaPedidoCliente','WHERE rutaNotaPEdido = '.$_GET['ruta'].' AND _status = 2 OR _status = 3 ');
+        $andenvClientes = md5('Preventa');
 
         require_once('views\preventa\listaPedidosAsignados.php');
     }
