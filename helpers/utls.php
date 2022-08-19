@@ -198,11 +198,13 @@ class Utls{
                 }elseif ($action == 'reportePedidoDetallado') {
                     $retorno = 'Lista De Productos Pedidos';
                 }elseif($action == 'rutas'){
-                    $retorno = 'Asignar Camioneta a rutas';
+                    $retorno = 'Asignar Camioneta a rutas '.Utls::sumDays(1);
                 }elseif($action == 'asignar'){
                     $retorno = 'Seleccion de Camionetas';
+                }elseif($action == 'asignarnextDay'){
+                    $retorno = 'Seleccion de Camionetas salidas: '.Utls::sumDays(1);
                 }elseif($action == 'RutaAsignada'){
-                    $retorno = 'Lista de camionetas asignadas a las rutas';
+                    $retorno = 'Lista de camionetas asignadas para la fecha '. Utls::sumDays(1);
                 }elseif ($action == 'RutaHoy') {
                     $retorno = 'Ruta Asiganda Para Hoy: &nbsp;<u> '.date('d').'-'.self::nameMonth(date('m')).'-'.date('Y').'</u>';
                 }elseif ($action == 'verClientes') {

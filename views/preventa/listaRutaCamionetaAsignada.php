@@ -29,7 +29,7 @@ if($ra->num_rows == 0){$alerta = '<a href="'.base_url.'Preventa/RutaHoy"><div cl
                                     <td><?=$ras->nombreUsuario?></td>
                                     <td><?=$ras->_camioneta?></td>
                                     <td><?=$ras->fechaSalida?></td>
-                                    <td><a class="btn btn-success btn-lg btn-block" href="<?=base_url?>Preventa/asignar&ruta=<?=$ras->rutaIdRutaCamioneta?>&name=<?=SED::encryption($ras->nombreRuta)?>">Editar</a></td>
+                                    <td><a class="btn btn-success btn-lg btn-block" href="<?=base_url?>Preventa/asignarnextDay&ruta=<?=$ras->rutaIdRutaCamioneta?>&name=<?=SED::encryption($ras->nombreRuta)?>">Editar</a></td>
                                     <td><a class="btn btn-info btn-lg btn-block" href="<?=base_url?>Preventa/verClientes&ruta=<?=$ras->rutaIdRutaCamioneta?>&name=<?=SED::encryption($ras->nombreRuta)?>">Ver Clientes</a></td>
                                 </tr>
                             <?php endwhile; ?>

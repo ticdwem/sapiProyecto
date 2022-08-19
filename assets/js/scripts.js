@@ -8,13 +8,13 @@
 
     // Add active state to sidbar nav links
     var path = window.location.href; // because the 'href' property of the DOM element is the absolute path
- /*    console.log( path);
-    console.log( path.indexOf('&')); */
+
+    
     $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function() {
-      /*   let url ="";
+          /*let url ="";
         let ampersan = path.indexOf('&'); 
         if(ampersan > -1){url = path.substring(0,ampersan);}
-        console.log(this.href); */
+       console.log(this.href); */
 
         if (this.href === path) {
             sessionStorage.setItem("lasTUrl", path);

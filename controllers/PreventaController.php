@@ -125,7 +125,7 @@ class PreventaController{
         require_once('views/preventa/listarutas.php');
     }
 
-    public function asignar(){
+    public function asignarnextDay(){
         require_once "models/preventa/PreventaTrasporteModel.php";
         $rutaGet = 0;
         if(isset($_GET['ruta'])){$rutaGet = $_GET['ruta'];}
@@ -138,6 +138,23 @@ class PreventaController{
         $asinados = $this->instancia->getStoredProcedure(Utls::sumDays(1), $rutaGet);
 
         $asinadoEditar = new PreventaTrasporteModel(0,0,Utls::sumDays(1));
+        $sinAsignar = $asinadoEditar->getAllNoAssignedChofer();
+        require_once('views/preventa/asignarRutaCamionetaNextDay.php');
+    }
+
+    public function asignar(){
+        require_once "models/preventa/PreventaTrasporteModel.php";
+        $rutaGet = 0;
+        if(isset($_GET['ruta'])){$rutaGet = $_GET['ruta'];}
+        $sinAssign = new PreventaTrasporteModel($rutaGet,0,Utls::sumDays(0));
+        $carros = $sinAssign->getAllNoAssigned();
+
+        $chofer = new PreventaTrasporteModel(0,0,Utls::sumDays(0));
+        $chofSA = $chofer->getAllNoAssignedChofer();
+
+        $asinados = $this->instancia->getStoredProcedure(Utls::sumDays(0), $rutaGet);
+
+        $asinadoEditar = new PreventaTrasporteModel(0,0,Utls::sumDays(0));
         $sinAsignar = $asinadoEditar->getAllNoAssignedChofer();
         require_once('views/preventa/asignarRutaCamioneta.php');
     }
@@ -156,7 +173,7 @@ class PreventaController{
         if($val > 1){
             echo '<script>window.location="' . base_url . 'Preventa/asignar&ruta='.$_POST['idRutaCamioneta'].'&name='.$_POST['namert'].'"</script>';
         }else{
-            $inserta = new PreventaTrasporteModel($idRuta,$idCamioneta,Utls::sumDays(1));
+            $inserta = new PreventaTrasporteModel($idRuta,$idCamioneta,Utls::sumDays(0));
             $inserta->setIdChofer($idChofer);
             $dato = $inserta->insertRutaCamioneta();
             if($dato){
@@ -170,12 +187,40 @@ class PreventaController{
             }
         }
     }
+    public function createRutaNd(){
+        require_once "models/preventa/PreventaTrasporteModel.php";
+
+        $idRuta = (Validacion::validarNumero($_POST['idRutaCamioneta']) == -1) ? false : $_POST['idRutaCamioneta'];
+        $idCamioneta = (Validacion::textoLargo($_POST['idCamionetaAssign'],5) == -1) ? false : $_POST['idCamionetaAssign'];
+        $idChofer = (Validacion::validarNumero($_POST['idChoferSelect']) == -1) ? false : $_POST['idChoferSelect'];
+
+        $validar = array("ruta"=>$idRuta,"carro"=>$idCamioneta,"chofer"=>$idChofer);
+
+        $val = Utls::sessionValidate($validar);
+
+        if($val > 1){
+            echo '<script>window.location="' . base_url . 'Preventa/asignarnextDay&ruta='.$_POST['idRutaCamioneta'].'&name='.$_POST['namert'].'"</script>';
+        }else{
+            $inserta = new PreventaTrasporteModel($idRuta,$idCamioneta,Utls::sumDays(1));
+            $inserta->setIdChofer($idChofer);
+            $dato = $inserta->insertRutaCamioneta();
+            if($dato){
+                echo '<script>window.location="' . base_url . 'Preventa/asignarnextDay&ruta='.$_POST['idRutaCamioneta'].'&name='.$_POST['namert'].'"</script>';
+            }else{
+                $_SESSION['formulario_cliente'] = array(
+                    'error' => 'No se inserto el Registro',
+                    'datos' => $validar
+                );
+                echo '<script>window.location="' . base_url . 'Preventa/asignarnextDay&ruta='.$_POST['idRutaCamioneta'].'&name='.$_POST['namert'].'"</script>';
+            }
+        }
+    }
 
     public function RutaAsignada(){
         require_once ('models/PreventaRutaModel.php');
         $datos = new PreventaModel();
         $stored = $datos->sotredRutaAsignada();
-        $ra = $datos->getAllWhere('viewrutacamionetaasignada','where statusRuta = 0 ORDER BY rutaIdRutaCamioneta ');
+        $ra = $datos->getAllWhere('viewrutacamionetaasignada','where statusRuta = 0   ORDER BY rutaIdRutaCamioneta ');
 
         require_once ('views/preventa/listaRutaCamionetaAsignada.php');
     }
@@ -191,7 +236,7 @@ class PreventaController{
     public function verClientes(){
         require_once ('models/PreventaRutaModel.php');
         $datos = new PreventaModel();
-        $pas = $datos->getAllWhere('ViewNotaPedidoCliente','WHERE rutaNotaPEdido = '.$_GET['ruta'].' AND _status = 2 OR _status = 3 ');
+        $pas = $datos->getAllWhere('ViewNotaPedidoCliente','WHERE rutaNotaPEdido = '.$_GET['ruta'].' AND _status = 2 /* OR _status = 3 */ ');
         $andenvClientes = md5('Preventa');
 
         require_once('views\preventa\listaPedidosAsignados.php');

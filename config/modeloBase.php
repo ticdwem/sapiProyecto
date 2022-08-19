@@ -28,7 +28,7 @@ class ModeloBase{
     
     public function getAllWhere($tabla,$where){
         $consulta = "SELECT * FROM $tabla $where";
-        var_dump($consulta);
+       /*  var_dump($consulta); */
         $query = $this->db->query($consulta);
         return $query;
     }

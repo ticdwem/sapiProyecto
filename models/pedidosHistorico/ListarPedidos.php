@@ -63,7 +63,7 @@ class ListarPedidos extends PedidoModels
                         left JOIN 
                             ruta rta
                             ON np.rutaNotaPEdido = rta.idRuta
-                        WHERE np.statusNotaPEdido = '{$this->getNumero()}'";	
+                        WHERE np.statusNotaPEdido = '{$this->getNumero()}' order by cl.nombreCliente";	
 		$query = $this->db->query($verPedidos);
 
 		return $query;

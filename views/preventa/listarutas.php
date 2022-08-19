@@ -26,7 +26,7 @@
                                 <td><?=$ruta->nombreRuta?></td>
                                 <td><p style="<?=$stilos?>"><?=$estausRuta ?></p></td>                                
                                 <!-- <td><button type="button" class="btn btn-success rutaCamionetaAssign" data-id="<?=$ruta->idRuta?>">Detalles</button></td> -->
-                                <td><a class="btn btn-success rutaCamionetaAssign" href="<?=base_url?>Preventa/asignar&ruta=<?=$ruta->idRuta?>&name=<?=SED::encryption($ruta->nombreRuta)?>">Asignar Camioneta</a></td>
+                                <td><a class="btn btn-success rutaCamionetaAssign" href="<?=base_url?>Preventa/asignarnextDay&ruta=<?=$ruta->idRuta?>&name=<?=SED::encryption($ruta->nombreRuta)?>">Asignar Camioneta</a></td>
                             </tr>
                         <?php endwhile; ?>
                     </tbody>

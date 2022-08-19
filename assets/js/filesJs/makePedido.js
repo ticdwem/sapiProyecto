@@ -154,7 +154,6 @@ $(document).on('click','.selectPRoductPEdido',function(e){
         
                             },
                             success: function(pedido) {
-                                console.log(pedido)
                                 if (pedido >= 1) {
                                     Swal.fire({
                                         position: 'center',

@@ -42,6 +42,7 @@ class PreventaTrasporteModel extends ModeloBase{
     public function getAllNoAssigned(){
         $camioneta = "SELECT * FROM camioneta cta
                         WHERE NOT EXISTS (SELECT * FROM rutacamioenta rc WHERE rc.camionetaIdCAmioneta = cta.idCamioneta AND rc.fechaSalida = '{$this->getDateEntrega()}')";
+        
         $query = $this->db->query($camioneta);
         return $query;
     }
