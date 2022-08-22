@@ -423,4 +423,12 @@ class Utls{
         return $verify;
       }
 
+      public static function dd($array){
+		$arr = '<pre>';
+		$arr .= var_dump($array);
+		$arr .= '</pre>';
+
+		return $arr;
+	}
+
 }

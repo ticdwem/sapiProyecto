@@ -310,4 +310,6 @@ class Validacion
 		}
 		return $regreso;
 	}
+
+
 }

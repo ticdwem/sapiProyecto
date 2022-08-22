@@ -83,13 +83,9 @@
 
                     <div class="wrap-input100 validate-input m-b-18"  id="select">
 						<span class="label-input100">Camara</span>
-                        <select class="form-control " name="camara" id="camara">
-                            <option value="100">Elige una Camara</option>
-                        <?php while ($camaras=$datos->fetch_object()): ?>
-                            <option value="<?= $camaras->idAlmacen ?>"><?= $camaras->nombreAlmacen ?></option>
-                        <?php endwhile;  ?>
-                        </select> 
-						<div class="inputPassLoggin"></div>
+                        <input type="hidden" id="cHidden" name="cHidden">
+                        <input type="text" name="designAlmacen" id="designAlmacen" class="input100" disabled>
+						<div class="designAlmacen"></div>
 					</div>
 
 					<div class="container-login100-form-btn">

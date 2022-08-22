@@ -169,7 +169,9 @@ $(document).ready(function() {
                     $('.spinnerWhite').html('<i class="fas fa-sync fa-spin"></i>');
                 },
                 success: function(emaillog) {
-                    if (emaillog == 3) {
+                    $("#designAlmacen").val(emaillog.nameAlmacen);
+                    $("#cHidden").val(emaillog.idalmacen);
+                    if (emaillog.regreso == 3) {
                         $("#select").css('display', 'block');
                     } else {
                         $("#select").css('display', 'none');
@@ -1047,10 +1049,9 @@ $(document).ready(function() {
             let validar = 0;
             let emailLoggin = $("#emailLoggin").val();
             let inputPassLoggin = $("#inputPassLoggin").val();
-            let camara = 100;
+            let camara = 1;
             let verif = Array();
             if (isBisible) {
-                camara = $("#camara").val();
             }
             verif.push({ 'nombre_emailLoggin_80': emailLoggin, 'messagge_inputPassLoggin_50': inputPassLoggin, 'phone_camara_5': camara });
 

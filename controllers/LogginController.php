@@ -76,15 +76,25 @@ class LogginController
 
     public function verifNameLog($name)
     {       
+        /* $returnDatosLoggin = array(); */
         $validarnameLog = Validacion::textoLargo($name,50);
         if ($validarnameLog != '0') {
             $user = new UsarioModel($name);
             $dtsUser = $user->verificarUser()->fetch_object();
-          
+            
+            $returnDatosLoggin = array('idalmacen' => 1,'nameAlmacen' => 0,'regreso' => 1);
+
                 if($dtsUser->gerarquia == 0){                   
-                   echo 3;
-                   exit();
+                    $returnDatosLoggin = array(
+                        'idalmacen' => $dtsUser->_almacen,
+                        'nameAlmacen' => ALMACEN[$dtsUser->_almacen],
+                        'regreso' => 3
+                    );
                 }
+                   header('Content-type: application/json; charset=utf-8');
+                   echo json_encode($returnDatosLoggin);
+                  /*   Utls::dd($returnDatosLoggin);*/
+                   exit();
               
             } 
     }
@@ -92,12 +102,13 @@ class LogginController
     public function verificar()
     {
         require_once 'models/usuario/UsuarioModel.php';
-        
         $user = (Validacion::textoLargo($_POST["emailLoggin"],50) == '0') ? false : htmlspecialchars($_POST["emailLoggin"]);
         $password = (Validacion::textoLargo($_POST["inputPassLoggin"],50) == '0') ? false : htmlspecialchars($_POST["inputPassLoggin"]);
-        $camara = (Validacion::textoLargo($_POST["camara"],3) == '0') ? false : htmlspecialchars($_POST["camara"]);
+        $camara = (Validacion::validarNumero($_POST["cHidden"],3) == '0') ? false : htmlspecialchars($_POST["cHidden"]);
         $datoUsuario = array('usuario' => $user,'password',$password,'camara'=>$camara );
-
+        
+/*          Utls::dd($datoUsuario);
+         die(); */
         foreach ($datoUsuario as $dato => $valor) {
             if ($valor == false) {
                 $_SESSION['formulario_cliente'] = array(
@@ -115,7 +126,7 @@ class LogginController
             $verify = $user->verificarUser();
             $fila = $verify->fetch_assoc();
             if(password_verify($password,$fila['passwordUsuario'])){
-                if($camara == 100){$camara = 0;}
+                if($camara == 1){$camara = 0;}
                 $menu = new UsarioModel();
                 $menu->setId($fila['idUsuario']);
                 $permitido =$menu->getMenu();
@@ -153,70 +164,6 @@ class LogginController
                 echo '<script>window.location="'.base_url.'"</script>';
             }
         }
-        /* $tipo = (Validacion::validarNumero("0") == '-1') ? false : "0"; */
-/* 
-        if ($tipo === "0") {
-            $_SESSION['usuario'] = array(
-                'id' => 1,
-                'consultorio' => "pilarica",
-                'nombre' => $_POST["username"],
-                'apeliidos' => "trujillo",
-                'tipo' => 1,
-                'status' => 1,
-                'datos' => "hola"
-            );
-            echo '<script>window.location="' . base_url . 'Consultorio/nuevo"</script>'; */
-            /*   $_SESSION['loggin'] = 'USUARIO O CONTRASEÑA SON INCORRECTOS';
-                echo '<script>window.location="'.base_url.'"</script>';
-            }elseif($tipo === "2" || $tipo === '3'){
-                $consul = (Validacion::validarNumero($_POST["consul"]) == '-1') ? false : $_POST["consul"];
-                if($consul == false){;
-                    $_SESSION['loggin'] = 'SE HAN INGRESADO DATOS INCORRECTAMENTE VERIFIQUE POR FAVOR';
-                    echo '<script>window.location="'.base_url.'"</script>';
-                }else{
-                    // buscar el usuario en la tabla consultorio
-                    $doctor = new Login();
-                    $doctor->setEmail($user);
-                    $doctor->setPass($_POST["pass"]);
-                    $resupuesta = $doctor->getDoctor();
-                    if($resupuesta){
-                        $consulName = new Login();
-                        $consulName->setId($consul);
-                        $cosnultorio = $consulName->getConsultorio();
-                        if($cosnultorio){
-                            $getMnu = new ModeloBase();
-                            $mostrarMEnu = $getMnu->getMenUsuario($resupuesta->idUsuario);
-                            if($mostrarMEnu){
-
-                            
-                                // creamos una session para mostrar titulos y para validaciones
-                                $_SESSION['usuario'] = array(
-                                    'id' => $resupuesta->idUsuario,
-                                    'consultorio' =>$consul,
-                                    'nombre'=>$resupuesta->nombreUsuario,
-                                    'apeliidos'=>$resupuesta->apellidoUsuario,
-                                    'tipo'=>$resupuesta->tipoUsuario,
-                                    'status'=>$resupuesta->statusUusario,
-                                    'datos'=>$cosnultorio,
-                                    'menu'=>$mostrarMEnu
-                                );  
-                                // redireccionamos
-                                echo '<script>window.location="'.base_url.'Consultorio/nuevo"</script>';
-                            }else{
-                                $_SESSION['loggin'] = 'ALGO SALIO MAL NO SE RECUPERARON TODOS LOS DATOS, INTENTE DE NUEVO O LLAME A SU ADMINISTRADOR';
-                                echo '<script>window.location="'.base_url.'"</script>';
-                            }
-                            
-                        }else{
-                            $_SESSION['loggin'] = 'ALGO SALIO MAL NO SE RECUPERARON TODOS LOS DATOS,LLAME A SU ADMINISTRADOR';
-                            echo '<script>window.location="'.base_url.'"</script>';
-                        }
-                    }else{
-                        $_SESSION['loggin'] = 'USUARIO O CONTRASEÑA SON INCORRECTOS';
-                        echo '<script>window.location="'.base_url.'"</script>';
-                    }
-                } */
-       /*  } */
     }
 
     public function logout()

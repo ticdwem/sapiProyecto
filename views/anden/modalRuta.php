@@ -3,13 +3,6 @@
         <div id="imagenDefault"></div>
    <!--  </div> -->
 </div>
-
- 
- <!-- Button trigger modal 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
- -->
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -45,7 +38,7 @@
 </div>
 
 <script>
-    $(document).ready(function(){
+/*     $(document).ready(function(){
         $("#exampleModal").modal({ backdrop: 'static', keyboard: false });
         
     })
@@ -60,7 +53,7 @@
             $("#hid").val(rutachangedataid);
             $("#hin").val(rtnamedataname)
         }
-    });
+    }); */
     $(document).on('click','#gotoVentas',function(){
         let id = $("#hid").val();
         let name = $("#hin").val();
