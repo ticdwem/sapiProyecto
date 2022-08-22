@@ -1052,6 +1052,7 @@ $(document).ready(function() {
             let camara = 1;
             let verif = Array();
             if (isBisible) {
+                camara = $("#cHidden").val();
             }
             verif.push({ 'nombre_emailLoggin_80': emailLoggin, 'messagge_inputPassLoggin_50': inputPassLoggin, 'phone_camara_5': camara });
 
