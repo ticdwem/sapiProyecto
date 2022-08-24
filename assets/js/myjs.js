@@ -1115,7 +1115,7 @@ $(document).ready(function() {
             }
         });
 
-        $("#" + idBoton).addClass("disableBtn");
+       /*  $("#" + idBoton).addClass("disableBtn"); */
     });
 
     $("#idEditarPzProdcuto").on("click", function(e) {
@@ -1342,8 +1342,8 @@ $(document).on('click', '.modalEditProduct', function() {
     //$("#"+idBtn).addClass("disableBtn");
     let data = { "verificar": datos }
     var jsonCheckStock = JSON.stringify(data);
-    /*     console.log(jsonCheckStock); */
-
+       /*  console.log(jsonCheckStock);
+    return; */
     $.ajax({
         url: getAbsolutePath() + "views/layout/ajax/AjaxCheckStock.php",
         method: "POST",

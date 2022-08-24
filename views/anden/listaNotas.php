@@ -25,7 +25,7 @@
                                     <td><?=$name?></td>
                                     <td><?=$nota->comentario?></td>
                                     <td><?=$nota->entrega?></td>
-                                    <td><a class="btn btn-info btn-lg btn-block" href="<?=base_url?>Preventa/detalle&id=<?=$nota->nota?>&cli=<?=$nota->idCliente?>&data=<?=$andenvClientes?>">Detalles</a></td>
+                                    <td><a class="btn btn-info btn-lg btn-block" href="<?=base_url?>Anden/venta&nota=<?=$nota->nota?>&cli=<?=$nota->idCliente?>">Detalles</a></td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>

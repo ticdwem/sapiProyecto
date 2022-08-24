@@ -14,8 +14,9 @@ class AndenController{
     }
     public function index(){
         $prueba = new GetProdutos();
-        $datos = $prueba->getAll('ruta');
+        $rutas = $prueba->rutasAsignadas();
         $andenvClientes = md5('VEnta');
+        /* enviar id ruta encriptada por get */
         require_once 'views/anden/modalRuta.php';
     }
     
@@ -28,6 +29,7 @@ class AndenController{
 
     public function Venta(){
         /* selecccion los productos dependidendo del  */
+       /*  Utls::dd($_GET['nota']); */
         $datos = new VentaModel($_SESSION['usuario']['camra'],$_GET['nota']);
         $productos = $datos->selectNotaVenta();
         

@@ -28,7 +28,7 @@ class ModeloBase{
     
     public function getAllWhere($tabla,$where){
         $consulta = "SELECT * FROM $tabla $where";
-       /*  var_dump($consulta); */
+        /* Utls::dd($consulta); */
         $query = $this->db->query($consulta);
         return $query;
     }
@@ -41,9 +41,9 @@ class ModeloBase{
     }
     public function getIdCleinte($idAlmacen){
         // $getId = "SELECT IFNULL(MAX($id),0)+1 as id FROM $tabla";
-         $getId = "SELECT IFNULL(MAX(idNotaVendida),0)+1 as id FROM pedidos
-        WHERE idAlmacenPedidos = $idAlmacen";
-        
+        // $getId = "SELECT ifnull(MAX(idnotaVendida),0)+1 AS id FROM notaventa WHERE almacenNotaVenta = 3;";
+         $getId = "SELECT ifnull(MAX(idnotaVendida),0)+1 AS id FROM notaventa WHERE almacenNotaVenta =  $idAlmacen";
+
          $id = $this->db->query($getId);
          return $id;
     }

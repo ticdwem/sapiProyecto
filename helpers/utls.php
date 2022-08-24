@@ -249,10 +249,12 @@ class Utls{
             case 'Anden':
                 if($action == 'venta'){
                     $retorno = 'Venta';
-                }elseif ($action == 'traspaso') {
-                    $retorno = 'Traspaso Producto';
+                }elseif ($action == 'index') {
+                    $retorno = 'LISTA DE RUTAS ASIGNADAS A ESTE ALMACEN';
                 }elseif($action == 'lista'){
                     $retorno = 'Lista Venta: RUTA &nbsp;<u> '.SED::decryption($_GET["name"]).'</u>';
+                }elseif ($action == 'traspaso') {
+                    $retorno = 'Traspaso Producto';
                 }
                 break;
             case 'Pedido':
@@ -329,12 +331,11 @@ class Utls{
         }
       }
 
-      public static function getNumRemision(){
-        require_once $_SERVER['DOCUMENT_ROOT']."/sapiProyecto/config/modeloBase.php";
-
-        $idAlmacen = new ModeloBase();
-        $id =  $idAlmacen->getIdCleinte($_SESSION['usuario']['camra'])->fetch_object();
-        return $id->id;
+      public static function getNumRemision(){      
+        require_once('config/modeloBase.php');
+         $idAlmacen = new ModeloBase();
+         $id =  $idAlmacen->getIdCleinte($_SESSION['usuario']['camra'])->fetch_object() ;
+       return $id->id;
       }
 
       public static function printHeaderAlmacen(){
@@ -342,7 +343,7 @@ class Utls{
         $name = "";
 
         if($almacen != 0){
-            $anden = $almacen-1;
+            $anden = $almacen;
             $name = "--".ALMACEN[$anden];
         }
 
@@ -421,6 +422,16 @@ class Utls{
         $verify = $ass->checkAssigned();
 
         return $verify;
+      }
+
+      public static function countVentaToday($idRuta){
+        require_once $_SERVER['DOCUMENT_ROOT']."/sapiProyecto/models/anden/CountNotaVenta.php";
+        $fecha = self::sumDays(0);
+        $conteo = new CountNotaVenta($idRuta,$fecha);
+        $total = $conteo->conteoNotas();
+       /*  self::dd($total);
+        die(); */
+        return $total;
       }
 
       public static function dd($array){

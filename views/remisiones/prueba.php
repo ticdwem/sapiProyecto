@@ -19,6 +19,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"  id="inputGroup-sizing-lg">NUMERO DE REMISION:</span> <span class="input-group-text"  id="inputGroup-sizing-lg"> <?=ALMACEN[($_SESSION['usuario']['camra'])];?></span>
                                     </div>
+                                    hola
                                    <input type="hidden" name="idVentas" id="idVentas" value="<?=Utls::getNumRemision()?>">
                                     <input type="text" class="form-control" id="idVentas" aria-label="Large" aria-describedby="inputGroup-sizing-sm" value="<?=Utls::getNumRemision()?>" disabled>
                                 </divdd>                              
@@ -97,7 +98,7 @@
                     $conId = 1;
                     $sub = 0;
                     $total = 0;
-                    while ($producto = $productos->fetch_object()): $sub=Utls::multiply($producto->peso,$producto->precioProductoUnidad); ?>
+                    while ($producto = $productos->fetch_object()): $sub=Utls::multiply($producto->peso,$producto->precioProductoUnidad);?>
                         <tr class="rowVenta">                            
                             <td class="id"><?=$producto->idProductoPedido?></td>
                             <td class="nombre"><?=$producto->nombreProducto?></td>

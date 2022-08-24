@@ -51,5 +51,11 @@ class GetProdutos extends DatosAnden
         $query = $this->db->query($datos);
         return $query;
     }
+
+    public function rutasAsignadas(){
+        $andenRuta = "SELECT * FROM RutaAsignadaANden raa WHERE raa.idAlmacen = '{$this->getNumAnden()}'";
+        $query = $this->db->query($andenRuta);
+        return $query;
+    }
    
 }
