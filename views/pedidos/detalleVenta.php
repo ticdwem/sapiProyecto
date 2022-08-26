@@ -217,7 +217,7 @@
                 <?php foreach($prodEditar as $key): ?> 
                     <tr>
                         <td><?=$key[6]?></td>
-                        <td><?=$key[9]?></td>
+                        <td><?=$key[11]?></td>
                         <td><?=$key[7]?></td>
                         <td><?=$key[8]?></td>
                         <td>

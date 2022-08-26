@@ -250,7 +250,10 @@ class Validacion
 
 	public static function validarFloat($num)
 	{
-		if (is_numeric($num)) {
+/* 		var_dump($num);
+		var_dump("/////////////////////////////////////////////////////////////////////////");
+		var_dump((float)$num); */
+		if (is_numeric($num) || $num == "0.00") {
 			$numero = (float)$num;
 		}else{
 			$numero =false;

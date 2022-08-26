@@ -277,7 +277,6 @@ $("#acceptCompraVenta").on('click',function(e){
     aceptArray.push({'phone_idget_20':idget,'phone_idcli_20':idcli,'messagge_idVentas_40':notaPEdidos,'decimales_totalHiden_50':totalHiden,'decimales_limCredito_50':limCredito,'decimales_descuentoCliente_50':descuentoCliente});
 
     valarray = validarCampos(aceptArray);
-
     if(valarray>0){
         e.preventDefault();
         return;
@@ -303,7 +302,8 @@ $("#acceptCompraVenta").on('click',function(e){
                 beforeSend: function () {
                 },
                 success: function (upventa) {	
-                    if(upventa == 1){
+                    console.log(upventa);
+                    /* if(upventa == 1){
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
@@ -317,7 +317,7 @@ $("#acceptCompraVenta").on('click',function(e){
                         alert("Hay datos que estan mal en la venta");
                     }else if(upventa == 0){
                         alert("no se pudo hacer la venta");
-                    }
+                    } */
                     
                     
                 }
