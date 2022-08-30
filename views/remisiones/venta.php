@@ -19,8 +19,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"  id="inputGroup-sizing-lg">NUMERO DE REMISION:</span> <span class="input-group-text"  id="inputGroup-sizing-lg"> <?=ALMACEN[($_SESSION['usuario']['camra'])];?></span>
                                     </div>
-                                   <input type="hidden" name="idVentas" id="idVentas" value="<?=Utls::getNumRemision()?>">
-                                    <input type="text" class="form-control" id="idVentas" aria-label="Large" aria-describedby="inputGroup-sizing-sm" value="<?=Utls::getNumRemision()?>" disabled>
+                                    <input type="hidden" name="idVentas" id="idVentas" value="<?= Utls::getNumRemision(); ?>">
+                                    <input type="text" class="form-control" id="idVentas" aria-label="Large" aria-describedby="inputGroup-sizing-sm" value="<?= Utls::getNumRemision()?>" disabled>
                                 </divdd>                              
                                 <div class="idVentas"></div>
                             </div>
@@ -264,6 +264,7 @@
 
 
 $("#acceptCompraVenta").on('click',function(e){
+    let valorPedido = Array();
     let aceptArray = Array();
     let valarray;
     let idget = $("#idget").val();
@@ -292,7 +293,20 @@ $("#acceptCompraVenta").on('click',function(e){
                 timer: 1800
             })
         }else{
-            let data = { "data": aceptArray }
+
+            $("#registroProductoVenta tr").each(function() {
+                let codigo = $(this).find('td').eq(0).html();
+                let pz = $(this).find('td').eq(2).html();
+                let peso = $(this).find('td').eq(3).html();
+                let lote = $(this).find('td').eq(4).html();
+                let precio = $(this).find('td').eq(5).html();
+                let subtotal = $(this).find('td').eq(6).html();
+                valorPedido.push({ 'codigo': codigo, 'piezas':pz,'peso':peso,'lote':lote,'precio':precio,'subtotal':subtotal});
+            });
+            let data = { 
+                        "data": aceptArray,
+                        "producto":valorPedido
+                    }
             var json = JSON.stringify(data);
             $.ajax({
                 url: getAbsolutePath() + "views/layout/ajax/AjaxVenta.php",
@@ -303,7 +317,7 @@ $("#acceptCompraVenta").on('click',function(e){
                 },
                 success: function (upventa) {	
                     console.log(upventa);
-                    /* if(upventa == 1){
+                    if(upventa == 1){
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
@@ -317,7 +331,7 @@ $("#acceptCompraVenta").on('click',function(e){
                         alert("Hay datos que estan mal en la venta");
                     }else if(upventa == 0){
                         alert("no se pudo hacer la venta");
-                    } */
+                    }
                     
                     
                 }

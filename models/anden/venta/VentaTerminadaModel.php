@@ -79,17 +79,18 @@ class VentaTerminadaModel extends DatosAnden
 
     
     
-    public function deleteFromPedidos(){
-       $deletePedido = "CALL confirmVenta('{$this->getNumNota()}', 
-                                          '{$this->getNumCli()}', 
-                                          '{$this->getNumAnden()}', 
-                                          '{$this->getTotal()}',
-                                          '{$this->getNotaVenta()}',
-                                          '{$this->getLimCredito()}',
-                                          '{$this->getDescuento()}',
-                                          '{$this->getusuarioVenta()}')";
-
-
+    public function deleteFromNotaPedidos(){
+       $deletePedido = "CALL confirmVenta(
+           '{$this->getNumNota()}', 
+           '{$this->getNumCli()}', 
+           '{$this->getNumAnden()}',
+           '{$this->getTotal()}',
+           '{$this->getNotaVenta()}',
+           '{$this->getLimCredito()}',
+           '{$this->getDescuento()}'
+                                          )";
+/*         Utls::dd($deletePedido);
+        die(); */
        $query = $this->db->query($deletePedido);
        $this->close_connection_Databa();
        return $query;

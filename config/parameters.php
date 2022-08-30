@@ -11,7 +11,7 @@ define("action_default","index");
 define ('MINXDAY',86400); // OBTENEMOS LOS MINUTOS DE TOTALE DE UNA HORA
 const GERARQUIA = array('anden','recepcion','supervision','administrador','superadminmistrador','chofer');
 const ALMACEN = array('z','A','B','C','D');
-
+const STATUSYSTEM = array('capturado','Aprobado Don Lalo','Asignado a Ruta','Venta');
 
 //define("root",$_SERVER['DOCUMENT_ROOT']);
 if(isset($_SESSION['usuario'])){

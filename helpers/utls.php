@@ -332,10 +332,10 @@ class Utls{
       }
 
       public static function getNumRemision(){      
-        require_once('config/modeloBase.php');
-         $idAlmacen = new ModeloBase();
-         $id =  $idAlmacen->getIdCleinte($_SESSION['usuario']['camra'])->fetch_object() ;
-       return $id->id;
+          require_once('config/modeloBase.php');
+          $idAlmacen = new ModeloBase();
+          $id =  $idAlmacen->getIdCleinte($_SESSION['usuario']['camra'])->fetch_object() ;
+       return $id->nota;
       }
 
       public static function printHeaderAlmacen(){

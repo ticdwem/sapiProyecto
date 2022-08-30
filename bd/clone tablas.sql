@@ -1,6 +1,9 @@
--- con estos comandos hacemos el clon de una tabla
-CREATE TABLE historico_pedidos LIKE pedidos;
-CREATE TABLE historico_pedidos SELECT * FROM  pedidos;
+-- con estos comandos hacemos el clon de una tabla e insertamos losmismos datos
+-- CREATE TABLE notaVenta SELECT * FROM  pedidos; 
 
-DESCRIBE historico_pedidos;
-DESCRIBE historico_pedidos_select;
+-- con este comando clonamos la tabla sin llenarla
+CREATE TABLE notaVenta LIKE notapedido;
+CREATE TABLE Ventas LIKE pedidos;
+
+-- DESCRIBE historico_pedidos;
+-- DESCRIBE historico_pedidos_select;

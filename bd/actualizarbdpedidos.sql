@@ -1,0 +1,1 @@
+UPDATE notapedido SET notapedido.fechaAltaNotaPedido = '2022-08-29', notapedido.fechaEnregaNotaPedido='2022-08-30'

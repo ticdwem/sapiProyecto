@@ -78,11 +78,12 @@ class LogginController
     {       
         /* $returnDatosLoggin = array(); */
         $validarnameLog = Validacion::textoLargo($name,50);
+
         if ($validarnameLog != '0') {
             $user = new UsarioModel($name);
             $dtsUser = $user->verificarUser()->fetch_object();
-            
-            $returnDatosLoggin = array('idalmacen' => 1,'nameAlmacen' => 0,'regreso' => 1);
+
+            $returnDatosLoggin = array('idalmacen' => 0,'nameAlmacen' => 0,'regreso' => 1);
 
                 if($dtsUser->gerarquia == 0){                   
                     $returnDatosLoggin = array(
@@ -102,13 +103,16 @@ class LogginController
     public function verificar()
     {
         require_once 'models/usuario/UsuarioModel.php';
+        if($_POST["cHidden"] == 0){
+            $camara = true;
+        }else{ 
+            $camara = (Validacion::validarNumero($_POST["cHidden"],3) == '-1') ? false : htmlspecialchars($_POST["cHidden"]);
+        }
+
         $user = (Validacion::textoLargo($_POST["emailLoggin"],50) == '0') ? false : htmlspecialchars($_POST["emailLoggin"]);
         $password = (Validacion::textoLargo($_POST["inputPassLoggin"],50) == '0') ? false : htmlspecialchars($_POST["inputPassLoggin"]);
-        $camara = (Validacion::validarNumero($_POST["cHidden"],3) == '0') ? false : htmlspecialchars($_POST["cHidden"]);
-        $datoUsuario = array('usuario' => $user,'password',$password,'camara'=>$camara );
         
-/*          Utls::dd($datoUsuario);
-         die(); */
+        $datoUsuario = array('usuario' => $user,'password',$password,'camara'=>$camara );
         foreach ($datoUsuario as $dato => $valor) {
             if ($valor == false) {
                 $_SESSION['formulario_cliente'] = array(
@@ -126,7 +130,9 @@ class LogginController
             $verify = $user->verificarUser();
             $fila = $verify->fetch_assoc();
             if(password_verify($password,$fila['passwordUsuario'])){
-                if($camara == 1){$camara = 0;}
+                /* if($camara == 1){$camara = 0;} */
+/*                 var_dump($camara);
+                die(); */
                 $menu = new UsarioModel();
                 $menu->setId($fila['idUsuario']);
                 $permitido =$menu->getMenu();

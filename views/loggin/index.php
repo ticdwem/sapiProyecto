@@ -55,7 +55,6 @@
 </head>
 <body>
     <?php
-    var_dump(base_url);
     if(isset($_SESSION['formulario_cliente'])){ var_dump($_SESSION['formulario_cliente']); Utls::deleteSession('formulario_cliente'); }
     
     $status = 0; if (isset($_SESSION['usuario'])){$status = $_SESSION['usuario']['status'];} ?>

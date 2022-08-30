@@ -1,0 +1,1 @@
+SELECT IFNULL(MAX(notaventa.idNotaVenta),0)+1 AS nota FROM notaventa WHERE notaventa.idAlmacenVenta =  1
