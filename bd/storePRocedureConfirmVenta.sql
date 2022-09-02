@@ -9,8 +9,7 @@ DROP PROCEDURE IF EXISTS confirmVenta //
 		IN _notaVenta VARCHAR(20),
 		IN _limCredito FLOAT,
 		IN _descuento FLOAT,
-		IN _Usuario
-		 INT
+		IN _Usuario INT
 	)
 	BEGIN
 		DECLARE _resultSum float;
@@ -35,8 +34,8 @@ DROP PROCEDURE IF EXISTS confirmVenta //
 		
 		-- pasamos los productos a la tabla de ventas
 		INSERT INTO venta
-	   	(idPeddios, idnotaPedido, idProductoPedido, pzProductoPedido, detalleEntrega, loteProductoPedido, pesoProductoPedido, idNotaVendida, precio, subtotal)
-		SELECT idPeddios, idnotaPedido, idProductoPedido, pzProductoPedido, detalleEntrega, loteProductoPedido, pesoProductoPedido, idNotaVendida,(SELECT producto.precioProductoUnidad FROM producto WHERE producto.idProducto = idProductoPedido), (pesoProductoPedido*(SELECT producto.precioProductoUnidad FROM producto WHERE producto.idProducto = idProductoPedido))
+	   	(idPeddios, idNotaVendida,idnotaPedido, idProductoPedido, pzProductoPedido, detalleEntrega, loteProductoPedido, pesoProductoPedido,  precio, subtotal)
+		SELECT idPeddios, _notaVenta,idnotaPedido, idProductoPedido, pzProductoPedido, detalleEntrega, loteProductoPedido, pesoProductoPedido,(SELECT producto.precioProductoUnidad FROM producto WHERE producto.idProducto = idProductoPedido), (pesoProductoPedido*(SELECT producto.precioProductoUnidad FROM producto WHERE producto.idProducto = idProductoPedido))
 		FROM pedidos	
 		WHERE idnotaPedido = _idNotaPedido;
 

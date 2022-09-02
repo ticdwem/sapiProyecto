@@ -11,10 +11,6 @@
 
     
     $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function() {
-          /*let url ="";
-        let ampersan = path.indexOf('&'); 
-        if(ampersan > -1){url = path.substring(0,ampersan);}
-       console.log(this.href); */
 
         if (this.href === path) {
             sessionStorage.setItem("lasTUrl", path);
@@ -450,9 +446,6 @@ function tablasClientes(jsonElement, idDiv) {
     let indiceJson = 0;
     let contador = 2;
     let ContadorSecundario = 1;
-    //sessionStorage.clear();
-    /* console.log(JSON.stringify(jsonElement));
-return */
     // creamos la tabla
     let table = document.createElement('table');
     table.classList.add('table');
@@ -528,9 +521,6 @@ function tablasProductos(jsonElement, idDiv) {
     let indiceJson = 0;
     let contador = 2;
     let ContadorSecundario = 1;
-    //sessionStorage.clear();
-    /* console.log(JSON.stringify(jsonElement));
-    return */
     // creamos la tabla
     let table = document.createElement('table');
     table.classList.add('table');

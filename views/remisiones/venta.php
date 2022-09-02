@@ -213,7 +213,7 @@
   <div class="modal-dialog modal-lg">
   <div class="modal-content">
       <div class="modal-header">
-          <h5 class="modal-title" id="modalEditProductLabel">Editar Piezas</h5>
+          <h5 class="modal-title" id="modalEditProductLabel">Lote y Peso</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -224,15 +224,20 @@
       <div class="modal-body">
         <div class="container">
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="idProducto">Id</label>
                     <input type="text" class="form-control idProducto" id="idProductoModal" value="" disabled>
                     <div class="idProducto"></div>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="nombreProdcuto">Nombre </label>
                     <input type="text" class="form-control nombreProdcuto" id="nombreProdcutoModal" value="" disabled>
                     <div class="nombreProdcuto"></div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="piezaSolcitadaModal">Piezas Solicitadas </label>
+                    <input type="text" class="form-control piezaSolcitadaModal" id="piezaSolcitadaModal" value="" disabled>
+                    <div class="piezaSolcitadaModal"></div>
                 </div>
             </div>
             <div class="form-row">
@@ -254,6 +259,28 @@
         <button type="button" class="btn btn-primary" id="updatePesoVenta">Aceptar</button>
       </div>
       <div id="message"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-loteExistencia" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title ">Lotes Encontrados <p id="prLoteDuplex" class="row ml-1"></p></h5>
+            <input type="hidden" id="nameComplete">
+            <input type="hidden" id="idProdLoteUSed">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <label for="" style="font-size: small;">SELECCIONA UN LOTE PARA CONTINUAR</label>
+            <div id="selectLoteEncontrado"></div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="seleccionarLoteDuplicado">Seleccionar</button>
+        </div>
     </div>
   </div>
 </div>

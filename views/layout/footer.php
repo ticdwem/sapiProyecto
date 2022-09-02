@@ -18,6 +18,7 @@
     <script src="<?= base_url ?>assets/js/filesJs/makePedido.js"></script>
     <script src="<?= base_url ?>assets/js/filesJs/listaEditarPEdidos.js"></script>
     <script src="<?= base_url ?>assets/js/filesJs/preveenta.js"></script>
+    <script src="<?= base_url ?>assets/js/filesJs/selectLoteDuplicado.js"></script>
 
 </body>
 </html>

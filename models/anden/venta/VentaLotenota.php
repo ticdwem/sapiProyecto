@@ -98,18 +98,18 @@ class VentaLotenota extends DatosAnden
     }
 
     public function update(){
-
+/* 
        $update = "CALL updateVentaLote('{$this->getLote()}','{$this->getPeso()}', '{$this->getIdProducto()}', '{$this->getNota()}', '{$this->getNotaVenta()}', '{$this->getPiezas()}', '{$this->getidUsuario()}', '{$this->getAlmacen()}')";
 
-       /*         $update = "UPDATE pedidos
-                            SET                                
-                                loteProductoPedido='{$this->getLote()}',
-                                pesoProductoPedido='{$this->getPeso()}',
-                                idUsuarioVenta = '{$this->getidUsuario()}',
-                                idNotaVendida = '{$this->getNotaVenta()}'
-                            WHERE 
-                                idProductoPedido='{$this->getIdProducto()}'  AND 
-                                idnotaPedido='{$this->getNota()}'"; */
+       var_dump($update);
+       die();*/
+               $update = "UPDATE pedidos
+               SET                                
+                   loteProductoPedido='{$this->getLote()}',
+                   pesoProductoPedido='{$this->getPeso()}'
+               WHERE 
+                   idProductoPedido='{$this->getIdProducto()}'  AND 
+                   idnotaPedido='{$this->getNota()}'"; 
         $upVenta = $this->db->query($update);
         $pass = false;
         if($upVenta){

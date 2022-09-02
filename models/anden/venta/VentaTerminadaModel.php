@@ -42,7 +42,7 @@ class VentaTerminadaModel extends DatosAnden
      */
     public function getNotaVenta()
     {
-        return $this->notaVenta;
+        return ALMACEN[$_SESSION['usuario']['camra']].'-'.$this->notaVenta;
     }
     /**
      * Get the value of total
@@ -89,8 +89,7 @@ class VentaTerminadaModel extends DatosAnden
            '{$this->getLimCredito()}',
            '{$this->getDescuento()}'
                                           )";
-/*         Utls::dd($deletePedido);
-        die(); */
+
        $query = $this->db->query($deletePedido);
        $this->close_connection_Databa();
        return $query;

@@ -27,6 +27,7 @@ class verificarStock
 
     public function checkDatos(){
         $contarProducto = -1;
+        $datosLotes = array();
         $id = (Validacion::validarNumero($this->getJsonStock()->id_producto) == -1) ? false : $this->getJsonStock()->id_producto;
         $pz = (Validacion::validarNumero($this->getJsonStock()->piezas) == -1)? false : $this->getJsonStock()->piezas;
 
@@ -36,17 +37,33 @@ class verificarStock
             );
         }else{
             $stock = new VerifStock($this->getAlmacen(),$id,$pz);
-            $datos = $stock->getSTockPRoducto()->fetch_row();
-            if($datos[0] != -1){
-                $contarProducto = 1;
-            }else{
+            $datos = $stock->getSTockPRoducto();
+            
+            if($datos[0] == "-1"){
+                 
+                // CUANDO SEA MAYOR LA CANTIDAD DE PRODUCTOS DEL SISTEMA QUE LA DE BASE DE DATOS
+                $contarProducto = -1;
+            }elseif($datos[0] == "-2"){
+                 
+                //CUANDO ENCUANTRE MAS DE UN LOTE
+                $stock = new VerifStock($this->getAlmacen(),$id,$pz);
+                $datos = $stock->allLotes()->fetch_all();
+                $contarProducto = -2;
+            }elseif($datos[0] == '0'){
+                
+                // CUANDO NO ENCUENTRE UN LOTE EN EL SISTEMA
                 $contarProducto = 0;
-            }
-            $array = array('canPz'=>$datos[0],'statusModal'=>$contarProducto);            
-         }
+            }else{
+                 
+                $contarProducto = 1;
 
+            }
+
+            $array = array('canPz'=>$datos,'statusModal'=>$contarProducto);  
+            array_push($datosLotes,$array); 
+        }         
          header('Content-type: application/json; charset=utf-8');
-         echo json_encode($array, JSON_FORCE_OBJECT);
+         echo json_encode($datosLotes, JSON_FORCE_OBJECT);
          exit();
     }
 

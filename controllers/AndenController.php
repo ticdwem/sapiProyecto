@@ -46,6 +46,10 @@ class AndenController{
         require 'views/remisiones/traspaso.php';
     }
 
+    /* public function inventarioCamara(){
+        $anden = 
+    } */
+
    
 
 }

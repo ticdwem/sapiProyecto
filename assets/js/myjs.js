@@ -1338,12 +1338,12 @@ $(document).on('click', '.modalEditProduct', function() {
     let almacen = $("#idCamara").attr('data-id');
     let nota = $("#idget").val();
     let idBtn = $(this).attr('id');
+
     datos.push({ 'id_producto': idPro, 'producto': producto, 'piezas': pz, 'nota': nota, 'almacen': almacen });
-    //$("#"+idBtn).addClass("disableBtn");
+
     let data = { "verificar": datos }
     var jsonCheckStock = JSON.stringify(data);
-       /*  console.log(jsonCheckStock);
-    return; */
+
     $.ajax({
         url: getAbsolutePath() + "views/layout/ajax/AjaxCheckStock.php",
         method: "POST",
@@ -1351,20 +1351,50 @@ $(document).on('click', '.modalEditProduct', function() {
         cache: false,
         beforeSend: function() {},
         success: function(verificar) {
+            console.log(verificar[0].statusModal);
+            /* MAS DE UN LOTE */
+            if(verificar[0].statusModal == -2){
+
+                let sesionDatos = Array({ 'id_producto': idPro, 'producto': producto, 'piezas': pz,'peso':peso, 'lote':lote,'nota': nota, 'almacen': almacen,'idBtn':idBtn })
+                $("#prLoteDuplex").html(` Producto: ${idPro}`);
+                sessionStorage.setItem('datosModel',JSON.stringify(sesionDatos));
+
+               let tipoDatos = verificar[0].canPz;
+               let select = '<select name="selectLote" class="form-control">';
+
+               for(const property in tipoDatos){
+                    select += `<option value="${tipoDatos[property][1]}">Lote->${tipoDatos[property][1]}</option>`;
+               }
+               select += '</select>';
+               $("#selectLoteEncontrado").html(select);
+                $('#modal-loteExistencia').modal({ backdrop: 'static', keyboard: false });
+                return;
+            }else if(verificar[0].statusModal == 0){
+                Swal.fire(
+                    '¡Sin Lote!',
+                    'NO HAY LOTE REGISTRADO PARA EL PRODUCTO '+idPro+' , PIDE QUE INGRESE PRODUCTO',
+                    'error'
+                  );
+                return;
+            }
+
             if (peso != 0) {
                 $("#pesoModal").attr('disabled', 'disabled');
                 pesoDato = peso;
             } else if (peso == 0) { $("#pesoModal").removeAttr('disabled') }
+
             if (lote != 0) {
                 $("#loteVentaModal").attr('disabled', 'disabled');
                 loteDato = lote
             } else if (lote == 0) { $("#loteVentaModal").removeAttr('disabled') }
-            if (verificar.statusModal == 1) {
+
+            if (verificar[0].statusModal == 1) {
                 $("#getidBtn").val(idBtn);
                 $("#idProductoModal").val(idPro);
                 $("#nombreProdcutoModal").val(producto);
                 $("#loteVentaModal").val(loteDato);
                 $("#pesoModal").val(pesoDato);
+                $("#piezaSolcitadaModal").val(pz);
                 $(".modal-footer").css('display', 'block');
                 $("#message").css('display', 'none');
                 $("#message").html('');
@@ -1374,9 +1404,11 @@ $(document).on('click', '.modalEditProduct', function() {
                     $("#updatePesoVenta").css("display", "inline");
                 }
 
-            } else if (verificar.statusModal == 0) {
+            } else if (verificar[0].statusModal == -1) {
+                // CUANDO SEA MAYOIR LA CANTIDAD DEL SISTEMA QUE LA BASE DEDATOS
                 $("#idProductoModal").val(idPro);
                 $("#nombreProdcutoModal").val(producto);
+                $("#piezaSolcitadaModal").val(pz);
                 $(".modal-footer").css('display', 'none');
                 $("#message").css('display', 'block');
                 $("#message").html('<div class="alert alert-danger" role="alert">NO TIENES SUFICIENTE PRODUCTO</div>');

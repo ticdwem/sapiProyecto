@@ -209,7 +209,7 @@ $(document).on('click','.selectPRoductPEdido',function(e){
             if (validarCodugo != 0) {
                 var verifProd = new FormData();
                 verifProd.append("producto", codigo);
-                console.log(verifProd);
+                /* console.log(verifProd); */
                 $.ajax({
                     url: getAbsolutePath() + "views/layout/ajax.php",
                     method: "POST",
@@ -221,7 +221,7 @@ $(document).on('click','.selectPRoductPEdido',function(e){
                         $('.spinnerWhite').html('<i class="fas fa-sync fa-spin"></i>');
                     },
                     success: function (datos) {
-                        console.log(datos);
+                        /* console.log(datos); */
                         if(datos != "0"){
     
                             $("#inputNombreProdPedido").val(datos.descripcionProd);

@@ -7,8 +7,9 @@ class VentaDescontarDeAlmacen extends DatosAnden
     private string $codigoPRoducto;
     private string $precio;
     private string $piezas;
+    public $almacen;
 
-    public function __construct(int $numAnden, string $lote, string $peso,string $codigoPRoducto, string $precio, int $piezas)
+    public function __construct(string $numAnden, string $lote, string $peso,string $codigoPRoducto, string $precio, int $piezas)
     {
         parent::__construct($numAnden);
         $this->lote = $lote;
@@ -16,6 +17,8 @@ class VentaDescontarDeAlmacen extends DatosAnden
         $this->codigoPRoducto=$codigoPRoducto;
         $this->precio = $precio;
         $this->piezas = $piezas;
+        $this->almacen = ALMACEN[$_SESSION['usuario']['camra']].'-'.$this->getNumAnden();
+
     }
 
     public function getLote(): string
@@ -42,12 +45,8 @@ class VentaDescontarDeAlmacen extends DatosAnden
     }
 
     public function updateProductoAlmacen(){
-        $update = "CALL updateVentaLote('{$this->getLote()}',
-                                        '{$this->getPeso()}', 
-                                        '{$this->getCodigoPRoducto()}', 
-                                        '{$this->getPiezas()}',  
-                                        '{$this->getNumAnden()}'
-                                        )";
+        $update = "CALL updateVentaLote('{$this->getLote()}','{$this->getPeso()}','{$this->getCodigoPRoducto()}','{$this->getPiezas()}','{$this->almacen}')";
+
         $upVenta = $this->db->query($update);
         $pass = false;
         if($upVenta){

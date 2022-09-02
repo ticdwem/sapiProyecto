@@ -10,7 +10,7 @@ $("#asignarPedido").on('click',function(e){
     
     if(controlRutas == 713){      
         idRuta = $("#rutaClienteSlect").attr('data-id');
-        console.log(idRuta);
+        /* console.log(idRuta); */
     }  
     assignPedidoToVenta.push({ 'phone_rutaClienteEditar_20': idRuta, 'phone_numNota_20': idNotaPVenta });
     var validar = validarCampos(assignPedidoToVenta);

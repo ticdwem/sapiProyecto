@@ -10,9 +10,6 @@ class MakeVentaControllers
     }
     public function venta($datos){
         $data = $datos->data[0];
-        /* Utls::dd($_SESSION['usuario']['camra']);
-        Utls::dd($datos->producto); 
-        die();*/
         if($data->decimales_descuentoCliente_50 == "0.00"){
             $descuento = $data->decimales_descuentoCliente_50;
         }else{

@@ -1,7 +1,5 @@
     $(document).ready(function(){
         $(document).on('click','.btnEditarPedido',function(e){
-            //e .preventDefault();
-            console.log("hola")
             let direccion="Pedido/editar";
             let direct = $("#controllerRedirectJs").attr('data-id');
             let idCleinte = $(this).attr('id');
@@ -39,7 +37,7 @@
                         beforeSend: function () {
                         },
                         success: function (terminado) {	
-                            console.log(terminado);
+                            /* console.log(terminado); */
                             if(terminado == 1){
                                 Swal.fire({
                                     position: 'center',
@@ -213,7 +211,7 @@ $("#updatePzModalEdit").on("click", function(e) {
             cache: false,
             beforeSend: function() {},
             success: function(updatePz) {
-                console.log(updatePz)
+               /*  console.log(updatePz) */
                 if (updatePz == 1) {
                     $('#modalEditProductEntrega').modal('hide');
                     $('#registroProductotablePedidoEditar').load(" #registroProductotablePedidoEditar");

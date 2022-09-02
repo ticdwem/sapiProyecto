@@ -41,7 +41,7 @@ class ModeloBase{
     }
     public function getIdCleinte($idAlmacen){
         /*  $getId = "SELECT ifnull(MAX(idnotaVendida),0)+1 AS id FROM notaventa WHERE almacenNotaVenta =  $idAlmacen"; */
-         $getId = "SELECT IFNULL(MAX(notaventa.idNotaVenta),0)+1 AS nota FROM notaventa WHERE notaventa.idAlmacenVenta =  $idAlmacen";
+         $getId = "SELECT IFNULL(count(notaventa.idnotaventa),0)+1 AS nota FROM notaventa WHERE notaventa.idAlmacenVenta =  $idAlmacen";
          $id = $this->db->query($getId);
          return $id;
     }
