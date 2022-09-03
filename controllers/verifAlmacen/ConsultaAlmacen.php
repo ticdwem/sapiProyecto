@@ -17,7 +17,7 @@ class ConsultaAlmacen extends VerifAlmacenSetGet
         if($idAlmacen == false){
             echo -1;
         }else{
-            $where = "WHERE almacen.idAlmacen <> ".$this->getIdAlmacen();
+            $where = "WHERE almacen.indiceAlmacen <> ".$this->getIdAlmacen()." AND almacen.indiceAlmacen <> 0";
 
                $almacen = new ConsultaAlmacenModel();
                $seleccion = $almacen->getAllWhere("almacen",$where);
@@ -25,7 +25,7 @@ class ConsultaAlmacen extends VerifAlmacenSetGet
                $whileJson = array();
                while ($almacenesSelect = $seleccion->fetch_object()) {
                    $data = array(
-                       'id' => $almacenesSelect->idAlmacen,
+                       'id' => $almacenesSelect->indiceAlmacen,
                        'name' => $almacenesSelect->nombreAlmacen
                    );
                    array_push($whileJson, $data);

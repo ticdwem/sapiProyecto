@@ -42,13 +42,16 @@ class AndenController{
 
     public function traspaso(){
         $anden = new DatosAnden();
-        $andenes = $anden->getAll('almacen');
+        $andenes = $anden->getAllWhere('almacen','where indiceAlmacen <> 0');
         require 'views/remisiones/traspaso.php';
     }
 
-    /* public function inventarioCamara(){
-        $anden = 
-    } */
+    public function inventario(){
+        $andenInventario = new DatosAnden();
+        $inventario = $andenInventario->inventarioCompleto();
+
+        require 'views/anden/inventario/inventarioGlobal.php';
+    }
 
    
 

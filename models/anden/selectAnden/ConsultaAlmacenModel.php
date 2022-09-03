@@ -24,4 +24,6 @@ class ConsultaAlmacenModel extends DatosAnden
         $query = $this->db->query($queryProducto);
         return $query;
     }
+
+    
 }

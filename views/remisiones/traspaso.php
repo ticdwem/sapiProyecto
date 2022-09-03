@@ -13,36 +13,37 @@
             <form id="frmidTtraspaso">
                 <div class="card">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12 col-lg-12">
+                        <div class="">
+                            <div class="col-md-12 col-lg-12 row">
                                 <div class="form-group col-md-6 col-lg-6">
+                                    <label for="selectAlmacen">Anden Salida</label>
                                     <select class="form-control form-control-lg" id="selectAlmacen">
                                         <option value="-1" selected>Selecciona un Anden</option>
                                         <?php while ($anden = $andenes->fetch_object()):?>
-                                            <option value="<?=$anden->idAlmacen?>"><?=$anden->nombreAlmacen?></option>
+                                            <option value="<?=$anden->indiceAlmacen?>"><?=$anden->nombreAlmacen?></option>
                                             <?php endwhile;?>
                                         </select>
                                 </div>
                                 <div class="form-group col-md-6 col-lg-6">
+                                    <label for="DataAlmacenes">Anden Entrada</label>
                                     <select class="form-control form-control-lg" id="DataAlmacenes">
                                         <option selected>Anden Destino</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                        <form class="form-inline">
-                            <div class="form-group mb-2">
-                                <label for="textProducto" class="sr-only">Ingresa id de producto</label>
-                                <input type="text" readonly class="form-control-plaintext" id="textProducto" value="Ingresa id de producto">
-                            </div>
-                            <div class="form-group mx-sm-3 mb-2">
-                                <label for="inputIdProducto" class="sr-only">IdProducto</label>
-                                <input type="text" class="form-control" id="inputIdProducto" placeholder="IdProducto">
-                            </div>
-                           
-                            </form>
-                        </div>
+                        <form class="">
+                            <div class="col-sm-12 col-md-12 col-lg-12 row">                         
+                                <div class="form-group col-md-6 col-sm-12 col-lg-6">
+                                    <label for="textProducto" class="sr-only">Ingresa id de producto</label>
+                                    <input type="text" readonly class="form-control-plaintext" id="textProducto" value="Ingresa id de producto">
+                                </div>
+                                <div class="form-group mx-sm-3 col-md-6 col-sm-12 col-lg-6">
+                                    <label for="inputIdProducto" class="sr-only">IdProducto</label>
+                                    <input type="text" class="form-control" id="inputIdProducto" placeholder="IdProducto">
+                                </div> 
+                            </div>                         
+                        </form>
                     </div>
                 </div><!-- FIN DEL CARD -->
             </form>
@@ -269,9 +270,22 @@
                     },
                     success: function (traspasoWherhouse) {
                         if(traspasoWherhouse == 1){
-                            alert('traspaso correcto');
+                            Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'Your work has been saved',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    }).then(function(){
+                                        location.reload();
+                                    });
                         }else{
-                            alert('no se realizo clgun traspaso');
+                            Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error',
+                                        text: 'Ocurrio un error, consulta con tu administrador',
+                                        footer: '<a href="">Why do I have this issue?</a>'
+                                    })
                         }
                     }
                 })

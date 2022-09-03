@@ -35,6 +35,16 @@ class DatosAnden extends ModeloBase
         return $query;
     }
 
+    public function inventarioCompleto(){
+        $inventario = "SELECT ac.idProductoACentral AS id,pr.idProducto,pr.nombreProducto AS nameP,SUM(ac.cantidadPzACentral) AS total FROM almacencentral ac
+                        INNER JOIN producto pr
+                        ON ac.idProductoACentral = pr.idProducto
+                        GROUP BY (ac.idProductoACentral)
+                        ORDER BY ac.idProductoACentral asc";
+        $query = $this->db->query($inventario);
+        return $query;
+    }
+
 
     
 

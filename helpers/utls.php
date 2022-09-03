@@ -255,6 +255,8 @@ class Utls{
                     $retorno = 'Lista Venta: RUTA &nbsp;<u> '.SED::decryption($_GET["name"]).'</u>';
                 }elseif ($action == 'traspaso') {
                     $retorno = 'Traspaso Producto';
+                }elseif($action == 'inventario'){
+                    $retorno = 'Inventario Global';
                 }
                 break;
             case 'Pedido':
@@ -269,6 +271,16 @@ class Utls{
                 }elseif($action == 'reportePedidoDetallado'){
                     $retorno = 'Reporte De Pedido (Completo)';
                 }
+            break;
+            case 'Inventario':
+                if($action == 'inXproducto'){
+                    $retorno = 'Productos en los Almacenes';
+                }elseif($action == 'Almacenes'){
+                    $retorno = 'Lista Almacenens';
+                }elseif($action == 'almacen'){
+                    $retorno = 'Inventario Almacen: '.SED::decryption($_GET['id']);
+                }
+            break;
            default:
                # code...
                break;
